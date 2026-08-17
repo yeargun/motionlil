@@ -1,6 +1,6 @@
 {
   "name": "motionlil",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A dependency-free Motion DOM runtime compiled with LilScript.",
   "keywords": [
     "animation",
@@ -11,11 +11,11 @@
     "scroll",
     "lilscript"
   ],
-  "homepage": "https://github.com/yeargun/lilmotion#readme",
-  "bugs": "https://github.com/yeargun/lilmotion/issues",
+  "homepage": "https://github.com/yeargun/motionlil#readme",
+  "bugs": "https://github.com/yeargun/motionlil/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeargun/lilmotion.git"
+    "url": "git+https://github.com/yeargun/motionlil.git"
   },
   "license": "MIT",
   "publishConfig": {
@@ -27,8 +27,8 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./types/index.d.ts",
-  "unpkg": "./dist/lilmotion.global.js",
-  "jsdelivr": "./dist/lilmotion.global.js",
+  "unpkg": "./dist/motionlil.global.js",
+  "jsdelivr": "./dist/motionlil.global.js",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
@@ -54,7 +54,7 @@
       "require": "./dist/debug.cjs",
       "default": "./dist/debug.js"
     },
-    "./global": "./dist/lilmotion.global.js",
+    "./global": "./dist/motionlil.global.js",
     "./package.json": "./package.json"
   },
   "files": [

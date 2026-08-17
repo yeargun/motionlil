@@ -1,6 +1,6 @@
 # Notices
 
-`lilmotion` is an independent LilScript port of the DOM runtime exposed by
+`motionlil` is an independent LilScript port of the DOM runtime exposed by
 Motion 13.0.0. It is not affiliated with or endorsed by Motion B.V.
 
 The API design, compatibility types, and ported algorithms derive from

@@ -1,4 +1,4 @@
-# lilmotion
+# motionlil
 
 Motion’s browser animation API, ported to LilScript and published as the dependency-free `motionlil` package.
 
@@ -45,9 +45,9 @@ const { animate } = require("motionlil")
 ```
 
 ```html
-<script src="https://unpkg.com/motionlil/dist/lilmotion.global.js"></script>
+<script src="https://unpkg.com/motionlil/dist/motionlil.global.js"></script>
 <script>
-  lilmotion.animate(".box", { x: 100 })
+  motionlil.animate(".box", { x: 100 })
 </script>
 ```
 
@@ -75,15 +75,15 @@ This is not a claim that every browser bundle is smaller. The complete `motionli
 
 The LilScript compiler performs whole-program optimization with identifier and property mangling enabled. The emitted modules are bundled as pure JavaScript with esbuild, then Terser runs three compression passes, top-level identifier mangling, and private-property mangling. A second Terser pass and a real Vite consumer build are part of the test suite.
 
-To build from source, keep `lilmotion` next to a LilScript checkout, or point to its release compiler explicitly:
+To build from source, keep `motionlil` next to a LilScript checkout, or point to its release compiler explicitly:
 
 ```sh
 npm ci
-LILMOTION_LILSCRIPT_BIN=/path/to/lilscript npm run build
+MOTIONLIL_LILSCRIPT_BIN=/path/to/lilscript npm run build
 npm run check
 ```
 
-Set `LILMOTION_BUILD_MODE=development` for a faster local build. Production is the default.
+Set `MOTIONLIL_BUILD_MODE=development` for a faster local build. Production is the default.
 
 ## Verification
 

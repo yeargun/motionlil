@@ -11,7 +11,7 @@ const source = join(root, "src")
 const dist = join(root, "dist")
 const temporary = join(root, ".tmp", "build")
 const compilerCandidates = [
-  process.env.LILMOTION_LILSCRIPT_BIN,
+  process.env.MOTIONLIL_LILSCRIPT_BIN,
   resolve(root, "../lilscript/target/release/lilscript"),
   "lilscript",
 ].filter(Boolean)
@@ -22,13 +22,13 @@ function canRun(candidate) {
 }
 
 const compiler = compilerCandidates.find(canRun)
-const buildMode = process.env.LILMOTION_BUILD_MODE ?? "production"
+const buildMode = process.env.MOTIONLIL_BUILD_MODE ?? "production"
 if (!new Set(["development", "production"]).has(buildMode)) {
-  throw new Error(`Invalid LILMOTION_BUILD_MODE: ${buildMode}`)
+  throw new Error(`Invalid MOTIONLIL_BUILD_MODE: ${buildMode}`)
 }
 if (!compiler) {
   throw new Error(
-    "LilScript compiler not found. Set LILMOTION_LILSCRIPT_BIN to a release compiler.",
+    "LilScript compiler not found. Set MOTIONLIL_LILSCRIPT_BIN to a release compiler.",
   )
 }
 
@@ -139,13 +139,13 @@ try {
     bundle: true,
     platform: "browser",
     format: "iife",
-    globalName: "lilmotion",
+    globalName: "motionlil",
     target: "es2020",
     treeShaking: true,
     legalComments: "none",
-    outfile: join(dist, "lilmotion.global.js"),
+    outfile: join(dist, "motionlil.global.js"),
   })
-  await terserMinify(join(dist, "lilmotion.global.js"), false)
+  await terserMinify(join(dist, "motionlil.global.js"), false)
 } finally {
   await Promise.all([...compiledFiles, ...facadeFiles].map((file) => rm(file, { force: true })))
   await rm(temporary, { recursive: true, force: true })

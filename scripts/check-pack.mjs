@@ -12,7 +12,7 @@ const required = new Set([
   "dist/mini.cjs",
   "dist/debug.js",
   "dist/debug.cjs",
-  "dist/lilmotion.global.js",
+  "dist/motionlil.global.js",
   "types/index.d.ts",
   "types/mini.d.ts",
   "types/debug.d.ts",

@@ -27,7 +27,7 @@ test("Vite bundles the public package entry", async () => {
       ?? html.match(/src="\/assets\/(.+?\.js)"/)
     assert.ok(match, html)
     const bundle = await readFile(resolve(output, "assets", match[1]), "utf8")
-    assert.match(bundle, /lilmotion-ok/)
+    assert.match(bundle, /motionlil-ok/)
     assert.doesNotMatch(bundle, /from["']motionlil["']/)
   } finally {
     await rm(output, { recursive: true, force: true })
