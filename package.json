@@ -11,7 +11,7 @@
     "scroll",
     "lilscript"
   ],
-  "homepage": "https://github.com/yeargun/motionlil#readme",
+  "homepage": "https://yeargun.github.io/motionlil/",
   "bugs": "https://github.com/yeargun/motionlil/issues",
   "repository": {
     "type": "git",
@@ -69,10 +69,12 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "npm run test && npm run check:types && npm run check:pack",
+    "build:site": "node scripts/build-site.mjs",
+    "check": "npm run test && npm run check:types && npm run check:site && npm run check:pack",
+    "check:site": "npm run build:site && node --test test/site.test.mjs",
     "check:types": "tsc -p test/types/tsconfig.json",
     "check:pack": "node scripts/check-pack.mjs",
-    "test": "node --test test/*.test.mjs",
+    "test": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs",
     "test:size": "node scripts/measure-size.mjs",
     "prepublishOnly": "npm run check"
   },

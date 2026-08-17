@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "yeargun/lilscript",
+    "commit": "9fc14a8",
+    "path": "web/src/motion-lab-results.json",
+    "metric": "Brotli 11",
+    "contract": "Matching browser artifacts; sum of independently compressed JavaScript chunks"
+  },
+  "summary": {
+    "cases": 16,
+    "wins": 16,
+    "motionBytes": 287404,
+    "lilscriptBytes": 251703,
+    "weightedReduction": 12.421886960515515,
+    "medianReduction": 13.17960889538975,
+    "minimumReduction": 5.038191107289192,
+    "maximumReduction": 23.100936524453697
+  },
+  "examples": [
+    { "id": "animate-play", "title": "Playback controls", "group": "animation", "motion": 20293, "lilscript": 17948, "reduction": 11.555708865125903 },
+    { "id": "animate-css-vars", "title": "CSS variables", "group": "animation", "motion": 19692, "lilscript": 16928, "reduction": 14.036156814950228 },
+    { "id": "animate-stagger", "title": "Stagger", "group": "animation", "motion": 19814, "lilscript": 17005, "reduction": 14.176844655294241 },
+    { "id": "animate-spring", "title": "Spring animation", "group": "animation", "motion": 19708, "lilscript": 16654, "reduction": 15.496245179622491 },
+    { "id": "animate-scroll", "title": "Scroll timeline", "group": "observers", "motion": 22611, "lilscript": 21390, "reduction": 5.40002653575693 },
+    { "id": "gesture-press", "title": "Press gesture", "group": "gestures", "motion": 20375, "lilscript": 18007, "reduction": 11.622085889570554 },
+    { "id": "gesture-hover", "title": "Hover gesture", "group": "gestures", "motion": 19983, "lilscript": 17413, "reduction": 12.860931792023223 },
+    { "id": "in-view", "title": "In view", "group": "observers", "motion": 19926, "lilscript": 17289, "reduction": 13.233965672990067 },
+    { "id": "resize-box", "title": "Resize observer", "group": "observers", "motion": 904, "lilscript": 807, "reduction": 10.730088495575218 },
+    { "id": "motion-value", "title": "Motion value", "group": "values", "motion": 19766, "lilscript": 16987, "reduction": 14.059496104421731 },
+    { "id": "perf-stagger", "title": "192-node stagger", "group": "performance", "motion": 3844, "lilscript": 2956, "reduction": 23.100936524453697 },
+    { "id": "showcase-wave", "title": "Center wave", "group": "showcase", "motion": 19832, "lilscript": 17229, "reduction": 13.125252117789433 },
+    { "id": "showcase-spring", "title": "Perpetual spring", "group": "showcase", "motion": 19746, "lilscript": 16647, "reduction": 15.694317836523853 },
+    { "id": "showcase-sequence", "title": "Choreographed sequence", "group": "showcase", "motion": 19769, "lilscript": 18773, "reduction": 5.038191107289192 },
+    { "id": "showcase-gestures", "title": "Gesture cards", "group": "showcase", "motion": 20545, "lilscript": 18155, "reduction": 11.633000730104648 },
+    { "id": "showcase-carousel", "title": "Spring carousel", "group": "showcase", "motion": 20596, "lilscript": 17515, "reduction": 14.9592153816275 }
+  ]
+}

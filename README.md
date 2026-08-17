@@ -2,6 +2,17 @@
 
 Motion’s browser animation API, ported to LilScript and published as the dependency-free `motionlil` package.
 
+**16/16 paired browser demos ship smaller after Brotli: 12.4% smaller in total, 13.2% median, and up to 23.1% smaller. The installed runtime footprint is 91.0% smaller (11.1× less disk).**
+
+| Reproducible result | Motion | LilScript / `motionlil` | Ratio | Reduction |
+| --- | ---: | ---: | ---: | ---: |
+| 16 matching browser demos, Brotli total | 287,404 B | 251,703 B | 0.876× | **12.42%** |
+| Median paired demo, Brotli | — | — | 0.868× | **13.18%** |
+| Best paired demo (`perf-stagger`), Brotli | 3,844 B | 2,956 B | 0.769× | **23.10%** |
+| Installed runtime | 9,141,537 B | 824,992 B | 0.090× | **90.98%** |
+
+The browser figures are matching closed-world builds from the 16-case LilScript Motion lab—not a comparison between unmatched entry points. Every case, its exact ratio, and a live recreation using this package are on the **[motionlil demo lab](https://yeargun.github.io/motionlil/)**.
+
 ```sh
 npm install motionlil
 ```
@@ -64,12 +75,12 @@ import { animate } from "motionlil"
 
 | Installed runtime | Unpacked bytes |
 | --- | ---: |
-| `motionlil` npm tarball | 823,655 |
+| `motionlil` npm tarball | 824,992 |
 | `motion` dependency tree | 9,141,537 |
 
-That is about a **91% smaller installed runtime footprint**. The comparison includes `motion`, `framer-motion`, `motion-dom`, `motion-utils`, and `tslib`, which npm installs for the upstream package.
+That is a **90.98% smaller installed runtime footprint**, or **11.08× less disk**. The comparison includes `motion`, `framer-motion`, `motion-dom`, `motion-utils`, and `tslib`, which npm installs for the upstream package.
 
-This is not a claim that every browser bundle is smaller. The complete `motionlil` ESM artifact is currently 50,509 bytes Brotli versus 39,871 bytes for an equivalently bundled Motion 13 entry. The win is the dependency-free install, a compact single-package distribution, and a compiler-oriented codebase. Run `npm run test:size` to reproduce both install and browser-artifact measurements.
+The reusable full `motionlil` ESM artifact is currently 50,509 bytes Brotli versus 39,871 bytes for an equivalently bundled Motion 13 entry. That full-library artifact is larger; the smaller browser results at the top are closed-world application builds that let LilScript optimize each concrete program. The package win is the dependency-free install, a compact single-package distribution, and a compiler-oriented codebase. Run `npm run test:size` to reproduce the package measurements; the paired demo evidence and methodology are linked from the live lab.
 
 ## Build pipeline
 
@@ -91,6 +102,7 @@ Set `MOTIONLIL_BUILD_MODE=development` for a faster local build. Production is t
 npm test          # Node, ESM/CJS parity, Vite, Terser, export parity
 npm run check     # tests, TypeScript declarations, npm tarball audit
 npm run test:size # reproducible size report
+npm run build:site # build the GitHub Pages demo lab
 ```
 
 The implementation is MIT licensed. See [NOTICE.md](./NOTICE.md) for upstream attribution.

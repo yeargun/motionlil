@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="motionlil: Motion's DOM animation API ported to LilScript. Explore 16 live browser demos and their paired Brotli results." />
+    <meta name="theme-color" content="#e9ff59" />
+    <title>motionlil — Motion, compressed through LilScript</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true"></div>
+    <header class="nav shell">
+      <a class="wordmark" href="#top" aria-label="motionlil home">
+        <span class="mark">m</span>
+        <span>motionlil</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#lab">16 demos</a>
+        <a href="#evidence">evidence</a>
+        <a href="https://github.com/yeargun/motionlil">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="live-dot"></span> Motion 13 DOM · LilScript port</p>
+          <h1>Motion,<br /><em>compressed.</em></h1>
+          <p class="lede">The browser animation API you already know, rebuilt in LilScript and shipped as one dependency-free package.</p>
+          <div class="install-row">
+            <code>npm install motionlil</code>
+            <button class="copy" data-copy="npm install motionlil" type="button">copy</button>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="#lab">Run the lab</a>
+            <a class="button secondary" href="https://www.npmjs.com/package/motionlil">npm package ↗</a>
+          </div>
+        </div>
+
+        <div class="scoreboard" aria-label="Compression results">
+          <div class="score-main">
+            <span class="score-label">paired demos</span>
+            <strong>16<span>/16</span></strong>
+            <p>smaller after Brotli</p>
+          </div>
+          <div class="score-grid">
+            <div><strong>12.4%</strong><span>total reduction</span></div>
+            <div><strong>13.2%</strong><span>median reduction</span></div>
+            <div><strong>23.1%</strong><span>best case</span></div>
+            <div><strong>91.0%</strong><span>install reduction</span></div>
+          </div>
+          <p class="score-note">Matching artifacts. Brotli 11. No cross-entry-point tricks.</p>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Supported APIs">
+        <div>animate <span>✦</span> spring <span>✦</span> stagger <span>✦</span> scroll <span>✦</span> inView <span>✦</span> motionValue <span>✦</span> hover <span>✦</span> press <span>✦</span> resize <span>✦</span> sequences</div>
+      </section>
+
+      <section class="lab shell" id="lab">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Recovered from the LilScript browser suite</p>
+            <h2>The complete<br />motion lab.</h2>
+          </div>
+          <p>Every original animation case, recreated against the published package runtime. Replay anything. Hover, press, scroll, resize, and poke at the controls.</p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Filter demos">
+          <button class="active" data-filter="all" type="button">All 16</button>
+          <button data-filter="animation" type="button">Animation</button>
+          <button data-filter="gestures" type="button">Gestures</button>
+          <button data-filter="observers" type="button">Observers</button>
+          <button data-filter="values" type="button">Values</button>
+          <button data-filter="performance" type="button">Performance</button>
+          <button data-filter="showcase" type="button">Showcase</button>
+        </div>
+
+        <div class="demo-grid" id="demo-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="evidence" id="evidence">
+        <div class="shell">
+          <div class="section-heading inverse">
+            <div>
+              <p class="eyebrow">The receipts</p>
+              <h2>Every byte,<br />accounted for.</h2>
+            </div>
+            <p>The gate metric is Brotli 11 on matching browser artifacts. Values below come from the original LilScript Motion lab at commit <a href="https://github.com/yeargun/lilscript/commit/9fc14a8">9fc14a8</a>.</p>
+          </div>
+          <div class="total-bar">
+            <div class="bar-motion"><span>Motion</span><strong>287,404 B</strong></div>
+            <div class="bar-lil"><span>LilScript</span><strong>251,703 B</strong></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Case</th><th>Motion</th><th>LilScript</th><th>Ratio</th><th>Saved</th></tr></thead>
+              <tbody id="results-body"></tbody>
+            </table>
+          </div>
+          <div class="method-note">
+            <p><strong>Important distinction.</strong> These are closed-world application builds, where LilScript can optimize the concrete program. The reusable full-package ESM is 50,509 B Brotli versus Motion’s 39,871 B. The package’s other headline is its dependency-free 824,992 B install versus Motion’s 9,141,537 B dependency tree.</p>
+            <a href="https://github.com/yeargun/motionlil#what-smaller-means">Read the methodology ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing shell">
+        <p class="eyebrow">Zero runtime dependencies</p>
+        <h2>Drop Motion into<br />a smaller box.</h2>
+        <div class="install-row large">
+          <code>npm install motionlil</code>
+          <button class="copy" data-copy="npm install motionlil" type="button">copy</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="shell">
+      <span>motionlil · MIT</span>
+      <span>Motion DOM ported to LilScript</span>
+      <a href="https://github.com/yeargun/motionlil">source ↗</a>
+    </footer>
+  </body>
+</html>
