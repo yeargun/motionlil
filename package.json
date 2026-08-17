@@ -1,0 +1,86 @@
+{
+  "name": "motionlil",
+  "version": "0.1.0",
+  "description": "A dependency-free Motion DOM runtime compiled with LilScript.",
+  "keywords": [
+    "animation",
+    "motion",
+    "waapi",
+    "gesture",
+    "spring",
+    "scroll",
+    "lilscript"
+  ],
+  "homepage": "https://github.com/yeargun/lilmotion#readme",
+  "bugs": "https://github.com/yeargun/lilmotion/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeargun/lilmotion.git"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "yeargun",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./types/index.d.ts",
+  "unpkg": "./dist/lilmotion.global.js",
+  "jsdelivr": "./dist/lilmotion.global.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./dom": {
+      "types": "./types/dom.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./mini": {
+      "types": "./types/mini.d.ts",
+      "import": "./dist/mini.js",
+      "require": "./dist/mini.cjs",
+      "default": "./dist/mini.js"
+    },
+    "./debug": {
+      "types": "./types/debug.d.ts",
+      "import": "./dist/debug.js",
+      "require": "./dist/debug.cjs",
+      "default": "./dist/debug.js"
+    },
+    "./global": "./dist/lilmotion.global.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "types",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "npm run test && npm run check:types && npm run check:pack",
+    "check:types": "tsc -p test/types/tsconfig.json",
+    "check:pack": "node scripts/check-pack.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:size": "node scripts/measure-size.mjs",
+    "prepublishOnly": "npm run check"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.9",
+    "motion": "13.1.0",
+    "terser": "5.43.1",
+    "typescript": "5.9.2",
+    "vite": "6.4.3"
+  }
+}

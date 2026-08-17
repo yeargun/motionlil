@@ -1,0 +1,93 @@
+import { transformPropOrder } from "../../render/utils/keys-transform";
+import { MotionValueState } from "../MotionValueState";
+
+extern float parseFloat(string value);
+
+string transformFunctionName(string key) {
+  if (key == "x") {
+    return "translateX";
+  }
+  if (key == "y") {
+    return "translateY";
+  }
+  if (key == "z") {
+    return "translateZ";
+  }
+  if (key == "transformPerspective") {
+    return "perspective";
+  }
+  return key;
+}
+
+string trimEnd(string s) {
+  int end = s.length;
+  while (end > 0) {
+    int code = s.charCodeAt(end - 1);
+    if (code == 32 || code == 9 || code == 10 || code == 13) {
+      end = end - 1;
+    } else {
+      break;
+    }
+  }
+  string out = "";
+  for (int i = 0; i < end; i++) {
+    out = out + s.charAt(i);
+  }
+  return out;
+}
+
+export string buildTransform(MotionValueState state) {
+  string transform = "";
+  bool transformIsDefault = true;
+
+  for (int i = 0; i < transformPropOrder.length; i++) {
+    string key = transformPropOrder[i];
+    JsValue? value = state.latest[key];
+    if (value == null) {
+      continue;
+    }
+    JsValue val = value;
+
+    bool valueIsDefault = true;
+    if (val is float) {
+      if (key.startsWith("scale")) {
+        valueIsDefault = val == 1.0;
+      } else {
+        valueIsDefault = val == 0.0;
+      }
+    } else {
+      if (val is string) {
+        float parsed = parseFloat(val);
+        if (key.startsWith("scale")) {
+          valueIsDefault = parsed == 1.0;
+        } else {
+          valueIsDefault = parsed == 0.0;
+        }
+      }
+    }
+
+    if (!valueIsDefault) {
+      transformIsDefault = false;
+      string transformName = transformFunctionName(key);
+      transform = transform + `${transformName}(${val}) `;
+    }
+  }
+
+  JsValue? pathRotation = state.latest["pathRotation"];
+  if (pathRotation != null) {
+    JsValue pr = pathRotation;
+    if (pr.truthy()) {
+      transformIsDefault = false;
+      if (pr is float) {
+        transform = transform + `rotate(${pr}deg) `;
+      } else {
+        transform = transform + `rotate(${pr}) `;
+      }
+    }
+  }
+
+  if (transformIsDefault) {
+    return "none";
+  }
+  return trimEnd(transform);
+}
