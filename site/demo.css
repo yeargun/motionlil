@@ -13,7 +13,8 @@ body[data-case="animate-play"] .lanes { min-height: 330px; display: grid; align-
 body[data-case="animate-play"] .lane { display: flex; align-items: center; gap: 14px; color: #989a91; font: 600 10px ui-monospace, monospace; text-transform: uppercase; }
 body[data-case="animate-play"] .lane span { display: grid; place-items: center; width: 62px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #6847f5, #b7aaff); color: white; }
 
-body[data-case="animate-css-vars"] .css-box { --opacity: 0; opacity: var(--opacity); width: 150px; height: 150px; border-radius: 36px; background: linear-gradient(135deg, #e9ff59, #71ec9b); box-shadow: 0 28px 80px #dfff0040; }
+body[data-case="animate-css-vars"] { --opacity-start: .15; --opacity-end: 1; }
+body[data-case="animate-css-vars"] .css-box { opacity: var(--opacity-start); width: 150px; height: 150px; border-radius: 36px; background: linear-gradient(135deg, #e9ff59, #71ec9b); box-shadow: 0 28px 80px #dfff0040; }
 
 .stagger-row { display: flex; gap: 13px; }
 .stagger-row .box { width: 60px; height: 60px; display: grid; place-items: center; border-radius: 17px; background: linear-gradient(135deg, #6847f5, #ff57ae); font-weight: 800; opacity: 0; }

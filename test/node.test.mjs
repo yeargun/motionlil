@@ -22,6 +22,9 @@ test("pure utilities and MotionValue behavior work", () => {
   assert.equal(motion.mix(10, 30, 0.25), 15)
   assert.equal(motion.wrap(0, 10, 12), 2)
   assert.equal(motion.distance2D({ x: 0, y: 0 }, { x: 3, y: 4 }), 5)
+  const interpolate = motion.interpolate([0, 1, 2], [0, 10, 20])
+  assert.equal(interpolate(0.5), 5)
+  assert.equal(interpolate(1.5), 15)
 
   const value = motion.motionValue(2)
   const changes = []

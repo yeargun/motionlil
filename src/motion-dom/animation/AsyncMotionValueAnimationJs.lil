@@ -1,17 +1,19 @@
 import { WithPromise } from "./utils/WithPromise";
-import { JSAnimation, JSAnimationOptions } from "./JSAnimation";
+import { JSAnimation, JSAnimationOptions } from "./JSAnimationFull";
 import { KeyframeResolver, flushKeyframeResolvers } from "./keyframes/KeyframesResolver";
-import { DOMKeyframesResolver } from "./keyframes/DOMKeyframesResolver";
+import { createDOMKeyframesResolver } from "./keyframes/DOMKeyframesResolver";
 import { getFinalKeyframe } from "./keyframes/get-final";
 import { canAnimate } from "./utils/can-animate";
 import { makeAnimationInstant } from "./utils/make-animation-instant";
 import { time } from "../frameloop/sync-time";
 import { MotionGlobalConfig } from "../../motion-utils/global-config";
+import { isNumericalString } from "../../motion-utils/is-numerical-string";
 import { callFn0, callFn1, isFunction, getProp, callMethod0, callMethod1, setProp } from "../dom-host";
 import { isGenerator } from "./generators/utils/is-generator";
 import extern { identity as asWithPromise } from "../cast-host.ts";
 
 extern WithPromise asWithPromise(JsValue value);
+extern float parseFloat(string value);
 
 float MAX_RESOLVE_DELAY = 40.0;
 
@@ -110,7 +112,7 @@ export class AsyncMotionValueAnimation extends WithPromise {
       false
     );
     if (element.truthy()) {
-      resolver = new DOMKeyframesResolver(
+      resolver = createDOMKeyframesResolver(
         unresolved,
         onKeyframesResolved,
         name,
@@ -202,6 +204,8 @@ export class AsyncMotionValueAnimation extends WithPromise {
       JsValue k = keyframes[i];
       if (k is float) {
         floatKeys.push(k);
+      } else if (k is string && isNumericalString(k)) {
+        floatKeys.push(parseFloat(k));
       } else {
         floatKeys.push(0.0);
       }

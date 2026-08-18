@@ -2,7 +2,7 @@ import { WithPromise } from "./utils/WithPromise";
 import { JSAnimation, JSAnimationOptions } from "./JSAnimationFull";
 import { NativeAnimationExtended } from "./NativeAnimationExtended";
 import { KeyframeResolver, flushKeyframeResolvers } from "./keyframes/KeyframesResolver";
-import { DOMKeyframesResolver } from "./keyframes/DOMKeyframesResolver";
+import { createDOMKeyframesResolver } from "./keyframes/DOMKeyframesResolver";
 import { getFinalKeyframe } from "./keyframes/get-final";
 import { canAnimate } from "./utils/can-animate";
 import { makeAnimationInstant } from "./utils/make-animation-instant";
@@ -112,7 +112,7 @@ export class AsyncMotionValueAnimation extends WithPromise {
       false
     );
     if (element.truthy()) {
-      resolver = new DOMKeyframesResolver(
+      resolver = createDOMKeyframesResolver(
         unresolved,
         onKeyframesResolved,
         name,

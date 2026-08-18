@@ -25,6 +25,7 @@ import {
   createObjectVisualElement
 } from "../utils/create-visual-element";
 import { isDOMKeyframes } from "../utils/is-dom-keyframes";
+import { animateElements } from "../animators/waapi/animate-elements";
 import { resolveSubjects } from "./resolve-subjects";
 
 bool isSingleValue(JsValue? subject = null, JsValue? keyframes = null) {
@@ -40,6 +41,20 @@ bool isSingleValue(JsValue? subject = null, JsValue? keyframes = null) {
   return false;
 }
 
+bool hasOnlyNativeTransform(JsValue? keyframes = null) {
+  if (keyframes == null || !keyframes.isObject()) {
+    return false;
+  }
+  bool foundTransform = false;
+  for (string key in keyframes) {
+    if (key != "transform") {
+      return false;
+    }
+    foundTransform = true;
+  }
+  return foundTransform;
+}
+
 export JsValue[] animateSubject(
   JsValue? subject = null,
   JsValue? keyframes = null,
@@ -47,6 +62,10 @@ export JsValue[] animateSubject(
   AnimationScope? scope = null
 ) {
   JsValue[] animations = [];
+
+  if (hasOnlyNativeTransform(keyframes)) {
+    return animateElements(subject, keyframes, options, scope);
+  }
 
   if (isSingleValue(subject, keyframes)) {
     JsValue resolvedKeyframes = keyframes;

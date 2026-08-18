@@ -79,6 +79,7 @@ export class JSAnimation extends WithPromise {
   float resolvedDuration;
   float totalDuration;
   SpringGenerator? springGen;
+  SpringGenerator? mirroredGen;
   DriverControls? driver;
   AnimationState delayState;
 
@@ -95,6 +96,7 @@ export class JSAnimation extends WithPromise {
     this.resolvedDuration = 0.0;
     this.totalDuration = 0.0;
     this.springGen = null;
+    this.mirroredGen = null;
     this.driver = null;
     this.delayState = new AnimationState(0.0);
     this.initAnimation();
@@ -148,11 +150,7 @@ export class JSAnimation extends WithPromise {
     setProp(this, "iterationDuration", this.getDuration() + delaySec);
   }
 
-  void initAnimation() {
-    float[] keys = this.options.keyframes;
-    if (keys.length == 0) {
-      keys = [0.0];
-    }
+  SpringGenerator buildGenerator(float[] keys, bool mirrored = false) {
     string? type = this.options.type;
     JsValue extra = this.options.extra;
     if (extra.truthy() && extra.isObject()) {
@@ -171,51 +169,90 @@ export class JSAnimation extends WithPromise {
         keyframeJs.push(keys[ki]);
       }
       springOpts["keyframes"] = keyframeJs;
-      this.springGen = spring(springOpts);
-    } else {
-      float duration = 300.0;
-      string | float[] | func(float)->float easeOpt = "easeOut";
-      float[]? timesOpt = null;
-      if (extra.truthy() && extra.isObject()) {
-        JsValue durationVal = extra["duration"];
-        if (durationVal is float) {
-          duration = durationVal;
+      if (mirrored) {
+        springOpts["velocity"] = 0.0 - this.options.velocity;
+      }
+      return spring(springOpts);
+    }
+
+    float duration = 300.0;
+    string | float[] | func(float)->float easeOpt = "easeOut";
+    float[]? timesOpt = null;
+    if (extra.truthy() && extra.isObject()) {
+      JsValue durationVal = extra["duration"];
+      if (durationVal is float) {
+        duration = durationVal;
+      }
+      JsValue easeVal = extra["ease"];
+      if (easeVal is string) {
+        easeOpt = easeVal;
+      } else if (easeVal.isArray()) {
+        float[] bezier = [];
+        int easeLen = easeVal.length.toInt();
+        for (int ei = 0; ei < easeLen; ei++) {
+          JsValue p = easeVal[ei];
+          if (p is float) {
+            bezier.push(p);
+          }
         }
-        JsValue easeVal = extra["ease"];
-        if (easeVal is string) {
-          easeOpt = easeVal;
-        } else if (easeVal.isArray()) {
-          float[] bezier = [];
-          int easeLen = easeVal.length.toInt();
-          for (int ei = 0; ei < easeLen; ei++) {
-            JsValue p = easeVal[ei];
-            if (p is float) {
-              bezier.push(p);
-            }
-          }
-          if (bezier.length > 0) {
-            easeOpt = bezier;
-          }
-        }
-        JsValue timesVal = extra["times"];
-        if (timesVal.isArray()) {
-          float[] times = [];
-          int timesLen = timesVal.length.toInt();
-          for (int ti = 0; ti < timesLen; ti++) {
-            JsValue tv = timesVal[ti];
-            if (tv is float) {
-              times.push(tv);
-            }
-          }
-          if (times.length == keys.length) {
-            timesOpt = times;
-          }
+        if (bezier.length > 0) {
+          easeOpt = bezier;
         }
       }
-      this.springGen = keyframesGenerator(
-        new KeyframesInput(keys, duration, timesOpt, easeOpt)
-      );
+      JsValue timesVal = extra["times"];
+      if (timesVal.isArray()) {
+        float[] times = [];
+        int timesLen = timesVal.length.toInt();
+        for (int ti = 0; ti < timesLen; ti++) {
+          JsValue tv = timesVal[ti];
+          if (tv is float) {
+            times.push(tv);
+          }
+        }
+        if (times.length == keys.length) {
+          timesOpt = times;
+        }
+      }
     }
+    return keyframesGenerator(
+      new KeyframesInput(keys, duration, timesOpt, easeOpt)
+    );
+  }
+
+  void initAnimation() {
+    float[] keys = this.options.keyframes;
+    if (keys.length == 0) {
+      keys = [0.0];
+    }
+    this.springGen = this.buildGenerator(keys);
+    this.mirroredGen = null;
+
+    JsValue extra = this.options.extra;
+    string repeatType = "loop";
+    float repeat = 0.0;
+    float repeatDelay = 0.0;
+    if (extra.truthy() && extra.isObject()) {
+      JsValue repeatTypeValue = extra["repeatType"];
+      if (repeatTypeValue is string) {
+        repeatType = repeatTypeValue;
+      }
+      JsValue repeatValue = extra["repeat"];
+      if (repeatValue is float) {
+        repeat = repeatValue;
+      }
+      JsValue repeatDelayValue = extra["repeatDelay"];
+      if (repeatDelayValue is float) {
+        repeatDelay = repeatDelayValue;
+      }
+    }
+    if (repeatType == "mirror") {
+      float[] mirroredKeys = [];
+      for (int i = keys.length - 1; i >= 0; i--) {
+        mirroredKeys.push(keys[i]);
+      }
+      this.mirroredGen = this.buildGenerator(mirroredKeys, true);
+    }
+
     SpringGenerator? gen = this.springGen;
     if (gen != null) {
       float? knownDuration = gen.calculatedDuration;
@@ -224,8 +261,8 @@ export class JSAnimation extends WithPromise {
       } else {
         this.calculatedDuration = calcGeneratorDuration(gen.next);
       }
-      this.resolvedDuration = this.calculatedDuration;
-      this.totalDuration = this.resolvedDuration;
+      this.resolvedDuration = this.calculatedDuration + repeatDelay;
+      this.totalDuration = this.resolvedDuration * (repeat + 1.0) - repeatDelay;
     }
   }
 
@@ -280,7 +317,59 @@ export class JSAnimation extends WithPromise {
       this.currentTime = timeWithoutDelay;
     }
 
-    SampleResult result = this.sample(this.currentTime);
+    float repeat = 0.0;
+    float repeatDelay = 0.0;
+    string repeatType = "loop";
+    if (extra.truthy() && extra.isObject()) {
+      JsValue repeatValue = extra["repeat"];
+      if (repeatValue is float) {
+        repeat = repeatValue;
+      }
+      JsValue repeatDelayValue = extra["repeatDelay"];
+      if (repeatDelayValue is float) {
+        repeatDelay = repeatDelayValue;
+      }
+      JsValue repeatTypeValue = extra["repeatType"];
+      if (repeatTypeValue is string) {
+        repeatType = repeatTypeValue;
+      }
+    }
+
+    float elapsed = this.currentTime;
+    SpringGenerator? activeGenerator = this.springGen;
+    if (repeat > 0.0 && this.resolvedDuration > 0.0) {
+      float repeatTime = this.currentTime;
+      if (repeatTime > this.totalDuration) {
+        repeatTime = this.totalDuration;
+      }
+      float overallProgress = repeatTime / this.resolvedDuration;
+      int currentIteration = overallProgress.toInt();
+      float iterationProgress = overallProgress - currentIteration;
+      if (iterationProgress == 0.0 && overallProgress >= 1.0) {
+        iterationProgress = 1.0;
+        currentIteration = currentIteration - 1;
+      }
+      if (currentIteration % 2 == 1) {
+        if (repeatType == "reverse") {
+          iterationProgress = 1.0 - iterationProgress;
+          if (repeatDelay > 0.0) {
+            iterationProgress = iterationProgress - repeatDelay / this.resolvedDuration;
+          }
+        } else if (repeatType == "mirror") {
+          SpringGenerator? mirrored = this.mirroredGen;
+          if (mirrored != null) {
+            activeGenerator = mirrored;
+          }
+        }
+      }
+      elapsed = clamp(0.0, 1.0, iterationProgress) * this.resolvedDuration;
+    }
+
+    SampleResult result = this.sample(elapsed);
+    if (activeGenerator != null && activeGenerator != this.springGen) {
+      AnimationState mirroredState = activeGenerator.next(elapsed);
+      result = new SampleResult(mirroredState.value, mirroredState.done);
+    }
     if (isInDelayPhase) {
       float[] keys = this.options.keyframes;
       float first = 0.0;
@@ -288,6 +377,24 @@ export class JSAnimation extends WithPromise {
         first = keys[0];
       }
       result = new SampleResult(first, false);
+    }
+    if (!isInDelayPhase) {
+      if (this.playbackSpeed >= 0.0) {
+        result.done = this.currentTime >= this.totalDuration;
+      } else {
+        result.done = this.currentTime <= 0.0;
+      }
+    }
+    if (result.done && extra.truthy()) {
+      JsValue finalKeyframe = getFinalKeyframe(
+        this.options.keyframes,
+        extra,
+        extra["finalKeyframe"],
+        this.playbackSpeed
+      );
+      if (finalKeyframe is float) {
+        result.value = finalKeyframe;
+      }
     }
 
     (func(float)->void)? onUpdate = this.options.onUpdate;

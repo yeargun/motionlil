@@ -30,7 +30,12 @@ function playBasic() {
 }
 
 function playCssVars() {
-  animate("#css-box", { "--opacity": 1 }, { duration: 0.65 })
+  animate("#css-box", { opacity: "var(--opacity-end)" }, {
+    duration: 0.8,
+    ease: "easeInOut",
+    repeat: 1000,
+    repeatType: "mirror",
+  })
 }
 
 function playStagger() {
@@ -49,7 +54,7 @@ function playSpring() {
 }
 
 function playScroll() {
-  const options = { duration: 1 }
+  const options = { duration: 1, ease: "linear" }
   const controls = [
     animateMini("#mini", { transform: "translateX(170px)" }, options),
     animate("#js", { x: 170 }, options),
@@ -143,7 +148,7 @@ function playWave() {
 }
 
 function playShowcaseSpring() {
-  animate("#showcase-spring-box", { rotate: [0, 90], scale: [1, 1.15, 1] }, {
+  animate("#showcase-spring-box", { rotate: [-16, 16], scale: [0.9, 1.1] }, {
     type: "spring",
     stiffness: 180,
     damping: 12,

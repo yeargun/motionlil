@@ -40,6 +40,13 @@ test("every API used by the live recreations exists in motionlil", () => {
   }
 })
 
+test("affected demos stay observable and use matching timing semantics", () => {
+  assert.match(demoSource, /opacity: "var\(--opacity-end\)"/)
+  assert.match(demoSource, /const options = \{ duration: 1, ease: "linear" \}/)
+  assert.match(demoSource, /document\.querySelector\("#perf-run"\)\.onclick = runPerf; runPerf\(\)/)
+  assert.match(demoSource, /rotate: \[-16, 16\], scale: \[0\.9, 1\.1\]/)
+})
+
 test("the README leads with compression evidence and links the lab", async () => {
   const readme = await read("README.md")
   const evidence = readme.indexOf("16/16 paired browser demos")

@@ -2,7 +2,7 @@ import { positionalKeys } from "../../render/utils/keys-position";
 import { findDimensionValueType } from "../../value/types/dimensions";
 import { ValueType } from "../../value/types/types";
 import { getVariableValue } from "../utils/css-variables-conversion";
-import { containsCSSVariable, isCSSVariableToken } from "../utils/is-css-variable";
+import { containsCSSVariable } from "../utils/is-css-variable";
 import { KeyframeResolver } from "./KeyframesResolver";
 import { isNone } from "./utils/is-none";
 import { makeNoneKeyframesAnimatable } from "./utils/make-none-animatable";
@@ -16,8 +16,7 @@ import { MotionValue } from "../../value/index";
 extern float parseFloat(string v);
 
 JsValue? visualElementCurrent(JsValue element) {
-  VisualElement typed = visualElementOf(element);
-  return typed.current;
+  return element["current"];
 }
 
 export class DOMKeyframesResolver extends KeyframeResolver {
@@ -34,15 +33,6 @@ export class DOMKeyframesResolver extends KeyframeResolver {
     super(unresolvedKeyframes, onComplete, name, motionValue, element, true);
     this.removedTransforms = null;
     this.measuredOrigin = null;
-    this.readKeyframesHook = () => {
-      this.readKeyframesDOM();
-    };
-    this.measureInitialStateHook = () => {
-      this.measureInitialStateDOM();
-    };
-    this.measureEndStateHook = () => {
-      this.measureEndStateDOM();
-    };
   }
 
   void readKeyframesDOM() {
@@ -60,11 +50,9 @@ export class DOMKeyframesResolver extends KeyframeResolver {
       JsValue keyframe = unresolvedKeyframes[i];
       if (keyframe is string) {
         string trimmed = stringTrim(keyframe);
-        if (isCSSVariableToken(trimmed)) {
-          JsValue? resolved = getVariableValue(trimmed, current);
-          if (resolved != null) {
-            unresolvedKeyframes[i] = resolved;
-          }
+        JsValue? resolved = getVariableValue(trimmed, current);
+        if (resolved != null) {
+          unresolvedKeyframes[i] = resolved;
           if (i == unresolvedKeyframes.length - 1) {
             this.finalKeyframe = trimmed;
           }
@@ -214,4 +202,41 @@ export class DOMKeyframesResolver extends KeyframeResolver {
     }
     this.resolveNoneKeyframes();
   }
+}
+
+export DOMKeyframesResolver createDOMKeyframesResolver(
+  JsValue[] unresolvedKeyframes,
+  func(JsValue[], JsValue?, bool)->void onComplete,
+  string? name = null,
+  JsValue? motionValue = null,
+  JsValue? element = null
+) {
+  JsValue? finalKeyframe = null;
+  if (element != null) {
+    JsValue? current = element["current"];
+    if (current != null) {
+      for (int i = 0; i < unresolvedKeyframes.length; i++) {
+        JsValue keyframe = unresolvedKeyframes[i];
+        if (keyframe is string) {
+          string trimmed = stringTrim(keyframe);
+          JsValue? resolved = getVariableValue(trimmed, current);
+          if (resolved != null) {
+            unresolvedKeyframes[i] = resolved;
+            if (i == unresolvedKeyframes.length - 1) {
+              finalKeyframe = trimmed;
+            }
+          }
+        }
+      }
+    }
+  }
+  DOMKeyframesResolver resolver = new DOMKeyframesResolver(
+    unresolvedKeyframes,
+    onComplete,
+    name,
+    motionValue,
+    element
+  );
+  resolver.finalKeyframe = finalKeyframe;
+  return resolver;
 }
