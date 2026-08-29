@@ -20,6 +20,7 @@ const compiler = compilerCandidates.find((candidate) => {
   return spawnSync(candidate, ["--version"], { stdio: "ignore" }).status === 0
 })
 const buildMode = process.env.MOTIONLIL_BUILD_MODE ?? "production"
+const keepCompilerOutput = process.env.MOTIONLIL_KEEP_COMPILER_OUTPUT === "1"
 if (!new Set(["development", "production"]).has(buildMode)) {
   throw new Error(`Invalid MOTIONLIL_BUILD_MODE: ${buildMode}`)
 }
@@ -244,7 +245,8 @@ try {
   await emitBundled(join(dist, "index.js"), join(dist, "index.bundle.js"), "esm")
   await emitBundled(join(dist, "index.js"), join(dist, "motionlil.global.js"), "iife")
 } finally {
-  await Promise.all([...compiledFiles, ...facadeFiles].map((file) => rm(file, { force: true })))
+  const cleanup = keepCompilerOutput ? facadeFiles : [...compiledFiles, ...facadeFiles]
+  await Promise.all(cleanup.map((file) => rm(file, { force: true })))
 }
 
 console.log(
