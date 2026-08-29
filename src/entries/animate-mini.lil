@@ -1,0 +1,3 @@
+import { animateMini } from "../framer-motion/animation/animators/waapi/animate-style-mini";
+
+export { animateMini };

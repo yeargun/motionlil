@@ -50,7 +50,7 @@ class DurationAccum {
   }
 }
 
-JsValue[] keyframesAsList(JsValue keyframes) {
+export JsValue[] keyframesAsList(JsValue keyframes) {
   if (keyframes.isArray()) {
     JsValue[] list = [];
     int len = keyframes.length.toInt();

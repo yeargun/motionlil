@@ -36,15 +36,18 @@ console.log(easing.next(16))
 
 ## Compatibility
 
-`motionlil` exposes every runtime export from Motion 13’s `motion`/DOM entry point, including `animate`, `scroll`, `inView`, motion values, springs, gestures, layout projection, view transitions, value types, utilities, and the public constructor exports. The primary implementation is the LilScript Motion DOM port; a small tree-shakeable JavaScript adapter supplies JavaScript constructor and playback-control conventions.
+`motionlil` is built for Vite, Astro, and other ESM bundlers. The default entry is a tree-shakeable JS barrel over separately compiled features (`animate`, `animateMini`, `scroll`, gestures, `inView`, `resize`). `import { animateMini } from "motionlil"` loads only the WAAPI mini runtime. Unused projection / view-transition / visual-element internals are not part of the module graph.
+
+The complete Motion 13 DOM ABI, including constructor and layout internals, stays on `motionlil/full`.
 
 React-specific entry points such as `motion/react` are intentionally not included. Use the normal `motion` package if you need Motion’s React components and hooks.
 
 Available entry points:
 
 ```js
-import { animate } from "motionlil"       // complete DOM API
-import { animate } from "motionlil/dom"   // explicit DOM alias
+import { animate } from "motionlil"       // bundler-facing JS/DOM API
+import { animate } from "motionlil/dom"   // same as the default entry
+import { animate } from "motionlil/full"  // complete Motion DOM ABI
 import { animate } from "motionlil/mini"  // animate + animateSequence
 import { recordStats } from "motionlil/debug"
 ```
@@ -80,11 +83,11 @@ import { animate } from "motionlil"
 
 That is a **90.98% smaller installed runtime footprint**, or **11.08× less disk**. The comparison includes `motion`, `framer-motion`, `motion-dom`, `motion-utils`, and `tslib`, which npm installs for the upstream package.
 
-The reusable full `motionlil` ESM artifact is currently 50,509 bytes Brotli versus 39,871 bytes for an equivalently bundled Motion 13 entry. That full-library artifact is larger; the smaller browser results at the top are closed-world application builds that let LilScript optimize each concrete program. The package win is the dependency-free install, a compact single-package distribution, and a compiler-oriented codebase. Run `npm run test:size` to reproduce the package measurements; the paired demo evidence and methodology are linked from the live lab.
+The default `motionlil` ESM entry is a named-export barrel. Vite keeps only the feature files you import. `motionlil/full` is the complete Motion DOM ABI. Closed-world LilScript app builds can still go further by compiling a concrete program. Run `npm run test:size` to reproduce the package measurements; the paired demo evidence and methodology are linked from the live lab.
 
 ## Build pipeline
 
-The LilScript compiler performs whole-program optimization with identifier and property mangling enabled. The emitted modules are bundled as pure JavaScript with esbuild, then Terser runs three compression passes, top-level identifier mangling, and private-property mangling. A second Terser pass and a real Vite consumer build are part of the test suite.
+The LilScript compiler performs whole-program optimization with identifier and property mangling enabled. Each consumer feature is compiled on its own, then published as a separate ESM file so bundlers can drop unused features. CommonJS and the browser global remain single-file builds. Terser runs three compression passes, top-level identifier mangling, and private-property mangling. A second Terser pass, a Vite consumer build, and a named-import shake test are part of the test suite.
 
 To build from source, keep `motionlil` next to a LilScript checkout, or point to its release compiler explicitly:
 

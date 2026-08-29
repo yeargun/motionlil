@@ -1,7 +1,7 @@
-import { spawnSync } from "node:child_process"
+import { spawn, spawnSync } from "node:child_process"
 import { existsSync } from "node:fs"
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
-import { dirname, join, resolve } from "node:path"
+import { dirname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { build } from "esbuild"
 import { minify } from "terser"
@@ -9,19 +9,16 @@ import { minify } from "terser"
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const source = join(root, "src")
 const dist = join(root, "dist")
-const temporary = join(root, ".tmp", "build")
 const compilerCandidates = [
   process.env.MOTIONLIL_LILSCRIPT_BIN,
   resolve(root, "../lilscript/target/release/lilscript"),
   "lilscript",
 ].filter(Boolean)
 
-function canRun(candidate) {
+const compiler = compilerCandidates.find((candidate) => {
   if (candidate.includes("/") && !existsSync(candidate)) return false
   return spawnSync(candidate, ["--version"], { stdio: "ignore" }).status === 0
-}
-
-const compiler = compilerCandidates.find(canRun)
+})
 const buildMode = process.env.MOTIONLIL_BUILD_MODE ?? "production"
 if (!new Set(["development", "production"]).has(buildMode)) {
   throw new Error(`Invalid MOTIONLIL_BUILD_MODE: ${buildMode}`)
@@ -32,62 +29,153 @@ if (!compiler) {
   )
 }
 
-await rm(temporary, { recursive: true, force: true })
 await rm(dist, { recursive: true, force: true })
-await mkdir(temporary, { recursive: true })
 await mkdir(dist, { recursive: true })
 
-const entries = [
-  ["index", "index.lil"],
+const featureEntries = [
+  ["animate", "entries/animate.lil"],
+  ["animate-mini", "entries/animate-mini.lil"],
+  ["scroll", "entries/scroll.lil"],
+  ["gestures", "entries/gestures.lil"],
+  ["viewport", "entries/viewport.lil"],
+  ["resize", "entries/resize.lil"],
+]
+const standaloneEntries = [
+  ["full", "full.lil"],
   ["mini", "mini.lil"],
   ["debug", "debug.lil"],
 ]
 
+const animatePublic = [
+  "createScopedAnimate",
+  "stagger",
+  "delay",
+  "delayInSeconds",
+  "spring",
+  "inertia",
+  "keyframes",
+  "motionValue",
+  "mapValue",
+  "transformValue",
+  "springValue",
+  "followValue",
+  "mix",
+  "interpolate",
+  "transform",
+  "clamp",
+  "wrap",
+  "progress",
+  "distance",
+  "distance2D",
+  "frame",
+  "cancelFrame",
+  "easeIn",
+  "easeOut",
+  "easeInOut",
+  "cubicBezier",
+  "backIn",
+  "backOut",
+  "backInOut",
+  "circIn",
+  "circOut",
+  "circInOut",
+  "anticipate",
+  "steps",
+  "numberType",
+  "getAsType",
+  "isMotionValue",
+]
+const compatPublic = [
+  "animate",
+  "MotionValue",
+  "SubscriptionManager",
+  "GroupAnimation",
+  "GroupAnimationWithThen",
+  "number",
+  "getValueAsType",
+  "defaultEasing",
+]
+
 function compile(name, input) {
-  // The compiler preserves foreign ESM paths relative to its output. Placing
-  // this temporary artifact beside the source lets esbuild resolve and inline
-  // the four typed host-boundary modules.
-  const compiled = join(source, `.__compiled-${name}.mjs`)
-  const result = spawnSync(
-    compiler,
-    [
-      join(source, input),
-      "--target",
-      "js-module",
-      "--config",
-      join(source, "lilscript.toml"),
-      "--mode",
-      buildMode,
-      "--output",
-      compiled,
-    ],
-    { cwd: root, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
-  )
-  if (result.status !== 0) {
-    throw new Error(`${result.stdout}${result.stderr}`)
-  }
-  return compiled
+  const compiled = join(dirname(join(source, input)), `.__compiled-${name}.mjs`)
+  return new Promise((resolvePromise, reject) => {
+    const child = spawn(
+      compiler,
+      [
+        join(source, input),
+        "--target",
+        "js-module",
+        "--config",
+        join(source, "lilscript.toml"),
+        "--mode",
+        buildMode,
+        "--output",
+        compiled,
+      ],
+      { cwd: root },
+    )
+    let output = ""
+    child.stdout.on("data", (chunk) => { output += chunk })
+    child.stderr.on("data", (chunk) => { output += chunk })
+    child.on("error", reject)
+    child.on("close", (status) => {
+      if (status !== 0) reject(new Error(output || `${name} failed`))
+      else resolvePromise(compiled)
+    })
+  })
 }
 
 const compiledFiles = []
 const facadeFiles = []
 
-async function createFacade(name, compiled) {
+async function writeFacade(name, compiled) {
   if (name === "debug") return compiled
   const facade = join(source, `.__entry-${name}.mjs`)
-  const compiledName = `./${compiled.split("/").at(-1)}`
-  const sourceCode = name === "index"
-    ? [
-        `export * from ${JSON.stringify(compiledName)}`,
-        'export * from "./compat.mjs"',
-        'export { animate } from "./compat.mjs"',
-      ].join("\n")
-    : [
-        `import * as core from ${JSON.stringify(compiledName)}`,
-        'import { normalizeControls } from "./control-compat.mjs"',
-        "export const animate = (...args) => normalizeControls(core.animate(...args))",
-        "export const animateSequence = (...args) => normalizeControls(core.animateSequence(...args))",
-      ].join("\n")
+  const compiledName = `./${relative(source, compiled)}`
+  let sourceCode
+  if (name === "animate") {
+    const compat = join(source, ".__compat-animate.mjs")
+    const template = await readFile(join(source, "compat-lite.mjs"), "utf8")
+    await writeFile(compat, template.replaceAll("./.__compiled-index.mjs", compiledName))
+    facadeFiles.push(compat)
+    sourceCode = [
+      `export { ${animatePublic.join(", ")} } from ${JSON.stringify(compiledName)}`,
+      `export { ${compatPublic.join(", ")} } from "./.__compat-animate.mjs"`,
+    ].join("\n")
+  } else if (name === "animate-mini") {
+    sourceCode = [
+      `import { animateMini as coreAnimateMini } from ${JSON.stringify(compiledName)}`,
+      'import { normalizeControls } from "./control-compat.mjs"',
+      "export const animateMini = (...args) => normalizeControls(coreAnimateMini(...args))",
+    ].join("\n")
+  } else if (name === "full") {
+    const compat = join(source, ".__compat-full.mjs")
+    const template = await readFile(join(source, "compat.mjs"), "utf8")
+    await writeFile(compat, template.replaceAll("./.__compiled-index.mjs", compiledName))
+    facadeFiles.push(compat)
+    sourceCode = [
+      `export * from ${JSON.stringify(compiledName)}`,
+      `export * from "./.__compat-full.mjs"`,
+      'export { animate } from "./.__compat-full.mjs"',
+    ].join("\n")
+  } else if (name === "mini") {
+    sourceCode = [
+      `import * as core from ${JSON.stringify(compiledName)}`,
+      'import { normalizeControls } from "./control-compat.mjs"',
+      "export const animate = (...args) => normalizeControls(core.animate(...args))",
+      "export const animateSequence = (...args) => normalizeControls(core.animateSequence(...args))",
+    ].join("\n")
+  } else if (name === "scroll") {
+    sourceCode = `export { scroll, scrollInfo } from ${JSON.stringify(compiledName)}`
+  } else if (name === "gestures") {
+    sourceCode = `export { hover, press } from ${JSON.stringify(compiledName)}`
+  } else if (name === "viewport") {
+    sourceCode = `export { inView } from ${JSON.stringify(compiledName)}`
+  } else if (name === "resize") {
+    sourceCode = `export { resize } from ${JSON.stringify(compiledName)}`
+  } else {
+    throw new Error(`Unknown entry ${name}`)
+  }
   await writeFile(facade, `${sourceCode}\n`)
   facadeFiles.push(facade)
   return facade
@@ -109,46 +197,56 @@ async function terserMinify(file, module) {
   await writeFile(file, `${result.code}\n`)
 }
 
-try {
-  for (const [name, input] of entries) {
-    const compiled = compile(name, input)
-    compiledFiles.push(compiled)
-    const entry = await createFacade(name, compiled)
-    const common = {
-      entryPoints: [entry],
-      bundle: true,
-      platform: "browser",
-      target: "es2020",
-      treeShaking: true,
-      legalComments: "none",
-      logLevel: "warning",
-    }
-    await build({ ...common, format: "esm", outfile: join(dist, `${name}.js`) })
-    await terserMinify(join(dist, `${name}.js`), true)
-    await build({
-      ...common,
-      format: "cjs",
-      platform: "neutral",
-      outfile: join(dist, `${name}.cjs`),
-    })
-    await terserMinify(join(dist, `${name}.cjs`), false)
-  }
-
+async function emitBundled(entry, outfile, format, platform = "browser") {
   await build({
-    entryPoints: [compiledFiles[0]],
+    entryPoints: [entry],
     bundle: true,
-    platform: "browser",
-    format: "iife",
-    globalName: "motionlil",
+    platform,
+    format,
     target: "es2020",
     treeShaking: true,
     legalComments: "none",
-    outfile: join(dist, "motionlil.global.js"),
+    logLevel: "warning",
+    outfile,
+    ...(format === "iife" ? { globalName: "motionlil" } : {}),
   })
-  await terserMinify(join(dist, "motionlil.global.js"), false)
-} finally {
-  await Promise.all([...compiledFiles, ...facadeFiles].map((file) => rm(file, { force: true })))
-  await rm(temporary, { recursive: true, force: true })
+  await terserMinify(outfile, format === "esm")
 }
 
-console.log(`Built ${entries.length} ${buildMode} entry points with ${compiler}`)
+const barrelSource = [
+  `export { ${[...animatePublic, ...compatPublic].join(", ")} } from "./animate.js"`,
+  'export { animateMini } from "./animate-mini.js"',
+  'export { scroll, scrollInfo } from "./scroll.js"',
+  'export { hover, press } from "./gestures.js"',
+  'export { inView } from "./viewport.js"',
+  'export { resize } from "./resize.js"',
+  "",
+].join("\n")
+
+try {
+  const allEntries = [...featureEntries, ...standaloneEntries]
+  const compiled = await Promise.all(
+    allEntries.map(async ([name, input]) => {
+      const file = await compile(name, input)
+      compiledFiles.push(file)
+      return [name, file]
+    }),
+  )
+
+  for (const [name, file] of compiled) {
+    const entry = await writeFacade(name, file)
+    await emitBundled(entry, join(dist, `${name}.js`), "esm")
+    await emitBundled(entry, join(dist, `${name}.cjs`), "cjs", "neutral")
+  }
+
+  await writeFile(join(dist, "index.js"), barrelSource)
+  await emitBundled(join(dist, "index.js"), join(dist, "index.cjs"), "cjs", "neutral")
+  await emitBundled(join(dist, "index.js"), join(dist, "index.bundle.js"), "esm")
+  await emitBundled(join(dist, "index.js"), join(dist, "motionlil.global.js"), "iife")
+} finally {
+  await Promise.all([...compiledFiles, ...facadeFiles].map((file) => rm(file, { force: true })))
+}
+
+console.log(
+  `Built ${featureEntries.length} ESM features and ${standaloneEntries.length} standalone ${buildMode} entries with ${compiler}`,
+)

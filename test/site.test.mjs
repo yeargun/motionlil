@@ -63,7 +63,9 @@ test("the generated Pages artifact is complete and uses the package runtime", as
   ]) {
     assert.ok((await stat(join(root, path))).size > 0, `${path} is empty`)
   }
-  assert.equal(await read("_site/motionlil.js"), await read("dist/index.js"))
+  const siteRuntime = await read("_site/motionlil.js")
+  assert.doesNotMatch(siteRuntime, /from\s*["']\.\/animate\.js["']/)
+  assert.match(siteRuntime, /animateMini|animate/)
 })
 
 test("legacy naming does not leak into source or Pages content", async () => {

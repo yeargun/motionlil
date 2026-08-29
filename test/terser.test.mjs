@@ -4,8 +4,8 @@ import { pathToFileURL } from "node:url"
 import test from "node:test"
 import { minify } from "terser"
 
-test("the distributed ESM survives a second Terser compression/mangle pass", async () => {
-  const input = await readFile(new URL("../dist/index.js", import.meta.url), "utf8")
+test("the distributed animate module survives a second Terser pass", async () => {
+  const input = await readFile(new URL("../dist/animate.js", import.meta.url), "utf8")
   const result = await minify(input, {
     module: true,
     compress: { passes: 3 },
@@ -13,7 +13,7 @@ test("the distributed ESM survives a second Terser compression/mangle pass", asy
     format: { comments: false },
   })
   assert.ok(result.code)
-  const output = new URL("../test-output/terser-index.mjs", import.meta.url)
+  const output = new URL("../test-output/terser-animate.mjs", import.meta.url)
   await mkdir(new URL("../test-output/", import.meta.url), { recursive: true })
   await writeFile(output, result.code)
   try {

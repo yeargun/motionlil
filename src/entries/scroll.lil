@@ -1,0 +1,4 @@
+import { scroll } from "../framer-motion/render/dom/scroll/index";
+import { scrollInfo } from "../framer-motion/render/dom/scroll/track";
+
+export { scroll, scrollInfo };

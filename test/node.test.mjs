@@ -3,6 +3,7 @@ import { createRequire } from "node:module"
 import test from "node:test"
 
 import * as motion from "motionlil"
+import * as full from "motionlil/full"
 import * as debug from "motionlil/debug"
 import * as mini from "motionlil/mini"
 import * as upstream from "motion"
@@ -43,9 +44,18 @@ test("CommonJS entry points expose the same public names", () => {
   assert.equal(cjs.mix(0, 8, 0.5), 4)
 })
 
-test("every Motion DOM export is present", () => {
-  const missing = Object.keys(upstream).filter((name) => !(name in motion))
+test("every Motion DOM export is present on the full entry", () => {
+  const missing = Object.keys(upstream).filter((name) => !(name in full))
   assert.deepEqual(missing, [])
+  assert.equal(full.number, full.numberType)
+  assert.equal(full.getValueAsType, full.getAsType)
+  assert.equal(typeof full.defaultEasing, "function")
+})
+
+test("default entry keeps the JS consumer API", () => {
+  for (const name of ["animate", "animateMini", "scroll", "inView", "hover", "press", "stagger", "spring", "motionValue"]) {
+    assert.equal(typeof motion[name], "function", name)
+  }
   assert.equal(motion.number, motion.numberType)
   assert.equal(motion.getValueAsType, motion.getAsType)
   assert.equal(typeof motion.defaultEasing, "function")

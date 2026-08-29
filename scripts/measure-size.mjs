@@ -19,9 +19,14 @@ function bytes(source) {
   }
 }
 
-async function bundledPackage(specifier) {
+async function bundledImports(specifier, names) {
   const built = await build({
-    stdin: { contents: `export * from ${JSON.stringify(specifier)}`, resolveDir: root },
+    stdin: {
+      contents: names
+        ? `export { ${names.join(", ")} } from ${JSON.stringify(specifier)}`
+        : `export * from ${JSON.stringify(specifier)}`,
+      resolveDir: root,
+    },
     bundle: true,
     format: "esm",
     platform: "browser",
@@ -59,12 +64,35 @@ for (const name of upstreamPackages) {
   upstreamInstalled += await directoryBytes(join(root, "node_modules", name))
 }
 
+const lab = ["animate", "animateMini", "hover", "inView", "motionValue", "press", "scroll", "stagger"]
+
 const report = {
   artifacts: {
-    motionlil: bytes(await readFile(join(root, "dist", "index.js"))),
-    motion: await bundledPackage("motion"),
+    "motionlil barrel": bytes(await readFile(join(root, "dist", "index.js"))),
     "motionlil/mini": bytes(await readFile(join(root, "dist", "mini.js"))),
-    "motion/mini": await bundledPackage("motion/mini"),
+    "motion/mini": await bundledImports("motion/mini"),
+  },
+  imports: {
+    "animateMini": {
+      motionlil: await bundledImports("motionlil", ["animateMini"]),
+      motion: await bundledImports("motion", ["animateMini"]),
+    },
+    "animate": {
+      motionlil: await bundledImports("motionlil", ["animate"]),
+      motion: await bundledImports("motion", ["animate"]),
+    },
+    "animate+stagger": {
+      motionlil: await bundledImports("motionlil", ["animate", "stagger"]),
+      motion: await bundledImports("motion", ["animate", "stagger"]),
+    },
+    "lab": {
+      motionlil: await bundledImports("motionlil", lab),
+      motion: await bundledImports("motion", lab),
+    },
+    "export *": {
+      motionlil: await bundledImports("motionlil"),
+      motion: await bundledImports("motion"),
+    },
   },
   install: {
     motionlilUnpacked: packageResult.unpackedSize,

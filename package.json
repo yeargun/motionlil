@@ -1,6 +1,6 @@
 {
   "name": "motionlil",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A dependency-free Motion DOM runtime compiled with LilScript.",
   "keywords": [
     "animation",
@@ -42,6 +42,12 @@
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
+    "./full": {
+      "types": "./types/full.d.ts",
+      "import": "./dist/full.js",
+      "require": "./dist/full.cjs",
+      "default": "./dist/full.js"
+    },
     "./mini": {
       "types": "./types/mini.d.ts",
       "import": "./dist/mini.js",
@@ -74,7 +80,7 @@
     "check:site": "npm run build:site && node --test test/site.test.mjs",
     "check:types": "tsc -p test/types/tsconfig.json",
     "check:pack": "node scripts/check-pack.mjs",
-    "test": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs",
+    "test": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs",
     "test:size": "node scripts/measure-size.mjs",
     "prepublishOnly": "npm run check"
   },

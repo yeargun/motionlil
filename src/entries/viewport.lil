@@ -1,0 +1,3 @@
+import { inView } from "../framer-motion/render/dom/viewport/index";
+
+export { inView };
