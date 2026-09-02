@@ -1,6 +1,6 @@
 {
   "name": "motionlil",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A dependency-free Motion DOM runtime compiled with LilScript.",
   "keywords": [
     "animation",
