@@ -13,22 +13,18 @@ const demoSource = await read("site/demo.js")
 test("the Pages lab contains every recovered LilScript Motion case", () => {
   assert.equal(results.examples.length, 16)
   assert.equal(results.summary.cases, 16)
-  assert.equal(results.summary.wins, 16)
   for (const example of results.examples) {
     assert.ok(demoSource.includes(`"${example.id}"`), `missing demo: ${example.id}`)
-    assert.ok(example.lilscript < example.motion, `${example.id} must remain a paired Brotli win`)
   }
 })
 
-test("the published compression summary is derived from the case data", () => {
-  const motion = results.examples.reduce((total, example) => total + example.motion, 0)
-  const lilscript = results.examples.reduce((total, example) => total + example.lilscript, 0)
-  const reductions = results.examples.map((example) => example.reduction).sort((a, b) => a - b)
-  const median = (reductions[7] + reductions[8]) / 2
-  assert.equal(motion, results.summary.motionBytes)
-  assert.equal(lilscript, results.summary.lilscriptBytes)
-  assert.ok(Math.abs((1 - lilscript / motion) * 100 - results.summary.weightedReduction) < 1e-10)
-  assert.ok(Math.abs(median - results.summary.medianReduction) < 1e-10)
+test("size and performance comparisons use the same source-built ESM inputs", async () => {
+  const comparison = JSON.parse(await read("site/comparison.json"))
+  const performance = JSON.parse(await read("site/performance.json"))
+  for (const lane of ["original", "lilscript"]) {
+    assert.equal(comparison.esm[lane].sha256, performance.inputs[lane].sha256)
+  }
+  assert.equal(comparison.compiler.commit, performance.sources.compiler.commit)
 })
 
 test("every API used by the live recreations exists in motionlil", () => {
@@ -47,12 +43,15 @@ test("affected demos stay observable and use matching timing semantics", () => {
   assert.match(demoSource, /rotate: \[-16, 16\], scale: \[0\.9, 1\.1\]/)
 })
 
-test("the README leads with compression evidence and links the lab", async () => {
+test("the README leads with the current comparison and links the lab", async () => {
   const readme = await read("README.md")
-  const evidence = readme.indexOf("16/16 paired browser demos")
+  const evidence = readme.indexOf("current public ESM sizes")
   const install = readme.indexOf("npm install motionlil")
   assert.ok(evidence > 0 && evidence < install)
-  assert.match(readme, /12\.4% smaller in total/)
+  const comparison = JSON.parse(await read("site/comparison.json"))
+  for (const lane of ["original", "lilscript"]) {
+    assert.ok(readme.includes(comparison.esm[lane].brotli11.toLocaleString("en-US")))
+  }
   assert.match(readme, /https:\/\/yeargun\.github\.io\/motionlil\//)
 })
 

@@ -40,3 +40,11 @@ source-built ESM. They use 30 alternating paired trials, fresh pages and two
 warmups per lane. Natural playback is separately checked across every animated
 property of every fixture element. These checks cover the named workloads; the
 existing full `animate()` string-transform mismatch remains explicitly unscored.
+
+The recorded compiler build passed 441 code-generation tests; the same fix in
+the user's working compiler passed 435. The compiler branch's broader CI is
+blocked by inherited formatting violations and the unrelated interpreter-based
+`generator_is_deterministic_and_checked` test (14 output lines versus an expected
+11). The generator is unchanged from the measured base. A formatting-only
+follow-up at `a5efdbb` formats the added predicate; measurements remain pinned to
+`fe444cdf`. See `validation.json` for the CI link and stylesheet hashes.

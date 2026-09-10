@@ -7,23 +7,23 @@
     "directory": "packages/motion"
   },
   "entry": "packages/motion/dist/es/index.mjs",
-  "scope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
+  "scope": "motion@13.1.0 public ESM runtime graph, assembled from the pinned upstream source build",
   "external": [],
   "samples": [
     {
-      "bundleSeconds": 0.031470122,
-      "wallSeconds": 0.747004472
+      "bundleSeconds": 0.031666861000000004,
+      "wallSeconds": 0.7510779639999999
     },
     {
-      "bundleSeconds": 0.027537454000000024,
-      "wallSeconds": 0.5701798299999999
+      "bundleSeconds": 0.025568354999999997,
+      "wallSeconds": 0.578043607
     },
     {
-      "bundleSeconds": 0.02454221500000017,
-      "wallSeconds": 0.5973750210000001
+      "bundleSeconds": 0.025718866000000163,
+      "wallSeconds": 0.590440257
     }
   ],
-  "medianSeconds": 0.5973750210000001,
+  "medianSeconds": 0.590440257,
   "toolchain": {
     "esbuild": "0.28.1",
     "terser": "5.51.2"

@@ -2,37 +2,44 @@
 > motionlil@0.1.5 test
 > node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs
 
-✔ ESM entry points load without a browser global (1.87309ms)
-✔ pure utilities and MotionValue behavior work (2.299318ms)
-✔ CommonJS entry points expose the same public names (6.034351ms)
-✔ every Motion DOM export is present on the full entry (0.319132ms)
-✔ default entry keeps the JS consumer API (0.147117ms)
-✔ public constructor compatibility covers common direct usage (0.286272ms)
-✔ named imports do not pull the whole consumer graph (1320.991452ms)
-✔ the distributed animate module survives a second Terser pass (805.138223ms)
-✔ Vite bundles the public package entry (717.060979ms)
-ℹ tests 9
+✔ ESM entry points load without a browser global (1.284173ms)
+✔ pure utilities and MotionValue behavior work (1.64123ms)
+✔ CommonJS entry points expose the same public names (7.077232ms)
+✔ every Motion DOM export is present on the full entry (0.832173ms)
+✔ default entry keeps the JS consumer API (0.115564ms)
+✔ public constructor compatibility covers common direct usage (0.247382ms)
+✔ MotionValue uses its public prototype and preserves method defaults (0.434615ms)
+✔ group compatibility preserves existing native accessors and completion promises (0.360904ms)
+✔ named imports do not pull the whole consumer graph (1376.980833ms)
+✔ the distributed animate module survives a second Terser pass (696.32959ms)
+✔ Vite bundles the public package entry (717.673886ms)
+ℹ tests 11
 ℹ suites 0
-ℹ pass 9
+ℹ pass 11
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1434.105776
+ℹ duration_ms 1485.946986
 
 > motionlil@0.1.5 check:types
 > tsc -p test/types/tsconfig.json
 
 
 > motionlil@0.1.5 test:browser
-> node --test test/browser-controls.test.mjs
+> node --test test/browser-controls.test.mjs test/browser-runtime.test.mjs
 
-✔ group controls seek, change speed and complete real browser animations (202.247584ms)
-ℹ tests 1
+✔ group controls seek, change speed and complete real browser animations (238.996669ms)
+✔ frame queues match upstream deduplication, immediate scheduling and cancellation (183.720143ms)
+✔ linear: callbacks, values and completion match upstream under the same clock (104.276971ms)
+✔ delay: callbacks, values and completion match upstream under the same clock (98.577737ms)
+✔ reverse repeat: callbacks, values and completion match upstream under the same clock (99.733882ms)
+✔ mirror repeat: callbacks, values and completion match upstream under the same clock (99.288526ms)
+ℹ tests 6
 ℹ suites 0
-ℹ pass 1
+ℹ pass 6
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 437.638946
+ℹ duration_ms 862.9797

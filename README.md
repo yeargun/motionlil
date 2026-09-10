@@ -4,16 +4,19 @@
 
 Motion’s browser animation API, ported to LilScript and published as the dependency-free `motionlil` package.
 
-**16/16 paired browser demos ship smaller after Brotli: 12.4% smaller in total, 13.2% median, and up to 23.1% smaller. The installed runtime footprint is 91.0% smaller (11.1× less disk).**
+The [comparison page](https://yeargun.github.io/motionlil/) records the current public ESM sizes, browser performance, source-build times and machine details against Motion 13.1.0. Both libraries are built from pinned source revisions. The 16 live demos illustrate the API; measured performance covers the separately recorded, behavior-checked workloads.
 
-| Reproducible result | Motion | LilScript / `motionlil` | Ratio | Reduction |
-| --- | ---: | ---: | ---: | ---: |
-| 16 matching browser demos, Brotli total | 287,404 B | 251,703 B | 0.876× | **12.42%** |
-| Median paired demo, Brotli | — | — | 0.868× | **13.18%** |
-| Best paired demo (`perf-stagger`), Brotli | 3,844 B | 2,956 B | 0.769× | **23.10%** |
-| Installed runtime | 9,141,537 B | 824,992 B | 0.090× | **90.98%** |
+<!-- current-esm:start -->
+| Current public ESM | Motion 13.1.0 | motionlil |
+| --- | ---: | ---: |
+| Raw | 137,560 B | 132,103 B |
+| gzip-9 | 45,031 B | 40,870 B |
+| Brotli-11 | 40,141 B | 34,517 B |
 
-The browser figures are matching closed-world builds from the 16-case LilScript Motion lab—not a comparison between unmatched entry points. Every case, its exact ratio, and a live recreation using this package are on the **[motionlil demo lab](https://yeargun.github.io/motionlil/)**.
+Three clean source builds on the same Azure Standard_D16als_v7 worker (AMD EPYC 9V45, 16 vCPUs, 31.3 GiB RAM, Ubuntu 24.04.4, Node 24.11.1): **17.15 s original, 8.03 s LilScript**, medians. Dependency installation is excluded; each package's output formats and checks differ, so these are contextual build times. Exact commands and samples are in [site/source-build.json](./site/source-build.json).
+<!-- current-esm:end -->
+
+In 30 paired browser trials, the three WAAPI workloads meet the ±5% CPU-equivalence criterion. The x/y and layout workloads use 28.4% and 30.1% less renderer CPU; MotionValue plus DOM writes uses 5.2% more (95% interval: 4.2–5.8% more). The [full performance table](https://yeargun.github.io/motionlil/#performance) separates script, style/layout, setup and frame costs and links every sample. Full `animate()` string transforms fail the timeline check and are excluded from speed scores.
 
 ```sh
 npm install motionlil
@@ -40,7 +43,7 @@ console.log(easing.next(16))
 
 `motionlil` is built for Vite, Astro, and other ESM bundlers. The default entry is a tree-shakeable JS barrel over separately compiled features (`animate`, `animateMini`, `scroll`, gestures, `inView`, `resize`). `import { animateMini } from "motionlil"` loads only the WAAPI mini runtime. Unused projection / view-transition / visual-element internals are not part of the module graph.
 
-The complete Motion 13 DOM ABI, including constructor and layout internals, stays on `motionlil/full`.
+Additional Motion DOM constructors and layout internals are exposed through `motionlil/full`. The recorded browser tests cover selected APIs; full `animate()` string transforms still fail the comparison timeline check.
 
 React-specific entry points such as `motion/react` are intentionally not included. Use the normal `motion` package if you need Motion’s React components and hooks.
 
@@ -49,7 +52,7 @@ Available entry points:
 ```js
 import { animate } from "motionlil"       // bundler-facing JS/DOM API
 import { animate } from "motionlil/dom"   // same as the default entry
-import { animate } from "motionlil/full"  // complete Motion DOM ABI
+import { animate } from "motionlil/full"  // extended DOM constructors and internals
 import { animate } from "motionlil/mini"  // animate + animateSequence
 import { recordStats } from "motionlil/debug"
 ```
@@ -76,16 +79,9 @@ import { animate } from "motionlil"
 
 ## What “smaller” means
 
-`motionlil` has no runtime dependencies and publishes only compiled ESM, CommonJS, global builds, and declarations. With Motion 13.1.0 installed in this repository, `npm run test:size` measures:
+The size comparison retains every export in the default public ESM entry and its dependencies, with raw bytes, gzip-9 and Brotli-11 recorded separately. The original is assembled from its pinned Git source build. React-specific entry points are outside this comparison. These measurements describe the repository artifacts; the source and compiler revisions are linked in the page's build record.
 
-| Installed runtime | Unpacked bytes |
-| --- | ---: |
-| `motionlil` npm tarball | 824,992 |
-| `motion` dependency tree | 9,141,537 |
-
-That is a **90.98% smaller installed runtime footprint**, or **11.08× less disk**. The comparison includes `motion`, `framer-motion`, `motion-dom`, `motion-utils`, and `tslib`, which npm installs for the upstream package.
-
-The default `motionlil` ESM entry is a named-export barrel. Vite keeps only the feature files you import. `motionlil/full` is the complete Motion DOM ABI. Closed-world LilScript app builds can still go further by compiling a concrete program. Run `npm run test:size` to reproduce the package measurements; the paired demo evidence and methodology are linked from the live lab.
+`motionlil` has no runtime dependencies. Its default ESM entry is a named-export barrel, allowing a bundler to keep only imported features. The page compares the complete reusable entry; individual consumer bundles can be smaller. `npm run test:size` also measures local consumer bundles and installed package sizes, with its own stated build target.
 
 ## Build pipeline
 

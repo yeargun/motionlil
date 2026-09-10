@@ -1,133 +1,91 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "name": "motionlil",
-  "measuredAt": "2026-09-10T13:54:35Z",
-  "status": "blocked",
+  "measuredAt": "2026-09-10T23:30:50Z",
+  "status": "complete",
   "buildPassed": true,
-  "summary": "The newly measured artifact remains diagnostic until its behavior gate is satisfied; the previously published runtime is retained.",
-  "sourceCommit": "8f3e300a0eae4120d0421e533ac7011caf09086f",
-  "previousPublicCommit": "de144940be22d7c99e9646136f46fce7fcad415d",
+  "summary": "Six browser workloads match the sampled timelines. Full animate() string transforms are unsupported in this comparison.",
   "compiler": {
-    "commit": "63c2896a71e60cbcca7870fe979f9d6ecaff3452",
-    "sha256": "2319462ef7d858c8e2a5a767260aa4f80d325e0045afa0cc86cc122d1299b059",
-    "profile": "release",
-    "dirty": false
+    "commit": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b",
+    "sha256": "a38f3aa58bfb959b6b9dfa0244a0f1cc2edf34975d02026e0e7a4cb0ae12691b"
   },
+  "sourceCommit": "04406251a29a397650be2781e99a5061663da802",
   "machine": {
+    "provider": "Azure",
+    "instanceClass": "Standard_D16als_v7",
     "cpu": "AMD EPYC 9V45 96-Core Processor",
     "logicalCpus": 16,
-    "affinityCpus": 16,
     "memoryBytes": 33648431104,
     "os": "Ubuntu 24.04.4 LTS",
     "kernel": "6.17.0-1022-azure",
-    "architecture": "x86_64",
-    "node": "v22.23.2",
-    "rayonThreads": 16,
-    "provider": "Azure",
-    "instanceClass": "Standard_D16als_v7",
-    "parallelPortBuildsOnMachine": 1,
+    "node": "v24.11.1",
+    "rayonThreads": 8,
     "loadAtStart": [
-      1.51416015625,
-      0.8330078125,
-      0.39013671875
+      0.5712890625,
+      0.60888671875,
+      0.67626953125
     ],
     "loadAtEnd": [
-      5.72314453125,
-      4.3876953125,
-      2.0458984375
-    ],
-    "concurrencyNote": "The audit scheduled one port per worker, but this is a shared pool. Outside compiler jobs were observed during the run; timings are contextual wall times, not controlled speedup benchmarks."
+      2.2919921875,
+      1.15771484375,
+      0.86767578125
+    ]
   },
   "upstream": {
-    "name": "motionlil",
     "package": "motion",
-    "pinned": "13.1.0",
-    "latest": "13.2.0",
-    "source": "https://www.npmjs.com/package/motion"
+    "version": "13.1.0",
+    "repository": "https://github.com/motiondivision/motion.git",
+    "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
   },
-  "comparisonScope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline Sizes use canonical zlib 1.3.1 gzip-9 and Google Brotli 1.1.0 quality 11.",
-  "sizes": {
-    "previous": null,
-    "current": {
-      "path": "dist/full.js",
-      "raw": 182034,
-      "gzip9": 57413,
-      "brotli11": 49168,
-      "sha256": "8a7432ce9d0b8863558a7b732a4e0e2fc0a039c104f626bc005098128a620722"
-    },
-    "upstream": {
-      "path": ".page-audit/upstream/official.esm.js",
-      "raw": 138154,
-      "gzip9": 45273,
-      "brotli11": 40402,
-      "sha256": "19e25f358f7da878a304d8e1c521b8c17d500e219c7a2a15f318332fc7e9338f"
-    }
-  },
-  "officialArtifacts": [
-    {
-      "path": ".page-audit/upstream/official.esm.js",
-      "raw": 138154,
-      "gzip9": 45273,
-      "brotli11": 40402,
-      "sha256": "19e25f358f7da878a304d8e1c521b8c17d500e219c7a2a15f318332fc7e9338f"
-    },
-    {
-      "path": ".page-audit/upstream/official.unminified.js",
-      "raw": 332702,
-      "gzip9": 77106,
-      "brotli11": 64408,
-      "sha256": "56ea719ef697dd1d17719db07c3ab3d908d3257f0fd4618dca5a771b3b78496b"
-    }
-  ],
   "candidateArtifacts": [
     {
       "path": "dist/gestures.cjs",
-      "raw": 4724,
-      "gzip9": 1946,
-      "brotli11": 1729,
-      "sha256": "d39484427566c536daff3c74417d5886183d60fa84eb2773585093d0a9b1a8c8"
+      "raw": 4882,
+      "gzip9": 2010,
+      "brotli11": 1773,
+      "sha256": "dbef5a1327f307ae03e4bfaae2e7bf05d9ae68fc6e2f653e21ca1d7bdfebc357"
     },
     {
       "path": "dist/index.cjs",
-      "raw": 117560,
-      "gzip9": 37790,
-      "brotli11": 32238,
-      "sha256": "f72783a99177586699743be53d69b794e9e29fc43d05fda5d0b5509530127cea"
+      "raw": 132662,
+      "gzip9": 41046,
+      "brotli11": 34639,
+      "sha256": "d126319d59a60cc506fbb45014835f785b5d8ea6ad3eb20870a3735aa3128736"
     },
     {
       "path": "dist/debug.cjs",
-      "raw": 850,
-      "gzip9": 459,
-      "brotli11": 395,
-      "sha256": "f1ae8c3d9ea6b5414ae387011aff00695929554c1e52003d6d98ca709aa36929"
+      "raw": 927,
+      "gzip9": 483,
+      "brotli11": 422,
+      "sha256": "6b88c654193120d973af9e8cb7a4eb072cf0ca642e86991f4f234ea8f9a2b8d1"
     },
     {
       "path": "dist/animate.js",
-      "raw": 88133,
-      "gzip9": 28108,
-      "brotli11": 24826,
-      "sha256": "e0ca9a5129ea5be6ad44ff58007b4e1e17849b792a0f843d5f8ff56fc502bf10"
+      "raw": 97632,
+      "gzip9": 29986,
+      "brotli11": 26510,
+      "sha256": "b84b67d80426653c2db412fd1368c416eae3c195c355cf2c5bfe450b669920d1"
     },
     {
       "path": "dist/viewport.cjs",
-      "raw": 1897,
-      "gzip9": 946,
-      "brotli11": 855,
-      "sha256": "2fac522556b65434f6232be92ee3a1ff65ae5d4f6738526ce83ffe5fefcf72cd"
+      "raw": 1939,
+      "gzip9": 967,
+      "brotli11": 879,
+      "sha256": "a5e2b46396bcf09c3f4b3a4318970b7aa31cfddacc8efc22d7fa2a93d481fec8"
     },
     {
       "path": "dist/animate-mini.js",
-      "raw": 6804,
-      "gzip9": 2666,
-      "brotli11": 2442,
-      "sha256": "59598490b2392fa2e5261730c552e5767fa1e37e688bf88aaab1870b6c8beb4c"
+      "raw": 10138,
+      "gzip9": 3503,
+      "brotli11": 3187,
+      "sha256": "8b53ded555b24e3894dd75923faa59db5a17d8b4df872d91a295634fe54ed88a"
     },
     {
       "path": "dist/resize.js",
-      "raw": 1852,
-      "gzip9": 951,
-      "brotli11": 825,
-      "sha256": "326d38aa4d58e8a4856c4d9b664fe02c099a3974b1677cc2051fb5866bb30d0d"
+      "raw": 1874,
+      "gzip9": 916,
+      "brotli11": 796,
+      "sha256": "93c9be79be56975f2e83d91f1e60d07e49f67ca0da4bf0095c191a793ea1a8aa"
     },
     {
       "path": "dist/index.js",
@@ -138,194 +96,151 @@
     },
     {
       "path": "dist/full.cjs",
-      "raw": 182359,
-      "gzip9": 57737,
-      "brotli11": 49108,
-      "sha256": "03eb941b267f22f87c6d2c7781ef135a38dbd0b7e4c06650741dfe3bcbe6bd5a"
+      "raw": 192668,
+      "gzip9": 60586,
+      "brotli11": 51500,
+      "sha256": "4c7be9907b44296c76de1ed4625bdec9bda2e1dc2bced1614155f0c2a68927b6"
     },
     {
       "path": "dist/debug.js",
-      "raw": 504,
-      "gzip9": 258,
-      "brotli11": 221,
-      "sha256": "4720d017c032e85faa88dad2851a49226e25c4c323fabcc450a38bfe64875fbe"
+      "raw": 510,
+      "gzip9": 264,
+      "brotli11": 217,
+      "sha256": "cd908eae596a6c8ad9e7e085e0c0c38fb872c6f830b3020566245c5b2d8710c8"
     },
     {
       "path": "dist/resize.cjs",
-      "raw": 2469,
-      "gzip9": 1186,
-      "brotli11": 1048,
-      "sha256": "f2c08a41649e9fb683e2aa1c484ed11fbcdef5b2368ea614198ed4e37d6b9c43"
+      "raw": 2537,
+      "gzip9": 1179,
+      "brotli11": 1055,
+      "sha256": "1f4f19a25f4df617d391f1c9a1f58a4f626d3f3fc92cce525c74d34f6f279139"
     },
     {
       "path": "dist/mini.cjs",
-      "raw": 35653,
-      "gzip9": 11304,
-      "brotli11": 10143,
-      "sha256": "beb97c42d6527d3451fdc3ce3ff8ada23c9457293bbb2a9c3eea299c43d0d2ee"
+      "raw": 44015,
+      "gzip9": 13284,
+      "brotli11": 11908,
+      "sha256": "7b7ff23ccbefd50eb01da320fca27e1cdc04c6092be3faf1e31ea947d7a47d5c"
     },
     {
       "path": "dist/viewport.js",
-      "raw": 1305,
-      "gzip9": 711,
-      "brotli11": 631,
-      "sha256": "7cad0db4eb7e93ea4ac61d579d9c112421bd075b7ed7fe6fefbd751bc169e55c"
+      "raw": 1346,
+      "gzip9": 728,
+      "brotli11": 648,
+      "sha256": "1716cc2721d7ccd024a671740970f65cdab23f75c051b80a0b7308e37f16ff26"
     },
     {
       "path": "dist/scroll.cjs",
-      "raw": 16006,
-      "gzip9": 6041,
-      "brotli11": 5427,
-      "sha256": "1903356932c23f2b43f6be906e688571938cb000e5287c9942a134a0a62bc260"
+      "raw": 17548,
+      "gzip9": 6531,
+      "brotli11": 5843,
+      "sha256": "763dcb7434d4aedbd9cb65408dcf4c310e3b9ff3bdbc2377767d27f9f52490ce"
     },
     {
       "path": "dist/scroll.js",
-      "raw": 15070,
-      "gzip9": 5784,
-      "brotli11": 5182,
-      "sha256": "ecd601a1c258403b6e81f4a3440c296e81e966b956c722652e123eccafd0061d"
+      "raw": 16684,
+      "gzip9": 6258,
+      "brotli11": 5564,
+      "sha256": "ec584977493c90aced7e75ed8c5e83330ff7a6896a65349fae674b2ea4bc9e51"
     },
     {
       "path": "dist/index.bundle.js",
-      "raw": 117293,
-      "gzip9": 37696,
-      "brotli11": 32220,
-      "sha256": "c5dce43cc37c09e70c86e58c36dbcc2471044adad5737d84fcb5f4405ff20635"
+      "raw": 132103,
+      "gzip9": 40870,
+      "brotli11": 34517,
+      "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79"
     },
     {
       "path": "dist/animate.cjs",
-      "raw": 88833,
-      "gzip9": 28338,
-      "brotli11": 25091,
-      "sha256": "b7af705ba36957cbdbffcde75928e4cd1114d817a8facd2bd3df4ea685101c99"
+      "raw": 98986,
+      "gzip9": 30448,
+      "brotli11": 26866,
+      "sha256": "c684cfd8362fe1db872f1e63c40dddc48f6e987209985ba3775f560bda0b65d4"
     },
     {
       "path": "dist/animate-mini.cjs",
-      "raw": 7370,
-      "gzip9": 2850,
-      "brotli11": 2615,
-      "sha256": "6cb80565cc582c8f5b32f3809e119e6453d8e98875a308c4ee0df0df69884f0c"
+      "raw": 10755,
+      "gzip9": 3682,
+      "brotli11": 3357,
+      "sha256": "ce8d99b2a939eff2c69ed2fac6a11c99b89113d418a97af1401036eb0b2c11bc"
     },
     {
       "path": "dist/full.js",
-      "raw": 182034,
-      "gzip9": 57413,
-      "brotli11": 49168,
-      "sha256": "8a7432ce9d0b8863558a7b732a4e0e2fc0a039c104f626bc005098128a620722"
+      "raw": 191643,
+      "gzip9": 60041,
+      "brotli11": 51083,
+      "sha256": "1215e8a488afd7f23917d5ecb253c096d67e1f7aab3cbe5ea54aea60d3d82315"
     },
     {
       "path": "dist/gestures.js",
-      "raw": 4069,
-      "gzip9": 1737,
-      "brotli11": 1536,
-      "sha256": "83672167b823bb14ff9a2c9ae943a6e30dc3f9f0849f58cb3a00a1fceafd27de"
+      "raw": 4234,
+      "gzip9": 1774,
+      "brotli11": 1571,
+      "sha256": "82c74f9ce9efd0761a4e1cebce86ea756795acdee0be1812e7aaaebaaefb52bb"
     },
     {
       "path": "dist/mini.js",
-      "raw": 34907,
-      "gzip9": 11191,
-      "brotli11": 9983,
-      "sha256": "869eadc7ac1e229e1afe817c794808981143d019d712557b71d5e6245604c8e5"
+      "raw": 43188,
+      "gzip9": 12976,
+      "brotli11": 11618,
+      "sha256": "69f54330e207df6daf404aca3389efc6a4d88919584defd4ab498c2f707ccd66"
     },
     {
       "path": "dist/motionlil.global.js",
-      "raw": 117552,
-      "gzip9": 37781,
-      "brotli11": 32269,
-      "sha256": "209971cdf5286192f1a78889f034374f604fea7da8cc1d4cdb6d4cbe6be05a52"
-    },
-    {
-      "path": ".page-audit/upstream/official.esm.js",
-      "raw": 138154,
-      "gzip9": 45273,
-      "brotli11": 40402,
-      "sha256": "19e25f358f7da878a304d8e1c521b8c17d500e219c7a2a15f318332fc7e9338f"
+      "raw": 132620,
+      "gzip9": 41010,
+      "brotli11": 34705,
+      "sha256": "f3c263547f82e4a479e157ef9afefe8d81afedb83a83ebc2db78d514ec627fbd"
     }
   ],
-  "timing": {
-    "primaryCompilerSeconds": null,
-    "primaryScope": "One real compiler process, including code generation and codec-guided search; excludes subsequent package wrapping.",
-    "packageSeconds": 215.44237684799987,
-    "packageScope": "node scripts/build.mjs --compile --force; 9 successful compiler invocations plus package generation.",
-    "upstreamSeconds": 0.6527769390000001,
-    "upstreamScope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
-    "protocol": "Same shared worker for both lanes; one fresh LilScript package build; median of three sequential upstream ESM builds (PlayCanvas records one native reference build). Outside compiler jobs were observed in the pool, so contention is not excluded. Dependencies, tests and compression measurement are outside these build times.",
-    "upstreamSamples": [
-      {
-        "bundleSeconds": 0.035280462,
-        "wallSeconds": 0.860775139
-      },
-      {
-        "bundleSeconds": 0.02226432299999999,
-        "wallSeconds": 0.6527769390000001
-      },
-      {
-        "bundleSeconds": 0.023195224999999937,
-        "wallSeconds": 0.5700046309999998
-      }
-    ]
-  },
-  "behavior": {
-    "command": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs",
-    "summary": "Repository test command passed (exit 0). # tests 9 \u00b7 # pass 9 \u00b7 # fail 0",
-    "before": {
-      "exitCode": 0,
-      "failures": [],
-      "logSha256": "d163a096fb9ca7846fab8956679eaafc2562eef9f44658cfe45364a0f1bfb12d"
-    },
-    "after": {
-      "exitCode": 0,
-      "failures": [],
-      "tail": "TAP version 13\n# Subtest: ESM entry points load without a browser global\nok 1 - ESM entry points load without a browser global\n  ---\n  duration_ms: 0.850512\n  type: 'test'\n  ...\n# Subtest: pure utilities and MotionValue behavior work\nok 2 - pure utilities and MotionValue behavior work\n  ---\n  duration_ms: 1.231842\n  type: 'test'\n  ...\n# Subtest: CommonJS entry points expose the same public names\nok 3 - CommonJS entry points expose the same public names\n  ---\n  duration_ms: 5.190662\n  type: 'test'\n  ...\n# Subtest: every Motion DOM export is present on the full entry\nok 4 - every Motion DOM export is present on the full entry\n  ---\n  duration_ms: 0.261862\n  type: 'test'\n  ...\n# Subtest: default entry keeps the JS consumer API\nok 5 - default entry keeps the JS consumer API\n  ---\n  duration_ms: 0.104256\n  type: 'test'\n  ...\n# Subtest: public constructor compatibility covers common direct usage\nok 6 - public constructor compatibility covers common direct usage\n  ---\n  duration_ms: 0.249883\n  type: 'test'\n  ...\n# Subtest: named imports do not pull the whole consumer graph\nok 7 - named imports do not pull the whole consumer graph\n  ---\n  duration_ms: 1492.55041\n  type: 'test'\n  ...\n# Subtest: the distributed animate module survives a second Terser pass\nok 8 - the distributed animate module survives a second Terser pass\n  ---\n  duration_ms: 855.726043\n  type: 'test'\n  ...\n# Subtest: Vite bundles the public package entry\nok 9 - Vite bundles the public package entry\n  ---\n  duration_ms: 835.781342\n  type: 'test'\n  ...\n1..9\n# tests 9\n# suites 0\n# pass 9\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 1584.719637\n",
-      "logSha256": "4db7d2548d84bddb8e559a1692a47eedf1026fdd77bfc3ec605cab85ba4e7a1a"
-    }
-  },
-  "findings": [
-    "2 committed port changes were absent from GitHub at the start of the audit.",
-    "The broad full entry and each smaller feature entry are distinct boundaries; the package build includes multiple compiles and post-processing.",
-    "Browser execution of the refreshed comparison page failed: ReferenceError: Cannot access 'p' before initialization; TypeError: object is not iterable (cannot read property Symbol(Symbol.iterator))",
-    "Upstream version gap: pinned 13.1.0; npm latest was 13.2.0 at the audit. No compatibility upgrade is implied."
-  ],
-  "primaryArtifact": "dist/full.js",
-  "beforePage": {
-    "url": "https://yeargun.github.io/motionlil/",
-    "status": 200,
-    "sha256": "58fe4204c410bbf5a32604114f0af32640e2566682fb670702afea58348ac6d1",
-    "lastModified": "Wed, 02 Sep 2026 15:24:14 GMT"
-  },
-  "codecSha256": "9257fd055728895c11b9c4b0d882895d7d11bb3dd3495f560123879ca2bc3cd6",
   "publicationArtifacts": [
     {
-      "path": "dist/animate.cjs",
-      "sha256": "a18837e4551ed8672dd4cb4584b502467014a0a1b14b7c6ddc85b4ac556c3b35"
+      "path": "dist/animate-mini.cjs",
+      "sha256": "ce8d99b2a939eff2c69ed2fac6a11c99b89113d418a97af1401036eb0b2c11bc"
     },
     {
-      "path": "dist/resize.cjs",
-      "sha256": "1f4f19a25f4df617d391f1c9a1f58a4f626d3f3fc92cce525c74d34f6f279139"
+      "path": "dist/animate-mini.js",
+      "sha256": "8b53ded555b24e3894dd75923faa59db5a17d8b4df872d91a295634fe54ed88a"
+    },
+    {
+      "path": "dist/animate.cjs",
+      "sha256": "c684cfd8362fe1db872f1e63c40dddc48f6e987209985ba3775f560bda0b65d4"
+    },
+    {
+      "path": "dist/animate.js",
+      "sha256": "b84b67d80426653c2db412fd1368c416eae3c195c355cf2c5bfe450b669920d1"
+    },
+    {
+      "path": "dist/debug.cjs",
+      "sha256": "6b88c654193120d973af9e8cb7a4eb072cf0ca642e86991f4f234ea8f9a2b8d1"
     },
     {
       "path": "dist/debug.js",
       "sha256": "cd908eae596a6c8ad9e7e085e0c0c38fb872c6f830b3020566245c5b2d8710c8"
     },
     {
-      "path": "dist/animate-mini.js",
-      "sha256": "9556154086ff8ed4d048cd80a0ff6bcf9975c5e377a67f6cda4c92b870e1496b"
+      "path": "dist/full.cjs",
+      "sha256": "4c7be9907b44296c76de1ed4625bdec9bda2e1dc2bced1614155f0c2a68927b6"
     },
     {
-      "path": "dist/mini.js",
-      "sha256": "6c01cb4a0fb214ccf77369d382a050b7f7dc8157f38074f151b3177e658b686f"
+      "path": "dist/full.js",
+      "sha256": "1215e8a488afd7f23917d5ecb253c096d67e1f7aab3cbe5ea54aea60d3d82315"
     },
     {
       "path": "dist/gestures.cjs",
       "sha256": "dbef5a1327f307ae03e4bfaae2e7bf05d9ae68fc6e2f653e21ca1d7bdfebc357"
     },
     {
-      "path": "dist/index.cjs",
-      "sha256": "e2baa42ef7c95ed6adc461e7801d9c24d398c72e8bda7b00141c20b1d0832ee8"
+      "path": "dist/gestures.js",
+      "sha256": "82c74f9ce9efd0761a4e1cebce86ea756795acdee0be1812e7aaaebaaefb52bb"
     },
     {
       "path": "dist/index.bundle.js",
-      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
+      "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79"
+    },
+    {
+      "path": "dist/index.cjs",
+      "sha256": "d126319d59a60cc506fbb45014835f785b5d8ea6ad3eb20870a3735aa3128736"
     },
     {
       "path": "dist/index.js",
@@ -333,35 +248,27 @@
     },
     {
       "path": "dist/mini.cjs",
-      "sha256": "d5fec703a53803602052000ec93c6c1404c8c9cc5bab1db31bbb5948696d2191"
+      "sha256": "7b7ff23ccbefd50eb01da320fca27e1cdc04c6092be3faf1e31ea947d7a47d5c"
+    },
+    {
+      "path": "dist/mini.js",
+      "sha256": "69f54330e207df6daf404aca3389efc6a4d88919584defd4ab498c2f707ccd66"
+    },
+    {
+      "path": "dist/motionlil.global.js",
+      "sha256": "f3c263547f82e4a479e157ef9afefe8d81afedb83a83ebc2db78d514ec627fbd"
+    },
+    {
+      "path": "dist/resize.cjs",
+      "sha256": "1f4f19a25f4df617d391f1c9a1f58a4f626d3f3fc92cce525c74d34f6f279139"
     },
     {
       "path": "dist/resize.js",
       "sha256": "93c9be79be56975f2e83d91f1e60d07e49f67ca0da4bf0095c191a793ea1a8aa"
     },
     {
-      "path": "dist/full.cjs",
-      "sha256": "2b58464e835ee1e61afa08af0884757991026ffdbd860686b331a8b73584f8c0"
-    },
-    {
       "path": "dist/scroll.cjs",
       "sha256": "763dcb7434d4aedbd9cb65408dcf4c310e3b9ff3bdbc2377767d27f9f52490ce"
-    },
-    {
-      "path": "dist/full.js",
-      "sha256": "a90393b2dec300d4b80401733581b0556ab0261890fd30f550302e8b5c33c02c"
-    },
-    {
-      "path": "dist/animate.js",
-      "sha256": "589502f58049204cb885feca529671f092ce384861d0dfe845b6f66583a2fc8c"
-    },
-    {
-      "path": "dist/viewport.js",
-      "sha256": "1716cc2721d7ccd024a671740970f65cdab23f75c051b80a0b7308e37f16ff26"
-    },
-    {
-      "path": "dist/animate-mini.cjs",
-      "sha256": "2b379735164c7ccca3cecea0edd0f28b2d7a05e1d0ef4692ca8c73bf0232394e"
     },
     {
       "path": "dist/scroll.js",
@@ -372,57 +279,46 @@
       "sha256": "a5e2b46396bcf09c3f4b3a4318970b7aa31cfddacc8efc22d7fa2a93d481fec8"
     },
     {
-      "path": "dist/debug.cjs",
-      "sha256": "6b88c654193120d973af9e8cb7a4eb072cf0ca642e86991f4f234ea8f9a2b8d1"
-    },
-    {
-      "path": "dist/gestures.js",
-      "sha256": "82c74f9ce9efd0761a4e1cebce86ea756795acdee0be1812e7aaaebaaefb52bb"
-    },
-    {
-      "path": "dist/motionlil.global.js",
-      "sha256": "33b792e76fc76222b842fbcc926fdd6390d13feaea2d3f7f4be5d876743662cb"
+      "path": "dist/viewport.js",
+      "sha256": "1716cc2721d7ccd024a671740970f65cdab23f75c051b80a0b7308e37f16ff26"
     }
   ],
-  "publicationPolicy": "Retain previous public distribution; publish the diagnostic audit",
-  "publicationBase": "de144940be22d7c99e9646136f46fce7fcad415d",
-  "publicationSourceFingerprint": "18ec9d55395e7e3f088014ac60519d2c8a96a2a65a0f39035c0d3fe87e41cfb0",
   "comparisonArtifacts": [
+    {
+      "path": "site/comparison.json",
+      "sha256": "5f244ab37712bbe85268e03f1c359ea09c125408c18c747fdc35f55accaa17ce"
+    },
+    {
+      "path": "site/source-build.json",
+      "sha256": "6bef922010f374fdfd1dd4f005503741cbaaf030b1e541d4944189aecc8f0dbb"
+    },
+    {
+      "path": "site/performance.json",
+      "sha256": "a1d6d9bec90109cfe799d4496720ffb6246cb8ec679d94bd025e387059bba6f5"
+    },
+    {
+      "path": "site/results.json",
+      "sha256": "33a5a6d498f70b0f3f499a0d3fc8501737b1ff3ecbbdc81d2980942914aaec5d"
+    },
+    {
+      "path": "scripts/check-natural-performance.mjs",
+      "sha256": "d7ccfb59e058aff8e4e83c6d15b410ed540834abd7eae30450f85d20d2e53d25"
+    },
+    {
+      "path": "scripts/measure-performance.mjs",
+      "sha256": "c7cf281c3b202fb3158234e22ec0d2e4c1a118365069b88f64d0cf17f4db8bf1"
+    },
+    {
+      "path": "site/esm-comparison/lilscript.js",
+      "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79"
+    },
     {
       "path": "site/esm-comparison/original.js",
       "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
     },
     {
-      "path": "site/esm-comparison/lilscript.js",
-      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
-    },
-    {
-      "path": "site/source-build.json",
-      "sha256": "8da44cf0f4f512ec91bbac310efb6dda4686a7f28c209b7f4131c3e0a4604071"
-    },
-    {
-      "path": "site/comparison.json",
-      "sha256": "83d50ac8b7df5cadcdc1899b238850f62352893380beeab2c0188ca17cc0d060"
-    },
-    {
-      "path": "site/performance.json",
-      "sha256": "902318579e0e32e596a568aee3c4eac72bb3048fdae6c64fc94d5f54b4508f02"
-    },
-    {
-      "path": "site/performance/natural-validation.json",
-      "sha256": "ed218a0eb7db24acea8912d3925489dd9736fdd472cb6d66aa63923c1af400df"
-    },
-    {
-      "path": "site/performance/performance.json",
-      "sha256": "ea3f12abb1e769b6ab809bfb5208d8abd83361f063376f6e84deaabb30335493"
-    },
-    {
       "path": "site/performance/harness.mjs",
       "sha256": "e4d4b71508c88835983fe0b423bddcf0e41812fea4e5e4bb3d223f44d85183e1"
-    },
-    {
-      "path": "site/performance/workloads.json",
-      "sha256": "b2a37c08d28b57b562e630452cdccceae7e0c778290fc82fbc948e74e6654a9e"
     },
     {
       "path": "site/performance/index.html",
@@ -430,29 +326,109 @@
     },
     {
       "path": "site/performance/inputs/lilscript.js",
-      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
+      "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79"
     },
     {
       "path": "site/performance/inputs/original.js",
       "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+    },
+    {
+      "path": "site/performance/natural-validation.json",
+      "sha256": "833c6139f6b583a5bc4547c9e712ed91ce428e98ebcdd3ce65a62f014f528e3f"
+    },
+    {
+      "path": "site/performance/performance.json",
+      "sha256": "b9d8bbbd02b84914ba54f74932ed0852d64002e5cd92bd690e36ed60c94457a9"
+    },
+    {
+      "path": "site/performance/workloads.json",
+      "sha256": "b2a37c08d28b57b562e630452cdccceae7e0c778290fc82fbc948e74e6654a9e"
+    },
+    {
+      "path": "comparison/source-build/README.md",
+      "sha256": "1ab3bec645ab0c2e846a276b4cba110b37a5450b0a83ddf20841874ca014f369"
+    },
+    {
+      "path": "comparison/source-build/compiler-invocations.jsonl",
+      "sha256": "6065a34e542cb88ee4e24a3777166ad9367b415aaca760dd1e506aa921629d53"
+    },
+    {
+      "path": "comparison/source-build/esm.json",
+      "sha256": "091cc0b2781115ada5ba03cddb4abea5378ca940e82ddedfb4a3140b47884673"
+    },
+    {
+      "path": "comparison/source-build/job.json",
+      "sha256": "05760ed10219f390e8cd47dce53cc618b1fd13aaad8766c5691b4788e6bd8c28"
+    },
+    {
+      "path": "comparison/source-build/lilscript-build-1.log",
+      "sha256": "046e8037ab018271b193a540dfdcf72ac4dedf03d845d050caaa64ca3dce2c95"
+    },
+    {
+      "path": "comparison/source-build/lilscript-build-2.log",
+      "sha256": "046e8037ab018271b193a540dfdcf72ac4dedf03d845d050caaa64ca3dce2c95"
+    },
+    {
+      "path": "comparison/source-build/lilscript-build-3.log",
+      "sha256": "046e8037ab018271b193a540dfdcf72ac4dedf03d845d050caaa64ca3dce2c95"
+    },
+    {
+      "path": "comparison/source-build/lilscript-install.log",
+      "sha256": "65cba8bca1b834bfa7c8d4838ba969e2bbea117ba1d483f4cad823832c4e9c24"
+    },
+    {
+      "path": "comparison/source-build/lilscript-package-lock.json",
+      "sha256": "51c3be59621a1173b930f799b8ab6aac5c94d86eef4584a51e81463b22e586d4"
+    },
+    {
+      "path": "comparison/source-build/lilscript-tests.log",
+      "sha256": "e07d2055c3e690b5adab4858b674ec7c298089bb4da70bb9d991956f453ada0d"
+    },
+    {
+      "path": "comparison/source-build/original-build-1.log",
+      "sha256": "516c531288f7fe2c55e9072d74612285c580e8ffdaaaecc33be58b0774bc4ebd"
+    },
+    {
+      "path": "comparison/source-build/original-build-2.log",
+      "sha256": "83a87e15c2df54f72987cab7c44ec858d43316afa8359cf980625ffd922df7e1"
+    },
+    {
+      "path": "comparison/source-build/original-build-3.log",
+      "sha256": "5de99bb022231e2137c1ab6c1d063ba5a9b5389ce37c355c6295452eb18d3335"
+    },
+    {
+      "path": "comparison/source-build/original-esm.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "comparison/source-build/original-install.log",
+      "sha256": "40b211ec1e8173c3fc3aff69f833251a4b9338d333905cf38468ef4344d77ee7"
+    },
+    {
+      "path": "comparison/source-build/original-yarn.lock",
+      "sha256": "bf7b2345ff9a6e9c019d4888d8d20402feb3b536a889aa97d5d7c5ca760e6292"
+    },
+    {
+      "path": "comparison/source-build/result.json",
+      "sha256": "7329f309bd4ea392835c4b28f80e080c7d44f8e117b0f424eb922a3170eca5ac"
     }
   ],
   "sourceBuildReceipt": "comparison/source-build/result.json",
   "currentMeasurement": {
     "compiler": {
-      "commit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
-      "sha256": "0616048498eb9eb2e4bd75b39e8e6a083733ada647e16108edfee30ad183beeb"
+      "commit": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b",
+      "sha256": "a38f3aa58bfb959b6b9dfa0244a0f1cc2edf34975d02026e0e7a4cb0ae12691b"
     },
     "source": {
-      "commit": "8c3804f0f82e4d16322b9ceef0b4623fe4449ee6"
+      "commit": "04406251a29a397650be2781e99a5061663da802"
     },
     "upstream": {
-      "repository": "https://github.com/motiondivision/motion.git",
-      "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
       "package": "motion",
       "version": "13.1.0",
-      "directory": "packages/motion"
+      "repository": "https://github.com/motiondivision/motion.git",
+      "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
     },
     "compatibility": "Six browser workloads match the sampled timelines. Full animate() string transforms are unsupported in this comparison."
-  }
+  },
+  "publicationSourceFingerprint": "de7fa722a9d2347c3275e85614488c93a581b2ac0503fa1dc76f58cd837ddc06"
 }

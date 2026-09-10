@@ -1,0 +1,49 @@
+{
+  "runtimeSourceCommit": "0440625",
+  "compilerCommit": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b",
+  "checks": {
+    "runtimeNode": 11,
+    "runtimeBrowser": 6,
+    "typeDeclarations": "pass",
+    "packageAudit": "pass",
+    "recordedCompilerCodegen": 441,
+    "workspaceCompilerCodegen": 435,
+    "site": 7
+  },
+  "compilerRegressionTests": [
+    "public_class_defaults_preserve_omitted_calls_and_method_arity",
+    "public_class_rejects_caller_materialized_defaults"
+  ],
+  "stylesheets": [
+    {
+      "path": "site/demo.css",
+      "sha256": "ae1e775bb48c901fe31a2975df1e257790396c18bacffaba74945b97c367fd6f",
+      "unchangedFrom": "1c10d14588c1d259601d9f2fa2d07ebd49fbaba9"
+    },
+    {
+      "path": "site/styles.css",
+      "sha256": "5c26251782a3743b07b8be9106efe815bd602cba17a9c980ad49042530aab903",
+      "unchangedFrom": "1c10d14588c1d259601d9f2fa2d07ebd49fbaba9"
+    }
+  ],
+  "compilerCi": {
+    "url": "https://github.com/yeargun/lilscript/actions/runs/34542109202",
+    "status": "failed",
+    "cause": "The pinned compiler base already has formatting violations and a differential-generator test expecting 11 output lines instead of 14. The generator uses the interpreter, not the modified JavaScript emitter; its source is unchanged from the base. All targeted code-generation tests pass.",
+    "formatFollowup": "a5efdbb",
+    "recordedBuildRevision": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b"
+  },
+  "pageChecks": {
+    "demos": 16,
+    "pageErrors": [],
+    "viewport": {
+      "width": 390,
+      "scroll": 490
+    },
+    "baselineMobile": {
+      "width": 390,
+      "scroll": 490
+    },
+    "mobileRegression": false
+  }
+}

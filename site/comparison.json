@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "measuredAt": "2026-09-10T21:06:26Z",
+  "measuredAt": "2026-09-10T23:30:50Z",
   "name": "motionlil",
   "compiler": {
-    "commit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
-    "sha256": "0616048498eb9eb2e4bd75b39e8e6a083733ada647e16108edfee30ad183beeb"
+    "commit": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b",
+    "sha256": "a38f3aa58bfb959b6b9dfa0244a0f1cc2edf34975d02026e0e7a4cb0ae12691b"
   },
   "upstream": {
     "package": "motion",
@@ -12,11 +12,11 @@
     "repository": "https://github.com/motiondivision/motion.git",
     "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
   },
-  "scope": "motion@13.1.0 public ESM runtime graph. Original ESM assembled from the pinned Git source build.. Original ESM assembled from the pinned Git source build.",
+  "scope": "motion@13.1.0 public ESM runtime graph, assembled from the pinned upstream source build. LilScript default public ESM entry; React-specific entries are excluded. Canonical gzip-9 and Brotli-11 compression.",
   "compatibility": "Six browser workloads match the sampled timelines. Full animate() string transforms are unsupported in this comparison.",
   "tests": {
-    "pass": 10,
-    "total": 10
+    "pass": 17,
+    "total": 17
   },
   "buildComplete": true,
   "machine": {
@@ -24,27 +24,27 @@
     "instanceClass": "Standard_D16als_v7",
     "cpu": "AMD EPYC 9V45 96-Core Processor",
     "logicalCpus": 16,
-    "memoryBytes": 33648435200,
+    "memoryBytes": 33648431104,
     "os": "Ubuntu 24.04.4 LTS",
     "kernel": "6.17.0-1022-azure",
     "node": "v24.11.1",
     "rayonThreads": 8,
     "loadAtStart": [
-      0.11572265625,
-      0.7021484375,
-      1.5791015625
+      0.5712890625,
+      0.60888671875,
+      0.67626953125
     ],
     "loadAtEnd": [
-      1.43359375,
-      0.9853515625,
-      1.60205078125
+      2.2919921875,
+      1.15771484375,
+      0.86767578125
     ]
   },
   "build": {
     "compilerSeconds": null,
-    "packageSeconds": 8.028403304000676,
-    "originalSeconds": 16.797544885000207,
-    "originalEsmSeconds": 0.5973750210000001,
+    "packageSeconds": 8.028666175000126,
+    "originalSeconds": 17.148769764999997,
+    "originalEsmSeconds": 0.590440257,
     "packageScope": "node scripts/build.mjs --compile --force",
     "originalScope": "corepack yarn turbo run build --filter=motion... --force",
     "protocol": {
@@ -57,10 +57,10 @@
   },
   "esm": {
     "lilscript": {
-      "raw": 132005,
-      "gzip9": 41163,
-      "brotli11": 34739,
-      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4",
+      "raw": 132103,
+      "gzip9": 40870,
+      "brotli11": 34517,
+      "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79",
       "file": "./esm-comparison/lilscript.js"
     },
     "original": {
@@ -74,9 +74,9 @@
   "sourceBuild": {
     "original": {
       "complete": true,
-      "medianSeconds": 16.797544885000207,
-      "minimumSeconds": 16.699346924000565,
-      "maximumSeconds": 16.99555742800021,
+      "medianSeconds": 17.148769764999997,
+      "minimumSeconds": 16.997596288000295,
+      "maximumSeconds": 17.198508049999873,
       "samples": [
         {
           "command": [
@@ -88,12 +88,12 @@
             "--filter=motion...",
             "--force"
           ],
-          "wallSeconds": 16.99555742800021,
-          "cpuSeconds": 31.704613999999996,
+          "wallSeconds": 16.997596288000295,
+          "cpuSeconds": 31.777323000000003,
           "exitCode": 0,
           "timedOut": false,
           "log": "original-build-1.log",
-          "logSha256": "e1ae530f1702394243a6c8cb133862561acdd8f25a1d842fb57c058bbde60ecc"
+          "logSha256": "516c531288f7fe2c55e9072d74612285c580e8ffdaaaecc33be58b0774bc4ebd"
         },
         {
           "command": [
@@ -105,12 +105,12 @@
             "--filter=motion...",
             "--force"
           ],
-          "wallSeconds": 16.797544885000207,
-          "cpuSeconds": 31.289710999999993,
+          "wallSeconds": 17.198508049999873,
+          "cpuSeconds": 32.09379900000001,
           "exitCode": 0,
           "timedOut": false,
           "log": "original-build-2.log",
-          "logSha256": "6bfdca2a5bda3ad6fd70738f81a67f402714d38a965b1220488ee2052aa80e2a"
+          "logSha256": "83a87e15c2df54f72987cab7c44ec858d43316afa8359cf980625ffd922df7e1"
         },
         {
           "command": [
@@ -122,20 +122,20 @@
             "--filter=motion...",
             "--force"
           ],
-          "wallSeconds": 16.699346924000565,
-          "cpuSeconds": 31.218189000000006,
+          "wallSeconds": 17.148769764999997,
+          "cpuSeconds": 32.077554,
           "exitCode": 0,
           "timedOut": false,
           "log": "original-build-3.log",
-          "logSha256": "b76c90ea9d63430a99e7f79e7e785fddd6340ad31cba977c3a88df9f9b4770ff"
+          "logSha256": "5de99bb022231e2137c1ab6c1d063ba5a9b5389ce37c355c6295452eb18d3335"
         }
       ]
     },
     "lilscript": {
       "complete": true,
-      "medianSeconds": 8.028403304000676,
-      "minimumSeconds": 7.978181311999833,
-      "maximumSeconds": 8.0309499519999,
+      "medianSeconds": 8.028666175000126,
+      "minimumSeconds": 7.979374565999933,
+      "maximumSeconds": 8.23104758999989,
       "samples": [
         {
           "command": [
@@ -143,12 +143,12 @@
             "-c",
             "node scripts/build.mjs --compile --force"
           ],
-          "wallSeconds": 8.028403304000676,
-          "cpuSeconds": 13.062506000000003,
+          "wallSeconds": 8.028666175000126,
+          "cpuSeconds": 13.042181999999999,
           "exitCode": 0,
           "timedOut": false,
           "log": "lilscript-build-1.log",
-          "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524"
+          "logSha256": "046e8037ab018271b193a540dfdcf72ac4dedf03d845d050caaa64ca3dce2c95"
         },
         {
           "command": [
@@ -156,12 +156,12 @@
             "-c",
             "node scripts/build.mjs --compile --force"
           ],
-          "wallSeconds": 7.978181311999833,
-          "cpuSeconds": 13.049177999999996,
+          "wallSeconds": 7.979374565999933,
+          "cpuSeconds": 13.068539000000001,
           "exitCode": 0,
           "timedOut": false,
           "log": "lilscript-build-2.log",
-          "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524"
+          "logSha256": "046e8037ab018271b193a540dfdcf72ac4dedf03d845d050caaa64ca3dce2c95"
         },
         {
           "command": [
@@ -169,12 +169,12 @@
             "-c",
             "node scripts/build.mjs --compile --force"
           ],
-          "wallSeconds": 8.0309499519999,
-          "cpuSeconds": 13.192933999999989,
+          "wallSeconds": 8.23104758999989,
+          "cpuSeconds": 13.546674000000001,
           "exitCode": 0,
           "timedOut": false,
           "log": "lilscript-build-3.log",
-          "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524"
+          "logSha256": "046e8037ab018271b193a540dfdcf72ac4dedf03d845d050caaa64ca3dce2c95"
         }
       ]
     },
