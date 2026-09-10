@@ -321,6 +321,12 @@ export class JSAnimation extends WithPromise {
       this.currentTime = timeWithoutDelay;
     }
 
+    bool forcedComplete = this.state == "finished" && this.holdTime == null;
+    if (forcedComplete) {
+      this.currentTime = this.totalDuration;
+      isInDelayPhase = false;
+    }
+
     float repeat = 0.0;
     float repeatDelay = 0.0;
     string repeatType = "loop";
@@ -411,7 +417,7 @@ export class JSAnimation extends WithPromise {
         invoke1(ou, result.value);
       }
     }
-    if (!isInDelayPhase && result.done && this.holdTime == null && this.state == "running") {
+    if (!isInDelayPhase && (result.done || forcedComplete) && this.holdTime == null && (this.state == "running" || forcedComplete)) {
       this.finish();
     }
   }
