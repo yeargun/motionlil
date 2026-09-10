@@ -3,7 +3,7 @@ preset = "maximum"
 
 [javascript]
 priority = "size-first"
-optimization_level = 15
+optimization_level = 0
 cost_model = "brotli"
 function_spelling = "arrow"
 local_name_reserve = 48

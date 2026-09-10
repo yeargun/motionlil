@@ -53,6 +53,31 @@ export class AsyncMotionValueAnimation extends WithPromise {
     setProp(this, "stop", () => {
       selfControls.stop();
     });
+    setProp(this, "cancel", () => { selfControls.cancel(); });
+    setProp(this, "complete", () => { selfControls.complete(); });
+    setProp(this, "getPlaybackTime", () => {
+      JsValue animation = selfControls.getAnimation();
+      if (animation.truthy()) { return callMethod0(animation, "getPlaybackTime"); }
+      return 0.0;
+    });
+    setProp(this, "getPlaybackSpeed", () => {
+      JsValue animation = selfControls.getAnimation();
+      if (animation.truthy()) { return callMethod0(animation, "getPlaybackSpeed"); }
+      return 1.0;
+    });
+    setProp(this, "getDuration", () => {
+      JsValue animation = selfControls.getAnimation();
+      if (animation.truthy()) { return callMethod0(animation, "getDuration"); }
+      return 0.0;
+    });
+    setProp(this, "setPlaybackTime", (JsValue value) => {
+      JsValue animation = selfControls.getAnimation();
+      if (animation.truthy()) { callMethod1(animation, "setPlaybackTime", value); }
+    });
+    setProp(this, "setPlaybackSpeed", (JsValue value) => {
+      JsValue animation = selfControls.getAnimation();
+      if (animation.truthy()) { callMethod1(animation, "setPlaybackSpeed", value); }
+    });
   }
 
   void createAnimation() {

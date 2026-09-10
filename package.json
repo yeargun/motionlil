@@ -82,7 +82,9 @@
     "check:pack": "node scripts/check-pack.mjs",
     "test": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs",
     "test:size": "node scripts/measure-size.mjs",
-    "prepublishOnly": "npm run check"
+    "prepublishOnly": "npm run check",
+    "test:browser": "node --test test/browser-controls.test.mjs",
+    "test:performance": "node scripts/measure-performance.mjs site/performance"
   },
   "devDependencies": {
     "esbuild": "0.25.9",

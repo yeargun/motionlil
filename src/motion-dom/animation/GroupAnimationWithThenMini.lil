@@ -1,9 +1,12 @@
+import { setProp } from "../dom-host";
 import { GroupAnimation } from "./GroupAnimationMini";
 import { NativeAnimation } from "./NativeAnimationMini";
 
 export class GroupAnimationWithThen extends GroupAnimation {
   init(NativeAnimation[] input) {
     super(input);
+    GroupAnimationWithThen self = this;
+    setProp(this, "getFinished", () => { return self.finished(); });
   }
 
   Task<bool> finished() {

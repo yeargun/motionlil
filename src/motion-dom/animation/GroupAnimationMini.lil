@@ -1,4 +1,4 @@
-import { setProp } from "../dom-host";
+import { setProp, callMethod0, callMethod1 } from "../dom-host";
 import { NativeAnimation } from "./NativeAnimationMini";
 
 export class GroupAnimation {
@@ -21,6 +21,34 @@ export class GroupAnimation {
     });
     setProp(this, "stop", () => {
       self.stop();
+    });
+    setProp(this, "cancel", () => {
+      for (int i = 0; i < self.animations.length; i++) { callMethod0(self.animations[i], "cancel"); }
+    });
+    setProp(this, "complete", () => {
+      for (int i = 0; i < self.animations.length; i++) { callMethod0(self.animations[i], "complete"); }
+    });
+    setProp(this, "getPlaybackTime", () => {
+      if (self.animations.length == 0) { return 0.0; }
+      return callMethod0(self.animations[0], "getPlaybackTime");
+    });
+    setProp(this, "getPlaybackSpeed", () => {
+      if (self.animations.length == 0) { return 1.0; }
+      return callMethod0(self.animations[0], "getPlaybackSpeed");
+    });
+    setProp(this, "setPlaybackTime", (JsValue value) => {
+      for (int i = 0; i < self.animations.length; i++) { callMethod1(self.animations[i], "setPlaybackTime", value); }
+    });
+    setProp(this, "setPlaybackSpeed", (JsValue value) => {
+      for (int i = 0; i < self.animations.length; i++) { callMethod1(self.animations[i], "setPlaybackSpeed", value); }
+    });
+    setProp(this, "getDuration", () => {
+      float maximum = 0.0;
+      for (int i = 0; i < self.animations.length; i++) {
+        JsValue duration = callMethod0(self.animations[i], "getDuration");
+        if (duration is float && duration > maximum) { maximum = duration; }
+      }
+      return maximum;
     });
   }
 

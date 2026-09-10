@@ -132,6 +132,10 @@ export class JSAnimation extends WithPromise {
     setProp(this, "getDuration", () => {
       return self.getDuration();
     });
+    setProp(this, "getPlaybackSpeed", () => { return self.getPlaybackSpeed(); });
+    setProp(this, "setPlaybackSpeed", (JsValue value) => { if (value is float) { self.setPlaybackSpeed(value); } });
+    setProp(this, "cancel", () => { self.cancel(); });
+    setProp(this, "complete", () => { self.complete(); });
     self.refreshIterationDuration();
   }
 
