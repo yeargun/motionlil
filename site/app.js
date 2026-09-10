@@ -1,3 +1,4 @@
+const esmComparison = await fetch("./comparison.json").then(response => response.json())
 const data = await fetch("./results.json").then((response) => {
   if (!response.ok) throw new Error(`Unable to load results: ${response.status}`)
   return response.json()
@@ -23,7 +24,7 @@ function renderDemos(filter = "all") {
           <span class="case-number">${String(data.examples.indexOf(example) + 1).padStart(2, "0")}</span>
           <h3>${example.title}</h3>
         </div>
-        <strong class="saving">−${example.reduction.toFixed(1)}%</strong>
+        <strong class="saving">${example.group}</strong>
       </header>
       <div class="demo-frame-wrap">
         <iframe
@@ -34,7 +35,7 @@ function renderDemos(filter = "all") {
         ></iframe>
       </div>
       <footer>
-        <span>${formatter.format(example.lilscript)} B Brotli</span>
+        <span>Motion DOM</span>
         <div>
           <button class="replay" type="button" aria-label="Replay ${example.title}">replay ↻</button>
           <a href="${sourceUrl(example.id)}" aria-label="View ${example.title} lab source">source ↗</a>
@@ -45,15 +46,11 @@ function renderDemos(filter = "all") {
 }
 
 function renderResults() {
-  resultsBody.innerHTML = data.examples.map((example) => `
-    <tr>
-      <th scope="row">${example.title}</th>
-      <td>${formatter.format(example.motion)} B</td>
-      <td>${formatter.format(example.lilscript)} B</td>
-      <td>${(example.lilscript / example.motion).toFixed(3)}×</td>
-      <td><strong>−${example.reduction.toFixed(2)}%</strong></td>
-    </tr>
-  `).join("")
+  const {lilscript, original}=esmComparison.esm
+  resultsBody.innerHTML = [["Raw", "raw"], ["gzip-9", "gzip9"], ["Brotli-11", "brotli11"]].map(([label,key]) => {
+    const difference=(lilscript[key]/original[key]-1)*100
+    return `<tr><th scope="row">${label}</th><td>${formatter.format(original[key])} B</td><td>${formatter.format(lilscript[key])} B</td><td>${(lilscript[key]/original[key]).toFixed(3)}×</td><td><strong>${Math.abs(difference).toFixed(1)}% ${difference>0?"larger":"smaller"}</strong></td></tr>`
+  }).join("")
 }
 
 renderDemos()

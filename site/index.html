@@ -24,7 +24,6 @@
     </header>
 
     <main id="top">
-<p data-audit-history="2026-09-10" style="max-width:1160px;margin:18px auto;padding:12px 20px;font:14px/1.6 system-ui;color:#344b54;background:#edf3f4">The build audit above records the current compiler check. The earlier public runtime and its historical measurements are retained while the fresh candidate remains unverified.</p>
       <section class="hero shell">
         <div class="hero-copy">
           <p class="eyebrow"><span class="live-dot"></span> Motion 13 DOM · LilScript port</p>
@@ -42,17 +41,17 @@
 
         <div class="scoreboard" aria-label="Compression results">
           <div class="score-main">
-            <span class="score-label">paired demos</span>
-            <strong>16<span>/16</span></strong>
-            <p>smaller after Brotli</p>
+            <span class="score-label">Reusable ESM · LilScript / original</span>
+            <strong>0.80<span>× Brotli</span></strong>
+            <p>32,220 B vs 40,402 B</p>
           </div>
           <div class="score-grid">
-            <div><strong>12.4%</strong><span>total reduction</span></div>
-            <div><strong>13.2%</strong><span>median reduction</span></div>
-            <div><strong>23.1%</strong><span>best case</span></div>
-            <div><strong>91.0%</strong><span>install reduction</span></div>
+            <div><strong>117,293 B</strong><span>LilScript raw ESM</span></div>
+            <div><strong>37,696 B</strong><span>LilScript gzip-9</span></div>
+            <div><strong>32,220 B</strong><span>LilScript Brotli-11</span></div>
+            <div><strong>40,402 B</strong><span>Original ESM Brotli-11</span></div>
           </div>
-          <p class="score-note">Matching artifacts. Brotli 11. No cross-entry-point tricks.</p>
+          <p class="score-note">Complete ESM entry graphs with all public exports retained. Browser compatibility checks are incomplete.</p>
         </div>
       </section>
 
@@ -63,7 +62,7 @@
       <section class="lab shell" id="lab">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Recovered from the LilScript browser suite</p>
+            <p class="eyebrow">Motion DOM examples</p>
             <h2>The complete<br />motion lab.</h2>
           </div>
           <p>Every original animation case, recreated against the published package runtime. Replay anything. Hover, press, scroll, resize, and poke at the controls.</p>
@@ -89,20 +88,20 @@
               <p class="eyebrow">The receipts</p>
               <h2>Every byte,<br />accounted for.</h2>
             </div>
-            <p>The gate metric is Brotli 11 on matching browser artifacts. Values below come from the original LilScript Motion lab at commit <a href="https://github.com/yeargun/lilscript/commit/9fc14a8">9fc14a8</a>.</p>
+            <p>The complete reusable LilScript ESM entry compared with the original Motion ESM graph. Raw, gzip-9 and Brotli-11 sizes use the same public-entry scope.</p>
           </div>
           <div class="total-bar">
-            <div class="bar-motion"><span>Motion</span><strong>287,404 B</strong></div>
-            <div class="bar-lil"><span>LilScript</span><strong>251,703 B</strong></div>
+            <div class="bar-motion" style="width:100.000%"><span>Motion</span><strong>40,402 B</strong></div>
+            <div class="bar-lil" style="width:79.749%"><span>LilScript</span><strong>32,220 B</strong></div>
           </div>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Case</th><th>Motion</th><th>LilScript</th><th>Ratio</th><th>Saved</th></tr></thead>
+              <thead><tr><th>ESM metric</th><th>Motion</th><th>LilScript</th><th>Ratio</th><th>Difference</th></tr></thead>
               <tbody id="results-body"></tbody>
             </table>
           </div>
           <div class="method-note">
-            <p><strong>Important distinction.</strong> These are closed-world application builds, where LilScript can optimize the concrete program. The reusable full-package ESM is 50,509 B Brotli versus Motion’s 39,871 B. The package’s other headline is its dependency-free 824,992 B install versus Motion’s 9,141,537 B dependency tree.</p>
+            <p><strong>Public ESM.</strong> These figures cover the reusable package entry and its dependencies. Demonstrations illustrate the API. The ESM size includes all entry-point exports.</p>
             <a href="https://github.com/yeargun/motionlil#what-smaller-means">Read the methodology ↗</a>
           </div>
         </div>

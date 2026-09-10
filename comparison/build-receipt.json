@@ -386,5 +386,15 @@
   ],
   "publicationPolicy": "Retain previous public distribution; publish the diagnostic audit",
   "publicationBase": "de144940be22d7c99e9646136f46fce7fcad415d",
-  "publicationSourceFingerprint": "25395f8b7f735fd393fd9a611f0b5cb4f99b178fb6b0bc5ffb5be8f9a810036a"
+  "publicationSourceFingerprint": "25395f8b7f735fd393fd9a611f0b5cb4f99b178fb6b0bc5ffb5be8f9a810036a",
+  "comparisonArtifacts": [
+    {
+      "path": "site/esm-comparison/lilscript.js",
+      "sha256": "c5dce43cc37c09e70c86e58c36dbcc2471044adad5737d84fcb5f4405ff20635"
+    },
+    {
+      "path": "site/esm-comparison/original.js",
+      "sha256": "19e25f358f7da878a304d8e1c521b8c17d500e219c7a2a15f318332fc7e9338f"
+    }
+  ]
 }

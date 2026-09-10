@@ -1,7 +1,5 @@
 # motionlil
 
-<!-- current-build-audit -->
-**Build audit, 2026-09-10:** [blocked; compiler, machine, build times, version gaps and behavior checks](https://yeargun.github.io/motionlil/#build-audit). The [JSON receipt](site/build-audit.json) records the current comparison; older benchmark prose retains its original scope.
 
 
 Motion’s browser animation API, ported to LilScript and published as the dependency-free `motionlil` package.
