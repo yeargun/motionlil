@@ -1,5 +1,9 @@
 # motionlil
 
+<!-- current-build-audit -->
+**Build audit, 2026-09-10:** [blocked; compiler, machine, build times, version gaps and behavior checks](https://yeargun.github.io/motionlil/#build-audit). The [JSON receipt](site/build-audit.json) records the current comparison; older benchmark prose retains its original scope.
+
+
 Motion’s browser animation API, ported to LilScript and published as the dependency-free `motionlil` package.
 
 **16/16 paired browser demos ship smaller after Brotli: 12.4% smaller in total, 13.2% median, and up to 23.1% smaller. The installed runtime footprint is 91.0% smaller (11.1× less disk).**
