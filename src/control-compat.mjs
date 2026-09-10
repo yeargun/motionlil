@@ -49,7 +49,7 @@ export function normalizeControls(control) {
   })
 
   if (!("finished" in control)) {
-    defineControlProperty(control, "finished", { get: () => Promise.resolve() })
+    defineControlProperty(control, "finished", { get: () => typeof control.getFinished === "function" ? control.getFinished() : Promise.resolve() })
   }
   if (typeof control.then !== "function") {
     control.then = (resolve, reject) => Promise.resolve(control.finished).then(resolve, reject)

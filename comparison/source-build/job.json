@@ -1,0 +1,42 @@
+{
+  "source": {
+    "repository": "https://github.com/motiondivision/motion.git",
+    "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
+    "package": "motion",
+    "version": "13.1.0",
+    "directory": "packages/motion"
+  },
+  "portSource": {
+    "commit": "8c3804f0f82e4d16322b9ceef0b4623fe4449ee6"
+  },
+  "compilerCommit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
+  "install": [
+    "corepack",
+    "yarn",
+    "install",
+    "--immutable",
+    "--mode=skip-build"
+  ],
+  "setup": [],
+  "build": [
+    "corepack",
+    "yarn",
+    "turbo",
+    "run",
+    "build",
+    "--filter=motion...",
+    "--force"
+  ],
+  "clean": [
+    "packages/motion/dist",
+    "packages/framer-motion/dist",
+    "packages/motion-dom/dist",
+    "packages/motion-utils/dist"
+  ],
+  "entry": "packages/motion/dist/es/index.mjs",
+  "defaultExport": false,
+  "external": [],
+  "esmScope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
+  "lilscriptBuild": "node scripts/build.mjs --compile --force",
+  "test": "npm test && npm run check:types && npm run test:browser"
+}

@@ -111,3 +111,9 @@ npm run build:site # build the GitHub Pages demo lab
 ```
 
 The implementation is MIT licensed. See [NOTICE.md](./NOTICE.md) for upstream attribution.
+
+## Reproduce browser performance
+
+Run `npm ci`, `npx playwright install chromium`, then `npm run test:performance`. This serves the exact source-built ESM inputs in `site/performance/` and records 30 alternating paired trials per passing workload. `node scripts/check-natural-performance.mjs site/performance` checks uninterrupted playback separately. Raw results, machine details, compiler and upstream source revisions accompany the page. These commands measure the recorded fixture; replacing inputs requires a fresh measurement.
+
+The production compiler configuration retains maximum IR optimizations and uses JavaScript optimization level 0 with the package’s Terser step. This avoids the invalid keyframe-resolver output produced by the final optimization stage at the recorded compiler revision. Six tested browser workloads match; full `animate()` string transforms remain unsupported. No timing result is claimed for that failing workload.

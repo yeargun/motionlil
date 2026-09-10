@@ -1,56 +1,194 @@
 {
-  "schemaVersion": 1,
-  "measuredAt": "2026-09-10T13:54:35Z",
+  "schemaVersion": 2,
+  "measuredAt": "2026-09-10T21:06:26Z",
   "name": "motionlil",
   "compiler": {
-    "commit": "63c2896a71e60cbcca7870fe979f9d6ecaff3452",
-    "sha256": "2319462ef7d858c8e2a5a767260aa4f80d325e0045afa0cc86cc122d1299b059",
-    "profile": "release",
-    "dirty": false
+    "commit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
+    "sha256": "0616048498eb9eb2e4bd75b39e8e6a083733ada647e16108edfee30ad183beeb"
   },
   "upstream": {
     "package": "motion",
-    "version": "13.1.0"
+    "version": "13.1.0",
+    "repository": "https://github.com/motiondivision/motion.git",
+    "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
   },
-  "scope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
-  "compatibility": "Browser compatibility checks are incomplete.",
+  "scope": "motion@13.1.0 public ESM runtime graph. Original ESM assembled from the pinned Git source build.. Original ESM assembled from the pinned Git source build.",
+  "compatibility": "Six browser workloads match the sampled timelines. Full animate() string transforms are unsupported in this comparison.",
   "tests": {
-    "pass": 9,
-    "total": 9
+    "pass": 10,
+    "total": 10
   },
   "buildComplete": true,
   "machine": {
+    "provider": "Azure",
+    "instanceClass": "Standard_D16als_v7",
     "cpu": "AMD EPYC 9V45 96-Core Processor",
     "logicalCpus": 16,
-    "memoryBytes": 33648431104,
+    "memoryBytes": 33648435200,
     "os": "Ubuntu 24.04.4 LTS",
-    "node": "v22.23.2",
-    "rayonThreads": 16,
-    "provider": "Azure",
-    "instanceClass": "Standard_D16als_v7"
+    "kernel": "6.17.0-1022-azure",
+    "node": "v24.11.1",
+    "rayonThreads": 8,
+    "loadAtStart": [
+      0.11572265625,
+      0.7021484375,
+      1.5791015625
+    ],
+    "loadAtEnd": [
+      1.43359375,
+      0.9853515625,
+      1.60205078125
+    ]
   },
   "build": {
     "compilerSeconds": null,
-    "packageSeconds": 215.44237684799987,
-    "originalSeconds": 0.6527769390000001,
-    "packageScope": "node scripts/build.mjs --compile --force; 9 successful compiler invocations plus package generation.",
-    "originalScope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
-    "protocol": "Same shared worker for both lanes; one fresh LilScript package build; median of three sequential upstream ESM builds (PlayCanvas records one native reference build). Outside compiler jobs were observed in the pool, so contention is not excluded. Dependencies, tests and compression measurement are outside these build times."
+    "packageSeconds": 8.028403304000676,
+    "originalSeconds": 16.797544885000207,
+    "originalEsmSeconds": 0.5973750210000001,
+    "packageScope": "node scripts/build.mjs --compile --force",
+    "originalScope": "corepack yarn turbo run build --filter=motion... --force",
+    "protocol": {
+      "repetitions": 3,
+      "cleanOutputs": true,
+      "dependencyInstallationTimedSeparately": true,
+      "sourceArchives": "Pinned Git checkouts; original repository package build commands, followed by production ESM assembly.",
+      "workerUse": "Both implementations use the same machine and Node version. This shared build pool also runs unrelated jobs; timings are contextual wall times, with CPU time recorded separately."
+    }
   },
   "esm": {
     "lilscript": {
-      "raw": 117293,
-      "gzip9": 37696,
-      "brotli11": 32220,
-      "sha256": "c5dce43cc37c09e70c86e58c36dbcc2471044adad5737d84fcb5f4405ff20635",
+      "raw": 132005,
+      "gzip9": 41163,
+      "brotli11": 34739,
+      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4",
       "file": "./esm-comparison/lilscript.js"
     },
     "original": {
-      "raw": 138154,
-      "gzip9": 45273,
-      "brotli11": 40402,
-      "sha256": "19e25f358f7da878a304d8e1c521b8c17d500e219c7a2a15f318332fc7e9338f",
+      "raw": 137560,
+      "gzip9": 45031,
+      "brotli11": 40141,
+      "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d",
       "file": "./esm-comparison/original.js"
     }
+  },
+  "sourceBuild": {
+    "original": {
+      "complete": true,
+      "medianSeconds": 16.797544885000207,
+      "minimumSeconds": 16.699346924000565,
+      "maximumSeconds": 16.99555742800021,
+      "samples": [
+        {
+          "command": [
+            "corepack",
+            "yarn",
+            "turbo",
+            "run",
+            "build",
+            "--filter=motion...",
+            "--force"
+          ],
+          "wallSeconds": 16.99555742800021,
+          "cpuSeconds": 31.704613999999996,
+          "exitCode": 0,
+          "timedOut": false,
+          "log": "original-build-1.log",
+          "logSha256": "e1ae530f1702394243a6c8cb133862561acdd8f25a1d842fb57c058bbde60ecc"
+        },
+        {
+          "command": [
+            "corepack",
+            "yarn",
+            "turbo",
+            "run",
+            "build",
+            "--filter=motion...",
+            "--force"
+          ],
+          "wallSeconds": 16.797544885000207,
+          "cpuSeconds": 31.289710999999993,
+          "exitCode": 0,
+          "timedOut": false,
+          "log": "original-build-2.log",
+          "logSha256": "6bfdca2a5bda3ad6fd70738f81a67f402714d38a965b1220488ee2052aa80e2a"
+        },
+        {
+          "command": [
+            "corepack",
+            "yarn",
+            "turbo",
+            "run",
+            "build",
+            "--filter=motion...",
+            "--force"
+          ],
+          "wallSeconds": 16.699346924000565,
+          "cpuSeconds": 31.218189000000006,
+          "exitCode": 0,
+          "timedOut": false,
+          "log": "original-build-3.log",
+          "logSha256": "b76c90ea9d63430a99e7f79e7e785fddd6340ad31cba977c3a88df9f9b4770ff"
+        }
+      ]
+    },
+    "lilscript": {
+      "complete": true,
+      "medianSeconds": 8.028403304000676,
+      "minimumSeconds": 7.978181311999833,
+      "maximumSeconds": 8.0309499519999,
+      "samples": [
+        {
+          "command": [
+            "bash",
+            "-c",
+            "node scripts/build.mjs --compile --force"
+          ],
+          "wallSeconds": 8.028403304000676,
+          "cpuSeconds": 13.062506000000003,
+          "exitCode": 0,
+          "timedOut": false,
+          "log": "lilscript-build-1.log",
+          "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524"
+        },
+        {
+          "command": [
+            "bash",
+            "-c",
+            "node scripts/build.mjs --compile --force"
+          ],
+          "wallSeconds": 7.978181311999833,
+          "cpuSeconds": 13.049177999999996,
+          "exitCode": 0,
+          "timedOut": false,
+          "log": "lilscript-build-2.log",
+          "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524"
+        },
+        {
+          "command": [
+            "bash",
+            "-c",
+            "node scripts/build.mjs --compile --force"
+          ],
+          "wallSeconds": 8.0309499519999,
+          "cpuSeconds": 13.192933999999989,
+          "exitCode": 0,
+          "timedOut": false,
+          "log": "lilscript-build-3.log",
+          "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524"
+        }
+      ]
+    },
+    "scopeNote": "Both timings cover each repository\u2019s package build command; their output formats and build checks can differ.",
+    "cleanOutputs": true,
+    "installationExcluded": true
+  },
+  "performance": {
+    "summary": "./performance.json",
+    "raw": "./performance/performance.json",
+    "naturalValidation": "./performance/natural-validation.json",
+    "repetitions": 30,
+    "matchingWorkloads": 6,
+    "mismatchingWorkloads": 1,
+    "waapiWithinFivePercent": true
   }
 }

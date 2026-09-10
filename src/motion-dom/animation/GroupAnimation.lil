@@ -30,6 +30,27 @@ export class GroupAnimation {
     setProp(this, "stop", () => {
       self.stop();
     });
+    setProp(this, "cancel", () => {
+      self.cancel();
+    });
+    setProp(this, "complete", () => {
+      self.complete();
+    });
+    setProp(this, "getPlaybackTime", () => {
+      return self.getAll("time");
+    });
+    setProp(this, "setPlaybackTime", (JsValue value) => {
+      self.setAll("time", value);
+    });
+    setProp(this, "getPlaybackSpeed", () => {
+      return self.getAll("speed");
+    });
+    setProp(this, "setPlaybackSpeed", (JsValue value) => {
+      self.setAll("speed", value);
+    });
+    setProp(this, "getDuration", () => {
+      return self.getMax("duration");
+    });
   }
 
   JsValue getAll(string propName) {

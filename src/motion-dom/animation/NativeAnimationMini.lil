@@ -70,6 +70,45 @@ export class NativeAnimation extends WithPromise {
     } else {
       this.notifyFinished();
     }
+    NativeAnimation self = this;
+    setProp(this, "pause", () => { self.pause(); });
+    setProp(this, "play", () => { self.play(); });
+    setProp(this, "stop", () => { self.stop(); });
+    setProp(this, "cancel", () => { self.cancel(); });
+    setProp(this, "complete", () => {
+      if (self.animation.truthy()) {
+        callMethod0(self.animation, "finish");
+      }
+    });
+    setProp(this, "getPlaybackTime", () => {
+      JsValue time = getProp(self.animation, "currentTime");
+      if (time is float) { return time / 1000.0; }
+      return 0.0;
+    });
+    setProp(this, "setPlaybackTime", (JsValue time) => {
+      if (time is float && self.animation.truthy()) {
+        setProp(self.animation, "currentTime", time * 1000.0);
+      }
+    });
+    setProp(this, "getPlaybackSpeed", () => {
+      JsValue rate = getProp(self.animation, "playbackRate");
+      if (rate is float) { return rate; }
+      return 1.0;
+    });
+    setProp(this, "setPlaybackSpeed", (JsValue rate) => {
+      if (rate is float && self.animation.truthy()) {
+        setProp(self.animation, "playbackRate", rate);
+      }
+    });
+    setProp(this, "getDuration", () => {
+      JsValue effect = getProp(self.animation, "effect");
+      if (effect.truthy()) {
+        JsValue timing = callMethod0(effect, "getComputedTiming");
+        JsValue duration = getProp(timing, "duration");
+        if (duration is float) { return duration / 1000.0; }
+      }
+      return 0.0;
+    });
   }
 
   void onAnimationFinish() {

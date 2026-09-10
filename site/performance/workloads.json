@@ -1,0 +1,51 @@
+[
+  {
+    "id": "mini-transform-64",
+    "label": "WAAPI transform + opacity · 64 elements",
+    "api": "animateMini",
+    "kind": "transform",
+    "count": 64
+  },
+  {
+    "id": "mini-transform-256",
+    "label": "WAAPI transform + opacity · 256 elements",
+    "api": "animateMini",
+    "kind": "transform",
+    "count": 256
+  },
+  {
+    "id": "mini-layout-128",
+    "label": "WAAPI width + margin layout · 128 elements",
+    "api": "animateMini",
+    "kind": "layout",
+    "count": 128
+  },
+  {
+    "id": "animate-transform-128",
+    "label": "animate transform + opacity · 128 elements",
+    "api": "animate",
+    "kind": "transform",
+    "count": 128
+  },
+  {
+    "id": "animate-xy-128",
+    "label": "animate x/y · 128 elements",
+    "api": "animate",
+    "kind": "xy",
+    "count": 128
+  },
+  {
+    "id": "animate-layout-128",
+    "label": "Width + margin layout · 128 elements",
+    "api": "animate",
+    "kind": "layout",
+    "count": 128
+  },
+  {
+    "id": "motion-values-128",
+    "label": "MotionValue + DOM writes · 128 values",
+    "api": "animate",
+    "kind": "values",
+    "count": 128
+  }
+]

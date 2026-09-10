@@ -296,52 +296,36 @@
   "codecSha256": "9257fd055728895c11b9c4b0d882895d7d11bb3dd3495f560123879ca2bc3cd6",
   "publicationArtifacts": [
     {
-      "path": "dist/animate-mini.cjs",
-      "sha256": "2f132d11b1d9b68ca14e191dd672c7c030f0e7a55db2aea42aa485f59d26cf19"
-    },
-    {
-      "path": "dist/animate-mini.js",
-      "sha256": "39d3f886eb27866cf4e7372db4affe17de58cf6edfb7a36b69ac2050a29ca15d"
-    },
-    {
       "path": "dist/animate.cjs",
-      "sha256": "0bafe07374d08841a24c6116a32a0c6b5f9dadf81a736025da704b72a90c92bb"
+      "sha256": "a18837e4551ed8672dd4cb4584b502467014a0a1b14b7c6ddc85b4ac556c3b35"
     },
     {
-      "path": "dist/animate.js",
-      "sha256": "dd79c8aaeb267f5eb36d8bbf3a12aa4ec3b00fdc3929aa43045113d904280da1"
-    },
-    {
-      "path": "dist/debug.cjs",
-      "sha256": "6b88c654193120d973af9e8cb7a4eb072cf0ca642e86991f4f234ea8f9a2b8d1"
+      "path": "dist/resize.cjs",
+      "sha256": "1f4f19a25f4df617d391f1c9a1f58a4f626d3f3fc92cce525c74d34f6f279139"
     },
     {
       "path": "dist/debug.js",
       "sha256": "cd908eae596a6c8ad9e7e085e0c0c38fb872c6f830b3020566245c5b2d8710c8"
     },
     {
-      "path": "dist/full.cjs",
-      "sha256": "9202c6ea779f5091bb4f4dfa5fb1a25470641d739629438d1e0da519979c2628"
+      "path": "dist/animate-mini.js",
+      "sha256": "9556154086ff8ed4d048cd80a0ff6bcf9975c5e377a67f6cda4c92b870e1496b"
     },
     {
-      "path": "dist/full.js",
-      "sha256": "72aeba6f249280439941296a33a7ff59911bb8cb9fc9668d7578a323cb3b7904"
+      "path": "dist/mini.js",
+      "sha256": "6c01cb4a0fb214ccf77369d382a050b7f7dc8157f38074f151b3177e658b686f"
     },
     {
       "path": "dist/gestures.cjs",
-      "sha256": "63ca00b40086b18e66c0deb7f4829129028ea58e8da7c22a9d5839a4de6bc91d"
-    },
-    {
-      "path": "dist/gestures.js",
-      "sha256": "abb046dc32a44a9ffec17fe44510d09209b3f67c0a4109da3c957c06d812460e"
-    },
-    {
-      "path": "dist/index.bundle.js",
-      "sha256": "f5d5f26ce601d39a9e06732972196b2b7c0f933f659aa5fe3ac903bf14b73ff0"
+      "sha256": "dbef5a1327f307ae03e4bfaae2e7bf05d9ae68fc6e2f653e21ca1d7bdfebc357"
     },
     {
       "path": "dist/index.cjs",
-      "sha256": "47f6dd3de8efefc4db1a63f31d682544a3b874a53b6ff7016c847f6a0650dfa7"
+      "sha256": "e2baa42ef7c95ed6adc461e7801d9c24d398c72e8bda7b00141c20b1d0832ee8"
+    },
+    {
+      "path": "dist/index.bundle.js",
+      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
     },
     {
       "path": "dist/index.js",
@@ -349,52 +333,126 @@
     },
     {
       "path": "dist/mini.cjs",
-      "sha256": "261983534e27170d110f898606122a5f02a4eb19a34db12e6e4c7f557bf39cfe"
-    },
-    {
-      "path": "dist/mini.js",
-      "sha256": "90d3b6e3429c19876e1a1b8e6431f7ed93265e256f65b3b9931d1d0ec8f45c2f"
-    },
-    {
-      "path": "dist/motionlil.global.js",
-      "sha256": "b775d71818d33b521c9789afd028d0092ff67c478ab2a22a6e6bf0b3ca476157"
-    },
-    {
-      "path": "dist/resize.cjs",
-      "sha256": "f61688e7e337f11a6672b9e1833f14996da5b63e50cbf7b488c1f17107690dda"
+      "sha256": "d5fec703a53803602052000ec93c6c1404c8c9cc5bab1db31bbb5948696d2191"
     },
     {
       "path": "dist/resize.js",
-      "sha256": "201c2d57651009da3cce18b25973f680ee4d10b26b4c96afa702ead4c5f431f7"
+      "sha256": "93c9be79be56975f2e83d91f1e60d07e49f67ca0da4bf0095c191a793ea1a8aa"
+    },
+    {
+      "path": "dist/full.cjs",
+      "sha256": "2b58464e835ee1e61afa08af0884757991026ffdbd860686b331a8b73584f8c0"
     },
     {
       "path": "dist/scroll.cjs",
-      "sha256": "9872288ce8471028e7a0b112af0678650e3b7667dc4a1e28059438e635d279a8"
+      "sha256": "763dcb7434d4aedbd9cb65408dcf4c310e3b9ff3bdbc2377767d27f9f52490ce"
     },
     {
-      "path": "dist/scroll.js",
-      "sha256": "4716125b4502de35f55060f862bf67370f7e92caaa8751f3ed3cfe9fe540d040"
+      "path": "dist/full.js",
+      "sha256": "a90393b2dec300d4b80401733581b0556ab0261890fd30f550302e8b5c33c02c"
     },
     {
-      "path": "dist/viewport.cjs",
-      "sha256": "c08d5a1a831442ff732e0cfaddbbe1c77ed7250d9abb3dba361c6cd02f0e4147"
+      "path": "dist/animate.js",
+      "sha256": "589502f58049204cb885feca529671f092ce384861d0dfe845b6f66583a2fc8c"
     },
     {
       "path": "dist/viewport.js",
-      "sha256": "0a2ea69d2fc5d60bec1774632e177778f94303a86523de7662da1cbcc301fd81"
+      "sha256": "1716cc2721d7ccd024a671740970f65cdab23f75c051b80a0b7308e37f16ff26"
+    },
+    {
+      "path": "dist/animate-mini.cjs",
+      "sha256": "2b379735164c7ccca3cecea0edd0f28b2d7a05e1d0ef4692ca8c73bf0232394e"
+    },
+    {
+      "path": "dist/scroll.js",
+      "sha256": "ec584977493c90aced7e75ed8c5e83330ff7a6896a65349fae674b2ea4bc9e51"
+    },
+    {
+      "path": "dist/viewport.cjs",
+      "sha256": "a5e2b46396bcf09c3f4b3a4318970b7aa31cfddacc8efc22d7fa2a93d481fec8"
+    },
+    {
+      "path": "dist/debug.cjs",
+      "sha256": "6b88c654193120d973af9e8cb7a4eb072cf0ca642e86991f4f234ea8f9a2b8d1"
+    },
+    {
+      "path": "dist/gestures.js",
+      "sha256": "82c74f9ce9efd0761a4e1cebce86ea756795acdee0be1812e7aaaebaaefb52bb"
+    },
+    {
+      "path": "dist/motionlil.global.js",
+      "sha256": "33b792e76fc76222b842fbcc926fdd6390d13feaea2d3f7f4be5d876743662cb"
     }
   ],
   "publicationPolicy": "Retain previous public distribution; publish the diagnostic audit",
   "publicationBase": "de144940be22d7c99e9646136f46fce7fcad415d",
-  "publicationSourceFingerprint": "25395f8b7f735fd393fd9a611f0b5cb4f99b178fb6b0bc5ffb5be8f9a810036a",
+  "publicationSourceFingerprint": "18ec9d55395e7e3f088014ac60519d2c8a96a2a65a0f39035c0d3fe87e41cfb0",
   "comparisonArtifacts": [
     {
-      "path": "site/esm-comparison/lilscript.js",
-      "sha256": "c5dce43cc37c09e70c86e58c36dbcc2471044adad5737d84fcb5f4405ff20635"
+      "path": "site/esm-comparison/original.js",
+      "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
     },
     {
-      "path": "site/esm-comparison/original.js",
-      "sha256": "19e25f358f7da878a304d8e1c521b8c17d500e219c7a2a15f318332fc7e9338f"
+      "path": "site/esm-comparison/lilscript.js",
+      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
+    },
+    {
+      "path": "site/source-build.json",
+      "sha256": "8da44cf0f4f512ec91bbac310efb6dda4686a7f28c209b7f4131c3e0a4604071"
+    },
+    {
+      "path": "site/comparison.json",
+      "sha256": "83d50ac8b7df5cadcdc1899b238850f62352893380beeab2c0188ca17cc0d060"
+    },
+    {
+      "path": "site/performance.json",
+      "sha256": "902318579e0e32e596a568aee3c4eac72bb3048fdae6c64fc94d5f54b4508f02"
+    },
+    {
+      "path": "site/performance/natural-validation.json",
+      "sha256": "ed218a0eb7db24acea8912d3925489dd9736fdd472cb6d66aa63923c1af400df"
+    },
+    {
+      "path": "site/performance/performance.json",
+      "sha256": "ea3f12abb1e769b6ab809bfb5208d8abd83361f063376f6e84deaabb30335493"
+    },
+    {
+      "path": "site/performance/harness.mjs",
+      "sha256": "e4d4b71508c88835983fe0b423bddcf0e41812fea4e5e4bb3d223f44d85183e1"
+    },
+    {
+      "path": "site/performance/workloads.json",
+      "sha256": "b2a37c08d28b57b562e630452cdccceae7e0c778290fc82fbc948e74e6654a9e"
+    },
+    {
+      "path": "site/performance/index.html",
+      "sha256": "024cb3f68c2d60990f2426f78d4711da02551910e8977fe7a120f4572d6c2733"
+    },
+    {
+      "path": "site/performance/inputs/lilscript.js",
+      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
+    },
+    {
+      "path": "site/performance/inputs/original.js",
+      "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
     }
-  ]
+  ],
+  "sourceBuildReceipt": "comparison/source-build/result.json",
+  "currentMeasurement": {
+    "compiler": {
+      "commit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
+      "sha256": "0616048498eb9eb2e4bd75b39e8e6a083733ada647e16108edfee30ad183beeb"
+    },
+    "source": {
+      "commit": "8c3804f0f82e4d16322b9ceef0b4623fe4449ee6"
+    },
+    "upstream": {
+      "repository": "https://github.com/motiondivision/motion.git",
+      "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
+      "package": "motion",
+      "version": "13.1.0",
+      "directory": "packages/motion"
+    },
+    "compatibility": "Six browser workloads match the sampled timelines. Full animate() string transforms are unsupported in this comparison."
+  }
 }

@@ -19,6 +19,7 @@
       <nav aria-label="Main navigation">
         <a href="#lab">16 demos</a>
         <a href="#evidence">evidence</a>
+        <a href="#performance">performance</a>
         <a href="https://github.com/yeargun/motionlil">GitHub ↗</a>
       </nav>
     </header>
@@ -42,16 +43,16 @@
         <div class="scoreboard" aria-label="Compression results">
           <div class="score-main">
             <span class="score-label">Reusable ESM · LilScript / original</span>
-            <strong>0.80<span>× Brotli</span></strong>
-            <p>32,220 B vs 40,402 B</p>
+            <strong>0.87<span>× Brotli</span></strong>
+            <p>34,739 B vs 40,141 B</p>
           </div>
           <div class="score-grid">
-            <div><strong>117,293 B</strong><span>LilScript raw ESM</span></div>
-            <div><strong>37,696 B</strong><span>LilScript gzip-9</span></div>
-            <div><strong>32,220 B</strong><span>LilScript Brotli-11</span></div>
-            <div><strong>40,402 B</strong><span>Original ESM Brotli-11</span></div>
+            <div><strong>132,005 B</strong><span>LilScript raw ESM</span></div>
+            <div><strong>41,163 B</strong><span>LilScript gzip-9</span></div>
+            <div><strong>34,739 B</strong><span>LilScript Brotli-11</span></div>
+            <div><strong>40,141 B</strong><span>Original ESM Brotli-11</span></div>
           </div>
-          <p class="score-note">Complete ESM entry graphs with all public exports retained. Browser compatibility checks are incomplete.</p>
+          <p class="score-note">Complete ESM entry graphs with all public exports retained. Six browser workloads match the sampled timelines. Full animate() string transforms are unsupported in this comparison.</p>
         </div>
       </section>
 
@@ -65,7 +66,7 @@
             <p class="eyebrow">Motion DOM examples</p>
             <h2>The complete<br />motion lab.</h2>
           </div>
-          <p>Every original animation case, recreated against the published package runtime. Replay anything. Hover, press, scroll, resize, and poke at the controls.</p>
+          <p>Every original animation case, recreated against the current compiled runtime. Replay anything. Hover, press, scroll, resize, and poke at the controls.</p>
         </div>
 
         <div class="filters" role="group" aria-label="Filter demos">
@@ -91,8 +92,8 @@
             <p>The complete reusable LilScript ESM entry compared with the original Motion ESM graph. Raw, gzip-9 and Brotli-11 sizes use the same public-entry scope.</p>
           </div>
           <div class="total-bar">
-            <div class="bar-motion" style="width:100.000%"><span>Motion</span><strong>40,402 B</strong></div>
-            <div class="bar-lil" style="width:79.749%"><span>LilScript</span><strong>32,220 B</strong></div>
+            <div class="bar-motion" style="width:100.000%"><span>Motion</span><strong>40,141 B</strong></div>
+            <div class="bar-lil" style="width:86.542%"><span>LilScript</span><strong>34,739 B</strong></div>
           </div>
           <div class="table-wrap">
             <table>
@@ -103,7 +104,17 @@
           <div class="method-note">
             <p><strong>Public ESM.</strong> These figures cover the reusable package entry and its dependencies. Demonstrations illustrate the API. The ESM size includes all entry-point exports.</p>
             <a href="https://github.com/yeargun/motionlil#what-smaller-means">Read the methodology ↗</a>
+          </div><!-- performance:start -->
+          <div class="section-heading inverse" id="performance">
+            <div><p class="eyebrow">Same fixtures · paired trials</p><h2>Browser<br />performance.</h2></div>
+            <p>Identical elements, CSS, keyframes, easing and duration on both sides. Thirty paired trials per passing workload, after two warmups per lane. No speed score is assigned to a behavior mismatch.</p>
           </div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Workload</th><th>Motion CPU ms</th><th>LilScript CPU ms</th><th>Lil / Motion CPU<br>95% interval</th><th>Script ms<br>Motion / Lil</th><th>Style + layout ms<br>Motion / Lil</th><th>Setup ms<br>Motion / Lil</th><th>Frame p95 ms<br>Motion / Lil</th></tr></thead>
+            <tbody><tr data-workload="mini-transform-64"><th scope="row">WAAPI transform + opacity · 64 elements</th><td>16.22</td><td>16.22</td><td><strong>1.001×</strong><br>0.989–1.007<br>Within ±5%</td><td>0.54 / 0.49</td><td>5.11 / 5.10</td><td>1.50 / 1.60</td><td>16.70 / 16.70</td></tr><tr data-workload="mini-transform-256"><th scope="row">WAAPI transform + opacity · 256 elements</th><td>56.51</td><td>56.51</td><td><strong>1.000×</strong><br>0.995–1.019<br>Within ±5%</td><td>1.36 / 1.19</td><td>19.02 / 18.90</td><td>4.30 / 4.65</td><td>16.70 / 16.80</td></tr><tr data-workload="mini-layout-128"><th scope="row">WAAPI width + margin layout · 128 elements</th><td>54.23</td><td>54.27</td><td><strong>0.998×</strong><br>0.990–1.011<br>Within ±5%</td><td>1.05 / 0.98</td><td>15.94 / 16.00</td><td>3.20 / 3.50</td><td>16.70 / 16.80</td></tr><tr data-workload="animate-transform-128"><th scope="row">animate transform + opacity · 128 elements</th><td colspan="7">Behavior mismatch: string transforms do not follow the requested timeline. No speed score.</td></tr><tr data-workload="animate-xy-128"><th scope="row">animate x/y · 128 elements</th><td>57.97</td><td>43.77</td><td><strong>0.756×</strong><br>0.752–0.771<br>Lower CPU</td><td>14.43 / 21.91</td><td>19.15 / 5.40</td><td>3.00 / 6.20</td><td>16.70 / 16.70</td></tr><tr data-workload="animate-layout-128"><th scope="row">Width + margin layout · 128 elements</th><td>70.38</td><td>51.73</td><td><strong>0.733×</strong><br>0.719–0.750<br>Lower CPU</td><td>12.79 / 17.91</td><td>21.73 / 9.04</td><td>3.10 / 6.20</td><td>16.70 / 16.70</td></tr><tr data-workload="motion-values-128"><th scope="row">MotionValue + DOM writes · 128 values</th><td>21.85</td><td>24.20</td><td><strong>1.106×</strong><br>1.100–1.113<br>Higher CPU</td><td>5.25 / 6.29</td><td>5.22 / 5.21</td><td>2.20 / 3.80</td><td>16.70 / 16.70</td></tr></tbody></table></div>
+          <div class="method-note"><p><strong>What the numbers mean.</strong> CPU is Chromium renderer main-thread task time during an 800 ms observation window; animations last 600 ms. Numbers are medians; ratios use paired medians with a 95% bootstrap interval. Equivalence requires the entire interval inside 0.95–1.05. The three WAAPI workloads meet that criterion. Their small JavaScript costs and matching style/layout costs are consistent with the shared browser pipeline dominating these cases. Frame cadence is about 16.7 ms; equal FPS alone does not prove equal CPU cost.<br><strong>Correctness first.</strong> Every element is checked at five paused timeline positions and at completion. A separate natural-playback check verifies continuous progress. The full <code>animate()</code> string-transform case fails this check and is excluded from timing. Six passing workloads are a bounded comparison, not full API parity.<br><strong>Machine and method.</strong> Azure Standard_D16als_v7 · AMD EPYC 9V45 · 16 vCPUs · 31.3 GiB RAM · Ubuntu 24.04.4 · Node 24.11.1 · headless Chromium 145.0.7632.6 · 1280×900, DPR 1. Fresh page for every run; original/LilScript order alternates. Bundle download, module evaluation and initial DOM creation are outside the CPU interval. Headless renderer CPU does not measure all GPU/compositor work.<br><a href="./performance/performance.json">All paired samples ↗</a> · <a href="./performance/natural-validation.json">Natural playback checks ↗</a> · <a href="https://github.com/yeargun/motionlil/blob/main/scripts/measure-performance.mjs">Reproduce the measurement ↗</a></p></div>
+          <!-- performance:end -->
+
         </div>
       </section>
 

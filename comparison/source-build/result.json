@@ -1,0 +1,1811 @@
+{
+  "schemaVersion": 1,
+  "name": "motionlil",
+  "startedAt": "2026-09-10T21:05:03Z",
+  "machine": {
+    "provider": "Azure",
+    "instanceClass": "Standard_D16als_v7",
+    "cpu": "AMD EPYC 9V45 96-Core Processor",
+    "logicalCpus": 16,
+    "memoryBytes": 33648435200,
+    "os": "Ubuntu 24.04.4 LTS",
+    "kernel": "6.17.0-1022-azure",
+    "node": "v24.11.1",
+    "rayonThreads": 8,
+    "loadAtStart": [
+      0.11572265625,
+      0.7021484375,
+      1.5791015625
+    ],
+    "loadAtEnd": [
+      1.43359375,
+      0.9853515625,
+      1.60205078125
+    ]
+  },
+  "compiler": {
+    "commit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
+    "sha256": "0616048498eb9eb2e4bd75b39e8e6a083733ada647e16108edfee30ad183beeb"
+  },
+  "source": {
+    "repository": "https://github.com/motiondivision/motion.git",
+    "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
+    "package": "motion",
+    "version": "13.1.0",
+    "directory": "packages/motion"
+  },
+  "portSource": {
+    "commit": "8c3804f0f82e4d16322b9ceef0b4623fe4449ee6",
+    "snapshot": "/tmp/lilscript-source-performance-20260910/motion-work"
+  },
+  "prerequisiteAdjustments": null,
+  "steps": {
+    "original-install": {
+      "command": [
+        "corepack",
+        "yarn",
+        "install",
+        "--immutable",
+        "--mode=skip-build"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 0.8150066400003197,
+      "cpuSeconds": 1.183999,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-install.log",
+      "logSha256": "8f7281ce229559ac3e28ef3602ec2d24a3c27bb496a09e744c2f1253264288eb",
+      "tail": "\u27a4 YN0000: \u250c Project validation\n\u27a4 YN0057: \u2502 react-19-env: Resolutions field will be ignored\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Resolution step\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide @babel/core (pea257), requested by @cypress/webpack-preprocessor\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide @babel/preset-env (pf1ee7), requested by @cypress/webpack-preprocessor\n\u27a4 YN0060: \u2502 motion-one@workspace:. provides @testing-library/dom (p2e9b1) with version 8.20.1, which doesn't satisfy what @testing-library/react requests\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide babel-loader (pf9f2a), requested by @cypress/webpack-preprocessor\n\u27a4 YN0060: \u2502 motion-one@workspace:. provides rollup (p4f722) with version 4.59.0, which doesn't satisfy what rollup-plugin-sourcemaps and some of its descendants request\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (p4dc37), requested by @cypress/webpack-preprocessor\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (pc4b0c), requested by react-dev-utils\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (pfe9b4), requested by ts-loader\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p3db9e), requested by @typescript-eslint/eslint-plugin\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p5b9db), requested by @typescript-eslint/parser\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p56c33), requested by eslint-plugin-react-refresh\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p4595a), requested by @typescript-eslint/eslint-plugin\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p83e1f), requested by @typescript-eslint/parser\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p70406), requested by eslint-plugin-react-refresh\n\u27a4 YN0000: \u2502 Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Fetch step\n\u27a4 YN0013: \u2502 1494 packages were already cached\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Link step\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: Done with warnings in 0s 541ms\n"
+    },
+    "original-build-1": {
+      "command": [
+        "corepack",
+        "yarn",
+        "turbo",
+        "run",
+        "build",
+        "--filter=motion...",
+        "--force"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 16.99555742800021,
+      "cpuSeconds": 31.704613999999996,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-build-1.log",
+      "logSha256": "e1ae530f1702394243a6c8cb133862561acdd8f25a1d842fb57c058bbde60ecc",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m482ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m801ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.679s \n\n"
+    },
+    "lilscript-build-1": {
+      "command": [
+        "bash",
+        "-c",
+        "node scripts/build.mjs --compile --force"
+      ],
+      "cwd": "port",
+      "wallSeconds": 8.028403304000676,
+      "cpuSeconds": 13.062506000000003,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-build-1.log",
+      "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524",
+      "tail": "Built 6 ESM features and 3 standalone production entries with /home/lilfarm/source-perf-20260910/tools/compiler-wrapper.py\n",
+      "invocations": [
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/debug.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs"
+          ],
+          "startedAt": 1789074321.726779,
+          "wallSeconds": 0.005069255828857422,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs",
+          "sha256": "47ed2d635035aa68fa26fdc03d086a5190c859717e0fc35972a3a0d72c199757"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/viewport.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs"
+          ],
+          "startedAt": 1789074321.7180684,
+          "wallSeconds": 0.01468968391418457,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs",
+          "sha256": "7a22a5fd403cb9f1aead6e58e1e44ec7f5b4c7097d20af1dbad7123b2d1a917d"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/resize.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs"
+          ],
+          "startedAt": 1789074321.71835,
+          "wallSeconds": 0.015797853469848633,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs",
+          "sha256": "731c2c7b5cb834384832ebf282d48b65cdeefb54d91b0d9dda2c15a2e7b87d7e"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/gestures.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs"
+          ],
+          "startedAt": 1789074321.7160544,
+          "wallSeconds": 0.02927255630493164,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs",
+          "sha256": "3ae7badad1a3060bfccd4586b81b817747d137b33234c75dd6aebc030c518bd1"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate-mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs"
+          ],
+          "startedAt": 1789074321.7137647,
+          "wallSeconds": 0.05557656288146973,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs",
+          "sha256": "1ca098fd55bf0a6f2e53cc67932bfe875ae29640eb8fa21541617044e1c11fbe"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/scroll.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs"
+          ],
+          "startedAt": 1789074321.7199633,
+          "wallSeconds": 0.12339901924133301,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs",
+          "sha256": "8fc36eafe865fe2a987604a4804b4f3458b501764bab791157e85000cbd4ad01"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs"
+          ],
+          "startedAt": 1789074321.7203178,
+          "wallSeconds": 0.35749363899230957,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs",
+          "sha256": "178fdbeae5238e8ce5acc26d7f6199cd1955e54a013dbe41ef23367802789de7"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs"
+          ],
+          "startedAt": 1789074321.7125177,
+          "wallSeconds": 0.9106385707855225,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs",
+          "sha256": "e2ef95f6d35c9ddaabb1a81d65a2f6cd018e90567a7ecba4076c633c81b3ba96"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/full.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs"
+          ],
+          "startedAt": 1789074321.7193234,
+          "wallSeconds": 2.0832018852233887,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "141c12f13d85acfed437aae277ef28d3f1878221b8f07f9096b3c9f04ed447ce"
+        }
+      ]
+    },
+    "lilscript-build-2": {
+      "command": [
+        "bash",
+        "-c",
+        "node scripts/build.mjs --compile --force"
+      ],
+      "cwd": "port",
+      "wallSeconds": 7.978181311999833,
+      "cpuSeconds": 13.049177999999996,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-build-2.log",
+      "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524",
+      "tail": "Built 6 ESM features and 3 standalone production entries with /home/lilfarm/source-perf-20260910/tools/compiler-wrapper.py\n",
+      "invocations": [
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/viewport.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs"
+          ],
+          "startedAt": 1789074329.747315,
+          "wallSeconds": 0.01212000846862793,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs",
+          "sha256": "7a22a5fd403cb9f1aead6e58e1e44ec7f5b4c7097d20af1dbad7123b2d1a917d"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/debug.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs"
+          ],
+          "startedAt": 1789074329.7565904,
+          "wallSeconds": 0.005202770233154297,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs",
+          "sha256": "47ed2d635035aa68fa26fdc03d086a5190c859717e0fc35972a3a0d72c199757"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/resize.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs"
+          ],
+          "startedAt": 1789074329.7495568,
+          "wallSeconds": 0.020045995712280273,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs",
+          "sha256": "731c2c7b5cb834384832ebf282d48b65cdeefb54d91b0d9dda2c15a2e7b87d7e"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/gestures.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs"
+          ],
+          "startedAt": 1789074329.7511494,
+          "wallSeconds": 0.03402304649353027,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs",
+          "sha256": "3ae7badad1a3060bfccd4586b81b817747d137b33234c75dd6aebc030c518bd1"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate-mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs"
+          ],
+          "startedAt": 1789074329.7437544,
+          "wallSeconds": 0.05580735206604004,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs",
+          "sha256": "1ca098fd55bf0a6f2e53cc67932bfe875ae29640eb8fa21541617044e1c11fbe"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/scroll.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs"
+          ],
+          "startedAt": 1789074329.7446902,
+          "wallSeconds": 0.12229633331298828,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs",
+          "sha256": "8fc36eafe865fe2a987604a4804b4f3458b501764bab791157e85000cbd4ad01"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs"
+          ],
+          "startedAt": 1789074329.7505298,
+          "wallSeconds": 0.35950589179992676,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs",
+          "sha256": "178fdbeae5238e8ce5acc26d7f6199cd1955e54a013dbe41ef23367802789de7"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs"
+          ],
+          "startedAt": 1789074329.7411635,
+          "wallSeconds": 0.9207830429077148,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs",
+          "sha256": "e2ef95f6d35c9ddaabb1a81d65a2f6cd018e90567a7ecba4076c633c81b3ba96"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/full.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs"
+          ],
+          "startedAt": 1789074329.7493734,
+          "wallSeconds": 2.093721389770508,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "141c12f13d85acfed437aae277ef28d3f1878221b8f07f9096b3c9f04ed447ce"
+        }
+      ]
+    },
+    "original-build-2": {
+      "command": [
+        "corepack",
+        "yarn",
+        "turbo",
+        "run",
+        "build",
+        "--filter=motion...",
+        "--force"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 16.797544885000207,
+      "cpuSeconds": 31.289710999999993,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-build-2.log",
+      "logSha256": "6bfdca2a5bda3ad6fd70738f81a67f402714d38a965b1220488ee2052aa80e2a",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m474ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m804ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.479s \n\n"
+    },
+    "original-build-3": {
+      "command": [
+        "corepack",
+        "yarn",
+        "turbo",
+        "run",
+        "build",
+        "--filter=motion...",
+        "--force"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 16.699346924000565,
+      "cpuSeconds": 31.218189000000006,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-build-3.log",
+      "logSha256": "b76c90ea9d63430a99e7f79e7e785fddd6340ad31cba977c3a88df9f9b4770ff",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m465ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m798ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.413s \n\n"
+    },
+    "lilscript-build-3": {
+      "command": [
+        "bash",
+        "-c",
+        "node scripts/build.mjs --compile --force"
+      ],
+      "cwd": "port",
+      "wallSeconds": 8.0309499519999,
+      "cpuSeconds": 13.192933999999989,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-build-3.log",
+      "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524",
+      "tail": "Built 6 ESM features and 3 standalone production entries with /home/lilfarm/source-perf-20260910/tools/compiler-wrapper.py\n",
+      "invocations": [
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/viewport.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs"
+          ],
+          "startedAt": 1789074371.2598603,
+          "wallSeconds": 0.013284921646118164,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs",
+          "sha256": "7a22a5fd403cb9f1aead6e58e1e44ec7f5b4c7097d20af1dbad7123b2d1a917d"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/debug.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs"
+          ],
+          "startedAt": 1789074371.2688534,
+          "wallSeconds": 0.0050351619720458984,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs",
+          "sha256": "47ed2d635035aa68fa26fdc03d086a5190c859717e0fc35972a3a0d72c199757"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/resize.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs"
+          ],
+          "startedAt": 1789074371.260992,
+          "wallSeconds": 0.0192413330078125,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs",
+          "sha256": "731c2c7b5cb834384832ebf282d48b65cdeefb54d91b0d9dda2c15a2e7b87d7e"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/gestures.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs"
+          ],
+          "startedAt": 1789074371.2587006,
+          "wallSeconds": 0.02911663055419922,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs",
+          "sha256": "3ae7badad1a3060bfccd4586b81b817747d137b33234c75dd6aebc030c518bd1"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate-mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs"
+          ],
+          "startedAt": 1789074371.2566533,
+          "wallSeconds": 0.05567646026611328,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs",
+          "sha256": "1ca098fd55bf0a6f2e53cc67932bfe875ae29640eb8fa21541617044e1c11fbe"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/scroll.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs"
+          ],
+          "startedAt": 1789074371.262709,
+          "wallSeconds": 0.12349224090576172,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs",
+          "sha256": "8fc36eafe865fe2a987604a4804b4f3458b501764bab791157e85000cbd4ad01"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs"
+          ],
+          "startedAt": 1789074371.2634335,
+          "wallSeconds": 0.3551959991455078,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs",
+          "sha256": "178fdbeae5238e8ce5acc26d7f6199cd1955e54a013dbe41ef23367802789de7"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs"
+          ],
+          "startedAt": 1789074371.2544065,
+          "wallSeconds": 0.9124398231506348,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs",
+          "sha256": "e2ef95f6d35c9ddaabb1a81d65a2f6cd018e90567a7ecba4076c633c81b3ba96"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/full.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs"
+          ],
+          "startedAt": 1789074371.2620072,
+          "wallSeconds": 2.0860791206359863,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "141c12f13d85acfed437aae277ef28d3f1878221b8f07f9096b3c9f04ed447ce"
+        }
+      ]
+    },
+    "original-esm": {
+      "command": [
+        "node",
+        "/home/lilfarm/source-perf-20260910/tools/source-esm.mjs",
+        "/home/lilfarm/source-perf-20260910",
+        "motionlil"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 3.320194425000409,
+      "cpuSeconds": 4.936923999999994,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-esm.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tail": ""
+    },
+    "lilscript-tests": {
+      "command": [
+        "bash",
+        "-c",
+        "npm test && npm run check:types && npm run test:browser"
+      ],
+      "cwd": "port",
+      "wallSeconds": 2.92025295700023,
+      "cpuSeconds": 8.227094000000005,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-tests.log",
+      "logSha256": "5bf381667117b67b4d5d6bd0c8b46a37e73cb146e911f05b8f8d7efc3f18754b",
+      "tail": "\n> motionlil@0.1.5 test\n> node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs\n\n\u2714 ESM entry points load without a browser global (1.87309ms)\n\u2714 pure utilities and MotionValue behavior work (2.299318ms)\n\u2714 CommonJS entry points expose the same public names (6.034351ms)\n\u2714 every Motion DOM export is present on the full entry (0.319132ms)\n\u2714 default entry keeps the JS consumer API (0.147117ms)\n\u2714 public constructor compatibility covers common direct usage (0.286272ms)\n\u2714 named imports do not pull the whole consumer graph (1320.991452ms)\n\u2714 the distributed animate module survives a second Terser pass (805.138223ms)\n\u2714 Vite bundles the public package entry (717.060979ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 9\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1434.105776\n\n> motionlil@0.1.5 check:types\n> tsc -p test/types/tsconfig.json\n\n\n> motionlil@0.1.5 test:browser\n> node --test test/browser-controls.test.mjs\n\n\u2714 group controls seek, change speed and complete real browser animations (202.247584ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 437.638946\n"
+    }
+  },
+  "nativeBuilds": [
+    {
+      "command": [
+        "corepack",
+        "yarn",
+        "turbo",
+        "run",
+        "build",
+        "--filter=motion...",
+        "--force"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 16.99555742800021,
+      "cpuSeconds": 31.704613999999996,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-build-1.log",
+      "logSha256": "e1ae530f1702394243a6c8cb133862561acdd8f25a1d842fb57c058bbde60ecc",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m482ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m801ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.679s \n\n"
+    },
+    {
+      "command": [
+        "corepack",
+        "yarn",
+        "turbo",
+        "run",
+        "build",
+        "--filter=motion...",
+        "--force"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 16.797544885000207,
+      "cpuSeconds": 31.289710999999993,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-build-2.log",
+      "logSha256": "6bfdca2a5bda3ad6fd70738f81a67f402714d38a965b1220488ee2052aa80e2a",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m474ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m804ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.479s \n\n"
+    },
+    {
+      "command": [
+        "corepack",
+        "yarn",
+        "turbo",
+        "run",
+        "build",
+        "--filter=motion...",
+        "--force"
+      ],
+      "cwd": "upstream",
+      "wallSeconds": 16.699346924000565,
+      "cpuSeconds": 31.218189000000006,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "original-build-3.log",
+      "logSha256": "b76c90ea9d63430a99e7f79e7e785fddd6340ad31cba977c3a88df9f9b4770ff",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m465ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m798ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.413s \n\n"
+    }
+  ],
+  "lilscriptBuilds": [
+    {
+      "command": [
+        "bash",
+        "-c",
+        "node scripts/build.mjs --compile --force"
+      ],
+      "cwd": "port",
+      "wallSeconds": 8.028403304000676,
+      "cpuSeconds": 13.062506000000003,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-build-1.log",
+      "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524",
+      "tail": "Built 6 ESM features and 3 standalone production entries with /home/lilfarm/source-perf-20260910/tools/compiler-wrapper.py\n",
+      "invocations": [
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/debug.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs"
+          ],
+          "startedAt": 1789074321.726779,
+          "wallSeconds": 0.005069255828857422,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs",
+          "sha256": "47ed2d635035aa68fa26fdc03d086a5190c859717e0fc35972a3a0d72c199757"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/viewport.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs"
+          ],
+          "startedAt": 1789074321.7180684,
+          "wallSeconds": 0.01468968391418457,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs",
+          "sha256": "7a22a5fd403cb9f1aead6e58e1e44ec7f5b4c7097d20af1dbad7123b2d1a917d"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/resize.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs"
+          ],
+          "startedAt": 1789074321.71835,
+          "wallSeconds": 0.015797853469848633,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs",
+          "sha256": "731c2c7b5cb834384832ebf282d48b65cdeefb54d91b0d9dda2c15a2e7b87d7e"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/gestures.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs"
+          ],
+          "startedAt": 1789074321.7160544,
+          "wallSeconds": 0.02927255630493164,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs",
+          "sha256": "3ae7badad1a3060bfccd4586b81b817747d137b33234c75dd6aebc030c518bd1"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate-mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs"
+          ],
+          "startedAt": 1789074321.7137647,
+          "wallSeconds": 0.05557656288146973,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs",
+          "sha256": "1ca098fd55bf0a6f2e53cc67932bfe875ae29640eb8fa21541617044e1c11fbe"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/scroll.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs"
+          ],
+          "startedAt": 1789074321.7199633,
+          "wallSeconds": 0.12339901924133301,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs",
+          "sha256": "8fc36eafe865fe2a987604a4804b4f3458b501764bab791157e85000cbd4ad01"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs"
+          ],
+          "startedAt": 1789074321.7203178,
+          "wallSeconds": 0.35749363899230957,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs",
+          "sha256": "178fdbeae5238e8ce5acc26d7f6199cd1955e54a013dbe41ef23367802789de7"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs"
+          ],
+          "startedAt": 1789074321.7125177,
+          "wallSeconds": 0.9106385707855225,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs",
+          "sha256": "e2ef95f6d35c9ddaabb1a81d65a2f6cd018e90567a7ecba4076c633c81b3ba96"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/full.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs"
+          ],
+          "startedAt": 1789074321.7193234,
+          "wallSeconds": 2.0832018852233887,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "141c12f13d85acfed437aae277ef28d3f1878221b8f07f9096b3c9f04ed447ce"
+        }
+      ]
+    },
+    {
+      "command": [
+        "bash",
+        "-c",
+        "node scripts/build.mjs --compile --force"
+      ],
+      "cwd": "port",
+      "wallSeconds": 7.978181311999833,
+      "cpuSeconds": 13.049177999999996,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-build-2.log",
+      "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524",
+      "tail": "Built 6 ESM features and 3 standalone production entries with /home/lilfarm/source-perf-20260910/tools/compiler-wrapper.py\n",
+      "invocations": [
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/viewport.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs"
+          ],
+          "startedAt": 1789074329.747315,
+          "wallSeconds": 0.01212000846862793,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs",
+          "sha256": "7a22a5fd403cb9f1aead6e58e1e44ec7f5b4c7097d20af1dbad7123b2d1a917d"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/debug.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs"
+          ],
+          "startedAt": 1789074329.7565904,
+          "wallSeconds": 0.005202770233154297,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs",
+          "sha256": "47ed2d635035aa68fa26fdc03d086a5190c859717e0fc35972a3a0d72c199757"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/resize.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs"
+          ],
+          "startedAt": 1789074329.7495568,
+          "wallSeconds": 0.020045995712280273,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs",
+          "sha256": "731c2c7b5cb834384832ebf282d48b65cdeefb54d91b0d9dda2c15a2e7b87d7e"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/gestures.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs"
+          ],
+          "startedAt": 1789074329.7511494,
+          "wallSeconds": 0.03402304649353027,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs",
+          "sha256": "3ae7badad1a3060bfccd4586b81b817747d137b33234c75dd6aebc030c518bd1"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate-mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs"
+          ],
+          "startedAt": 1789074329.7437544,
+          "wallSeconds": 0.05580735206604004,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs",
+          "sha256": "1ca098fd55bf0a6f2e53cc67932bfe875ae29640eb8fa21541617044e1c11fbe"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/scroll.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs"
+          ],
+          "startedAt": 1789074329.7446902,
+          "wallSeconds": 0.12229633331298828,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs",
+          "sha256": "8fc36eafe865fe2a987604a4804b4f3458b501764bab791157e85000cbd4ad01"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs"
+          ],
+          "startedAt": 1789074329.7505298,
+          "wallSeconds": 0.35950589179992676,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs",
+          "sha256": "178fdbeae5238e8ce5acc26d7f6199cd1955e54a013dbe41ef23367802789de7"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs"
+          ],
+          "startedAt": 1789074329.7411635,
+          "wallSeconds": 0.9207830429077148,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs",
+          "sha256": "e2ef95f6d35c9ddaabb1a81d65a2f6cd018e90567a7ecba4076c633c81b3ba96"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/full.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs"
+          ],
+          "startedAt": 1789074329.7493734,
+          "wallSeconds": 2.093721389770508,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "141c12f13d85acfed437aae277ef28d3f1878221b8f07f9096b3c9f04ed447ce"
+        }
+      ]
+    },
+    {
+      "command": [
+        "bash",
+        "-c",
+        "node scripts/build.mjs --compile --force"
+      ],
+      "cwd": "port",
+      "wallSeconds": 8.0309499519999,
+      "cpuSeconds": 13.192933999999989,
+      "exitCode": 0,
+      "timedOut": false,
+      "log": "lilscript-build-3.log",
+      "logSha256": "cc156b113cc02ef15f661f43e8426c65aef43a1e73ac912e05725427ab9ef524",
+      "tail": "Built 6 ESM features and 3 standalone production entries with /home/lilfarm/source-perf-20260910/tools/compiler-wrapper.py\n",
+      "invocations": [
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/viewport.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs"
+          ],
+          "startedAt": 1789074371.2598603,
+          "wallSeconds": 0.013284921646118164,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-viewport.mjs",
+          "sha256": "7a22a5fd403cb9f1aead6e58e1e44ec7f5b4c7097d20af1dbad7123b2d1a917d"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/debug.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs"
+          ],
+          "startedAt": 1789074371.2688534,
+          "wallSeconds": 0.0050351619720458984,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-debug.mjs",
+          "sha256": "47ed2d635035aa68fa26fdc03d086a5190c859717e0fc35972a3a0d72c199757"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/resize.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs"
+          ],
+          "startedAt": 1789074371.260992,
+          "wallSeconds": 0.0192413330078125,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-resize.mjs",
+          "sha256": "731c2c7b5cb834384832ebf282d48b65cdeefb54d91b0d9dda2c15a2e7b87d7e"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/gestures.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs"
+          ],
+          "startedAt": 1789074371.2587006,
+          "wallSeconds": 0.02911663055419922,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-gestures.mjs",
+          "sha256": "3ae7badad1a3060bfccd4586b81b817747d137b33234c75dd6aebc030c518bd1"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate-mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs"
+          ],
+          "startedAt": 1789074371.2566533,
+          "wallSeconds": 0.05567646026611328,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate-mini.mjs",
+          "sha256": "1ca098fd55bf0a6f2e53cc67932bfe875ae29640eb8fa21541617044e1c11fbe"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/scroll.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs"
+          ],
+          "startedAt": 1789074371.262709,
+          "wallSeconds": 0.12349224090576172,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-scroll.mjs",
+          "sha256": "8fc36eafe865fe2a987604a4804b4f3458b501764bab791157e85000cbd4ad01"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/mini.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs"
+          ],
+          "startedAt": 1789074371.2634335,
+          "wallSeconds": 0.3551959991455078,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-mini.mjs",
+          "sha256": "178fdbeae5238e8ce5acc26d7f6199cd1955e54a013dbe41ef23367802789de7"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/animate.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs"
+          ],
+          "startedAt": 1789074371.2544065,
+          "wallSeconds": 0.9124398231506348,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/entries/.__compiled-animate.mjs",
+          "sha256": "e2ef95f6d35c9ddaabb1a81d65a2f6cd018e90567a7ecba4076c633c81b3ba96"
+        },
+        {
+          "args": [
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/full.lil",
+            "--target",
+            "js-module",
+            "--config",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/lilscript.toml",
+            "--mode",
+            "production",
+            "--output",
+            "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs"
+          ],
+          "startedAt": 1789074371.2620072,
+          "wallSeconds": 2.0860791206359863,
+          "exitCode": 0,
+          "output": "/home/lilfarm/source-perf-20260910/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "141c12f13d85acfed437aae277ef28d3f1878221b8f07f9096b3c9f04ed447ce"
+        }
+      ]
+    }
+  ],
+  "protocol": {
+    "repetitions": 3,
+    "cleanOutputs": true,
+    "dependencyInstallationTimedSeparately": true,
+    "sourceArchives": "Pinned Git checkouts; original repository package build commands, followed by production ESM assembly.",
+    "workerUse": "Both implementations use the same machine and Node version. This shared build pool also runs unrelated jobs; timings are contextual wall times, with CPU time recorded separately."
+  },
+  "esm": {
+    "source": {
+      "repository": "https://github.com/motiondivision/motion.git",
+      "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
+      "package": "motion",
+      "version": "13.1.0",
+      "directory": "packages/motion"
+    },
+    "entry": "packages/motion/dist/es/index.mjs",
+    "scope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
+    "external": [],
+    "samples": [
+      {
+        "bundleSeconds": 0.031470122,
+        "wallSeconds": 0.747004472
+      },
+      {
+        "bundleSeconds": 0.027537454000000024,
+        "wallSeconds": 0.5701798299999999
+      },
+      {
+        "bundleSeconds": 0.02454221500000017,
+        "wallSeconds": 0.5973750210000001
+      }
+    ],
+    "medianSeconds": 0.5973750210000001,
+    "toolchain": {
+      "esbuild": "0.28.1",
+      "terser": "5.51.2"
+    },
+    "artifacts": [
+      {
+        "path": "original.esm.js",
+        "raw": 137560,
+        "gzip9": 45031,
+        "brotli11": 40141,
+        "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+      },
+      {
+        "path": "original.unminified.js",
+        "raw": 329659,
+        "gzip9": 76295,
+        "brotli11": 63741,
+        "sha256": "407886cdfb90110e6310c3e92a4a69278776776cf18884917e7f4e3ae449d35e"
+      },
+      {
+        "path": "original.terser-nomangle.js",
+        "raw": 222834,
+        "gzip9": 57912,
+        "brotli11": 50272,
+        "sha256": "f3f9c8bc18ff9567d99c661c5ac9a29ce1603166d6ffbc3a7f06a03dd46dd717"
+      },
+      {
+        "path": "original.esbuild.js",
+        "raw": 139527,
+        "gzip9": 47692,
+        "brotli11": 42589,
+        "sha256": "fd463f2b0bae5f48347e43ab017a091c082cfcbb2c5df871f3db2f9cd1a7d31a"
+      }
+    ],
+    "inputs": [
+      "packages/motion-utils/dist/es/array.mjs",
+      "packages/motion-utils/dist/es/clamp.mjs",
+      "packages/motion-utils/dist/es/format-error-message.mjs",
+      "packages/motion-utils/dist/es/errors.mjs",
+      "packages/motion-utils/dist/es/global-config.mjs",
+      "packages/motion-utils/dist/es/is-numerical-string.mjs",
+      "packages/motion-utils/dist/es/is-object.mjs",
+      "packages/motion-utils/dist/es/is-zero-value-string.mjs",
+      "packages/motion-utils/dist/es/memo.mjs",
+      "packages/motion-utils/dist/es/noop.mjs",
+      "packages/motion-utils/dist/es/pipe.mjs",
+      "packages/motion-utils/dist/es/progress.mjs",
+      "packages/motion-utils/dist/es/subscription-manager.mjs",
+      "packages/motion-utils/dist/es/time-conversion.mjs",
+      "packages/motion-utils/dist/es/velocity-per-second.mjs",
+      "packages/motion-utils/dist/es/warn-once.mjs",
+      "packages/motion-utils/dist/es/wrap.mjs",
+      "packages/motion-utils/dist/es/easing/cubic-bezier.mjs",
+      "packages/motion-utils/dist/es/easing/modifiers/mirror.mjs",
+      "packages/motion-utils/dist/es/easing/modifiers/reverse.mjs",
+      "packages/motion-utils/dist/es/easing/back.mjs",
+      "packages/motion-utils/dist/es/easing/anticipate.mjs",
+      "packages/motion-utils/dist/es/easing/circ.mjs",
+      "packages/motion-utils/dist/es/easing/ease.mjs",
+      "packages/motion-utils/dist/es/easing/steps.mjs",
+      "packages/motion-utils/dist/es/easing/utils/is-easing-array.mjs",
+      "packages/motion-utils/dist/es/easing/utils/get-easing-for-segment.mjs",
+      "packages/motion-utils/dist/es/easing/utils/is-bezier-definition.mjs",
+      "packages/motion-utils/dist/es/easing/utils/map.mjs",
+      "packages/motion-utils/dist/es/index.mjs",
+      "packages/motion-dom/dist/es/frameloop/order.mjs",
+      "packages/motion-dom/dist/es/frameloop/render-step.mjs",
+      "packages/motion-dom/dist/es/frameloop/batcher.mjs",
+      "packages/motion-dom/dist/es/frameloop/frame.mjs",
+      "packages/motion-dom/dist/es/frameloop/sync-time.mjs",
+      "packages/motion-dom/dist/es/animation/utils/is-css-variable.mjs",
+      "packages/motion-dom/dist/es/value/types/numbers/index.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/sanitize.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/float-regex.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/is-nullish.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/single-color-regex.mjs",
+      "packages/motion-dom/dist/es/value/types/color/utils.mjs",
+      "packages/motion-dom/dist/es/value/types/color/rgba.mjs",
+      "packages/motion-dom/dist/es/value/types/color/hex.mjs",
+      "packages/motion-dom/dist/es/value/types/numbers/units.mjs",
+      "packages/motion-dom/dist/es/value/types/color/hsla.mjs",
+      "packages/motion-dom/dist/es/value/types/color/index.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/color-regex.mjs",
+      "packages/motion-dom/dist/es/value/types/complex/index.mjs",
+      "packages/motion-dom/dist/es/value/types/color/hsla-to-rgba.mjs",
+      "packages/motion-dom/dist/es/utils/mix/immediate.mjs",
+      "packages/motion-dom/dist/es/utils/mix/number.mjs",
+      "packages/motion-dom/dist/es/utils/mix/color.mjs",
+      "packages/motion-dom/dist/es/utils/mix/visibility.mjs",
+      "packages/motion-dom/dist/es/utils/mix/complex.mjs",
+      "packages/motion-dom/dist/es/utils/mix/index.mjs",
+      "packages/motion-dom/dist/es/animation/drivers/frame.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/utils/linear.mjs",
+      "packages/motion-dom/dist/es/animation/generators/utils/calc-duration.mjs",
+      "packages/motion-dom/dist/es/animation/generators/utils/create-generator-easing.mjs",
+      "packages/motion-dom/dist/es/animation/generators/spring.mjs",
+      "packages/motion-dom/dist/es/animation/generators/utils/velocity.mjs",
+      "packages/motion-dom/dist/es/animation/generators/inertia.mjs",
+      "packages/motion-dom/dist/es/utils/interpolate.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/offsets/fill.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/offsets/default.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/offsets/time.mjs",
+      "packages/motion-dom/dist/es/animation/generators/keyframes.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/get-final.mjs",
+      "packages/motion-dom/dist/es/animation/utils/replace-transition-type.mjs",
+      "packages/motion-dom/dist/es/animation/utils/WithPromise.mjs",
+      "packages/motion-dom/dist/es/animation/JSAnimation.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/utils/fill-wildcards.mjs",
+      "packages/motion-dom/dist/es/render/dom/parse-transform.mjs",
+      "packages/motion-dom/dist/es/render/utils/keys-transform.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/utils/unit-conversion.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/KeyframesResolver.mjs",
+      "packages/motion-dom/dist/es/render/dom/is-css-var.mjs",
+      "packages/motion-dom/dist/es/render/dom/style-set.mjs",
+      "packages/motion-dom/dist/es/utils/supports/flags.mjs",
+      "packages/motion-dom/dist/es/utils/supports/memo.mjs",
+      "packages/motion-dom/dist/es/utils/supports/scroll-timeline.mjs",
+      "packages/motion-dom/dist/es/utils/supports/linear-easing.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/easing/cubic-bezier.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/easing/supported.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/easing/map-easing.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/start-waapi-animation.mjs",
+      "packages/motion-dom/dist/es/animation/generators/utils/is-generator.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/utils/apply-generator.mjs",
+      "packages/motion-dom/dist/es/animation/NativeAnimation.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/utils/unsupported-easing.mjs",
+      "packages/motion-dom/dist/es/animation/NativeAnimationExtended.mjs",
+      "packages/motion-dom/dist/es/animation/utils/is-animatable.mjs",
+      "packages/motion-dom/dist/es/animation/utils/can-animate.mjs",
+      "packages/motion-dom/dist/es/animation/utils/make-animation-instant.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/utils/accelerated-values.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/utils/is-browser-color.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/supports/waapi.mjs",
+      "packages/motion-dom/dist/es/animation/AsyncMotionValueAnimation.mjs",
+      "packages/motion-dom/dist/es/animation/GroupAnimation.mjs",
+      "packages/motion-dom/dist/es/animation/GroupAnimationWithThen.mjs",
+      "packages/motion-dom/dist/es/animation/NativeAnimationWrapper.mjs",
+      "packages/motion-dom/dist/es/animation/utils/active-animations.mjs",
+      "packages/motion-dom/dist/es/animation/utils/calc-child-stagger.mjs",
+      "packages/motion-dom/dist/es/value/index.mjs",
+      "packages/motion-dom/dist/es/animation/utils/resolve-transition.mjs",
+      "packages/motion-dom/dist/es/animation/utils/get-value-transition.mjs",
+      "packages/motion-dom/dist/es/animation/utils/default-transitions.mjs",
+      "packages/motion-dom/dist/es/animation/utils/is-transition-defined.mjs",
+      "packages/motion-dom/dist/es/animation/interfaces/motion-value.mjs",
+      "packages/motion-dom/dist/es/animation/utils/arc.mjs",
+      "packages/motion-dom/dist/es/animation/utils/css-variables-conversion.mjs",
+      "packages/motion-dom/dist/es/render/utils/resolve-variants.mjs",
+      "packages/motion-dom/dist/es/render/utils/resolve-dynamic-variants.mjs",
+      "packages/motion-dom/dist/es/render/utils/keys-position.mjs",
+      "packages/motion-dom/dist/es/render/utils/is-keyframes-target.mjs",
+      "packages/motion-dom/dist/es/render/utils/setters.mjs",
+      "packages/motion-dom/dist/es/value/utils/is-motion-value.mjs",
+      "packages/motion-dom/dist/es/value/will-change/is.mjs",
+      "packages/motion-dom/dist/es/value/will-change/add-will-change.mjs",
+      "packages/motion-dom/dist/es/render/dom/utils/camel-to-dash.mjs",
+      "packages/motion-dom/dist/es/animation/optimized-appear/data-id.mjs",
+      "packages/motion-dom/dist/es/animation/optimized-appear/get-appear-id.mjs",
+      "packages/motion-dom/dist/es/animation/interfaces/visual-element-target.mjs",
+      "packages/motion-dom/dist/es/animation/interfaces/visual-element-variant.mjs",
+      "packages/motion-dom/dist/es/animation/interfaces/visual-element.mjs",
+      "packages/motion-dom/dist/es/value/types/auto.mjs",
+      "packages/motion-dom/dist/es/value/types/test.mjs",
+      "packages/motion-dom/dist/es/value/types/dimensions.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/utils/is-none.mjs",
+      "packages/motion-dom/dist/es/value/types/complex/filter.mjs",
+      "packages/motion-dom/dist/es/value/types/complex/mask.mjs",
+      "packages/motion-dom/dist/es/value/types/int.mjs",
+      "packages/motion-dom/dist/es/value/types/maps/transform.mjs",
+      "packages/motion-dom/dist/es/value/types/maps/number.mjs",
+      "packages/motion-dom/dist/es/value/types/maps/defaults.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/animatable-none.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/utils/make-none-animatable.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/DOMKeyframesResolver.mjs",
+      "packages/motion-dom/dist/es/utils/border-radius.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/utils/px-values.mjs",
+      "packages/motion-dom/dist/es/animation/keyframes/utils/apply-px-defaults.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/easing/is-supported.mjs",
+      "packages/motion-dom/dist/es/animation/waapi/supports/partial-keyframes.mjs",
+      "packages/motion-dom/dist/es/utils/resolve-elements.mjs",
+      "packages/motion-dom/dist/es/effects/utils/create-dom-effect.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/get-as-type.mjs",
+      "packages/motion-dom/dist/es/effects/MotionValueState.mjs",
+      "packages/motion-dom/dist/es/effects/utils/create-effect.mjs",
+      "packages/motion-dom/dist/es/effects/attr/index.mjs",
+      "packages/motion-dom/dist/es/effects/prop/index.mjs",
+      "packages/motion-dom/dist/es/utils/is-html-element.mjs",
+      "packages/motion-dom/dist/es/effects/style/transform.mjs",
+      "packages/motion-dom/dist/es/effects/style/index.mjs",
+      "packages/motion-dom/dist/es/effects/svg/index.mjs",
+      "packages/motion-dom/dist/es/frameloop/microtask.mjs",
+      "packages/motion-dom/dist/es/gestures/drag/state/is-active.mjs",
+      "packages/motion-dom/dist/es/gestures/drag/state/set-active.mjs",
+      "packages/motion-dom/dist/es/gestures/utils/setup.mjs",
+      "packages/motion-dom/dist/es/gestures/hover.mjs",
+      "packages/motion-dom/dist/es/gestures/utils/is-node-or-child.mjs",
+      "packages/motion-dom/dist/es/gestures/utils/is-primary-pointer.mjs",
+      "packages/motion-dom/dist/es/gestures/press/utils/is-keyboard-accessible.mjs",
+      "packages/motion-dom/dist/es/gestures/press/utils/state.mjs",
+      "packages/motion-dom/dist/es/gestures/press/utils/keyboard.mjs",
+      "packages/motion-dom/dist/es/gestures/press/index.mjs",
+      "packages/motion-dom/dist/es/render/dom/style-computed.mjs",
+      "packages/motion-dom/dist/es/utils/is-svg-element.mjs",
+      "packages/motion-dom/dist/es/resize/handle-element.mjs",
+      "packages/motion-dom/dist/es/resize/handle-window.mjs",
+      "packages/motion-dom/dist/es/resize/index.mjs",
+      "packages/motion-dom/dist/es/scroll/observe.mjs",
+      "packages/motion-dom/dist/es/stats/buffer.mjs",
+      "packages/motion-dom/dist/es/stats/index.mjs",
+      "packages/motion-dom/dist/es/utils/is-svg-svg-element.mjs",
+      "packages/motion-dom/dist/es/utils/stagger.mjs",
+      "packages/motion-dom/dist/es/utils/transform.mjs",
+      "packages/motion-dom/dist/es/value/follow-value.mjs",
+      "packages/motion-dom/dist/es/value/subscribe-value.mjs",
+      "packages/motion-dom/dist/es/value/transform-value.mjs",
+      "packages/motion-dom/dist/es/value/map-value.mjs",
+      "packages/motion-dom/dist/es/value/spring-value.mjs",
+      "packages/motion-dom/dist/es/value/types/utils/find.mjs",
+      "packages/motion-dom/dist/es/view/utils/assign-names.mjs",
+      "packages/motion-dom/dist/es/view/utils/choose-layer-type.mjs",
+      "packages/motion-dom/dist/es/view/utils/css.mjs",
+      "packages/motion-dom/dist/es/view/utils/get-layer-info.mjs",
+      "packages/motion-dom/dist/es/view/utils/get-view-animations.mjs",
+      "packages/motion-dom/dist/es/view/utils/has-target.mjs",
+      "packages/motion-dom/dist/es/view/start.mjs",
+      "packages/motion-dom/dist/es/view/queue.mjs",
+      "packages/motion-dom/dist/es/view/index.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/models.mjs",
+      "packages/motion-dom/dist/es/render/store.mjs",
+      "packages/motion-dom/dist/es/render/utils/is-animation-controls.mjs",
+      "packages/motion-dom/dist/es/render/utils/is-variant-label.mjs",
+      "packages/motion-dom/dist/es/render/utils/variant-props.mjs",
+      "packages/motion-dom/dist/es/render/utils/is-controlling-variants.mjs",
+      "packages/motion-dom/dist/es/render/utils/motion-values.mjs",
+      "packages/motion-dom/dist/es/render/utils/reduced-motion/state.mjs",
+      "packages/motion-dom/dist/es/render/utils/reduced-motion/index.mjs",
+      "packages/motion-dom/dist/es/render/VisualElement.mjs",
+      "packages/motion-dom/dist/es/render/dom/DOMVisualElement.mjs",
+      "packages/motion-dom/dist/es/render/Feature.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/conversion.mjs",
+      "packages/motion-dom/dist/es/projection/utils/has-transform.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/delta-apply.mjs",
+      "packages/motion-dom/dist/es/projection/utils/measure.mjs",
+      "packages/motion-dom/dist/es/render/html/utils/build-transform.mjs",
+      "packages/motion-dom/dist/es/render/html/utils/build-styles.mjs",
+      "packages/motion-dom/dist/es/render/html/utils/render.mjs",
+      "packages/motion-dom/dist/es/projection/styles/scale-border-radius.mjs",
+      "packages/motion-dom/dist/es/projection/styles/scale-box-shadow.mjs",
+      "packages/motion-dom/dist/es/projection/styles/scale-correction.mjs",
+      "packages/motion-dom/dist/es/render/utils/is-forced-motion-value.mjs",
+      "packages/motion-dom/dist/es/render/html/utils/scrape-motion-values.mjs",
+      "packages/motion-dom/dist/es/render/html/HTMLVisualElement.mjs",
+      "packages/motion-dom/dist/es/render/object/ObjectVisualElement.mjs",
+      "packages/motion-dom/dist/es/render/svg/utils/path.mjs",
+      "packages/motion-dom/dist/es/render/svg/utils/build-attrs.mjs",
+      "packages/motion-dom/dist/es/render/svg/utils/camel-case-attrs.mjs",
+      "packages/motion-dom/dist/es/render/svg/utils/is-svg-tag.mjs",
+      "packages/motion-dom/dist/es/render/svg/utils/render.mjs",
+      "packages/motion-dom/dist/es/render/svg/utils/scrape-motion-values.mjs",
+      "packages/motion-dom/dist/es/render/svg/SVGVisualElement.mjs",
+      "packages/motion-dom/dist/es/render/utils/get-variant-context.mjs",
+      "packages/motion-dom/dist/es/render/utils/shallow-compare.mjs",
+      "packages/motion-dom/dist/es/render/utils/animation-state.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/copy.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/delta-calc.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/delta-remove.mjs",
+      "packages/motion-dom/dist/es/projection/geometry/utils.mjs",
+      "packages/motion-dom/dist/es/projection/utils/each-axis.mjs",
+      "packages/motion-dom/dist/es/projection/styles/transform.mjs",
+      "packages/motion-dom/dist/es/projection/animation/mix-values.mjs",
+      "packages/motion-dom/dist/es/animation/animate/single-value.mjs",
+      "packages/motion-dom/dist/es/events/add-dom-event.mjs",
+      "packages/motion-dom/dist/es/projection/utils/compare-by-depth.mjs",
+      "packages/motion-dom/dist/es/projection/utils/flat-tree.mjs",
+      "packages/motion-dom/dist/es/utils/delay.mjs",
+      "packages/motion-dom/dist/es/value/utils/resolve-motion-value.mjs",
+      "packages/motion-dom/dist/es/projection/shared/stack.mjs",
+      "packages/motion-dom/dist/es/projection/node/state.mjs",
+      "packages/motion-dom/dist/es/projection/node/create-projection-node.mjs",
+      "packages/motion-dom/dist/es/projection/node/DocumentProjectionNode.mjs",
+      "packages/motion-dom/dist/es/projection/node/group.mjs",
+      "packages/motion-dom/dist/es/projection/node/HTMLProjectionNode.mjs",
+      "packages/motion-dom/dist/es/layout/LayoutAnimationBuilder.mjs",
+      "packages/motion-dom/dist/es/frameloop/index-legacy.mjs",
+      "packages/motion-dom/dist/es/index.mjs",
+      "packages/framer-motion/dist/es/animation/utils/is-dom-keyframes.mjs",
+      "packages/framer-motion/dist/es/animation/animate/resolve-subjects.mjs",
+      "packages/framer-motion/dist/es/animation/sequence/utils/calc-repeat-duration.mjs",
+      "packages/framer-motion/dist/es/animation/sequence/utils/calc-time.mjs",
+      "packages/framer-motion/dist/es/animation/sequence/utils/edit.mjs",
+      "packages/framer-motion/dist/es/animation/sequence/utils/normalize-times.mjs",
+      "packages/framer-motion/dist/es/animation/sequence/utils/sort.mjs",
+      "packages/framer-motion/dist/es/animation/sequence/create.mjs",
+      "packages/framer-motion/dist/es/animation/utils/create-visual-element.mjs",
+      "packages/framer-motion/dist/es/animation/animate/subject.mjs",
+      "packages/framer-motion/dist/es/animation/animate/sequence.mjs",
+      "packages/framer-motion/dist/es/animation/animate/index.mjs",
+      "packages/framer-motion/dist/es/animation/animators/waapi/animate-elements.mjs",
+      "packages/framer-motion/dist/es/animation/animators/waapi/animate-style.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/utils/can-use-native-timeline.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/info.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/offsets/inset.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/offsets/edge.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/offsets/offset.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/offsets/presets.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/offsets/index.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/on-scroll-handler.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/track.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/utils/offset-to-range.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/utils/get-timeline.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/attach-animation.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/utils/is-element-tracking.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/attach-function.mjs",
+      "packages/framer-motion/dist/es/render/dom/scroll/index.mjs",
+      "packages/framer-motion/dist/es/render/dom/viewport/index.mjs",
+      "packages/framer-motion/dist/es/utils/distance.mjs",
+      "packages/framer-motion/dist/es/dom.mjs",
+      "packages/motion/dist/es/index.mjs",
+      "public-esm-entry.mjs"
+    ]
+  },
+  "lilscriptArtifacts": [
+    {
+      "path": "dist/gestures.cjs",
+      "raw": 4882,
+      "gzip9": 2010,
+      "brotli11": 1773,
+      "sha256": "dbef5a1327f307ae03e4bfaae2e7bf05d9ae68fc6e2f653e21ca1d7bdfebc357"
+    },
+    {
+      "path": "dist/index.cjs",
+      "raw": 132200,
+      "gzip9": 41241,
+      "brotli11": 34788,
+      "sha256": "e2baa42ef7c95ed6adc461e7801d9c24d398c72e8bda7b00141c20b1d0832ee8"
+    },
+    {
+      "path": "dist/debug.cjs",
+      "raw": 927,
+      "gzip9": 483,
+      "brotli11": 422,
+      "sha256": "6b88c654193120d973af9e8cb7a4eb072cf0ca642e86991f4f234ea8f9a2b8d1"
+    },
+    {
+      "path": "dist/animate.js",
+      "raw": 97753,
+      "gzip9": 30017,
+      "brotli11": 26468,
+      "sha256": "589502f58049204cb885feca529671f092ce384861d0dfe845b6f66583a2fc8c"
+    },
+    {
+      "path": "dist/viewport.cjs",
+      "raw": 1939,
+      "gzip9": 967,
+      "brotli11": 879,
+      "sha256": "a5e2b46396bcf09c3f4b3a4318970b7aa31cfddacc8efc22d7fa2a93d481fec8"
+    },
+    {
+      "path": "dist/animate-mini.js",
+      "raw": 9916,
+      "gzip9": 3423,
+      "brotli11": 3112,
+      "sha256": "9556154086ff8ed4d048cd80a0ff6bcf9975c5e377a67f6cda4c92b870e1496b"
+    },
+    {
+      "path": "dist/resize.js",
+      "raw": 1874,
+      "gzip9": 916,
+      "brotli11": 796,
+      "sha256": "93c9be79be56975f2e83d91f1e60d07e49f67ca0da4bf0095c191a793ea1a8aa"
+    },
+    {
+      "path": "dist/index.js",
+      "raw": 764,
+      "gzip9": 372,
+      "brotli11": 319,
+      "sha256": "93f5cdfe1357d660994a944767a86692ec187e6749e0afe6c720daf82e92da4f"
+    },
+    {
+      "path": "dist/full.cjs",
+      "raw": 193583,
+      "gzip9": 60694,
+      "brotli11": 51364,
+      "sha256": "2b58464e835ee1e61afa08af0884757991026ffdbd860686b331a8b73584f8c0"
+    },
+    {
+      "path": "dist/debug.js",
+      "raw": 510,
+      "gzip9": 264,
+      "brotli11": 217,
+      "sha256": "cd908eae596a6c8ad9e7e085e0c0c38fb872c6f830b3020566245c5b2d8710c8"
+    },
+    {
+      "path": "dist/resize.cjs",
+      "raw": 2537,
+      "gzip9": 1179,
+      "brotli11": 1055,
+      "sha256": "1f4f19a25f4df617d391f1c9a1f58a4f626d3f3fc92cce525c74d34f6f279139"
+    },
+    {
+      "path": "dist/mini.cjs",
+      "raw": 43789,
+      "gzip9": 13206,
+      "brotli11": 11804,
+      "sha256": "d5fec703a53803602052000ec93c6c1404c8c9cc5bab1db31bbb5948696d2191"
+    },
+    {
+      "path": "dist/viewport.js",
+      "raw": 1346,
+      "gzip9": 728,
+      "brotli11": 648,
+      "sha256": "1716cc2721d7ccd024a671740970f65cdab23f75c051b80a0b7308e37f16ff26"
+    },
+    {
+      "path": "dist/scroll.cjs",
+      "raw": 17548,
+      "gzip9": 6531,
+      "brotli11": 5843,
+      "sha256": "763dcb7434d4aedbd9cb65408dcf4c310e3b9ff3bdbc2377767d27f9f52490ce"
+    },
+    {
+      "path": "dist/scroll.js",
+      "raw": 16684,
+      "gzip9": 6258,
+      "brotli11": 5564,
+      "sha256": "ec584977493c90aced7e75ed8c5e83330ff7a6896a65349fae674b2ea4bc9e51"
+    },
+    {
+      "path": "dist/index.bundle.js",
+      "raw": 132005,
+      "gzip9": 41163,
+      "brotli11": 34739,
+      "sha256": "f5fdd658975f0938160ad780cf9c05868f15a7a0f7821a93582c0768965094d4"
+    },
+    {
+      "path": "dist/animate.cjs",
+      "raw": 98732,
+      "gzip9": 30392,
+      "brotli11": 26773,
+      "sha256": "a18837e4551ed8672dd4cb4584b502467014a0a1b14b7c6ddc85b4ac556c3b35"
+    },
+    {
+      "path": "dist/animate-mini.cjs",
+      "raw": 10530,
+      "gzip9": 3606,
+      "brotli11": 3288,
+      "sha256": "2b379735164c7ccca3cecea0edd0f28b2d7a05e1d0ef4692ca8c73bf0232394e"
+    },
+    {
+      "path": "dist/full.js",
+      "raw": 192862,
+      "gzip9": 60182,
+      "brotli11": 51111,
+      "sha256": "a90393b2dec300d4b80401733581b0556ab0261890fd30f550302e8b5c33c02c"
+    },
+    {
+      "path": "dist/gestures.js",
+      "raw": 4234,
+      "gzip9": 1774,
+      "brotli11": 1571,
+      "sha256": "82c74f9ce9efd0761a4e1cebce86ea756795acdee0be1812e7aaaebaaefb52bb"
+    },
+    {
+      "path": "dist/mini.js",
+      "raw": 42962,
+      "gzip9": 12899,
+      "brotli11": 11491,
+      "sha256": "6c01cb4a0fb214ccf77369d382a050b7f7dc8157f38074f151b3177e658b686f"
+    },
+    {
+      "path": "dist/motionlil.global.js",
+      "raw": 132190,
+      "gzip9": 41236,
+      "brotli11": 34763,
+      "sha256": "33b792e76fc76222b842fbcc926fdd6390d13feaea2d3f7f4be5d876743662cb"
+    }
+  ],
+  "nativeBuildsSummary": {
+    "samples": 3,
+    "successful": 3,
+    "medianSeconds": 16.797544885000207,
+    "minimumSeconds": 16.699346924000565,
+    "maximumSeconds": 16.99555742800021
+  },
+  "lilscriptBuildsSummary": {
+    "samples": 3,
+    "successful": 3,
+    "medianSeconds": 8.028403304000676,
+    "minimumSeconds": 7.978181311999833,
+    "maximumSeconds": 8.0309499519999
+  },
+  "status": "complete",
+  "finishedAt": "2026-09-10T21:06:26Z",
+  "workerIp": "10.1.0.20"
+}

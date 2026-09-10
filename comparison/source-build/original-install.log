@@ -1,0 +1,26 @@
+➤ YN0000: ┌ Project validation
+➤ YN0057: │ react-19-env: Resolutions field will be ignored
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Resolution step
+➤ YN0002: │ motion-one@workspace:. doesn't provide @babel/core (pea257), requested by @cypress/webpack-preprocessor
+➤ YN0002: │ motion-one@workspace:. doesn't provide @babel/preset-env (pf1ee7), requested by @cypress/webpack-preprocessor
+➤ YN0060: │ motion-one@workspace:. provides @testing-library/dom (p2e9b1) with version 8.20.1, which doesn't satisfy what @testing-library/react requests
+➤ YN0002: │ motion-one@workspace:. doesn't provide babel-loader (pf9f2a), requested by @cypress/webpack-preprocessor
+➤ YN0060: │ motion-one@workspace:. provides rollup (p4f722) with version 4.59.0, which doesn't satisfy what rollup-plugin-sourcemaps and some of its descendants request
+➤ YN0002: │ motion-one@workspace:. doesn't provide webpack (p4dc37), requested by @cypress/webpack-preprocessor
+➤ YN0002: │ motion-one@workspace:. doesn't provide webpack (pc4b0c), requested by react-dev-utils
+➤ YN0002: │ motion-one@workspace:. doesn't provide webpack (pfe9b4), requested by ts-loader
+➤ YN0002: │ react-19-env@workspace:dev/react-19 doesn't provide eslint (p3db9e), requested by @typescript-eslint/eslint-plugin
+➤ YN0002: │ react-19-env@workspace:dev/react-19 doesn't provide eslint (p5b9db), requested by @typescript-eslint/parser
+➤ YN0002: │ react-19-env@workspace:dev/react-19 doesn't provide eslint (p56c33), requested by eslint-plugin-react-refresh
+➤ YN0002: │ react-env@workspace:dev/react doesn't provide eslint (p4595a), requested by @typescript-eslint/eslint-plugin
+➤ YN0002: │ react-env@workspace:dev/react doesn't provide eslint (p83e1f), requested by @typescript-eslint/parser
+➤ YN0002: │ react-env@workspace:dev/react doesn't provide eslint (p70406), requested by eslint-plugin-react-refresh
+➤ YN0000: │ Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Fetch step
+➤ YN0013: │ 1494 packages were already cached
+➤ YN0000: └ Completed
+➤ YN0000: ┌ Link step
+➤ YN0000: └ Completed
+➤ YN0000: Done with warnings in 0s 541ms

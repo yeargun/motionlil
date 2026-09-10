@@ -1,9 +1,12 @@
+import { setProp } from "../dom-host";
 import { GroupAnimation } from "./GroupAnimation";
 import { withPromiseOf } from "../cast";
 
 export class GroupAnimationWithThen extends GroupAnimation {
   init(JsValue[] input) {
     super(input);
+    GroupAnimationWithThen self = this;
+    setProp(this, "getFinished", () => { return self.finished(); });
   }
 
   Task<bool> finished() {
