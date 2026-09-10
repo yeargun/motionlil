@@ -85,18 +85,6 @@ export func(func()->void)->JsValue? animateMotionValue(
       motionValue: value
     };
     assignRecord(options, valueTransition);
-    JsValue transitionDuration = valueTransition["duration"];
-    if (transitionDuration is float) {
-      options["duration"] = transitionDuration;
-    }
-    JsValue transitionType = valueTransition["type"];
-    if (transitionType is bool || transitionType is string || transitionType.truthy()) {
-      options["type"] = transitionType;
-    }
-    JsValue transitionEase = valueTransition["ease"];
-    if (transitionEase is string || transitionEase.truthy()) {
-      options["ease"] = transitionEase;
-    }
     options["delay"] = 0.0 - elapsed;
     options["onUpdate"] = (JsValue v) => {
       motion.set(v);

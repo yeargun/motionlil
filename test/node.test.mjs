@@ -79,3 +79,35 @@ test("public constructor compatibility covers common direct usage", () => {
   assert.equal(group.duration, 0)
   assert.equal(typeof group.stop, "function")
 })
+
+test("MotionValue uses its public prototype and preserves method defaults", () => {
+  for (const runtime of [motion, full]) {
+    const value = runtime.motionValue(3)
+    const other = new runtime.MotionValue(7)
+    assert.equal(Object.getPrototypeOf(value), runtime.MotionValue.prototype)
+    assert.equal(value.get, other.get)
+    assert.equal(value.set, other.set)
+    assert.equal(runtime.MotionValue.length, upstream.MotionValue.length)
+    assert.equal(value.jump.length, upstream.MotionValue.prototype.jump.length)
+    value.jump(8)
+    assert.equal(value.get(), 8)
+    assert.equal(value.getPrevious(), 8)
+    value.destroy(); other.destroy()
+  }
+})
+
+test("group compatibility preserves existing native accessors and completion promises", async () => {
+  for (const runtime of [motion, full]) {
+    let time = .2
+    const readTime = () => time
+    const finished = Promise.resolve('done')
+    const control = { duration: .6, speed: 1, finished, stop() {} }
+    Object.defineProperty(control, 'time', { get: readTime, set(value) { time = value } })
+    const group = new runtime.GroupAnimation([control])
+    assert.equal(Object.getOwnPropertyDescriptor(control, 'time').get, readTime)
+    assert.equal(control.finished, finished)
+    group.time = .4
+    assert.equal(group.time, .4)
+    assert.deepEqual(await group.finished, ['done'])
+  }
+})

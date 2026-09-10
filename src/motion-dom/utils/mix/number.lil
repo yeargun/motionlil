@@ -1,3 +1,3 @@
-export float mixNumber(float from, float to, float progress) {
+export pure float mixNumber(float from, float to, float progress) {
   return from + (to - from) * progress;
 }

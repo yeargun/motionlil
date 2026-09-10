@@ -1,13 +1,41 @@
 const noop = () => {}
 
+// Accessors are host ABI glue. Their receiver is supplied by JavaScript, so
+// every animation can share them instead of allocating closures at setup.
+const controlProperties = {
+  time: {
+    get() { return typeof this.getPlaybackTime === "function" ? this.getPlaybackTime() : 0 },
+    set(value) { this.setPlaybackTime?.(value) },
+  },
+  speed: {
+    get() { return typeof this.getPlaybackSpeed === "function" ? this.getPlaybackSpeed() : 1 },
+    set(value) { this.setPlaybackSpeed?.(value) },
+  },
+  duration: {
+    get() { return typeof this.getDuration === "function" ? this.getDuration() : 0 },
+  },
+  iterationDuration: {
+    get() { return typeof this.getDuration === "function" ? this.getDuration() : 0 },
+  },
+  state: { get() { return "running" } },
+  finished: {
+    get() { return typeof this.getFinished === "function" ? this.getFinished() : Promise.resolve() },
+  },
+}
+for (const descriptor of Object.values(controlProperties)) {
+  descriptor.configurable = true
+  descriptor.enumerable = true
+}
+const controlPropertyNames = Object.keys(controlProperties)
+
+function then(resolve, reject) {
+  return Promise.resolve(this.finished).then(resolve, reject)
+}
+
 function defineControlProperty(control, name, descriptor) {
   if (name in control) return
   try {
-    Object.defineProperty(control, name, {
-      configurable: true,
-      enumerable: true,
-      ...descriptor,
-    })
+    Object.defineProperty(control, name, descriptor)
   } catch {
     // Host animation objects can be non-extensible. Their native surface is
     // already usable, so a failed compatibility alias is safe to skip.
@@ -30,29 +58,24 @@ export function normalizeControls(control) {
         : noop
   }
 
-  defineControlProperty(control, "time", {
-    get: () => typeof control.getPlaybackTime === "function" ? control.getPlaybackTime() : 0,
-    set: (value) => control.setPlaybackTime?.(value),
-  })
-  defineControlProperty(control, "speed", {
-    get: () => typeof control.getPlaybackSpeed === "function" ? control.getPlaybackSpeed() : 1,
-    set: (value) => control.setPlaybackSpeed?.(value),
-  })
-  defineControlProperty(control, "duration", {
-    get: () => typeof control.getDuration === "function" ? control.getDuration() : 0,
-  })
-  defineControlProperty(control, "iterationDuration", {
-    get: () => typeof control.getDuration === "function" ? control.getDuration() : 0,
-  })
-  defineControlProperty(control, "state", {
-    get: () => "running",
-  })
-
-  if (!("finished" in control)) {
-    defineControlProperty(control, "finished", { get: () => typeof control.getFinished === "function" ? control.getFinished() : Promise.resolve() })
+  // Fresh compiled groups need this complete surface. Install the shared
+  // descriptors in one host call, retaining existing properties on mixed or
+  // native controls through the incremental path.
+  if (controlPropertyNames.every(name => !(name in control))) {
+    try {
+      Object.defineProperties(control, controlProperties)
+    } catch {
+      for (const name of controlPropertyNames) {
+        defineControlProperty(control, name, controlProperties[name])
+      }
+    }
+  } else {
+    for (const name of controlPropertyNames) {
+      defineControlProperty(control, name, controlProperties[name])
+    }
   }
   if (typeof control.then !== "function") {
-    control.then = (resolve, reject) => Promise.resolve(control.finished).then(resolve, reject)
+    control.then = then
   }
 
   return control

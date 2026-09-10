@@ -8,7 +8,7 @@ import { KeyframesInput } from "./generators/keyframes";
 import { SpringGenerator } from "./generators/generator";
 import { calcGeneratorDuration } from "./generators/utils/calc-duration";
 import { getGeneratorVelocity } from "./generators/utils/velocity";
-import { getFinalKeyframe } from "./keyframes/get-final";
+import { AnimationTiming, RepeatMode, finalNumericKeyframe, readNumberUpdate } from "./timing";
 import { replaceTransitionType } from "./utils/replace-transition-type-keyframes";
 import { WithPromise } from "./utils/WithPromise";
 import { AnimationState } from "./animation-state";
@@ -68,6 +68,7 @@ export class SampleResult {
 
 export class JSAnimation extends WithPromise {
   JSAnimationOptions options;
+  AnimationTiming timing;
   bool stopped;
   string state;
   float? startTime;
@@ -84,6 +85,12 @@ export class JSAnimation extends WithPromise {
   init(JSAnimationOptions options) {
     super();
     this.options = options;
+    this.timing = new AnimationTiming(options.extra);
+    JsValue boundaryOptions = options.extra;
+    if (options.onUpdate == null && boundaryOptions.truthy()) {
+      JsValue callback = boundaryOptions["onUpdate"];
+      options.onUpdate = readNumberUpdate(callback);
+    }
     this.stopped = false;
     this.state = "idle";
     this.startTime = null;
@@ -231,7 +238,7 @@ export class JSAnimation extends WithPromise {
     }
   }
 
-  SampleResult sample(float sampleTime) {
+  AnimationState sample(float sampleTime) {
     SpringGenerator? gen = this.springGen;
     if (gen == null) {
       float[] keys = this.options.keyframes;
@@ -239,10 +246,11 @@ export class JSAnimation extends WithPromise {
       if (keys.length > 0) {
         v = keys[keys.length - 1];
       }
-      return new SampleResult(v, true);
+      this.delayState.value = v;
+      this.delayState.done = true;
+      return this.delayState;
     }
-    AnimationState state = gen.next(sampleTime);
-    return new SampleResult(state.value, state.done);
+    return gen.next(sampleTime);
   }
 
   void tick(float timestamp) {
@@ -265,14 +273,7 @@ export class JSAnimation extends WithPromise {
       this.currentTime = (timestamp - start) * this.playbackSpeed;
     }
 
-    float delayMs = 0.0;
-    JsValue extra = this.options.extra;
-    if (extra.truthy() && extra.isObject()) {
-      JsValue delayVal = extra["delay"];
-      if (delayVal is float) {
-        delayMs = delayVal;
-      }
-    }
+    float delayMs = this.timing.delay;
 
     float timeWithoutDelay = this.currentTime - delayMs;
     bool isInDelayPhase = timeWithoutDelay < 0.0;
@@ -288,25 +289,21 @@ export class JSAnimation extends WithPromise {
       isInDelayPhase = false;
     }
 
-    SampleResult result = this.sample(this.currentTime);
+    AnimationState result = this.sample(this.currentTime);
     if (isInDelayPhase) {
       float[] keys = this.options.keyframes;
       float first = 0.0;
       if (keys.length > 0) {
         first = keys[0];
       }
-      result = new SampleResult(first, false);
+      result = this.delayState;
+      result.value = first;
+      result.done = false;
     }
 
     (func(float)->void)? onUpdate = this.options.onUpdate;
     if (onUpdate != null) {
       onUpdate(result.value);
-    }
-    if (extra.truthy()) {
-      JsValue ou = extra["onUpdate"];
-      if (isFunction(ou)) {
-        invoke1(ou, result.value);
-      }
     }
     if (!isInDelayPhase && (result.done || forcedComplete) && this.holdTime == null && (this.state == "running" || forcedComplete)) {
       this.finish();

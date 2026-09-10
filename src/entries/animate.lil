@@ -13,7 +13,7 @@ import { delay, delayInSeconds } from "../motion-dom/utils/delay";
 import { spring } from "../motion-dom/animation/generators/spring";
 import { inertia } from "../motion-dom/animation/generators/inertia";
 import { keyframes } from "../motion-dom/animation/generators/keyframes";
-import { motionValue } from "../motion-dom/value/index";
+import { MotionValue, motionValue } from "../motion-dom/value/index";
 import { mapValue } from "../motion-dom/value/map-value";
 import { transformValue } from "../motion-dom/value/transform-value";
 import { springValue } from "../motion-dom/value/spring-value";
@@ -34,6 +34,8 @@ import { backIn, backOut, backInOut } from "../motion-utils/easing/back";
 import { circIn, circOut, circInOut } from "../motion-utils/easing/circ";
 import { anticipate } from "../motion-utils/easing/anticipate";
 import { steps } from "../motion-utils/easing/steps";
+
+export constructor MotionValue;
 
 export {
   compareByTime,

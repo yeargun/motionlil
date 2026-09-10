@@ -91,6 +91,10 @@ The default `motionlil` ESM entry is a named-export barrel. Vite keeps only the 
 
 The LilScript compiler performs whole-program optimization with identifier and property mangling enabled. Each consumer feature is compiled on its own, then published as a separate ESM file so bundlers can drop unused features. CommonJS and the browser global remain single-file builds. Terser runs three compression passes, top-level identifier mangling, and private-property mangling. A second Terser pass, a Vite consumer build, and a named-import shake test are part of the test suite.
 
+ESM targets ES2022 and preserves native class fields and shared MotionValue prototype methods. CommonJS and the browser global target ES2020. A consuming bundler can downlevel the ESM build for older browsers.
+
+The recorded build uses LilScript [fe444cdf](https://github.com/yeargun/lilscript/commit/fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b), which fixes default parameters and method arity on exported constructors. Set `MOTIONLIL_LILSCRIPT_BIN` to that release compiler when rebuilding this source snapshot.
+
 To build from source, keep `motionlil` next to a LilScript checkout, or point to its release compiler explicitly:
 
 ```sh

@@ -1,4 +1,4 @@
-export float progress(float from, float to, float value) {
+export pure float progress(float from, float to, float value) {
   float range = to - from;
   if (range != 0.0) {
     return (value - from) / range;

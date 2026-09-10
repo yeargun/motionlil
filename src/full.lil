@@ -380,6 +380,8 @@ import {
   distance,
   distance2D
 } from "./dom";
+export constructor MotionValue;
+
 export {
   AsyncMotionValueAnimation,
   GroupAnimation,
@@ -525,7 +527,6 @@ export {
   transformRange,
   AccelerateConfig,
   CollectMotionValues,
-  MotionValue,
   MotionValueOptions,
   Owner,
   collectMotionValues,

@@ -36,15 +36,7 @@ export class SubscriptionManager {
   }
 }
 
-export class MotionValue {
-  constructor(initial, options = {}) {
-    return core.motionValue(initial, options)
-  }
-
-  static [Symbol.hasInstance](value) {
-    return core.isMotionValue(value)
-  }
-}
+export { MotionValue } from "./.__compiled-index.mjs"
 
 export class GroupAnimation {
   constructor(animations = []) {

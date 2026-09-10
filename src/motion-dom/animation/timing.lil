@@ -1,0 +1,63 @@
+// Animation options cross the JavaScript boundary once. The frame loop only
+// needs these owned, typed values, rather than repeatedly inspecting that bag.
+import { isFunction } from "../dom-host";
+import extern { identity as numberUpdateCallback } from "../cast-host.ts";
+
+// The public onUpdate contract accepts the generated value. Validate callability
+// at that boundary, then keep the original function identity inside the runtime.
+extern func(number)->void numberUpdateCallback(JsValue callback);
+
+export (func(number)->void)? readNumberUpdate(JsValue callback) {
+  if (isFunction(callback)) { return numberUpdateCallback(callback); }
+  return null;
+}
+
+export enum RepeatMode { Loop, Reverse, Mirror }
+
+export pure RepeatMode repeatMode(string value) {
+  return match(value) {
+    "reverse" => RepeatMode.Reverse,
+    "mirror" => RepeatMode.Mirror,
+    _ => RepeatMode.Loop
+  };
+}
+
+export class AnimationTiming {
+  number delay;
+  number repeat;
+  number repeatDelay;
+  RepeatMode mode;
+  number? finalKeyframe;
+
+  init(JsValue? options = null) {
+    this.delay = 0.0;
+    this.repeat = 0.0;
+    this.repeatDelay = 0.0;
+    this.mode = RepeatMode.Loop;
+    this.finalKeyframe = null;
+    if (options != null) {
+      JsValue delay = options["delay"];
+      JsValue repeat = options["repeat"];
+      JsValue repeatDelay = options["repeatDelay"];
+      JsValue mode = options["repeatType"];
+      JsValue finalKeyframe = options["finalKeyframe"];
+      if (delay is number) { this.delay = delay; }
+      if (repeat is number) { this.repeat = repeat; }
+      if (repeatDelay is number) { this.repeatDelay = repeatDelay; }
+      if (mode is string) { this.mode = repeatMode(mode); }
+      if (finalKeyframe is number) { this.finalKeyframe = finalKeyframe; }
+    }
+  }
+}
+
+export pure number finalNumericKeyframe(number[] keys, AnimationTiming timing, number speed) {
+  if (keys.length == 0) { return 0.0; }
+  bool first = speed < 0.0;
+  if (!first && timing.mode != RepeatMode.Loop) {
+    first = timing.repeat.toInt() % 2 == 1;
+  }
+  if (first || keys.length == 1) { return keys[0]; }
+  number? finalKeyframe = timing.finalKeyframe;
+  if (finalKeyframe != null) { return finalKeyframe; }
+  return keys[keys.length - 1];
+}

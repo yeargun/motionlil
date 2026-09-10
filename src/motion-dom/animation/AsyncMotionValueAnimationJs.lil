@@ -1,3 +1,4 @@
+import { readNumberUpdate } from "./timing";
 import { WithPromise } from "./utils/WithPromise";
 import { JSAnimation, JSAnimationOptions } from "./JSAnimationFull";
 import { KeyframeResolver, flushKeyframeResolvers } from "./keyframes/KeyframesResolver";
@@ -239,12 +240,7 @@ export class AsyncMotionValueAnimation extends WithPromise {
     if (type is string) {
       typeStr = type;
     }
-    (func(float)->void)? onUpdateFn = null;
-    if (isFunction(onUpdate)) {
-      onUpdateFn = (float v) => {
-        callFn1(onUpdate, v);
-      };
-    }
+    (func(float)->void)? onUpdateFn = readNumberUpdate(onUpdate);
     JSAnimationOptions jsOpts = new JSAnimationOptions(
       floatKeys,
       velocity,

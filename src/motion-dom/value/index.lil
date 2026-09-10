@@ -114,68 +114,6 @@ export class MotionValue {
     if (options != null) {
       this.owner = options.owner;
     }
-    MotionValue self = this;
-    setProp(this, "getVelocity", () => {
-      return self.getVelocity();
-    });
-    setProp(this, "get", () => {
-      return self.get();
-    });
-    setProp(this, "getPrevious", () => {
-      return self.getPrevious();
-    });
-    setProp(this, "onChange", (func(JsValue?, JsValue?, JsValue?)->void subscription) => {
-      return self.onChange(subscription);
-    });
-    setProp(this, "on", (string eventName, func(JsValue?, JsValue?, JsValue?)->void callback) => {
-      return self.on(eventName, callback);
-    });
-    setProp(this, "clearListeners", () => {
-      self.clearListeners();
-    });
-    setProp(this, "attach", (
-      func(JsValue, func(JsValue)->void)->void passiveEffect,
-      func()->void stopPassiveEffect
-    ) => {
-      self.attach(passiveEffect, stopPassiveEffect);
-    });
-    setProp(this, "set", (JsValue value) => {
-      self.set(value);
-    });
-    setProp(this, "setWithVelocity", (JsValue previous, JsValue value, float delta) => {
-      self.setWithVelocity(previous, value, delta);
-    });
-    setProp(this, "jump", (JsValue value, bool? endAnimation) => {
-      if (endAnimation == null) {
-        self.jump(value, true);
-      } else {
-        self.jump(value, endAnimation);
-      }
-    });
-    setProp(this, "dirty", () => {
-      self.dirty();
-    });
-    setProp(this, "addDependent", (MotionValue dependent) => {
-      self.addDependent(dependent);
-    });
-    setProp(this, "removeDependent", (MotionValue dependent) => {
-      self.removeDependent(dependent);
-    });
-    setProp(this, "start", (func(func()->void)->JsValue? startAnimation) => {
-      return self.start(startAnimation);
-    });
-    setProp(this, "stop", () => {
-      self.stop();
-    });
-    setProp(this, "isAnimating", () => {
-      return self.isAnimating();
-    });
-    setProp(this, "clearAnimation", () => {
-      self.clearAnimation();
-    });
-    setProp(this, "destroy", () => {
-      self.destroy();
-    });
   }
 
   void setCurrent(JsValue currentValue) {
@@ -201,14 +139,12 @@ export class MotionValue {
 
   func()->void on(string eventName, func(JsValue?, JsValue?, JsValue?)->void callback) {
     SubscriptionManager? existing = this.events.get(eventName);
-    SubscriptionManager manager = new SubscriptionManager();
+    SubscriptionManager manager = existing ?? new SubscriptionManager();
     if (existing == null) {
       this.events.set(eventName, manager);
       if (this.eventKeys.indexOf(eventName) == -1) {
         this.eventKeys.push(eventName);
       }
-    } else {
-      manager = existing;
     }
     func()->void unsubscribe = manager.add(callback);
     if (eventName == "change") {

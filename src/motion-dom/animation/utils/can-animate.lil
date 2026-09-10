@@ -44,19 +44,19 @@ export bool canAnimate(
   JsValue targetKeyframe = keyframes[keyframes.length - 1];
   bool isOriginAnimatable = isAnimatable(originKeyframe, name);
   bool isTargetAnimatable = isAnimatable(targetKeyframe, name);
-  string label = "";
-  if (name != null) {
-    label = name;
+  if (isOriginAnimatable != isTargetAnimatable) {
+    string label = "";
+    if (name != null) { label = name; }
+    JsValue badValue = match(isOriginAnimatable) {
+      true => targetKeyframe,
+      false => originKeyframe
+    };
+    warning(
+      false,
+      `You are trying to animate ${label} from "${originKeyframe}" to "${targetKeyframe}". "${badValue}" is not an animatable value.`,
+      "value-not-animatable"
+    );
   }
-  string badValue = `${originKeyframe}`;
-  if (isOriginAnimatable) {
-    badValue = `${targetKeyframe}`;
-  }
-  warning(
-    isOriginAnimatable == isTargetAnimatable,
-    `You are trying to animate ${label} from "${originKeyframe}" to "${targetKeyframe}". "${badValue}" is not an animatable value.`,
-    "value-not-animatable"
-  );
   if (!isOriginAnimatable || !isTargetAnimatable) {
     return false;
   }

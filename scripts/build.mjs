@@ -209,7 +209,9 @@ async function emitBundled(entry, outfile, format, platform = "browser") {
     bundle: true,
     platform,
     format,
-    target: "es2020",
+    // Preserve the compiler's native class fields in modern ESM. Downleveling
+    // them adds a host helper call for every field of every MotionValue.
+    target: format === "esm" ? "es2022" : "es2020",
     treeShaking: true,
     legalComments: "none",
     logLevel: "warning",
