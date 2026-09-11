@@ -35,7 +35,7 @@ test("named imports do not pull the whole consumer graph", async () => {
     "animate", "animateMini", "hover", "inView", "motionValue", "press", "scroll", "stagger",
   ])
   // Mini retains native easing/generator, timeline and interruption controls.
-  assert.ok(animateMini < 36_000, `animateMini stayed too large: ${animateMini}`)
+  assert.ok(animateMini < 20_000, `animateMini stayed too large: ${animateMini}`)
   assert.ok(animateMini * 2 < animate, `animateMini ${animateMini} should be much smaller than animate ${animate}`)
   assert.ok(animate < lab, `animate ${animate} should be smaller than the wide import set ${lab}`)
 })
