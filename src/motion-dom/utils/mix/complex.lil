@@ -20,14 +20,8 @@ func(float)->float mixNumberPair(float a, float b) {
 export func(JsValue, JsValue)->func(float)->JsValue getMixer(JsValue a) {
   if (a is float) {
     return (JsValue from, JsValue to) => {
-      float af = 0.0;
-      float bf = 0.0;
-      if (from is float) {
-        af = from;
-      }
-      if (to is float) {
-        bf = to;
-      }
+      float af = JS.assume(from);
+      float bf = JS.assume(to);
       return (float p) => mixNumberImmediate(af, bf, p);
     };
   } else if (a is string) {

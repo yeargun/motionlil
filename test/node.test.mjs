@@ -187,3 +187,17 @@ test('transition lookup uses property access, nullish fallback and inherited pro
     assert.equal(full.getValueTransition(value,'opacity'),upstream.getValueTransition(value,'opacity'))
   }
 })
+
+test("mix preserves Motion's numeric and mixer-returning overloads", async () => {
+  const original = await import("../site/esm-comparison/original.js")
+  for (const [from, to] of [[0, 10], ["translateX(0px)", "translateX(40px)"], ["#000", "#fff"]]) {
+    const expected = original.mix(from, to)
+    const actual = motion.mix(from, to)
+    assert.equal(typeof actual, "function")
+    for (const p of [0, .25, .5, 1]) assert.deepEqual(actual(p), expected(p))
+  }
+  assert.equal(motion.mix(10, 30, .25), original.mix(10, 30, .25))
+  // The numeric mixer trusts its inputs just as Motion does; it must not
+  // replace a non-number endpoint with a port-specific zero fallback.
+  assert.equal(motion.mix(0, "10")(.5), original.mix(0, "10")(.5))
+})

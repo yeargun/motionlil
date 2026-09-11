@@ -1,5 +1,5 @@
 import { wrap } from "./motion-utils/wrap";
-import { mix } from "./motion-dom/utils/mix/index";
+import { mixNumber as mix } from "./motion-dom/utils/mix/index";
 import { stagger, StaggerOptions } from "./motion-dom/utils/stagger";
 import { SpringGenerator, spring, SpringInput } from "./motion-dom/animation/generators/spring";
 

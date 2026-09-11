@@ -1,4 +1,4 @@
-import { mix } from "./motion-dom/utils/mix/index";
+import { mixNumber as mix } from "./motion-dom/utils/mix/index";
 import { stagger, StaggerOptions } from "./motion-dom/utils/stagger";
 import { MotionValue, motionValue } from "./motion-dom/value/index";
 

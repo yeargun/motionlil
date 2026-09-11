@@ -1,7 +1,11 @@
 import { mixNumber as mixNumberImmediate } from "./number";
+import { getMixer } from "./complex";
 
-export float mix(float from, float to, float p) {
-  return mixNumberImmediate(from, to, p);
+export JsValue mix(JsValue from, JsValue to, JsValue p) {
+  if (from is float && to is float && p is float) {
+    return mixNumberImmediate(from, to, p);
+  }
+  return getMixer(from)(from, to);
 }
 
 export { mixNumberImmediate as mixNumber };
