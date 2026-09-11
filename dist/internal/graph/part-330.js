@@ -1,14 +1,14 @@
 import { identity as asVisualElement } from "./../motion-dom/cast-host.js";
 import { callFn1, constructConfigured, isFunction } from "./../motion-dom/dom-host.js";
 import { _b } from "./part-144.js";
-import { Ma } from "./part-146.js";
+import { Na } from "./part-146.js";
 import { Vh } from "./part-329.js";
 import { da } from "./part-453.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
 let Wh = (vk, zk) => {
-  var Fk = asVisualElement(vk), Ak = null, wk = Ma(Fk, "willChange", Ak, false);
+  var Fk = asVisualElement(vk), Ak = null, wk = Na(Fk, "willChange", Ak, false);
   if (wk != Ak) {
     var Dk, xk, yk, Ek, Bk = Vh(wk), Ck = Bk;
   } else Ck = false;

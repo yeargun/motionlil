@@ -1,6 +1,6 @@
 import { identity as asMotionValue } from "./../motion-dom/cast-host.js";
 import { callFn0, callFn1, isFunction } from "./../motion-dom/dom-host.js";
-import { fb } from "./part-100.js";
+import { Ma } from "./part-100.js";
 import { gg } from "./part-103.js";
 import { hg } from "./part-104.js";
 import { gb } from "./part-106.js";
@@ -20,7 +20,7 @@ import { $ } from "./part-52.js";
 import { nf } from "./part-554.js";
 import { Ec } from "./part-555.js";
 import { Fc } from "./part-556.js";
-import { bb } from "./part-62.js";
+import { cb } from "./part-62.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
@@ -330,7 +330,7 @@ class $m20$JSAnimation extends $m114$WithPromise {
       var yk = wk.next(this.currentTime).value;
       if ("number" == typeof yk) {
         var zk = this.currentTime, Ak = Math.max(zk - 5, 0);
-        return bb(yk - ((bl) => {
+        return cb(yk - ((bl) => {
           var cl = wk.next(bl).value;
           if ("number" == typeof cl) return cl;
           return 0;
@@ -387,7 +387,7 @@ class $m20$JSAnimation extends $m114$WithPromise {
       Gk = Fk;
     } else Gk = false;
     if (Gk) {
-      Rk = fb(Lk[0])(Lk[0], Lk[1]);
+      Rk = Ma(Lk[0])(Lk[0], Lk[1]);
       this.mixKeyframes = (Xl) => Rk(Xl / rk);
       Nk = [0, rk];
     } else Nk = Lk;

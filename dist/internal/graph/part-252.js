@@ -1,8 +1,8 @@
-import { Xa, Ya } from "./part-253.js";
-let Na = (vk, wk) => {
-  if (!Xa.has(vk)) Ya.push(vk);
-  Xa.set(vk, wk);
+import { Ya, Za } from "./part-253.js";
+let Oa = (vk, wk) => {
+  if (!Ya.has(vk)) Za.push(vk);
+  Ya.set(vk, wk);
 };
 export {
-  Na
+  Oa
 };

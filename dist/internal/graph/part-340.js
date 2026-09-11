@@ -1,7 +1,7 @@
 import { kb } from "./part-202.js";
 import { bi } from "./part-339.js";
 import { z } from "./part-522.js";
-import { Sa } from "./part-574.js";
+import { Ta } from "./part-574.js";
 import { Tb } from "./part-71.js";
 import "./effect-580.js";
 import "./effect-614.js";
@@ -18,7 +18,7 @@ let we = (vk, yk, Fk) => {
         fl[Gk] = Vk;
         continue;
       } else {
-        Wk = kb(Vk, Sa[Gk]);
+        Wk = kb(Vk, Ta[Gk]);
         if (Gk.startsWith("origin")) {
           el[Gk] = Wk;
           cl = true;

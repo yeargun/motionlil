@@ -2,7 +2,7 @@ import { g } from "./part-39.js";
 import { X } from "./part-483.js";
 import { lk } from "./part-5.js";
 import { B } from "./part-74.js";
-import { eb } from "./part-94.js";
+import { fb } from "./part-94.js";
 import { Wb } from "./part-95.js";
 import { hd } from "./part-97.js";
 import "./effect-580.js";
@@ -16,7 +16,7 @@ let id = (vk, xk) => {
     Dk = "boolean" == typeof Bk;
     Ek = Dk;
   }
-  if (Ek) return (Tk) => `${eb(vk, xk)(Tk)}`;
+  if (Ek) return (Tk) => `${fb(vk, xk)(Tk)}`;
   wk = zk;
   yk = Bk;
   Ak = wk.red;

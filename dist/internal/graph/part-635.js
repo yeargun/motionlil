@@ -1,4 +1,4 @@
-var $a = /* @__PURE__ */ new Map();
+var ab = /* @__PURE__ */ new Map();
 export {
-  $a
+  ab
 };

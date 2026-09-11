@@ -14,7 +14,7 @@
       "cause": "Existing repository formatting violations and differential-generator output-count assertion."
     }
   },
-  "sourceCommit": "8498c200bbb892286258b775f04d3b682435c65a",
+  "sourceCommit": "21e680e422205f927ff0392c3707d5a6f5cfc810",
   "browser": {
     "passed": 39,
     "failed": 0,
@@ -30,7 +30,7 @@
     ]
   },
   "nodeTests": {
-    "passed": 21,
+    "passed": 22,
     "failed": 0
   },
   "types": "passed",
@@ -41,14 +41,14 @@
   },
   "coverage": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
   "measuredDistribution": {
-    "file": "dist/full.bundle.js",
-    "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574"
+    "file": "comparison/mangling/artifacts/full-public-properties-lilscript.js",
+    "sha256": "93c79cf55008ee20a07074570c0f1a8be8c628708b7d89e8fa8c47029aaed78c"
   },
   "sourceBuildChecks": {
     "machine": "Azure Standard_D16als_v7",
     "node": "v24.11.1",
     "browserTests": 39,
-    "nodeTests": 21,
+    "nodeTests": 22,
     "failed": 0,
     "log": "../source-build/lilscript-tests.log"
   },
@@ -57,8 +57,9 @@
     "fullExports": 327,
     "defaultExports": 52,
     "fullMissingOriginalNames": [],
-    "comparisonEntry": "dist/full.bundle.js",
-    "behavior": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity."
+    "comparisonEntry": "comparison/mangling/artifacts/full-public-properties-lilscript.js",
+    "behavior": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
+    "comparisonExports": 312
   },
   "performance": {
     "repetitions": 30,
@@ -72,11 +73,11 @@
     "inputs": {
       "lilscript": {
         "file": "inputs/lilscript.js",
-        "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574"
+        "sha256": "93c79cf55008ee20a07074570c0f1a8be8c628708b7d89e8fa8c47029aaed78c"
       },
       "original": {
         "file": "inputs/original.js",
-        "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+        "sha256": "ea1fb8868e180bea4c77d24ea1eb438b8d0343eeb07fa9decf5dee78c52c375d"
       },
       "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
     }
@@ -84,7 +85,7 @@
   "packageChecks": {
     "command": "npm run check",
     "passed": true,
-    "nodeTests": 21,
+    "nodeTests": 22,
     "siteTests": 7,
     "declarations": "passed",
     "pack": "passed"
@@ -98,8 +99,31 @@
     },
     "baselineMobile": {
       "width": 390,
-      "scroll": 490
+      "scroll": 390
     },
     "mobileRegression": false
+  },
+  "mangling": {
+    "public": [
+      {
+        "mode": "identifiers",
+        "passed": 39,
+        "failed": 0,
+        "exitCode": 0,
+        "reference": "Unmangled-property original ESM; both re-minified lanes are compared with that reference."
+      },
+      {
+        "mode": "public-properties",
+        "passed": 39,
+        "failed": 0,
+        "exitCode": 0,
+        "reference": "Unmangled-property original ESM; both re-minified lanes are compared with that reference."
+      }
+    ],
+    "closedComparisons": 72,
+    "closedMatches": 72,
+    "complete": true,
+    "browser": "145.0.7632.6",
+    "record": "https://github.com/yeargun/motionlil/blob/main/comparison/mangling/validation.json"
   }
 }

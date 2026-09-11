@@ -27,3 +27,6 @@ jobs:
       - name: Compare animation behavior with source-built Motion
         if: matrix.node == 22
         run: npm run test:browser
+      - name: Check public and closed mangling artifacts against original behavior
+        if: matrix.node == 22
+        run: node scripts/check-mangling.mjs

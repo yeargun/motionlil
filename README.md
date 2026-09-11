@@ -7,16 +7,16 @@ Motion’s browser animation API, ported to LilScript and published as the depen
 The [comparison page](https://yeargun.github.io/motionlil/) records the current public ESM sizes, browser performance, source-build times and machine details against Motion 13.1.0. Both libraries are built from pinned source revisions. The 16 live demos illustrate the API; measured performance covers the separately recorded, behavior-checked workloads.
 
 <!-- current-esm:start -->
-| Full public ESM | Motion 13.1.0 | motionlil/full |
+| Matched 312-export ESM | Original Motion | Motionlil |
 | --- | ---: | ---: |
-| Raw | 137,560 B | 182,803 B |
-| gzip-9 | 45,031 B | 60,557 B |
-| Brotli-11 | 40,141 B | 52,367 B |
+| Raw | 134,557 B | 174,382 B |
+| Gzip-9 | 44,698 B | 59,308 B |
+| Brotli-11 | 39,902 B | 51,351 B |
 
-Three clean source builds on the same Azure Standard_D16als_v7 worker (AMD EPYC 9V45, 16 vCPUs, 31.3 GiB RAM, Ubuntu 24.04.4, Node 24.11.1): **17.101 s original, 6.727 s LilScript**, medians. Dependency installation is excluded; each package's output formats and checks differ. Exact commands and samples are in [site/source-build.json](./site/source-build.json).
+Both sides use the same public extern reservations and property mangling. Three clean source builds on the same Azure Standard_D16als_v7 worker (AMD EPYC 9V45 96-Core Processor, 16 vCPUs, 31.3 GiB RAM, Ubuntu 24.04.4 LTS, Node v24.11.1): **18.151 s original, 7.079 s LilScript**, medians. Dependency installation is excluded; each package's output formats and checks differ. Exact commands and samples are in [site/source-build.json](./site/source-build.json). Matched ESM assembly timings are recorded separately in [site/mangling.json](./site/mangling.json).
 <!-- current-esm:end -->
 
-The [full performance table](https://yeargun.github.io/motionlil/#performance) measures the source-built `motionlil/full` entry against the original ESM with 30 paired trials. All seven workloads match native backends/options, sampled timelines, final values and library RAF; natural playback also passes. All three mini workloads meet the ±5% equivalence criterion. The four broader workloads use 5.0–14.9% more renderer CPU by paired median; their confidence intervals do not establish equivalence. CPU figures describe the checked animation workloads, not overall compatibility or animation quality.
+The [full performance table](https://yeargun.github.io/motionlil/#performance) measures the same 312-export ESM graphs used in the headline byte comparison with 30 paired trials. All seven workloads match native backends/options, sampled timelines, final values and library RAF; natural playback also passes. All three mini workloads meet the ±5% equivalence criterion. The four broader workloads use 4.8–8.4% more renderer CPU by paired median; their confidence intervals do not establish equivalence. CPU figures describe the checked animation workloads, not overall compatibility or animation quality.
 
 ```sh
 npm install motionlil
@@ -79,9 +79,11 @@ import { animate } from "motionlil"
 
 ## ESM comparison scope
 
-The headline size comparison retains every export of `motionlil/full` and the original Motion public ESM entry, assembled from pinned Git source builds. React-specific entry points are excluded. The full port is larger in the recorded raw, gzip and Brotli measurements. Low-level layout/rendering adapters remain incomplete; this is a byte comparison with explicitly bounded behavior checks.
+The headline comparison retains the same 312 original Motion export names in both source-built ESM graphs. Both use esbuild 0.28.1, Terser 5.51.2, ES2022, three compression passes and property mangling under identical public API, browser and dynamic-name extern reservations. The shipped full port exposes 327 names; its 15 extra exports are excluded from this measurement. React-specific entry points are excluded. The port remains larger. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete behavior parity.
 
-The default `motionlil` entry is a narrower 52-export consumer API. Its complete ESM graph measures 122,369 B raw, 40,388 B gzip-9 and 35,263 B Brotli-11. Those figures cover a different export surface from the full original, so they are listed separately. The default entry is a named-export barrel with no runtime dependencies; bundlers can retain only imported features. `npm run test:size` also measures consumer bundles with its own stated target.
+[The mangling comparison](./comparison/mangling/README.md) separately records identifier-only and property-mangled builds for the matched 312-export API, matched 50-export consumer API, identical closed application, and closed diagnostic retaining all 312 roots. Closed builds transform the caller and library together. They include caller code and are not public ESM distributions. Complete extern lists, artifacts, name maps, exact hashes and behavior checks are recorded alongside the results.
+
+The default `motionlil` entry is a narrower 52-export consumer API. Its native package ESM graph measures 122,396 B raw, 40,380 B gzip-9 and 35,197 B Brotli-11. Those figures cover a different export surface from the full original, so they are listed separately. The default entry is a named-export barrel with no runtime dependencies; bundlers can retain only imported features. `npm run test:size` also measures consumer bundles with its own stated target.
 
 ## Build pipeline
 

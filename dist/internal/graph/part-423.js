@@ -14,7 +14,7 @@ import { ma } from "./part-628.js";
 import { Rc } from "./part-629.js";
 import { Lb } from "./part-630.js";
 import { Mb } from "./part-631.js";
-import { _a } from "./part-632.js";
+import { $a } from "./part-632.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
@@ -152,7 +152,7 @@ let We = (vk, wk) => {
     Pk();
   }
   if (Nk) {
-    Gk = !weakMapHas(_a, Ak);
+    Gk = !weakMapHas($a, Ak);
     Hk = Gk;
   } else Hk = false;
   if (Hk) {
@@ -184,7 +184,7 @@ let We = (vk, wk) => {
         }
       };
       f.read(Jk, true, false);
-      weakMapSet(_a, Ak, Jk);
+      weakMapSet($a, Ak, Jk);
     }
   }
   Kk = weakMapGetListener(ma, Ak);
@@ -213,10 +213,10 @@ let We = (vk, wk) => {
       if (Tm) Tm();
       removeWindowListener("resize", Mm);
     }
-    Nm = weakMapGetProcess(_a, Ak);
+    Nm = weakMapGetProcess($a, Ak);
     if (Nm) {
       F(Nm);
-      weakMapDelete(_a, Ak);
+      weakMapDelete($a, Ak);
     }
     weakMapDelete(Mb, Ak);
   };

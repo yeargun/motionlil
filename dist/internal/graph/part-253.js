@@ -2,15 +2,15 @@ import { callMethod1, documentCreateElement, documentHead } from "./../motion-do
 import { lk } from "./part-5.js";
 import { Bk } from "./part-531.js";
 let th = () => {
-  if (null == Za) {
+  if (null == _a) {
     var vk = documentCreateElement("style");
     vk.id = "motion-view";
-    Za = vk;
+    _a = vk;
   }
   var Gk, Dk, Ek, wk, Hk, Jk, xk, yk, Fk, zk, Ak, Bk2, Ck = lk, Ik = 0;
-  for (; Ik < Ya.length; ) {
-    Gk = Ya[Ik] || "";
-    Dk = Xa.get(Gk);
+  for (; Ik < Za.length; ) {
+    Gk = Za[Ik] || "";
+    Dk = Ya.get(Gk);
     if (Dk !== void 0) {
       Ek = Dk;
       wk = Ck + `${Gk} {
@@ -31,20 +31,20 @@ let th = () => {
     Ck = Bk2;
     Ik += 1;
   }
-  Fk = Za;
+  Fk = _a;
   if (null != Fk) {
     Fk.textContent = Ck;
     callMethod1(documentHead(), "appendChild", Fk);
   }
-  Xa = /* @__PURE__ */ new Map();
-  Ya = [];
+  Ya = /* @__PURE__ */ new Map();
+  Za = [];
 };
-var Xa = /* @__PURE__ */ new Map();
-var Ya = [];
-var Za = Bk;
+var Ya = /* @__PURE__ */ new Map();
+var Za = [];
+var _a = Bk;
 export {
-  Xa,
   Ya,
   Za,
+  _a,
   th
 };

@@ -1,6 +1,6 @@
 import { pd } from "./part-122.js";
 import { pi } from "./part-358.js";
-import { Qa } from "./part-520.js";
+import { Ra } from "./part-520.js";
 import { Df } from "./part-603.js";
 import "./effect-580.js";
 import "./effect-614.js";
@@ -56,7 +56,7 @@ let qi = (vk) => {
   xk.whileTap = Hk;
   xk.whileInView = Hk;
   for (Jk = 0; Jk < Df; Jk = Jk + 1) {
-    Kk = Qa[Jk] || "";
+    Kk = Ra[Jk] || "";
     Bk = vk.props[Kk];
     if (Bk !== void 0) {
       Ik = Bk;

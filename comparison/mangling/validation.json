@@ -1,0 +1,6270 @@
+{
+  "public": [
+    {
+      "mode": "identifiers",
+      "passed": 39,
+      "failed": 0,
+      "exitCode": 0,
+      "reference": "Unmangled-property original ESM; both re-minified lanes are compared with that reference."
+    },
+    {
+      "mode": "public-properties",
+      "passed": 39,
+      "failed": 0,
+      "exitCode": 0,
+      "reference": "Unmangled-property original ESM; both re-minified lanes are compared with that reference."
+    }
+  ],
+  "closed": [
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "mini",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "mini-repeat",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "alternate",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 2
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "transform",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(0px, 0px)",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "transform": "translate(24px, 12px)",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ],
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "xy",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              6,
+              3,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              12,
+              6,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              18,
+              9,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              24,
+              12,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "layout",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.4375,
+              0,
+              0,
+              19,
+              3,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.5,
+              0.625,
+              0,
+              0,
+              22,
+              4,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.75,
+              0.8125,
+              0,
+              0,
+              25,
+              5,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              1,
+              1,
+              0,
+              0,
+              28,
+              6,
+              "rgb(0, 0, 0)"
+            ]
+          ],
+          [
+            [
+              [
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "0.25",
+                  "computedOffset": 0
+                },
+                {
+                  "offset": null,
+                  "easing": "linear",
+                  "composite": "auto",
+                  "opacity": "1",
+                  "computedOffset": 1
+                }
+              ],
+              {
+                "delay": 0,
+                "direction": "normal",
+                "duration": 600,
+                "easing": "linear",
+                "endDelay": 0,
+                "fill": "both",
+                "iterationStart": 0,
+                "iterations": 1
+              },
+              "paused"
+            ]
+          ],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "colors",
+      "matches": true,
+      "result": [
+        [
+          [
+            [
+              0,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(0, 0, 0)"
+            ],
+            [
+              0.25,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(128, 128, 128)"
+            ],
+            [
+              0.5,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(180, 180, 180)"
+            ],
+            [
+              0.75,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(221, 221, 221)"
+            ],
+            [
+              1,
+              0.25,
+              0,
+              0,
+              16,
+              2,
+              "rgb(255, 255, 255)"
+            ]
+          ],
+          [],
+          0
+        ],
+        [
+          11,
+          11,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "values",
+      "matches": true,
+      "result": [
+        [
+          [
+            4,
+            0.1,
+            1,
+            "running",
+            0,
+            0,
+            [
+              0,
+              0,
+              4
+            ],
+            1
+          ],
+          [
+            4,
+            0.1,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4
+            ],
+            1
+          ],
+          [
+            10,
+            0.25,
+            1,
+            "paused",
+            0,
+            0,
+            [
+              0,
+              0,
+              4,
+              4,
+              10
+            ],
+            1
+          ],
+          [
+            24,
+            0.8,
+            2,
+            "finished",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24
+            ],
+            0
+          ],
+          [
+            4,
+            0.1,
+            2,
+            "idle",
+            1,
+            1,
+            [
+              0,
+              0,
+              4,
+              4,
+              10,
+              24,
+              4,
+              4
+            ],
+            0
+          ]
+        ],
+        [
+          9,
+          9,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "mix",
+      "matches": true,
+      "result": [
+        [
+          [
+            "rgba(18, 52, 86, 1)",
+            "translateX(0px)"
+          ],
+          [
+            "rgba(128, 119, 119, 1)",
+            "translateX(10px)"
+          ],
+          [
+            "rgba(180, 160, 145, 1)",
+            "translateX(20px)"
+          ],
+          [
+            "rgba(220, 192, 167, 1)",
+            "translateX(30px)"
+          ],
+          [
+            "rgba(254, 220, 186, 1)",
+            "translateX(40px)"
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-app",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "original",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "identifiers",
+      "lane": "lilscript",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "original",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "scope": "closed-full",
+      "mode": "closed-properties",
+      "lane": "lilscript",
+      "kind": "subscription",
+      "matches": true,
+      "result": [
+        [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "browser": "145.0.7632.6",
+  "complete": true
+}

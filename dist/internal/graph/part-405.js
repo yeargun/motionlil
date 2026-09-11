@@ -1,10 +1,10 @@
 import { arrayFromNullable, isNodeList } from "./../motion-dom/dom-host.js";
 import { E } from "./part-205.js";
-import { Oa } from "./part-404.js";
+import { Pa } from "./part-404.js";
 let wc = (vk, wk, Ak, Ck) => {
   if (null == vk) return [];
   if ("string" == typeof vk) {
-    var Bk, Ek, Dk, zk, xk = Oa(wk), yk = xk;
+    var Bk, Ek, Dk, zk, xk = Pa(wk), yk = xk;
   } else yk = false;
   if (yk) return E(vk, Ak, Ck);
   if (isNodeList(vk)) return arrayFromNullable(vk);

@@ -19,8 +19,9 @@
 ➤ YN0000: │ Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code
 ➤ YN0000: └ Completed
 ➤ YN0000: ┌ Fetch step
-➤ YN0013: │ 1494 packages were already cached
-➤ YN0000: └ Completed
+➤ YN0066: │ typescript@patch:typescript@npm%3A5.4.3#~builtin<compat/typescript>::version=5.4.3&hash=29ae49: Cannot apply hunk #8
+➤ YN0013: │ 119 packages were already cached, 1378 had to be fetched
+➤ YN0000: └ Completed in 17s 647ms
 ➤ YN0000: ┌ Link step
-➤ YN0000: └ Completed
-➤ YN0000: Done with warnings in 0s 545ms
+➤ YN0000: └ Completed in 18s 247ms
+➤ YN0000: Done with warnings in 36s 144ms

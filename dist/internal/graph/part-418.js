@@ -1,5 +1,5 @@
 import { oa } from "./part-38.js";
-import { bb } from "./part-62.js";
+import { cb } from "./part-62.js";
 let Ue = (vk, xk, Ek, Hk) => {
   var Ik = Ek.x;
   if ("y" == xk) {
@@ -28,7 +28,7 @@ let Ue = (vk, xk, Ek, Hk) => {
   Kk.progress = /* @__PURE__ */ oa(0, Kk.scrollLength, Kk.current);
   wk = Hk - Nk;
   if (wk > 50) Kk.velocity = 0;
-  else Kk.velocity = bb(Kk.current - Mk, wk);
+  else Kk.velocity = cb(Kk.current - Mk, wk);
 };
 export {
   Ue

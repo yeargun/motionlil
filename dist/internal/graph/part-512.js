@@ -5,8 +5,8 @@ import { el } from "./part-511.js";
 import { B } from "./part-74.js";
 import { Ia } from "./part-76.js";
 import { Ja } from "./part-77.js";
-import { cb } from "./part-79.js";
-import { db } from "./part-80.js";
+import { db } from "./part-79.js";
+import { eb } from "./part-80.js";
 var xb = {
   test: Pk,
   parse: bl,
@@ -23,7 +23,7 @@ var xb = {
         if ("number" == typeof Pz) Tz.push(0);
         else {
           if (Ia(Pz)) {
-            Qz = cb(Pz);
+            Qz = db(Pz);
             Vz = Qz.red;
             _z = Qz.green;
             aA = Qz.blue;
@@ -37,7 +37,7 @@ var xb = {
             Tz.push(cA);
           } else {
             if (Ja(Pz)) {
-              Wz = db(Pz);
+              Wz = eb(Pz);
               $z = Wz.saturation;
               bA = Wz.lightness;
               var qA = Wz.hue;

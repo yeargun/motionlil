@@ -5,7 +5,7 @@ import { ef } from "./part-482.js";
 import { B } from "./part-74.js";
 import { N } from "./part-75.js";
 import { Ia } from "./part-76.js";
-import { cb } from "./part-79.js";
+import { db } from "./part-79.js";
 import { P } from "./part-81.js";
 import { Q } from "./part-82.js";
 import "./effect-580.js";
@@ -82,7 +82,7 @@ var X = {
     };
     B(Rz, 0, 0, 0, 1);
     if (Ia(Oz)) {
-      var Yz, _z, $z, bA, dA, Pz, aA, cA, Zz, Tz, Uz, Vz, Xz, Qz, Sz = cb(Oz), Wz = Sz;
+      var Yz, _z, $z, bA, dA, Pz, aA, cA, Zz, Tz, Uz, Vz, Xz, Qz, Sz = db(Oz), Wz = Sz;
     } else Wz = Rz;
     Yz = ef.transform;
     _z = y.transform;

@@ -1,6 +1,6 @@
-import { Pa } from "./part-460.js";
+import { Qa } from "./part-460.js";
 let Lf = () => {
-  Pa[0] = null;
+  Qa[0] = null;
 };
 export {
   Lf

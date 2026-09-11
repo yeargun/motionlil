@@ -21,8 +21,14 @@ test("the Pages lab contains every recovered LilScript Motion case", () => {
 test("size and performance comparisons use the same source-built ESM inputs", async () => {
   const comparison = JSON.parse(await read("site/comparison.json"))
   const performance = JSON.parse(await read("site/performance.json"))
+  const mangling = JSON.parse(await read("site/mangling.json"))
+  assert.equal(mangling.scope.full.length, 312)
+  assert.equal(mangling.source.portCommit, performance.sources.port.commit)
   for (const lane of ["original", "lilscript"]) {
     assert.equal(comparison.esm[lane].sha256, performance.inputs[lane].sha256)
+    const artifact = mangling.measurements.find(row => row.scope === "full" && row.mode === "public-properties" && row.lane === lane)
+    assert.equal(artifact.exports, 312)
+    assert.equal(artifact.sha256, comparison.esm[lane].sha256)
   }
   assert.equal(comparison.compiler.commit, performance.sources.compiler.commit)
 })

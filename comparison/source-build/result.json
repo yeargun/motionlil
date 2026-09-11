@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "name": "motionlil",
-  "startedAt": "2026-09-11T12:03:49Z",
+  "startedAt": "2026-09-11T12:43:07Z",
   "machine": {
     "provider": "Azure",
     "instanceClass": "Standard_D16als_v7",
@@ -13,14 +13,14 @@
     "node": "v24.11.1",
     "rayonThreads": 8,
     "loadAtStart": [
-      0.09423828125,
-      0.08935546875,
-      0.2509765625
+      0.24072265625,
+      0.16455078125,
+      0.06640625
     ],
     "loadAtEnd": [
-      0.92578125,
-      0.4072265625,
-      0.35400390625
+      2.1357421875,
+      1.06103515625,
+      0.42529296875
     ]
   },
   "compiler": {
@@ -35,8 +35,8 @@
     "directory": "packages/motion"
   },
   "portSource": {
-    "commit": "8498c200bbb892286258b775f04d3b682435c65a",
-    "snapshot": "/tmp/motionlil-structural-fix-20260911/repo"
+    "commit": "21e680e422205f927ff0392c3707d5a6f5cfc810",
+    "snapshot": "/tmp/motionlil-mangle-fairness-20260911/repo"
   },
   "prerequisiteAdjustments": null,
   "steps": {
@@ -49,13 +49,13 @@
         "--mode=skip-build"
       ],
       "cwd": "upstream",
-      "wallSeconds": 0.8152683869998327,
-      "cpuSeconds": 1.1975550000000001,
+      "wallSeconds": 38.492811313999994,
+      "cpuSeconds": 97.852449,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-install.log",
-      "logSha256": "297285baf2c28edd3671f1789eb10271da9680f5985323d13b0713c42a16c3ea",
-      "tail": "\u27a4 YN0000: \u250c Project validation\n\u27a4 YN0057: \u2502 react-19-env: Resolutions field will be ignored\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Resolution step\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide @babel/core (pea257), requested by @cypress/webpack-preprocessor\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide @babel/preset-env (pf1ee7), requested by @cypress/webpack-preprocessor\n\u27a4 YN0060: \u2502 motion-one@workspace:. provides @testing-library/dom (p2e9b1) with version 8.20.1, which doesn't satisfy what @testing-library/react requests\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide babel-loader (pf9f2a), requested by @cypress/webpack-preprocessor\n\u27a4 YN0060: \u2502 motion-one@workspace:. provides rollup (p4f722) with version 4.59.0, which doesn't satisfy what rollup-plugin-sourcemaps and some of its descendants request\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (p4dc37), requested by @cypress/webpack-preprocessor\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (pc4b0c), requested by react-dev-utils\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (pfe9b4), requested by ts-loader\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p3db9e), requested by @typescript-eslint/eslint-plugin\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p5b9db), requested by @typescript-eslint/parser\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p56c33), requested by eslint-plugin-react-refresh\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p4595a), requested by @typescript-eslint/eslint-plugin\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p83e1f), requested by @typescript-eslint/parser\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p70406), requested by eslint-plugin-react-refresh\n\u27a4 YN0000: \u2502 Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Fetch step\n\u27a4 YN0013: \u2502 1494 packages were already cached\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Link step\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: Done with warnings in 0s 545ms\n"
+      "logSha256": "1b44db8d5b01b8e2dc94a6369fcd5f9e38563ad6686ebe5a6237ebda9a24249d",
+      "tail": "\u27a4 YN0000: \u250c Project validation\n\u27a4 YN0057: \u2502 react-19-env: Resolutions field will be ignored\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Resolution step\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide @babel/core (pea257), requested by @cypress/webpack-preprocessor\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide @babel/preset-env (pf1ee7), requested by @cypress/webpack-preprocessor\n\u27a4 YN0060: \u2502 motion-one@workspace:. provides @testing-library/dom (p2e9b1) with version 8.20.1, which doesn't satisfy what @testing-library/react requests\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide babel-loader (pf9f2a), requested by @cypress/webpack-preprocessor\n\u27a4 YN0060: \u2502 motion-one@workspace:. provides rollup (p4f722) with version 4.59.0, which doesn't satisfy what rollup-plugin-sourcemaps and some of its descendants request\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (p4dc37), requested by @cypress/webpack-preprocessor\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (pc4b0c), requested by react-dev-utils\n\u27a4 YN0002: \u2502 motion-one@workspace:. doesn't provide webpack (pfe9b4), requested by ts-loader\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p3db9e), requested by @typescript-eslint/eslint-plugin\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p5b9db), requested by @typescript-eslint/parser\n\u27a4 YN0002: \u2502 react-19-env@workspace:dev/react-19 doesn't provide eslint (p56c33), requested by eslint-plugin-react-refresh\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p4595a), requested by @typescript-eslint/eslint-plugin\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p83e1f), requested by @typescript-eslint/parser\n\u27a4 YN0002: \u2502 react-env@workspace:dev/react doesn't provide eslint (p70406), requested by eslint-plugin-react-refresh\n\u27a4 YN0000: \u2502 Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code\n\u27a4 YN0000: \u2514 Completed\n\u27a4 YN0000: \u250c Fetch step\n\u27a4 YN0066: \u2502 typescript@patch:typescript@npm%3A5.4.3#~builtin<compat/typescript>::version=5.4.3&hash=29ae49: Cannot apply hunk #8\n\u27a4 YN0013: \u2502 119 packages were already cached, 1378 had to be fetched\n\u27a4 YN0000: \u2514 Completed in 17s 647ms\n\u27a4 YN0000: \u250c Link step\n\u27a4 YN0000: \u2514 Completed in 18s 247ms\n\u27a4 YN0000: Done with warnings in 36s 144ms\n"
     },
     "original-build-1": {
       "command": [
@@ -68,13 +68,13 @@
         "--force"
       ],
       "cwd": "upstream",
-      "wallSeconds": 17.197539796,
-      "cpuSeconds": 31.992292999999993,
+      "wallSeconds": 18.353338810999986,
+      "cpuSeconds": 33.80345299999999,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-build-1.log",
-      "logSha256": "f73720c87a996ace18d81d1fd72392650bf36334d08bd41bc4d6b685f693666f",
-      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m17ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m514ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m829ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.893s \n\n"
+      "logSha256": "cc0aca2b977c8269a4c82c9960c78178b26c90eeb9fe5b41ef6e89018e3e5396",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m11ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m521ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m884ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    18.004s \n\n"
     },
     "lilscript-build-1": {
       "command": [
@@ -83,31 +83,31 @@
         "node scripts/build.mjs"
       ],
       "cwd": "port",
-      "wallSeconds": 6.628492004999771,
-      "cpuSeconds": 8.774615,
+      "wallSeconds": 7.078626982000003,
+      "cpuSeconds": 9.561951000000015,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-build-1.log",
-      "logSha256": "2d0586e06f6a10c3129fbe2c88fa90334d509894b3348ded1a7f72020bbd8be7",
-      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-structural-fix-20260911/build/tools/compiler-wrapper.py\n",
+      "logSha256": "f45c988b9c291e58a0a0bfac56940956bb6ec6d50a2c70ae420ad9e1ff23669b",
+      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-mangle-fairness-20260911/build/tools/compiler-wrapper.py\n",
       "invocations": [
         {
           "args": [
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/full.lil",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/full.lil",
             "--target",
             "js-module",
             "--config",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/lilscript.toml",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/lilscript.toml",
             "--mode",
             "production",
             "--output",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
           ],
-          "startedAt": 1789128247.727601,
-          "wallSeconds": 1.8569629192352295,
+          "startedAt": 1789130644.9057202,
+          "wallSeconds": 1.931530237197876,
           "exitCode": 0,
-          "output": "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
-          "sha256": "cdd23ae8459ad88fdc63e3aa2294ee03244cad501a9d33e456d94823a24f255f"
+          "output": "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "52baa4e32dec90c1ff1a995cce53de5ab3acccd909759a7578a6954fcbcc78e3"
         }
       ]
     },
@@ -118,31 +118,31 @@
         "node scripts/build.mjs"
       ],
       "cwd": "port",
-      "wallSeconds": 6.727345280999998,
-      "cpuSeconds": 9.209912000000003,
+      "wallSeconds": 7.0280745860000025,
+      "cpuSeconds": 9.480132999999977,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-build-2.log",
-      "logSha256": "2d0586e06f6a10c3129fbe2c88fa90334d509894b3348ded1a7f72020bbd8be7",
-      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-structural-fix-20260911/build/tools/compiler-wrapper.py\n",
+      "logSha256": "f45c988b9c291e58a0a0bfac56940956bb6ec6d50a2c70ae420ad9e1ff23669b",
+      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-mangle-fairness-20260911/build/tools/compiler-wrapper.py\n",
       "invocations": [
         {
           "args": [
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/full.lil",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/full.lil",
             "--target",
             "js-module",
             "--config",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/lilscript.toml",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/lilscript.toml",
             "--mode",
             "production",
             "--output",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
           ],
-          "startedAt": 1789128254.36991,
-          "wallSeconds": 1.8486175537109375,
+          "startedAt": 1789130652.0027046,
+          "wallSeconds": 1.9883201122283936,
           "exitCode": 0,
-          "output": "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
-          "sha256": "cdd23ae8459ad88fdc63e3aa2294ee03244cad501a9d33e456d94823a24f255f"
+          "output": "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "52baa4e32dec90c1ff1a995cce53de5ab3acccd909759a7578a6954fcbcc78e3"
         }
       ]
     },
@@ -157,13 +157,13 @@
         "--force"
       ],
       "cwd": "upstream",
-      "wallSeconds": 17.101011049000135,
-      "cpuSeconds": 31.92588200000001,
+      "wallSeconds": 18.150607123000043,
+      "cpuSeconds": 33.88042699999998,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-build-2.log",
-      "logSha256": "db9e43dd356dbe18e65e999cb3cdad09e0aae3a010ab5d6cc8996ce7e2d27d48",
-      "tail": "ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m13ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m491ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m820ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.78s \n\n"
+      "logSha256": "05a83a068d8eec35de29327a4303ced7d262dd1bbf23dab7064e08c7a0199d00",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m11ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m590ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m894ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    17.837s \n\n"
     },
     "original-build-3": {
       "command": [
@@ -176,13 +176,13 @@
         "--force"
       ],
       "cwd": "upstream",
-      "wallSeconds": 17.100314482000158,
-      "cpuSeconds": 31.998242999999995,
+      "wallSeconds": 17.998931857000002,
+      "cpuSeconds": 33.51735700000002,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-build-3.log",
-      "logSha256": "ab664372e73b97025b51b0c6c9ba1edc2f959742942f42112f2e5b891385af22",
-      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m496ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m820ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.783s \n\n"
+      "logSha256": "83d631248459411948c63ba46bd93a1c26890c8c5c733f687bd4bb6347bdadbe",
+      "tail": "ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m513ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m864ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m9ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    17.65s \n\n"
     },
     "lilscript-build-3": {
       "command": [
@@ -191,44 +191,44 @@
         "node scripts/build.mjs"
       ],
       "cwd": "port",
-      "wallSeconds": 6.728737922000164,
-      "cpuSeconds": 9.095899,
+      "wallSeconds": 7.177546429000017,
+      "cpuSeconds": 9.49618799999999,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-build-3.log",
-      "logSha256": "2d0586e06f6a10c3129fbe2c88fa90334d509894b3348ded1a7f72020bbd8be7",
-      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-structural-fix-20260911/build/tools/compiler-wrapper.py\n",
+      "logSha256": "f45c988b9c291e58a0a0bfac56940956bb6ec6d50a2c70ae420ad9e1ff23669b",
+      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-mangle-fairness-20260911/build/tools/compiler-wrapper.py\n",
       "invocations": [
         {
           "args": [
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/full.lil",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/full.lil",
             "--target",
             "js-module",
             "--config",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/lilscript.toml",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/lilscript.toml",
             "--mode",
             "production",
             "--output",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
           ],
-          "startedAt": 1789128295.3516247,
-          "wallSeconds": 1.8640317916870117,
+          "startedAt": 1789130695.23661,
+          "wallSeconds": 1.992781639099121,
           "exitCode": 0,
-          "output": "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
-          "sha256": "cdd23ae8459ad88fdc63e3aa2294ee03244cad501a9d33e456d94823a24f255f"
+          "output": "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "52baa4e32dec90c1ff1a995cce53de5ab3acccd909759a7578a6954fcbcc78e3"
         }
       ]
     },
     "original-esm": {
       "command": [
         "node",
-        "/home/lilfarm/motion-structural-fix-20260911/build/tools/source-esm.mjs",
-        "/home/lilfarm/motion-structural-fix-20260911/build",
+        "/home/lilfarm/motion-mangle-fairness-20260911/build/tools/source-esm.mjs",
+        "/home/lilfarm/motion-mangle-fairness-20260911/build",
         "motionlil"
       ],
       "cwd": "upstream",
-      "wallSeconds": 3.420432665000135,
-      "cpuSeconds": 5.064947999999987,
+      "wallSeconds": 4.221300858999996,
+      "cpuSeconds": 5.410692000000015,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-esm.log",
@@ -242,13 +242,13 @@
         "npm test && npm run check:types && npm run check:pack && npm run test:browser"
       ],
       "cwd": "port",
-      "wallSeconds": 17.39511320199972,
-      "cpuSeconds": 16.768344,
+      "wallSeconds": 22.255101780000018,
+      "cpuSeconds": 17.878484999999976,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-tests.log",
-      "logSha256": "9c27dc264154c28c819e6c0b60eda943b8246e6f24cdf63cb5de152d1c703456",
-      "tail": "effects and prunes unrelated definitions (10.144814ms)\n\u2714 shared graph retains module var bindings declared inside control flow (7.121322ms)\n\u2714 the distributed animate module survives a second Terser pass (1013.777507ms)\n\u2714 Vite bundles the public package entry (1611.045864ms)\n\u2139 tests 21\n\u2139 suites 0\n\u2139 pass 21\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1973.148008\n\n> motionlil@0.1.5 check:types\n> tsc -p test/types/tsconfig.json\n\n\n> motionlil@0.1.5 check:pack\n> node scripts/check-pack.mjs\n\nnpm pack: 680 files, 390403 bytes packed, 1368625 bytes unpacked\n\n> motionlil@0.1.5 test:browser\n> node --test test/browser-controls.test.mjs test/browser-runtime.test.mjs test/browser-backends.test.mjs test/browser-lifecycle.test.mjs\n\n\u2714 mini Bezier easing and repeat controls match (671.545141ms)\n\u2714 mini segmented easing matches (580.127877ms)\n\u2714 mini spring generator matches (550.015402ms)\n\u2714 function easing matches (550.390193ms)\n\u2714 anticipate easing matches (550.017568ms)\n\u2714 JavaScript function easing matches (549.102227ms)\n\u2714 opacity uses native animation (567.203526ms)\n\u2714 string transforms use native animation (550.852728ms)\n\u2714 x/y and opacity use the same mixed backends (548.614476ms)\n\u2714 width/margin and opacity use the same mixed backends (566.994705ms)\n\u2714 reverse repeat retains native timing (549.910812ms)\n\u2714 repeat delay selects JavaScript (549.152681ms)\n\u2714 mirror repeat selects JavaScript (550.055735ms)\n\u2714 cross-realm elements select JavaScript (566.65421ms)\n\u2714 native construction failure falls back to JavaScript (550.187563ms)\n\u2714 Bezier easing is retained (550.452474ms)\n\u2714 per-keyframe easing is retained (566.192991ms)\n\u2714 JS string values interpolate (549.337614ms)\n\u2714 spring opacity uses the same native easing (550.632169ms)\n\u2714 spring strings interpolate in JavaScript (549.396897ms)\n\u2714 JavaScript Bezier easing is retained (549.83696ms)\n\u2714 JavaScript segment easing is retained (566.889906ms)\n\u2714 autoplay false remains paused (566.993277ms)\n\u2714 JS colors interpolate (549.126547ms)\n\u2714 native control access matches Motion without unrelated effect timing reads (94.16194ms)\n\u2714 group controls seek, change speed and complete real browser animations (259.622943ms)\n\u2714 resume: controls, callbacks, completion and library RAF match Motion (207.262744ms)\n\u2714 cancel: controls, callbacks, completion and library RAF match Motion (122.476944ms)\n\u2714 stop: controls, callbacks, completion and library RAF match Motion (112.631046ms)\n\u2714 reverse: controls, callbacks, completion and library RAF match Motion (117.998932ms)\n\u2714 render requested inside render phase runs in that frame (117.297019ms)\n\u2714 native interruption preserves the sampled style and replacement keyframe without completing (106.652447ms)\n\u2714 public animation constructors share methods, preserve bound stop and resolve with Motion values (83.087987ms)\n\u2714 mini updates caller keyframes and copies option getters with the same order as Motion (73.607966ms)\n\u2714 frame queues match upstream deduplication, immediate scheduling and cancellation (192.8186ms)\n\u2714 linear: callbacks, values and completion match upstream under the same clock (127.542043ms)\n\u2714 delay: callbacks, values and completion match upstream under the same clock (115.681259ms)\n\u2714 reverse repeat: callbacks, values and completion match upstream under the same clock (118.410407ms)\n\u2714 mirror repeat: callbacks, values and completion match upstream under the same clock (116.118772ms)\n\u2139 tests 39\n\u2139 suites 0\n\u2139 pass 39\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 13847.301714\n"
+      "logSha256": "05e0a78f503fcca57bb07645bdfcd89b1303735fdbb3c7008298090b7015011c",
+      "tail": "d effects and prunes unrelated definitions (13.1439ms)\n\u2714 shared graph retains module var bindings declared inside control flow (6.773722ms)\n\u2714 the distributed animate module survives a second Terser pass (1102.0743ms)\n\u2714 Vite bundles the public package entry (1654.926397ms)\n\u2139 tests 22\n\u2139 suites 0\n\u2139 pass 22\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1997.908165\n\n> motionlil@0.1.5 check:types\n> tsc -p test/types/tsconfig.json\n\n\n> motionlil@0.1.5 check:pack\n> node scripts/check-pack.mjs\n\nnpm pack: 680 files, 390441 bytes packed, 1368891 bytes unpacked\n\n> motionlil@0.1.5 test:browser\n> node --test test/browser-controls.test.mjs test/browser-runtime.test.mjs test/browser-backends.test.mjs test/browser-lifecycle.test.mjs\n\n\u2714 mini Bezier easing and repeat controls match (4940.959909ms)\n\u2714 mini segmented easing matches (597.362781ms)\n\u2714 mini spring generator matches (566.6556ms)\n\u2714 function easing matches (566.825165ms)\n\u2714 anticipate easing matches (566.541954ms)\n\u2714 JavaScript function easing matches (566.004252ms)\n\u2714 opacity uses native animation (567.263148ms)\n\u2714 string transforms use native animation (584.014029ms)\n\u2714 x/y and opacity use the same mixed backends (565.410748ms)\n\u2714 width/margin and opacity use the same mixed backends (566.690609ms)\n\u2714 reverse repeat retains native timing (567.053452ms)\n\u2714 repeat delay selects JavaScript (565.78088ms)\n\u2714 mirror repeat selects JavaScript (549.860952ms)\n\u2714 cross-realm elements select JavaScript (566.779263ms)\n\u2714 native construction failure falls back to JavaScript (566.78337ms)\n\u2714 Bezier easing is retained (566.961263ms)\n\u2714 per-keyframe easing is retained (583.051778ms)\n\u2714 JS string values interpolate (549.154246ms)\n\u2714 spring opacity uses the same native easing (567.36764ms)\n\u2714 spring strings interpolate in JavaScript (566.576299ms)\n\u2714 JavaScript Bezier easing is retained (566.179066ms)\n\u2714 JavaScript segment easing is retained (566.519947ms)\n\u2714 autoplay false remains paused (567.066054ms)\n\u2714 JS colors interpolate (549.074967ms)\n\u2714 native control access matches Motion without unrelated effect timing reads (96.052792ms)\n\u2714 group controls seek, change speed and complete real browser animations (4546.850169ms)\n\u2714 resume: controls, callbacks, completion and library RAF match Motion (4487.425639ms)\n\u2714 cancel: controls, callbacks, completion and library RAF match Motion (141.4468ms)\n\u2714 stop: controls, callbacks, completion and library RAF match Motion (118.220104ms)\n\u2714 reverse: controls, callbacks, completion and library RAF match Motion (123.477162ms)\n\u2714 render requested inside render phase runs in that frame (120.179445ms)\n\u2714 native interruption preserves the sampled style and replacement keyframe without completing (110.154684ms)\n\u2714 public animation constructors share methods, preserve bound stop and resolve with Motion values (84.974875ms)\n\u2714 mini updates caller keyframes and copies option getters with the same order as Motion (67.354364ms)\n\u2714 frame queues match upstream deduplication, immediate scheduling and cancellation (4482.944354ms)\n\u2714 linear: callbacks, values and completion match upstream under the same clock (146.928661ms)\n\u2714 delay: callbacks, values and completion match upstream under the same clock (118.735342ms)\n\u2714 reverse repeat: callbacks, values and completion match upstream under the same clock (123.597107ms)\n\u2714 mirror repeat: callbacks, values and completion match upstream under the same clock (119.359365ms)\n\u2139 tests 39\n\u2139 suites 0\n\u2139 pass 39\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 18382.579559\n"
     }
   },
   "nativeBuilds": [
@@ -263,13 +263,13 @@
         "--force"
       ],
       "cwd": "upstream",
-      "wallSeconds": 17.197539796,
-      "cpuSeconds": 31.992292999999993,
+      "wallSeconds": 18.353338810999986,
+      "cpuSeconds": 33.80345299999999,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-build-1.log",
-      "logSha256": "f73720c87a996ace18d81d1fd72392650bf36334d08bd41bc4d6b685f693666f",
-      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m17ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m514ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m829ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.893s \n\n"
+      "logSha256": "cc0aca2b977c8269a4c82c9960c78178b26c90eeb9fe5b41ef6e89018e3e5396",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m11ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m521ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m884ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    18.004s \n\n"
     },
     {
       "command": [
@@ -282,13 +282,13 @@
         "--force"
       ],
       "cwd": "upstream",
-      "wallSeconds": 17.101011049000135,
-      "cpuSeconds": 31.92588200000001,
+      "wallSeconds": 18.150607123000043,
+      "cpuSeconds": 33.88042699999998,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-build-2.log",
-      "logSha256": "db9e43dd356dbe18e65e999cb3cdad09e0aae3a010ab5d6cc8996ce7e2d27d48",
-      "tail": "ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m13ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m491ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m820ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.78s \n\n"
+      "logSha256": "05a83a068d8eec35de29327a4303ced7d262dd1bbf23dab7064e08c7a0199d00",
+      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m11ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m590ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m894ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m7ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    17.837s \n\n"
     },
     {
       "command": [
@@ -301,13 +301,13 @@
         "--force"
       ],
       "cwd": "upstream",
-      "wallSeconds": 17.100314482000158,
-      "cpuSeconds": 31.998242999999995,
+      "wallSeconds": 17.998931857000002,
+      "cpuSeconds": 33.51735700000002,
       "exitCode": 0,
       "timedOut": false,
       "log": "original-build-3.log",
-      "logSha256": "ab664372e73b97025b51b0c6c9ba1edc2f959742942f42112f2e5b891385af22",
-      "tail": "s\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m496ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m820ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m8ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    16.783s \n\n"
+      "logSha256": "83d631248459411948c63ba46bd93a1c26890c8c5c733f687bd4bb6347bdadbe",
+      "tail": "ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom.d.ts\u001b[22m in \u001b[1m10ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/dom-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/dom-mini.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/dom-mini.d.ts\u001b[22m in \u001b[1m5ms\u001b[22m\u001b[39m\nframer-motion:build: \u001b[36m\nframer-motion:build: \u001b[1mtypes/projection.d.ts\u001b[22m \u2192 \u001b[1mdist/projection.d.ts\u001b[22m...\u001b[39m\nframer-motion:build: \u001b[32mcreated \u001b[1mdist/projection.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: cache bypass, force executing 52e548063d7542cf\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.dev.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.dev.js\u001b[22m in \u001b[1m513ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/motion.js\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/motion.js\u001b[22m in \u001b[1m864ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m4ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-client.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/debug.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m3ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-mini.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/react-m.js\u001b[22m \u2192 \u001b[1mdist/cjs\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/cjs\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js\u001b[22m \u2192 \u001b[1mdist/es\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/es\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/index.d.ts\u001b[22m \u2192 \u001b[1mdist/index.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/index.d.ts\u001b[22m in \u001b[1m9ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/debug.d.ts\u001b[22m \u2192 \u001b[1mdist/debug.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/debug.d.ts\u001b[22m in \u001b[1m2ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react.d.ts\u001b[22m \u2192 \u001b[1mdist/react.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react.d.ts\u001b[22m in \u001b[1m6ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-mini.d.ts\u001b[22m \u2192 \u001b[1mdist/react-mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-m.d.ts\u001b[22m \u2192 \u001b[1mdist/react-m.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-m.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/mini.d.ts\u001b[22m \u2192 \u001b[1mdist/mini.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/mini.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\nmotion:build: \u001b[36m\nmotion:build: \u001b[1mtypes/react-client.d.ts\u001b[22m \u2192 \u001b[1mdist/react-client.d.ts\u001b[22m...\u001b[39m\nmotion:build: \u001b[32mcreated \u001b[1mdist/react-client.d.ts\u001b[22m in \u001b[1m1ms\u001b[22m\u001b[39m\n\n Tasks:    4 successful, 4 total\nCached:    0 cached, 4 total\n  Time:    17.65s \n\n"
     }
   ],
   "lilscriptBuilds": [
@@ -318,31 +318,31 @@
         "node scripts/build.mjs"
       ],
       "cwd": "port",
-      "wallSeconds": 6.628492004999771,
-      "cpuSeconds": 8.774615,
+      "wallSeconds": 7.078626982000003,
+      "cpuSeconds": 9.561951000000015,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-build-1.log",
-      "logSha256": "2d0586e06f6a10c3129fbe2c88fa90334d509894b3348ded1a7f72020bbd8be7",
-      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-structural-fix-20260911/build/tools/compiler-wrapper.py\n",
+      "logSha256": "f45c988b9c291e58a0a0bfac56940956bb6ec6d50a2c70ae420ad9e1ff23669b",
+      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-mangle-fairness-20260911/build/tools/compiler-wrapper.py\n",
       "invocations": [
         {
           "args": [
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/full.lil",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/full.lil",
             "--target",
             "js-module",
             "--config",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/lilscript.toml",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/lilscript.toml",
             "--mode",
             "production",
             "--output",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
           ],
-          "startedAt": 1789128247.727601,
-          "wallSeconds": 1.8569629192352295,
+          "startedAt": 1789130644.9057202,
+          "wallSeconds": 1.931530237197876,
           "exitCode": 0,
-          "output": "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
-          "sha256": "cdd23ae8459ad88fdc63e3aa2294ee03244cad501a9d33e456d94823a24f255f"
+          "output": "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "52baa4e32dec90c1ff1a995cce53de5ab3acccd909759a7578a6954fcbcc78e3"
         }
       ]
     },
@@ -353,31 +353,31 @@
         "node scripts/build.mjs"
       ],
       "cwd": "port",
-      "wallSeconds": 6.727345280999998,
-      "cpuSeconds": 9.209912000000003,
+      "wallSeconds": 7.0280745860000025,
+      "cpuSeconds": 9.480132999999977,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-build-2.log",
-      "logSha256": "2d0586e06f6a10c3129fbe2c88fa90334d509894b3348ded1a7f72020bbd8be7",
-      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-structural-fix-20260911/build/tools/compiler-wrapper.py\n",
+      "logSha256": "f45c988b9c291e58a0a0bfac56940956bb6ec6d50a2c70ae420ad9e1ff23669b",
+      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-mangle-fairness-20260911/build/tools/compiler-wrapper.py\n",
       "invocations": [
         {
           "args": [
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/full.lil",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/full.lil",
             "--target",
             "js-module",
             "--config",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/lilscript.toml",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/lilscript.toml",
             "--mode",
             "production",
             "--output",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
           ],
-          "startedAt": 1789128254.36991,
-          "wallSeconds": 1.8486175537109375,
+          "startedAt": 1789130652.0027046,
+          "wallSeconds": 1.9883201122283936,
           "exitCode": 0,
-          "output": "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
-          "sha256": "cdd23ae8459ad88fdc63e3aa2294ee03244cad501a9d33e456d94823a24f255f"
+          "output": "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "52baa4e32dec90c1ff1a995cce53de5ab3acccd909759a7578a6954fcbcc78e3"
         }
       ]
     },
@@ -388,31 +388,31 @@
         "node scripts/build.mjs"
       ],
       "cwd": "port",
-      "wallSeconds": 6.728737922000164,
-      "cpuSeconds": 9.095899,
+      "wallSeconds": 7.177546429000017,
+      "cpuSeconds": 9.49618799999999,
       "exitCode": 0,
       "timedOut": false,
       "log": "lilscript-build-3.log",
-      "logSha256": "2d0586e06f6a10c3129fbe2c88fa90334d509894b3348ded1a7f72020bbd8be7",
-      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-structural-fix-20260911/build/tools/compiler-wrapper.py\n",
+      "logSha256": "f45c988b9c291e58a0a0bfac56940956bb6ec6d50a2c70ae420ad9e1ff23669b",
+      "tail": "Linked 859 statements into 636 shared modules (3 unconditional statements)\nBuilt 6 ESM features and 3 standalone production entries with /home/lilfarm/motion-mangle-fairness-20260911/build/tools/compiler-wrapper.py\n",
       "invocations": [
         {
           "args": [
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/full.lil",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/full.lil",
             "--target",
             "js-module",
             "--config",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/lilscript.toml",
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/lilscript.toml",
             "--mode",
             "production",
             "--output",
-            "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
+            "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs"
           ],
-          "startedAt": 1789128295.3516247,
-          "wallSeconds": 1.8640317916870117,
+          "startedAt": 1789130695.23661,
+          "wallSeconds": 1.992781639099121,
           "exitCode": 0,
-          "output": "/home/lilfarm/motion-structural-fix-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
-          "sha256": "cdd23ae8459ad88fdc63e3aa2294ee03244cad501a9d33e456d94823a24f255f"
+          "output": "/home/lilfarm/motion-mangle-fairness-20260911/build/ports/motionlil/src/.__compiled-full.mjs",
+          "sha256": "52baa4e32dec90c1ff1a995cce53de5ab3acccd909759a7578a6954fcbcc78e3"
         }
       ]
     }
@@ -437,19 +437,19 @@
     "external": [],
     "samples": [
       {
-        "bundleSeconds": 0.032456863,
-        "wallSeconds": 0.770814217
+        "bundleSeconds": 0.25378924300000005,
+        "wallSeconds": 1.0811027659999999
       },
       {
-        "bundleSeconds": 0.026089977999999972,
-        "wallSeconds": 0.5976591390000001
+        "bundleSeconds": 0.02480222700000013,
+        "wallSeconds": 0.620854004
       },
       {
-        "bundleSeconds": 0.0267385220000001,
-        "wallSeconds": 0.6280896930000002
+        "bundleSeconds": 0.026080723000000035,
+        "wallSeconds": 0.6400379079999998
       }
     ],
-    "medianSeconds": 0.6280896930000002,
+    "medianSeconds": 0.6400379079999998,
     "toolchain": {
       "esbuild": "0.28.1",
       "terser": "5.51.2"
@@ -781,10 +781,10 @@
     },
     {
       "path": "dist/full.bundle.js",
-      "raw": 182803,
-      "gzip9": 60557,
-      "brotli11": 52367,
-      "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574"
+      "raw": 182830,
+      "gzip9": 60551,
+      "brotli11": 52394,
+      "sha256": "11e751b602becfb7cac54bd9f60edae84ea486861abe622a0b35da567e98e0b5"
     },
     {
       "path": "dist/index.cjs",
@@ -837,10 +837,10 @@
     },
     {
       "path": "dist/full.cjs",
-      "raw": 185017,
-      "gzip9": 61759,
-      "brotli11": 53403,
-      "sha256": "8e51c020e35b452b5dec89ccfe7e553b8b97c67faa875a3bc1cc32af9938fc48"
+      "raw": 185044,
+      "gzip9": 61754,
+      "brotli11": 53410,
+      "sha256": "500ead0a4df60dae8de0dd7e1bae0057ff1229dd8c48bb35d8eb5553bd46f1fc"
     },
     {
       "path": "dist/debug.js",
@@ -886,10 +886,10 @@
     },
     {
       "path": "dist/index.bundle.js",
-      "raw": 122369,
-      "gzip9": 40388,
-      "brotli11": 35263,
-      "sha256": "7dbb137b35fb81515ceea80cfa40e7f6ac323757c8ac1daed5a63a2362730d58"
+      "raw": 122396,
+      "gzip9": 40380,
+      "brotli11": 35197,
+      "sha256": "287ad3de32e9cf24df862da497d68ce5be32e369c1bc40c23383466b4bb58ce9"
     },
     {
       "path": "dist/animate.cjs",
@@ -928,10 +928,10 @@
     },
     {
       "path": "dist/motionlil.global.js",
-      "raw": 122913,
-      "gzip9": 40512,
-      "brotli11": 35283,
-      "sha256": "2ca012521dd2de2ad66cb59f3de2b86d0b10c1bbf2f7f46d9a45daca8a4a40ba"
+      "raw": 122940,
+      "gzip9": 40507,
+      "brotli11": 35326,
+      "sha256": "7f72028c297769efe646673d0d902339d038da1ea8cc7bb4ed9dae617c03a397"
     },
     {
       "path": "dist/internal/compat-animate.js",
@@ -1113,7 +1113,7 @@
       "raw": 133,
       "gzip9": 132,
       "brotli11": 119,
-      "sha256": "197e8db0157d59a36b9ee1761e4e9f6dcdb9553c76a73ddadcf39996601f065d"
+      "sha256": "43dd8b524caeb987bb823afe439d182bba4e126226fc22dc9320f9c67e2840a3"
     },
     {
       "path": "dist/internal/graph/part-48.js",
@@ -1181,9 +1181,9 @@
     {
       "path": "dist/internal/graph/part-180.js",
       "raw": 3516,
-      "gzip9": 1268,
-      "brotli11": 1067,
-      "sha256": "4b02330fa2cd684f7bdbefb73e228068a78efe0e681543f0cde83b173b5f6f27"
+      "gzip9": 1267,
+      "brotli11": 1066,
+      "sha256": "26fa520d447f4c57622ea5eb4aec10fe737cfb6dfa14afdc39e9e4521ce198cf"
     },
     {
       "path": "dist/internal/graph/part-131.js",
@@ -1314,9 +1314,9 @@
     {
       "path": "dist/internal/graph/part-253.js",
       "raw": 1057,
-      "gzip9": 554,
-      "brotli11": 469,
-      "sha256": "02ecfbc13934c8533006282293b1f014ab82008dc96430c0f8a7d2966167d29c"
+      "gzip9": 553,
+      "brotli11": 471,
+      "sha256": "116eecb3a217e8be2754e9e47966199782040fcb408c9b0dbb25a027135d237a"
     },
     {
       "path": "dist/internal/graph/part-532.js",
@@ -1393,7 +1393,7 @@
       "raw": 1715,
       "gzip9": 511,
       "brotli11": 438,
-      "sha256": "4f255849359295d8ed5f6ee9e81a2ee7dd8aceb93fce46ffe1f03cf11c767bc8"
+      "sha256": "3697ee38cf36148a8b6347d85210fa1ed249c40bba553de5a982f37b20b2edfc"
     },
     {
       "path": "dist/internal/graph/part-588.js",
@@ -1435,7 +1435,7 @@
       "raw": 204,
       "gzip9": 146,
       "brotli11": 134,
-      "sha256": "cb2b08ce57b64dc33dc99c5d5fa0f464b7dd56edb51b474978cc0dd13d1dc626"
+      "sha256": "1af1c02c8d98e31666ff55b61abff35cf57757cbccf9059fbb6ec4123484ca00"
     },
     {
       "path": "dist/internal/graph/part-589.js",
@@ -1463,7 +1463,7 @@
       "raw": 172,
       "gzip9": 132,
       "brotli11": 105,
-      "sha256": "816e089af67e124730c5d7160d28f2330fb621e41e0bd2b292671582c312268d"
+      "sha256": "4dbccf6724e7a5952b234a71ddef8c5764dd31c68790bd5e04140cde351541b6"
     },
     {
       "path": "dist/internal/graph/part-244.js",
@@ -1482,9 +1482,9 @@
     {
       "path": "dist/internal/graph/part-423.js",
       "raw": 5313,
-      "gzip9": 1702,
-      "brotli11": 1461,
-      "sha256": "b5a41355370ed5f0b67c4a13abc9741c24732a9b619b7c47711a7a3a27f1e51e"
+      "gzip9": 1704,
+      "brotli11": 1460,
+      "sha256": "150777cfa0eb4425b7cad0b481ce9186057dda2956288925f99a1694a08583aa"
     },
     {
       "path": "dist/internal/graph/part-297.js",
@@ -1504,15 +1504,15 @@
       "path": "dist/internal/graph/part-408.js",
       "raw": 14005,
       "gzip9": 4205,
-      "brotli11": 3627,
-      "sha256": "d0fe6c8f8b36c2da24d8aa9d9f0b1977699abeb7c9ed13f9fffa594fa392ea64"
+      "brotli11": 3633,
+      "sha256": "46a72b9b602b9a63af2a2a49ed681272261c66b5260125bc35a50ed5f47c4456"
     },
     {
       "path": "dist/internal/graph/part-359.js",
       "raw": 1711,
-      "gzip9": 613,
+      "gzip9": 612,
       "brotli11": 539,
-      "sha256": "5c59f48b2a78c3d9f37aae343bf98706818cdda0319177e92899fb12f247237e"
+      "sha256": "fa858b8e0bce93b50d1c414b3f6d2091712a685a0ce1249a1608545216a57b54"
     },
     {
       "path": "dist/internal/graph/part-43.js",
@@ -1540,7 +1540,7 @@
       "raw": 308,
       "gzip9": 196,
       "brotli11": 181,
-      "sha256": "a3e954a6238e1e57c61b5693b52c330e273a86b4ec0094f60140be8c68b5013f"
+      "sha256": "2bb46a0758ef84287dee373628a1734fb604015909bd5785153be199e9751e25"
     },
     {
       "path": "dist/internal/graph/part-402.js",
@@ -1624,7 +1624,7 @@
       "raw": 1051,
       "gzip9": 478,
       "brotli11": 413,
-      "sha256": "0bb99be6ec6d532a202c873efdb27ac114dc16ebcc2501cf7427265299ff86be"
+      "sha256": "a1508da6a02bcb3ea0dfbb972ab72bac49b4e4b90b404d6c2cf9b02d03780ccb"
     },
     {
       "path": "dist/internal/graph/part-356.js",
@@ -1959,8 +1959,8 @@
       "path": "dist/internal/graph/part-176.js",
       "raw": 1083,
       "gzip9": 522,
-      "brotli11": 455,
-      "sha256": "1876dda95af98a526f379e3544cb0926f7e57071914726da40c3887610efed06"
+      "brotli11": 462,
+      "sha256": "046926406a109406601e4127fba5de58c45d37d24d23c32a27729e9389636940"
     },
     {
       "path": "dist/internal/graph/part-524.js",
@@ -2020,10 +2020,10 @@
     },
     {
       "path": "dist/internal/graph/part-100.js",
-      "raw": 4145,
-      "gzip9": 1422,
-      "brotli11": 1207,
-      "sha256": "2a1146b32af815efd5a76ef5c1e0136432635515fd397055b2d8d1624b66a4e5"
+      "raw": 4023,
+      "gzip9": 1389,
+      "brotli11": 1178,
+      "sha256": "f8a9c77da5e2a6aac8fe520c0b708b2c167624a084c7af639c259cec14295d93"
     },
     {
       "path": "dist/internal/graph/part-337.js",
@@ -2057,8 +2057,8 @@
       "path": "dist/internal/graph/part-632.js",
       "raw": 105,
       "gzip9": 106,
-      "brotli11": 85,
-      "sha256": "ef914f6b6e7b6bf8fa911929c5f5ff04666ccae502c1eb00fe3e8fd597e523af"
+      "brotli11": 93,
+      "sha256": "b8fdbf4d2c3338b802603c3016c55d30f2c46ef77dd5c72b94d3359ba6db4604"
     },
     {
       "path": "dist/internal/graph/part-407.js",
@@ -2077,9 +2077,9 @@
     {
       "path": "dist/internal/graph/part-212.js",
       "raw": 2476,
-      "gzip9": 821,
+      "gzip9": 822,
       "brotli11": 732,
-      "sha256": "9f60daf2c02b162a5b4ead74406075f23a7c15f185179671d451204cc8f2f213"
+      "sha256": "445e7e60c58836d704b3b84806d155e36dd23de99dc1737e22beea85d9b38490"
     },
     {
       "path": "dist/internal/graph/part-342.js",
@@ -2141,8 +2141,8 @@
       "path": "dist/internal/graph/index.js",
       "raw": 18928,
       "gzip9": 4406,
-      "brotli11": 3595,
-      "sha256": "7f0ce44d1cf1a1cf32c061e8214c84f8e42d48c2c5e4bd1fd0d971282d5ebf86"
+      "brotli11": 3582,
+      "sha256": "4bacc4976ae4a0b3dcd63473bc35da9a066054a92042b55cf43aceafa0b1ac3d"
     },
     {
       "path": "dist/internal/graph/part-121.js",
@@ -2184,14 +2184,14 @@
       "raw": 53,
       "gzip9": 72,
       "brotli11": 57,
-      "sha256": "0a9b208d90bb18b2d51a148b2ae0fdee4419fa366cb20888bf60c9544c939af7"
+      "sha256": "bc998c525d921babc1415aba3dfb144e7bd63792a8e6820cf47c61dc4675edc1"
     },
     {
       "path": "dist/internal/graph/part-431.js",
       "raw": 144,
-      "gzip9": 132,
-      "brotli11": 112,
-      "sha256": "283618a3f3cc96d3165552e9026e78a832badb057d80311064e498e4ee931e43"
+      "gzip9": 131,
+      "brotli11": 111,
+      "sha256": "e095b5e68ca5226e8e7689ccb7865ea9b2cf5aaa20a50b28046330096272a671"
     },
     {
       "path": "dist/internal/graph/part-321.js",
@@ -2239,8 +2239,8 @@
       "path": "dist/internal/graph/part-409.js",
       "raw": 12809,
       "gzip9": 2103,
-      "brotli11": 1689,
-      "sha256": "b65910ebfad5ed54e3cd7a3b65b4967582f385d700caf1ad358a8ac0bcc62a38"
+      "brotli11": 1690,
+      "sha256": "4de0288f478d4b5f3961f7a1a975aae5fb328512318972de16f399191e379112"
     },
     {
       "path": "dist/internal/graph/part-218.js",
@@ -2323,8 +2323,8 @@
       "path": "dist/internal/graph/part-404.js",
       "raw": 178,
       "gzip9": 144,
-      "brotli11": 119,
-      "sha256": "42e33d9713379cb644a6ccc2ba7836f83f6dbd862e228072bc7ddb56dd8cf32a"
+      "brotli11": 118,
+      "sha256": "300cbae3e0f13e138d985f70a51d9eb09efd7257f7afb3de72c3e53da33705ef"
     },
     {
       "path": "dist/internal/graph/part-194.js",
@@ -2371,9 +2371,9 @@
     {
       "path": "dist/internal/graph/part-254.js",
       "raw": 250,
-      "gzip9": 194,
-      "brotli11": 162,
-      "sha256": "5efc8db3cbdc858689d29ead04838926de8625c66974e96c0faa241261ac0172"
+      "gzip9": 193,
+      "brotli11": 160,
+      "sha256": "6610c3c6e9ff2ba10c1695b4ad739ae0304ce768cd5e19088a24594279d4b745"
     },
     {
       "path": "dist/internal/graph/part-286.js",
@@ -2546,9 +2546,9 @@
     {
       "path": "dist/internal/graph/part-483.js",
       "raw": 2573,
-      "gzip9": 909,
-      "brotli11": 785,
-      "sha256": "c5d1737b2ed54a0f55e29d97b7fa9074929be483879e1ec83b01c25f7089ea09"
+      "gzip9": 908,
+      "brotli11": 787,
+      "sha256": "87c76a58151e567bcaa4d332d2f4f4686bab026284734ee2ed168c5fbb45d3e4"
     },
     {
       "path": "dist/internal/graph/part-526.js",
@@ -2562,7 +2562,7 @@
       "raw": 105,
       "gzip9": 106,
       "brotli11": 96,
-      "sha256": "a79dd3a9c751ecaf32a4596c9d7c04c185ceda77c40b363f34ef57b55a0cca95"
+      "sha256": "6ec219f653a589e77659c657b22cdfdd4bf7c65717901a62b1651016f63587da"
     },
     {
       "path": "dist/internal/graph/part-379.js",
@@ -2652,8 +2652,8 @@
       "path": "dist/internal/graph/part-94.js",
       "raw": 167,
       "gzip9": 123,
-      "brotli11": 106,
-      "sha256": "0ea3ec1329c53c9d3405abbf64e64dd537a09c7a99f8815ea40aa3ea6bf7758a"
+      "brotli11": 122,
+      "sha256": "a0d3544b07b0f42ee5760961ce51f6ea3cb222c5612a670e4b0b5dc2f331cfda"
     },
     {
       "path": "dist/internal/graph/part-215.js",
@@ -2742,9 +2742,9 @@
     {
       "path": "dist/internal/graph/part-106.js",
       "raw": 2718,
-      "gzip9": 1036,
+      "gzip9": 1035,
       "brotli11": 915,
-      "sha256": "643dae8c4d36716365d21acdec437c48dccf19dcb693ea30d7606e55a7067642"
+      "sha256": "db68ea7df77d667856a038ca77cc4d61ad6f56953ccc23628e578b2020ffdf33"
     },
     {
       "path": "dist/internal/graph/part-594.js",
@@ -2763,16 +2763,16 @@
     {
       "path": "dist/internal/graph/part-326.js",
       "raw": 453,
-      "gzip9": 270,
+      "gzip9": 271,
       "brotli11": 257,
-      "sha256": "dd02a4ef4fee17e60c007db5cafefbbe88b521410f2c5fe34f1c246c8e35032b"
+      "sha256": "eeb90f1f44ea3ff2a4b8396595d61bff2673087480b18cc36908cfee339a6a1c"
     },
     {
       "path": "dist/internal/graph/part-405.js",
       "raw": 593,
-      "gzip9": 344,
-      "brotli11": 307,
-      "sha256": "22ae3d8ed3dece60a1a16507a7d4e8537333cd472ffce74b1bf3f745fce15e55"
+      "gzip9": 343,
+      "brotli11": 306,
+      "sha256": "7de561ee4136bb87f621a66cd69df31685d660318d85782b80bc2b125c0daab5"
     },
     {
       "path": "dist/internal/graph/part-454.js",
@@ -2938,9 +2938,9 @@
     {
       "path": "dist/internal/graph/part-98.js",
       "raw": 1038,
-      "gzip9": 448,
-      "brotli11": 420,
-      "sha256": "db7f568c2546f2edfd19611d7de09239a2340407e10d6faf84020362ac40f226"
+      "gzip9": 449,
+      "brotli11": 422,
+      "sha256": "769b848dcc5746bb802629720f2c0de474ccdae172fb01c1f74116135f2d980d"
     },
     {
       "path": "dist/internal/graph/part-119.js",
@@ -2975,7 +2975,7 @@
       "raw": 520,
       "gzip9": 307,
       "brotli11": 257,
-      "sha256": "822401f58b38043c0ca7b39ed7ae47805e99dedb4468de4f1bb75e0ae6c581e2"
+      "sha256": "97d019bb78c1ca2c1baeeb2c09723c86feab843e0da091e446e33d86e187f823"
     },
     {
       "path": "dist/internal/graph/part-380.js",
@@ -3003,7 +3003,7 @@
       "raw": 108,
       "gzip9": 105,
       "brotli11": 108,
-      "sha256": "db72789ccd42b8e36e794576fc7b521e8fb658deb5e2fe1fa4f88038ef4d9ac3"
+      "sha256": "083075bd27680852e5bc56d57dd807e6e827e358cea4735ffbed5a832add4b63"
     },
     {
       "path": "dist/internal/graph/part-183.js",
@@ -3204,9 +3204,9 @@
     {
       "path": "dist/internal/graph/part-447.js",
       "raw": 18154,
-      "gzip9": 4553,
+      "gzip9": 4551,
       "brotli11": 3998,
-      "sha256": "35a46709f1e883c6abaa19918ad30dabede0087551354c5f5a9cce76990815f2"
+      "sha256": "15d00d6d78608fa18af095bbdd673592615ab45c6f559c69eb5ccab20aae2c03"
     },
     {
       "path": "dist/internal/graph/part-413.js",
@@ -3331,8 +3331,8 @@
       "path": "dist/internal/graph/part-444.js",
       "raw": 5815,
       "gzip9": 1600,
-      "brotli11": 1427,
-      "sha256": "ccfebd43956162116602f1173ddf5259855b1908c31c070b706ef39a95346c25"
+      "brotli11": 1429,
+      "sha256": "3ad31fd2cd7df9cf48a2519354624b1f55c579d9cde1bf85e28506fac534c224"
     },
     {
       "path": "dist/internal/graph/part-181.js",
@@ -3437,7 +3437,7 @@
       "raw": 2566,
       "gzip9": 980,
       "brotli11": 842,
-      "sha256": "78602c646ea820a1b79e27f4073015fe50f55ce09f2b2a274b31800c34e8f48f"
+      "sha256": "9fbcd9e836e5d3116f771ae82e4ba25fe39cadc3007983ef30c155dbefe06c53"
     },
     {
       "path": "dist/internal/graph/part-281.js",
@@ -3469,10 +3469,10 @@
     },
     {
       "path": "dist/internal/graph/part-239.js",
-      "raw": 185,
-      "gzip9": 136,
-      "brotli11": 135,
-      "sha256": "39dc8f85f875e59533999d4a61b30e294d7d726bb0c1fa18e9f98d818b0582ed"
+      "raw": 401,
+      "gzip9": 213,
+      "brotli11": 189,
+      "sha256": "8bec2c484e8620201fb0229b71b4f0fe9325ec0e265d63e7c2c60e380426d30e"
     },
     {
       "path": "dist/internal/graph/part-49.js",
@@ -3534,8 +3534,8 @@
       "path": "dist/internal/graph/part-340.js",
       "raw": 2282,
       "gzip9": 816,
-      "brotli11": 712,
-      "sha256": "cb4e064c20fdc6381508e0541676349e964f20a55137dd077743e16c06746221"
+      "brotli11": 710,
+      "sha256": "f6bc8272aef539a97aa08c4ddf64691f940431d21987775143f3ef96815c747a"
     },
     {
       "path": "dist/internal/graph/part-87.js",
@@ -3575,9 +3575,9 @@
     {
       "path": "dist/internal/graph/part-415.js",
       "raw": 1313,
-      "gzip9": 527,
-      "brotli11": 457,
-      "sha256": "604c05430a7b8c1e3b4b6af6725714f1f52291cc288b97b33533e635cd963f26"
+      "gzip9": 528,
+      "brotli11": 463,
+      "sha256": "3295a7e64bbbba66d1a0cbd31f9bb1b04957807d4e2708d7cd8ce191ffa7e706"
     },
     {
       "path": "dist/internal/graph/part-597.js",
@@ -3596,23 +3596,23 @@
     {
       "path": "dist/internal/graph/part-512.js",
       "raw": 1683,
-      "gzip9": 616,
+      "gzip9": 615,
       "brotli11": 538,
-      "sha256": "b471dc8d800e836a57803b04d0666d5693fe70175aea759209702d5d4bc82377"
+      "sha256": "0354fe9cc717ae75e4bd1e96d577fdb1e7d2ec8cd5473acea2fae0f6bc7df48a"
     },
     {
       "path": "dist/internal/graph/part-104.js",
       "raw": 2249,
-      "gzip9": 915,
-      "brotli11": 810,
-      "sha256": "764e69bccfd883eb58a5142d0c9d9a8e2c27d45c6ffa575e8149a6fcd891fe86"
+      "gzip9": 914,
+      "brotli11": 811,
+      "sha256": "d8e7928091bd44f88c46005dd07ba503949c82e26da9a92d1eb1a1e5f608c75d"
     },
     {
       "path": "dist/internal/graph/part-443.js",
       "raw": 814,
-      "gzip9": 329,
-      "brotli11": 284,
-      "sha256": "6a0c5369fb05caf2505549705ffcf2149b71f7e02f0042d139b4fc8f8ba8c590"
+      "gzip9": 330,
+      "brotli11": 279,
+      "sha256": "89afccd0d7db4c230413bb932edcd181e7e0126cf91c2ce8e665f02a1723fa20"
     },
     {
       "path": "dist/internal/graph/part-155.js",
@@ -4058,9 +4058,9 @@
     {
       "path": "dist/internal/graph/part-492.js",
       "raw": 931,
-      "gzip9": 352,
+      "gzip9": 351,
       "brotli11": 315,
-      "sha256": "19d0badecd1f0c8ebf7b50e50d30c4e21be7b900473d67246a27025283df8f68"
+      "sha256": "95a0813dc5c3fde45dfe6c0c87d9d71359675b24a7533e44a4c749ec6537dd52"
     },
     {
       "path": "dist/internal/graph/part-471.js",
@@ -4130,7 +4130,7 @@
       "raw": 73,
       "gzip9": 87,
       "brotli11": 77,
-      "sha256": "599fc60159766503976f0ba982ee91b9ccf05e86fd782eee55b59d4c20eceaa6"
+      "sha256": "a09bdace1059c8214a452b066f906acfe534e66a01d5148fbc9ec77ea6162288"
     },
     {
       "path": "dist/internal/graph/part-420.js",
@@ -4186,7 +4186,7 @@
       "raw": 66,
       "gzip9": 80,
       "brotli11": 70,
-      "sha256": "adfc96c7f4a424ab720cd04a134acf52a3f55c6eae204c6e95d69276d6d945ca"
+      "sha256": "955249f7caa2c38572f6b37e77bf3434d864447b9d960d9eadde244093d71b52"
     },
     {
       "path": "dist/internal/graph/part-159.js",
@@ -4255,15 +4255,15 @@
       "path": "dist/internal/graph/part-268.js",
       "raw": 5385,
       "gzip9": 1733,
-      "brotli11": 1510,
-      "sha256": "b40025c6b1d013d6b4acab571c8ae1ec9e9d5b75b4057baffda0738e5d7f2bcd"
+      "brotli11": 1509,
+      "sha256": "9bb2f4466af3ee5cf1764b422bfdcae182681df5fbf72fc8377c42e997cc18e9"
     },
     {
       "path": "dist/internal/graph/part-334.js",
       "raw": 5776,
-      "gzip9": 2015,
-      "brotli11": 1725,
-      "sha256": "96e740403a58f9d0e90fe25800c1516ea1a66371135136782db1be2e42246726"
+      "gzip9": 2013,
+      "brotli11": 1718,
+      "sha256": "9f583ed11267cd5d3326538eae3b924b533590c9aa18f55da0438684dfa6dd1c"
     },
     {
       "path": "dist/internal/graph/part-46.js",
@@ -4298,7 +4298,7 @@
       "raw": 587,
       "gzip9": 316,
       "brotli11": 274,
-      "sha256": "ad9d802fdd581bbe598992645bd9807721dab10e97cddf52430f7250569f60fa"
+      "sha256": "022853d684998103c6c1b4aac15e9bbc81c37fc47c6a707507306af06c48dcc8"
     },
     {
       "path": "dist/internal/graph/part-173.js",
@@ -4436,9 +4436,9 @@
     {
       "path": "dist/internal/graph/part-432.js",
       "raw": 2419,
-      "gzip9": 997,
-      "brotli11": 857,
-      "sha256": "7c7fbde4725c313a98d16b85c070c07a0ea8abe44a7044d0752510794dc530f4"
+      "gzip9": 996,
+      "brotli11": 858,
+      "sha256": "db2f5a6931ea2196c2b1ee800711d7811921efafd510c53ec814d5c0dcc5ba14"
     },
     {
       "path": "dist/internal/graph/part-225.js",
@@ -4508,7 +4508,7 @@
       "raw": 89,
       "gzip9": 99,
       "brotli11": 93,
-      "sha256": "e2c6871fa7f892784998f35673c82e77ae3692d46b4ec5117ef01f0ee493c323"
+      "sha256": "4e33eae414c556e917d289ca4822227f1c6a2c8ff43ca2b2355cc39e2dbded3d"
     },
     {
       "path": "dist/internal/graph/part-312.js",
@@ -4578,7 +4578,7 @@
       "raw": 349,
       "gzip9": 223,
       "brotli11": 188,
-      "sha256": "1a326935033e965f9454698d056f15563e219b9b07544793c110de5ab2b21f5d"
+      "sha256": "784797e5920e07e27cc9d183edb435e2eba0f8ce69ae996ce262300d47089400"
     },
     {
       "path": "dist/internal/graph/part-162.js",
@@ -4618,9 +4618,9 @@
     {
       "path": "dist/internal/graph/part-232.js",
       "raw": 282,
-      "gzip9": 193,
-      "brotli11": 178,
-      "sha256": "a47066dcf3f73b113edd0141f109f9c8293c70a0658b99afae04c9058b8808b0"
+      "gzip9": 194,
+      "brotli11": 179,
+      "sha256": "11f1c19542018624d657d753421a72e996f2065d0d5b63e29dee5cda6ee80108"
     },
     {
       "path": "dist/internal/graph/part-627.js",
@@ -4634,7 +4634,7 @@
       "raw": 829,
       "gzip9": 399,
       "brotli11": 362,
-      "sha256": "aebf67d992ca86a539ea1a2ad6e7bcff28c2f880530c0de75747ac5efe52146f"
+      "sha256": "e39c300995f807d8a861704c68b8b916973d04866eef1c174c8ec612e157fadf"
     },
     {
       "path": "dist/internal/graph/part-626.js",
@@ -4809,7 +4809,7 @@
       "raw": 455,
       "gzip9": 285,
       "brotli11": 250,
-      "sha256": "d782d0f4c6d1e771f5ecf52b3836dc92ca9cc5448f3cb806c4ae61ba2e06b0fd"
+      "sha256": "2c2c60d033167e146dee309dad9d615e17cb8d89fa68475f441b07e556fd9a98"
     },
     {
       "path": "dist/internal/graph/part-370.js",
@@ -4823,7 +4823,7 @@
       "raw": 692,
       "gzip9": 329,
       "brotli11": 285,
-      "sha256": "785d034461d180191eb9fcf452383a1926f0ba22caf7dc250c72458aa8f798cd"
+      "sha256": "bc340207213bea6f42fd7ba66a1f6505e3db6dd38b9ad11c279c2ab45458a560"
     },
     {
       "path": "dist/internal/graph/part-449.js",
@@ -4969,8 +4969,8 @@
       "path": "dist/internal/graph/part-97.js",
       "raw": 614,
       "gzip9": 303,
-      "brotli11": 256,
-      "sha256": "658e3d339449dba85c8f75ad24c12f04b93ab007123699dc26c24d37933ef5d1"
+      "brotli11": 258,
+      "sha256": "852af44e7575d894f29f2847ce14ca3bc53a88a20942df4b1f64eadce4888b42"
     },
     {
       "path": "dist/internal/graph/part-488.js",
@@ -4982,9 +4982,9 @@
     {
       "path": "dist/internal/graph/part-80.js",
       "raw": 344,
-      "gzip9": 203,
-      "brotli11": 201,
-      "sha256": "77b7978ddfe7e909359db18b64163741d17b3551763151f8c455acfb77a54cdf"
+      "gzip9": 202,
+      "brotli11": 204,
+      "sha256": "9b8f26f7f6cbe3929c800fc34aa52dbfd2f9244b23cf8cad3128539f40afbe70"
     },
     {
       "path": "dist/internal/graph/part-280.js",
@@ -4997,8 +4997,8 @@
       "path": "dist/internal/graph/part-54.js",
       "raw": 181,
       "gzip9": 143,
-      "brotli11": 121,
-      "sha256": "d1d1de8785cd42f00f370088d8572a92a859f9f0d3cc984b95d9fdf7bf974239"
+      "brotli11": 122,
+      "sha256": "658ad4ed7b6dff559bc2d3469c74ffd71def37945922b0fa462470f4973a0042"
     },
     {
       "path": "dist/internal/graph/part-282.js",
@@ -5039,8 +5039,8 @@
       "path": "dist/internal/graph/part-491.js",
       "raw": 2805,
       "gzip9": 959,
-      "brotli11": 829,
-      "sha256": "22996e651f0babbe4690edf532e7d47501f4ab8c052d631473ec4deea3d5d2aa"
+      "brotli11": 825,
+      "sha256": "841733656657cee358fbe9369a76f310c5f3be9c9c58a4b3759968a48dddb9fe"
     },
     {
       "path": "dist/internal/graph/part-452.js",
@@ -5096,7 +5096,7 @@
       "raw": 110,
       "gzip9": 96,
       "brotli11": 90,
-      "sha256": "65d9edcf8a024fe4687a9c2b660ba3148086815be55b22154b6b6d927fd88567"
+      "sha256": "b22678c240daa1b028daf5060b9e0f484cd2ef0be06825203852b79d74580efe"
     },
     {
       "path": "dist/internal/graph/part-186.js",
@@ -5341,14 +5341,14 @@
       "raw": 1153,
       "gzip9": 510,
       "brotli11": 457,
-      "sha256": "f92bd7f28c6fbfa55d51bb15e677c6468db7eeb227ff3f54968e90dbc18af0c0"
+      "sha256": "4784b4720273ebe1ef1cd5a2c1f2ac66f191bcc72fc2ff6f5e486443b8e46fd8"
     },
     {
       "path": "dist/internal/graph/part-548.js",
       "raw": 271,
       "gzip9": 214,
-      "brotli11": 187,
-      "sha256": "88e9c57b7521ef8614a2149df01fdeb878f075ecb3ee90965712eee1ba84cac1"
+      "brotli11": 188,
+      "sha256": "0615b0fdcb526bf2b4146648ea44849c257d41fc55f5ff3482cd78d0015a56c8"
     },
     {
       "path": "dist/internal/graph/part-533.js",
@@ -5425,7 +5425,7 @@
       "raw": 895,
       "gzip9": 414,
       "brotli11": 350,
-      "sha256": "fcdb8fa938dc7b71853288e625f1c8fa1ba44fc581f339e6696683696226f30d"
+      "sha256": "b9ddee4d92f86dfcd7ff3c7419a3dbd86811735fb3d9167a7d64b966dcf449ae"
     },
     {
       "path": "dist/internal/graph/part-581.js",
@@ -5446,7 +5446,7 @@
       "raw": 864,
       "gzip9": 447,
       "brotli11": 401,
-      "sha256": "1ea4cbabdb6aa0c7b8f68adb6d3c8cdf21a1ab0df42ad1a1429928c7add1e794"
+      "sha256": "5ef320f6f428ab24446bf57835b8b9b56121078259f3d96630a2b7693959992e"
     },
     {
       "path": "dist/internal/motion-dom/animation/utils/control-abi.js",
@@ -5459,17 +5459,17 @@
   "nativeBuildsSummary": {
     "samples": 3,
     "successful": 3,
-    "medianSeconds": 17.101011049000135,
-    "minimumSeconds": 17.100314482000158,
-    "maximumSeconds": 17.197539796
+    "medianSeconds": 18.150607123000043,
+    "minimumSeconds": 17.998931857000002,
+    "maximumSeconds": 18.353338810999986
   },
   "lilscriptBuildsSummary": {
     "samples": 3,
     "successful": 3,
-    "medianSeconds": 6.727345280999998,
-    "minimumSeconds": 6.628492004999771,
-    "maximumSeconds": 6.728737922000164
+    "medianSeconds": 7.078626982000003,
+    "minimumSeconds": 7.0280745860000025,
+    "maximumSeconds": 7.177546429000017
   },
   "status": "complete",
-  "finishedAt": "2026-09-11T12:05:24Z"
+  "finishedAt": "2026-09-11T12:45:30Z"
 }

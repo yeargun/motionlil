@@ -19,7 +19,7 @@ compared with original Motion.
 
 ## Recorded checks
 
-The source-build log records 21 Node/package tests and 39 browser tests, all
+The source-build log records 22 Node/package tests and 39 browser tests, all
 passing, plus declaration and package checks. Browser tests use the exact
 source-built original ESM:
 
@@ -37,7 +37,7 @@ recorded separately in `validation.json` and the compiler pull request.
 
 ## Current comparison
 
-The full size and runtime comparisons use identical source-built ESM inputs.
+The headline size and runtime comparisons use the exact same 312-export source-built ESM inputs, with identical toolchain versions and public extern reservations. The separate mangling comparison records public and closed-program scopes.
 The default entry has 52 exports; the full port has 327, including all 312
 original names. Low-level layout/rendering adapters remain incomplete.
 Export-name coverage does not establish complete behavior parity.
@@ -48,10 +48,7 @@ completion; native calls/options, active properties and library RAF must match.
 Natural playback checks every animated property of every element across three
 fresh pages per side. These seven workloads pass both validation stages.
 
-All three mini workloads meet the criterion that the entire 95% CPU ratio
-interval lies within 0.95–1.05. Four broader workloads remain outside that
-criterion. Their paired median CPU overhead is 5.0–14.9%. The full port remains
-larger than original Motion; the exact byte counts are in `../../site/comparison.json`.
+Current paired CPU ratios (LilScript / Motion) are WAAPI transform + opacity · 64 elements: 1.015×, WAAPI transform + opacity · 256 elements: 1.006×, WAAPI width + margin layout · 128 elements: 1.006×, animate transform + opacity · 128 elements: 1.076×, animate x/y · 128 elements: 1.084×, Width + margin layout · 128 elements: 1.056×, MotionValue + DOM writes · 128 values: 1.048×. The exact intervals and script/style costs are in `../../site/performance.json`. The matched public port remains larger; exact byte counts are in `../../site/comparison.json`.
 
 Renderer CPU includes setup, script, style and layout in the recorded interval.
 The observer's frame cadence is separate from library RAF counts. Intrusive
@@ -64,3 +61,5 @@ Build commands, machine details and three clean samples are in
 files retain historical evidence and are not the current comparison results.
 The measured configuration uses maximum IR optimization, JavaScript level 0 and
 Terser. Higher optimization diagnostics do not replace this measured artifact.
+
+The two public mangling modes each pass 39 browser checks against the original with property names unchanged. All 72 closed-program comparisons match their checked values, native timing and RAF activity. See `../mangling/` for the complete reservations, scenarios and artifacts.

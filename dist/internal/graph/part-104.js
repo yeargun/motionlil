@@ -1,4 +1,4 @@
-import { fb } from "./part-100.js";
+import { Ma } from "./part-100.js";
 import { kd } from "./part-102.js";
 import { u } from "./part-17.js";
 import { oa } from "./part-38.js";
@@ -51,7 +51,7 @@ let hg = (xk, yk) => {
     xk = Tk;
   }
   for (Jk = 0; Jk < xk.length - 1; Jk = Jk + 1) {
-    Yk.push(fb(xk[Jk])(xk[Jk], xk[Jk + 1]));
+    Yk.push(Ma(xk[Jk])(xk[Jk], xk[Jk + 1]));
     if (Vk) {
       if (Jk < (Nk.length | 0)) Ok.push(kd(Nk[Jk]));
       else Ok.push((Nm) => Nm);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "measuredAt": "2026-09-11T11:45:47.476Z",
+  "measuredAt": "2026-09-11T12:46:15.371Z",
   "browser": "145.0.7632.6",
   "machine": {
     "cpu": "AMD EPYC 9V45 96-Core Processor",
@@ -10,14 +10,14 @@
     "node": "v24.11.1",
     "architecture": "x64",
     "loadAtStart": [
-      0.39,
-      0.64,
-      0.49
+      1.42,
+      1.02,
+      0.44
     ],
     "loadAtEnd": [
-      0.56,
-      0.58,
-      0.52
+      0.67,
+      0.77,
+      0.54
     ],
     "provider": "Azure",
     "instanceClass": "Standard_D16als_v7"
@@ -45,22 +45,22 @@
   "inputs": {
     "lilscript": {
       "file": "inputs/lilscript.js",
-      "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574"
+      "sha256": "93c79cf55008ee20a07074570c0f1a8be8c628708b7d89e8fa8c47029aaed78c"
     },
     "original": {
       "file": "inputs/original.js",
-      "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+      "sha256": "ea1fb8868e180bea4c77d24ea1eb438b8d0343eeb07fa9decf5dee78c52c375d"
     },
     "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
   },
-  "finishedAt": "2026-09-11T11:52:36.068Z",
+  "finishedAt": "2026-09-11T12:53:04.773Z",
   "sources": {
     "compiler": {
       "commit": "10f5734a70a49e550d2c7577549d5595de743e2f",
       "sha256": "ea725196ae4fbb63736dc784db12b40717d8a38ed00028045c13767e396cc953"
     },
     "port": {
-      "commit": "8498c200bbb892286258b775f04d3b682435c65a"
+      "commit": "21e680e422205f927ff0392c3707d5a6f5cfc810"
     },
     "original": {
       "repository": "https://github.com/motiondivision/motion.git",
@@ -68,12 +68,7 @@
       "package": "motion",
       "version": "13.1.0",
       "directory": "packages/motion"
-    },
-    "timedArtifactCompiler": {
-      "commit": "3690e8485199506e355fb4cf1d3b5fda5e44ff5c",
-      "sha256": "9b3146e6bfae5509f0ea954d58c43ac9b4307040ee8fbb2f40cb9603dc97f66d"
-    },
-    "revalidation": "The final compiler source builds reproduce both timed ESM inputs byte for byte. Runtime samples therefore apply to these identical artifacts; build timings are fresh for the recorded compiler."
+    }
   },
   "naturalPlaybackValidation": "./natural-validation.json",
   "workloads": [
@@ -86,27 +81,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 16.500999999999998,
-          "scriptMs": 0.5525,
-          "styleLayoutMs": 5.2379999999999995,
-          "setupMs": 1.5,
+          "mainThreadMs": 17.4775,
+          "scriptMs": 0.6465,
+          "styleLayoutMs": 5.477,
+          "setupMs": 1.599999999976717,
           "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.699999999999932,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 16.753999999999998,
-          "scriptMs": 0.581,
-          "styleLayoutMs": 5.272,
-          "setupMs": 1.6999999999534339,
-          "frameP95Ms": 16.799999999999955,
+          "mainThreadMs": 17.738,
+          "scriptMs": 0.6845,
+          "styleLayoutMs": 5.438000000000001,
+          "setupMs": 1.7999999999883585,
+          "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.0180583974923614,
+        "cpuRatio": 1.0146410143543663,
         "cpuRatio95": [
-          1.005771597688871,
-          1.025741096924182
+          1.0042004500431845,
+          1.0267278984791193
         ],
         "withinFivePercent": true
       },
@@ -155,27 +150,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 57.2995,
-          "scriptMs": 1.408,
-          "styleLayoutMs": 19.332,
-          "setupMs": 4.399999999906868,
+          "mainThreadMs": 60.425,
+          "scriptMs": 1.5305,
+          "styleLayoutMs": 20.107,
+          "setupMs": 4.599999999976717,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999996,
+          "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 57.8255,
-          "scriptMs": 1.2115,
-          "styleLayoutMs": 19.424999999999997,
-          "setupMs": 5.399999999906868,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.699999999999932,
+          "mainThreadMs": 60.694500000000005,
+          "scriptMs": 1.3159999999999998,
+          "styleLayoutMs": 20.2965,
+          "setupMs": 5.649999999994179,
+          "frameP95Ms": 16.75,
+          "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.0093534642554252,
+        "cpuRatio": 1.0062237153092208,
         "cpuRatio95": [
-          1.002039106765589,
-          1.013893986263304
+          0.9998809415971803,
+          1.0194584214160485
         ],
         "withinFivePercent": true
       },
@@ -224,27 +219,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 54.99550000000001,
-          "scriptMs": 1.0785,
-          "styleLayoutMs": 16.4825,
-          "setupMs": 3.25,
+          "mainThreadMs": 58.8005,
+          "scriptMs": 1.1724999999999999,
+          "styleLayoutMs": 17.384,
+          "setupMs": 3.400000000023283,
           "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 55.986999999999995,
-          "scriptMs": 1.064,
-          "styleLayoutMs": 16.5345,
-          "setupMs": 3.699999999953434,
+          "mainThreadMs": 59.266999999999996,
+          "scriptMs": 1.1360000000000001,
+          "styleLayoutMs": 17.365000000000002,
+          "setupMs": 3.8999999999941792,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
+          "medianFrameMs": 16.69999999999996,
           "frames": 49
         },
-        "cpuRatio": 1.010846745159621,
+        "cpuRatio": 1.0063119244148537,
         "cpuRatio95": [
-          0.9937531553506198,
-          1.0202776178430057
+          1.0002429669539663,
+          1.0153257867819803
         ],
         "withinFivePercent": true
       },
@@ -294,27 +289,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 34.5655,
-          "scriptMs": 5.593,
-          "styleLayoutMs": 9.8955,
-          "setupMs": 2.699999999953434,
+          "mainThreadMs": 36.785,
+          "scriptMs": 6.048500000000001,
+          "styleLayoutMs": 10.2835,
+          "setupMs": 2.800000000046566,
           "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 39.792,
-          "scriptMs": 5.349500000000001,
-          "styleLayoutMs": 9.9125,
-          "setupMs": 8.100000000093132,
+          "mainThreadMs": 40.434,
+          "scriptMs": 5.8395,
+          "styleLayoutMs": 10.311,
+          "setupMs": 6.9500000000116415,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.699999999999932,
+          "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.149447377621773,
+        "cpuRatio": 1.075715759585648,
         "cpuRatio95": [
-          1.1457720335597448,
-          1.1559298198508818
+          1.0668386255339932,
+          1.1031900915078996
         ],
         "withinFivePercent": false
       },
@@ -363,27 +358,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 58.760000000000005,
-          "scriptMs": 14.7515,
-          "styleLayoutMs": 19.653,
-          "setupMs": 3.1000000000931323,
+          "mainThreadMs": 60.934,
+          "scriptMs": 15.5735,
+          "styleLayoutMs": 20.117,
+          "setupMs": 3.199999999953434,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
+          "medianFrameMs": 16.699999999999932,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 63.349500000000006,
-          "scriptMs": 17.063499999999998,
-          "styleLayoutMs": 19.846,
-          "setupMs": 5.900000000023283,
-          "frameP95Ms": 16.700000000000045,
+          "mainThreadMs": 66.23850000000002,
+          "scriptMs": 18.3015,
+          "styleLayoutMs": 20.297,
+          "setupMs": 6.400000000023283,
+          "frameP95Ms": 16.799999999999955,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.0816494282405789,
+        "cpuRatio": 1.0839714130142921,
         "cpuRatio95": [
-          1.0649093484928702,
-          1.095170795191955
+          1.0583370304177129,
+          1.0985565245737647
         ],
         "withinFivePercent": false
       },
@@ -431,27 +426,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 71.9145,
-          "scriptMs": 13.2925,
-          "styleLayoutMs": 22.179,
-          "setupMs": 3.1000000000931323,
+          "mainThreadMs": 75.486,
+          "scriptMs": 14,
+          "styleLayoutMs": 23.2165,
+          "setupMs": 3.299999999930151,
           "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 75.31550000000001,
-          "scriptMs": 15.904,
-          "styleLayoutMs": 22.432499999999997,
-          "setupMs": 5.950000000069849,
-          "frameP95Ms": 16.700000000000045,
+          "mainThreadMs": 79.70700000000001,
+          "scriptMs": 17.08,
+          "styleLayoutMs": 23.225499999999997,
+          "setupMs": 6.2999999999883585,
+          "frameP95Ms": 16.799999999999955,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.0541317703590694,
+        "cpuRatio": 1.0557025495255026,
         "cpuRatio95": [
-          1.0288632138269125,
-          1.0659603563663662
+          1.035468859662932,
+          1.0776144619249481
         ],
         "withinFivePercent": false
       },
@@ -499,27 +494,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 22.451,
-          "scriptMs": 5.368,
-          "styleLayoutMs": 5.5405,
-          "setupMs": 2.199999999953434,
+          "mainThreadMs": 23.624499999999998,
+          "scriptMs": 5.7585,
+          "styleLayoutMs": 5.5584999999999996,
+          "setupMs": 2.300000000046566,
           "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 23.503999999999998,
-          "scriptMs": 5.6425,
-          "styleLayoutMs": 5.5305,
-          "setupMs": 3,
+          "mainThreadMs": 24.7755,
+          "scriptMs": 5.971,
+          "styleLayoutMs": 5.5175,
+          "setupMs": 3.1000000000349246,
           "frameP95Ms": 16.700000000000045,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.0496409450405157,
+        "cpuRatio": 1.047828032185464,
         "cpuRatio95": [
-          1.0319362257733702,
-          1.0623407634906057
+          1.0365343288701747,
+          1.0585480406819037
         ],
         "withinFivePercent": false
       },

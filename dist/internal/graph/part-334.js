@@ -1,6 +1,6 @@
 import { identity as asMotionValue, identity as asVisualElement, identity as asWithPromise } from "./../motion-dom/cast-host.js";
 import { callFn3, callFn5, hasFunction, isFunction, windowGet } from "./../motion-dom/dom-host.js";
-import { Ma } from "./part-146.js";
+import { Na } from "./part-146.js";
 import { Nd } from "./part-194.js";
 import { S } from "./part-195.js";
 import { sc } from "./part-321.js";
@@ -100,7 +100,7 @@ let mb = (vk, wk, Vk) => {
   } else el = false;
   if (el) callFn5(Ck.animateVisualElement, vk, Al, kl, Wl, zl);
   for (fl in Al) {
-    Zl = Ma(Rl, fl, Rl.latestValues[fl], true);
+    Zl = Na(Rl, fl, Rl.latestValues[fl], true);
     if (null == Zl) continue;
     Sl = asMotionValue(Zl);
     nl = Al[fl];

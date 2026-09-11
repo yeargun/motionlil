@@ -1,8 +1,8 @@
-import { $a } from "./part-635.js";
+import { ab } from "./part-635.js";
 let Ui = () => {
-  if (0 == $a.size) {
-    $a.set("some", 0);
-    $a.set("all", 1);
+  if (0 == ab.size) {
+    ab.set("some", 0);
+    ab.set("all", 1);
   }
 };
 export {

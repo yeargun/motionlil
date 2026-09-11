@@ -3,7 +3,7 @@
     "commit": "10f5734a70a49e550d2c7577549d5595de743e2f",
     "sha256": "ea725196ae4fbb63736dc784db12b40717d8a38ed00028045c13767e396cc953"
   },
-  "sourceCommit": "8498c200bbb892286258b775f04d3b682435c65a",
+  "sourceCommit": "21e680e422205f927ff0392c3707d5a6f5cfc810",
   "typeContract": "Ordinary annotations are compile-time information. Explicit source type tests/conversions retain their observable runtime semantics. JS.assume assertions erase. Existing int arithmetic semantics are unchanged.",
   "compilerFixes": [
     "Native public classes retain helpers required by their prototype methods.",
@@ -16,32 +16,35 @@
     "Native controls use shared prototype methods and original stop binding behavior.",
     "Typed options, numeric state and callbacks remove redundant source guards and adapters.",
     "Completion promises, keyframe array identity, undefined/null handling and option getter semantics follow Motion.",
-    "Pure factory metadata supports removal of unused initialization."
+    "Pure factory metadata supports removal of unused initialization.",
+    "Public mix preserves the two-argument mixer overload, three-argument numeric form and JavaScript arity. Numeric mixer assertions erase and preserve original arithmetic semantics."
   ],
   "full": {
-    "raw": 182803,
-    "gzip9": 60557,
-    "brotli11": 52367,
-    "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574",
+    "raw": 174382,
+    "gzip9": 59308,
+    "brotli11": 51351,
+    "sha256": "93c79cf55008ee20a07074570c0f1a8be8c628708b7d89e8fa8c47029aaed78c",
     "file": "./esm-comparison/lilscript.js"
   },
   "original": {
-    "raw": 137560,
-    "gzip9": 45031,
-    "brotli11": 40141,
-    "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d",
+    "raw": 134557,
+    "gzip9": 44698,
+    "brotli11": 39902,
+    "sha256": "ea1fb8868e180bea4c77d24ea1eb438b8d0343eeb07fa9decf5dee78c52c375d",
     "file": "./esm-comparison/original.js"
   },
   "default": {
-    "path": "dist/index.bundle.js",
-    "raw": 122369,
-    "gzip9": 40388,
-    "brotli11": 35263,
-    "sha256": "7dbb137b35fb81515ceea80cfa40e7f6ac323757c8ac1daed5a63a2362730d58"
+    "raw": 122396,
+    "gzip9": 40380,
+    "brotli11": 35197,
+    "sha256": "287ad3de32e9cf24df862da497d68ce5be32e369c1bc40c23383466b4bb58ce9",
+    "file": "dist/index.bundle.js",
+    "exports": 52,
+    "scope": "Native package default entry; narrower than the 312-export main comparison. The matched 50-export consumer API is measured separately with the common toolchain."
   },
   "tests": {
     "browser": 39,
-    "node": 21,
+    "node": 22,
     "compilerLibrary": 1635
   },
   "coverage": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
@@ -75,6 +78,57 @@
         "brotli11": 35419,
         "sha256": "56ee295d78241d3b904ab9c512d878d24152fd94d17a2f51134bb04bc6042348"
       }
-    ]
+    ],
+    "sourceCommit": "8498c200bbb892286258b775f04d3b682435c65a",
+    "historicalDiagnostic": true
+  },
+  "comparisonAssembly": {
+    "record": "./mangling.json",
+    "scope": "full",
+    "mode": "public-properties",
+    "toolchain": {
+      "esbuild": "0.28.1",
+      "terser": "5.51.2",
+      "target": "es2022",
+      "compressPasses": 3,
+      "codecSha256": "38e2f4fb40894cc1fe4f25a6af615526e178e397988e7d4cbe95b1f2d7652112",
+      "gzip": 9,
+      "brotli": 11
+    },
+    "source": {
+      "motion": {
+        "package": "motion",
+        "version": "13.1.0",
+        "repository": "https://github.com/motiondivision/motion.git",
+        "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
+      },
+      "portCommit": "21e680e422205f927ff0392c3707d5a6f5cfc810",
+      "compiler": {
+        "commit": "10f5734a70a49e550d2c7577549d5595de743e2f",
+        "sha256": "ea725196ae4fbb63736dc784db12b40717d8a38ed00028045c13767e396cc953"
+      },
+      "originalAssemblySha256": "407886cdfb90110e6310c3e92a4a69278776776cf18884917e7f4e3ae449d35e",
+      "originalAssembly": "Unminified ESM recorded from the pinned original source build, before its Terser pass.",
+      "portAssembly": "Unminified shared ESM modules from the recorded LilScript package build; compiler-proven internal property mangling is retained."
+    },
+    "externsSha256": "b2ea4f3d0d54a93e10ac306f556fdd3820ced6aba560859d1aacb5daa1b85b0f",
+    "machine": {
+      "cpu": "AMD EPYC 9V45 96-Core Processor",
+      "logicalCpus": 16,
+      "memoryBytes": 33648431104,
+      "os": "Linux 6.17.0-1022-azure",
+      "node": "v24.11.1"
+    },
+    "timings": {
+      "original": {
+        "bundleSeconds": 0.023931428000000095,
+        "minifySeconds": 0.6264253439999997
+      },
+      "lilscript": {
+        "bundleSeconds": 0.04221757100000002,
+        "minifySeconds": 1.0538122239999999
+      }
+    },
+    "timingNote": "One additional ESM bundle/minify measurement per lane, after the native package build. These assembly times are separate from the three clean package-build samples."
   }
 }

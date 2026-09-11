@@ -2,7 +2,7 @@ import { callFn1, callFn2, callMethod0, callMethod1, constructConfigured2, isFun
 import { weakMapCreate, weakMapDelete, weakMapGet, weakMapSet } from "./../motion-dom/weak-host.js";
 import { E } from "./part-205.js";
 import { Ui } from "./part-431.js";
-import { $a } from "./part-635.js";
+import { ab } from "./part-635.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
@@ -41,7 +41,7 @@ let ek = (vk, Ik, Jk) => {
   if ("number" == typeof Ek) Hk = Ek;
   else {
     if ("string" == typeof Ek) {
-      Ak = $a.get(Ek);
+      Ak = ab.get(Ek);
       if (Ak !== void 0) Fk = Ak;
       else Fk = 0;
       Gk = Fk;

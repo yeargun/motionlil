@@ -1,7 +1,7 @@
-var Ua = /* @__PURE__ */ new Set();
-Ua.add("INPUT");
-Ua.add("SELECT");
-Ua.add("TEXTAREA");
+var Va = /* @__PURE__ */ new Set();
+Va.add("INPUT");
+Va.add("SELECT");
+Va.add("TEXTAREA");
 export {
-  Ua
+  Va
 };

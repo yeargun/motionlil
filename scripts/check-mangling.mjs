@@ -19,7 +19,7 @@ for(const mode of ['identifiers','public-properties']){
   symlinkSync(join(art,`full-${mode}-original.js`),join(temp,'dist/index.bundle.js'))
   symlinkSync(join(art,`full-${mode}-lilscript.js`),join(temp,'dist/full.bundle.js'))
   const tests=['browser-controls','browser-runtime','browser-backends','browser-lifecycle'].map(x=>'test/'+x+'.test.mjs')
-  const run=spawnSync(process.execPath,['--test',...tests],{cwd:temp,encoding:'utf8'})
+  const run=spawnSync(process.execPath,['--test','--test-reporter=tap',...tests],{cwd:temp,encoding:'utf8'})
   const log=run.stdout+run.stderr;writeFileSync(join(dir,`validation-${mode}.log`),log)
   const passed=+(log.match(/^# pass (\d+)/m)?.[1]??0),failed=+(log.match(/^# fail (\d+)/m)?.[1]??0)
   records.public.push({mode,passed,failed,exitCode:run.status,reference:'Unmangled-property original ESM; both re-minified lanes are compared with that reference.'})
@@ -67,6 +67,6 @@ try{
   console.log(kind,'checked')
  }
 }finally{await browser.close();await new Promise(r=>server.close(r))}
-records.browser=browserVersion;records.complete=records.public.every(x=>x.exitCode===0)&&records.closed.every(x=>x.matches)
+records.browser=browserVersion;records.complete=records.public.every(x=>x.exitCode===0&&x.passed===39&&x.failed===0)&&records.closed.length===72&&records.closed.every(x=>x.matches)
 writeFileSync(join(dir,'validation.json'),JSON.stringify(records,null,2)+'\n')
 if(!records.complete)process.exitCode=1

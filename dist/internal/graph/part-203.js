@@ -1,7 +1,7 @@
 import { kb } from "./part-202.js";
 import { f } from "./part-455.js";
 import { F } from "./part-456.js";
-import { Sa } from "./part-574.js";
+import { Ta } from "./part-574.js";
 let T = (wk, xk, yk, zk, Ak, Bk) => {
   var Ck = wk.values.get(xk);
   if (Ck) Ck.onRemove();
@@ -11,7 +11,7 @@ let T = (wk, xk, yk, zk, Ak, Bk) => {
   };
   var Gk = (kl, ll, ml) => {
     var gl = yk.get();
-    if (Bk) wk.latest[xk] = kb(gl, Sa[xk]);
+    if (Bk) wk.latest[xk] = kb(gl, Ta[xk]);
     else wk.latest[xk] = gl;
     if (vk) f.render(vk, false, false);
   }, Ek = null;

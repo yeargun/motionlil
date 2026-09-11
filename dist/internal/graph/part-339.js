@@ -2,7 +2,7 @@ import { callFn2, isFunction } from "./../motion-dom/dom-host.js";
 import { kb } from "./part-202.js";
 import { lk } from "./part-5.js";
 import { p } from "./part-521.js";
-import { Sa } from "./part-574.js";
+import { Ta } from "./part-574.js";
 import { Ca } from "./part-599.js";
 import "./effect-580.js";
 import "./effect-614.js";
@@ -66,7 +66,7 @@ let bi = (vk, yk, zk) => {
       pl = ol;
     }
     if (pl) {
-      Nk = kb(Mk, Sa[ml]);
+      Nk = kb(Mk, Ta[ml]);
       if (!kl) {
         Pk = Ca[ml];
         if (Pk !== void 0) Vk = Pk;
@@ -93,7 +93,7 @@ let bi = (vk, yk, zk) => {
   }
   Ok = vk.pathRotation;
   if (Ok) {
-    Bk = Kk + `rotate(${kb(Ok, Sa.pathRotation)}) `;
+    Bk = Kk + `rotate(${kb(Ok, Ta.pathRotation)}) `;
     Gk = Bk;
     Qk = false;
   } else {

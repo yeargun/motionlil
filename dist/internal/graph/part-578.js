@@ -1,7 +1,7 @@
-var Ta = /* @__PURE__ */ new Set();
-Ta.add("originX");
-Ta.add("originY");
-Ta.add("originZ");
+var Ua = /* @__PURE__ */ new Set();
+Ua.add("originX");
+Ua.add("originY");
+Ua.add("originZ");
 export {
-  Ta
+  Ua
 };

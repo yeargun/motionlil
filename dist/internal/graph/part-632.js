@@ -1,5 +1,5 @@
 import { weakMapCreate } from "./../motion-dom/weak-host.js";
-var _a = weakMapCreate();
+var $a = weakMapCreate();
 export {
-  _a
+  $a
 };

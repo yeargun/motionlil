@@ -6,113 +6,113 @@
 motion-utils:build: cache bypass, force executing a42782737e6fcb4f
 motion-utils:build: [36m
 motion-utils:build: [1mlib/index.js[22m → [1mdist/motion-utils.dev.js[22m...[39m
-motion-utils:build: [32mcreated [1mdist/motion-utils.dev.js[22m in [1m53ms[22m[39m
+motion-utils:build: [32mcreated [1mdist/motion-utils.dev.js[22m in [1m54ms[22m[39m
 motion-utils:build: [36m
 motion-utils:build: [1mlib/index.js[22m → [1mdist/motion-utils.js[22m...[39m
-motion-utils:build: [32mcreated [1mdist/motion-utils.js[22m in [1m124ms[22m[39m
+motion-utils:build: [32mcreated [1mdist/motion-utils.js[22m in [1m129ms[22m[39m
 motion-utils:build: [36m
 motion-utils:build: [1mlib/index.js[22m → [1mdist/cjs[22m...[39m
-motion-utils:build: [32mcreated [1mdist/cjs[22m in [1m31ms[22m[39m
+motion-utils:build: [32mcreated [1mdist/cjs[22m in [1m32ms[22m[39m
 motion-utils:build: [36m
 motion-utils:build: [1mlib/index.js[22m → [1mdist/es[22m...[39m
-motion-utils:build: [32mcreated [1mdist/es[22m in [1m45ms[22m[39m
+motion-utils:build: [32mcreated [1mdist/es[22m in [1m41ms[22m[39m
 motion-utils:build: [36m
 motion-utils:build: [1mtypes/index.d.ts[22m → [1mdist/index.d.ts[22m...[39m
 motion-utils:build: [32mcreated [1mdist/index.d.ts[22m in [1m37ms[22m[39m
 motion-dom:build: cache bypass, force executing e36dd025609d8e8a
 motion-dom:build: [36m
 motion-dom:build: [1mlib/index.js[22m → [1mdist/motion-dom.dev.js[22m...[39m
-motion-dom:build: [32mcreated [1mdist/motion-dom.dev.js[22m in [1m426ms[22m[39m
+motion-dom:build: [32mcreated [1mdist/motion-dom.dev.js[22m in [1m456ms[22m[39m
 motion-dom:build: [36m
 motion-dom:build: [1mlib/index.js[22m → [1mdist/motion-dom.js[22m...[39m
-motion-dom:build: [32mcreated [1mdist/motion-dom.js[22m in [1m700ms[22m[39m
+motion-dom:build: [32mcreated [1mdist/motion-dom.js[22m in [1m751ms[22m[39m
 motion-dom:build: [36m
 motion-dom:build: [1mlib/index.js[22m → [1mdist/cjs[22m...[39m
-motion-dom:build: [32mcreated [1mdist/cjs[22m in [1m285ms[22m[39m
+motion-dom:build: [32mcreated [1mdist/cjs[22m in [1m295ms[22m[39m
 motion-dom:build: [36m
 motion-dom:build: [1mlib/index.js[22m → [1mdist/es[22m...[39m
-motion-dom:build: [32mcreated [1mdist/es[22m in [1m354ms[22m[39m
+motion-dom:build: [32mcreated [1mdist/es[22m in [1m379ms[22m[39m
 motion-dom:build: [36m
 motion-dom:build: [1mtypes/index.d.ts[22m → [1mdist/index.d.ts[22m...[39m
-motion-dom:build: [32mcreated [1mdist/index.d.ts[22m in [1m217ms[22m[39m
+motion-dom:build: [32mcreated [1mdist/index.d.ts[22m in [1m231ms[22m[39m
 framer-motion:build: cache bypass, force executing 3142668c59046ccc
 framer-motion:build: [36m
 framer-motion:build: [1mlib/index.js[22m → [1mdist/framer-motion.dev.js[22m...[39m
-framer-motion:build: [32mcreated [1mdist/framer-motion.dev.js[22m in [1m650ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/framer-motion.dev.js[22m in [1m712ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/index.js[22m → [1mdist/framer-motion.js[22m...[39m
-framer-motion:build: [32mcreated [1mdist/framer-motion.js[22m in [1m1.2s[22m[39m
+framer-motion:build: [32mcreated [1mdist/framer-motion.js[22m in [1m1.1s[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/mini.js[22m → [1mdist/mini.js[22m...[39m
-framer-motion:build: [32mcreated [1mdist/mini.js[22m in [1m281ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/mini.js[22m in [1m287ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/dom.js[22m → [1mdist/dom.js[22m...[39m
-framer-motion:build: [32mcreated [1mdist/dom.js[22m in [1m736ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/dom.js[22m in [1m796ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/dom-mini.js[22m → [1mdist/dom-mini.js[22m...[39m
-framer-motion:build: [32mcreated [1mdist/dom-mini.js[22m in [1m279ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/dom-mini.js[22m in [1m290ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/index.js, lib/client.js, lib/m.js[22m → [1mdist/cjs[22m...[39m
-framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m161ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m168ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/debug.js[22m → [1mdist/cjs[22m...[39m
 framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m3ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/mini.js[22m → [1mdist/cjs[22m...[39m
-framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m8ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m9ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/dom.js[22m → [1mdist/cjs[22m...[39m
-framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m28ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m29ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/dom-mini.js[22m → [1mdist/cjs[22m...[39m
-framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m12ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/cjs[22m in [1m13ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mlib/index.js, lib/mini.js, lib/debug.js, lib/dom.js, lib/dom-mini.js, lib/client.js, lib/m.js, lib/projection.js[22m → [1mdist/es[22m...[39m
-framer-motion:build: [32mcreated [1mdist/es[22m in [1m232ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/es[22m in [1m243ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/index.d.ts[22m → [1mdist/index.d.ts[22m...[39m
 framer-motion:build: [1m[33m(!) Ambiguous external namespace resolution: "types/dom.d.ts" re-exports "ResolveKeyframes" from one of the external modules "motion-dom" and "motion-utils", guessing "motion-dom".[39m[22m
-framer-motion:build: [32mcreated [1mdist/index.d.ts[22m in [1m138ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/index.d.ts[22m in [1m169ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/client.d.ts[22m → [1mdist/client.d.ts[22m...[39m
 framer-motion:build: [1m[33m(!) Unused external imports[39m[22m
 framer-motion:build: AnimationSequence,SequenceOptions,ObjectTarget,TransformOrigin,VisualElementEventCallbacks,LayoutLifecycles,UseRenderState imported from external module "motion-dom" but never used in "types/dom.d.ts", "types/index.d.ts", "types/render/html/types.d.ts" and "types/render/types.d.ts".
 framer-motion:build: AnimationSequence,SequenceOptions,ObjectTarget imported from external module "motion-utils" but never used in "types/dom.d.ts" and "types/index.d.ts".
-framer-motion:build: [32mcreated [1mdist/client.d.ts[22m in [1m85ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/client.d.ts[22m in [1m110ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/debug.d.ts[22m → [1mdist/debug.d.ts[22m...[39m
-framer-motion:build: [32mcreated [1mdist/debug.d.ts[22m in [1m1ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/debug.d.ts[22m in [1m2ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/m.d.ts[22m → [1mdist/m.d.ts[22m...[39m
 framer-motion:build: [1m[33m(!) Unused external imports[39m[22m
 framer-motion:build: AnimationSequence,SequenceOptions,ObjectTarget,TransformOrigin,VisualElementEventCallbacks,LayoutLifecycles,UseRenderState imported from external module "motion-dom" but never used in "types/dom.d.ts", "types/index.d.ts", "types/render/html/types.d.ts" and "types/render/types.d.ts".
 framer-motion:build: AnimationSequence,SequenceOptions,ObjectTarget imported from external module "motion-utils" but never used in "types/dom.d.ts" and "types/index.d.ts".
-framer-motion:build: [32mcreated [1mdist/m.d.ts[22m in [1m85ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/m.d.ts[22m in [1m88ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/mini.d.ts[22m → [1mdist/mini.d.ts[22m...[39m
 framer-motion:build: [32mcreated [1mdist/mini.d.ts[22m in [1m2ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/dom.d.ts[22m → [1mdist/dom.d.ts[22m...[39m
-framer-motion:build: [32mcreated [1mdist/dom.d.ts[22m in [1m13ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/dom.d.ts[22m in [1m11ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/dom-mini.d.ts[22m → [1mdist/dom-mini.d.ts[22m...[39m
-framer-motion:build: [32mcreated [1mdist/dom-mini.d.ts[22m in [1m5ms[22m[39m
+framer-motion:build: [32mcreated [1mdist/dom-mini.d.ts[22m in [1m4ms[22m[39m
 framer-motion:build: [36m
 framer-motion:build: [1mtypes/projection.d.ts[22m → [1mdist/projection.d.ts[22m...[39m
 framer-motion:build: [32mcreated [1mdist/projection.d.ts[22m in [1m1ms[22m[39m
 motion:build: cache bypass, force executing 52e548063d7542cf
 motion:build: [36m
 motion:build: [1mlib/index.js[22m → [1mdist/motion.dev.js[22m...[39m
-motion:build: [32mcreated [1mdist/motion.dev.js[22m in [1m491ms[22m[39m
+motion:build: [32mcreated [1mdist/motion.dev.js[22m in [1m590ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/index.js[22m → [1mdist/motion.js[22m...[39m
-motion:build: [32mcreated [1mdist/motion.js[22m in [1m820ms[22m[39m
+motion:build: [32mcreated [1mdist/motion.js[22m in [1m894ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/index.js[22m → [1mdist/cjs[22m...[39m
 motion:build: [32mcreated [1mdist/cjs[22m in [1m5ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/react-client.js[22m → [1mdist/cjs[22m...[39m
-motion:build: [32mcreated [1mdist/cjs[22m in [1m2ms[22m[39m
+motion:build: [32mcreated [1mdist/cjs[22m in [1m3ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/debug.js[22m → [1mdist/cjs[22m...[39m
 motion:build: [32mcreated [1mdist/cjs[22m in [1m2ms[22m[39m
@@ -121,13 +121,13 @@ motion:build: [1mlib/react.js[22m → [1mdist/cjs[22m...[39m
 motion:build: [32mcreated [1mdist/cjs[22m in [1m3ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/mini.js[22m → [1mdist/cjs[22m...[39m
-motion:build: [32mcreated [1mdist/cjs[22m in [1m1ms[22m[39m
+motion:build: [32mcreated [1mdist/cjs[22m in [1m2ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/react-mini.js[22m → [1mdist/cjs[22m...[39m
 motion:build: [32mcreated [1mdist/cjs[22m in [1m2ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/react-m.js[22m → [1mdist/cjs[22m...[39m
-motion:build: [32mcreated [1mdist/cjs[22m in [1m2ms[22m[39m
+motion:build: [32mcreated [1mdist/cjs[22m in [1m3ms[22m[39m
 motion:build: [36m
 motion:build: [1mlib/index.js, lib/mini.js, lib/react.js, lib/react-mini.js, lib/react-client.js, lib/react-m.js, lib/debug.js[22m → [1mdist/es[22m...[39m
 motion:build: [32mcreated [1mdist/es[22m in [1m7ms[22m[39m
@@ -136,24 +136,24 @@ motion:build: [1mtypes/index.d.ts[22m → [1mdist/index.d.ts[22m...[39m
 motion:build: [32mcreated [1mdist/index.d.ts[22m in [1m8ms[22m[39m
 motion:build: [36m
 motion:build: [1mtypes/debug.d.ts[22m → [1mdist/debug.d.ts[22m...[39m
-motion:build: [32mcreated [1mdist/debug.d.ts[22m in [1m1ms[22m[39m
+motion:build: [32mcreated [1mdist/debug.d.ts[22m in [1m2ms[22m[39m
 motion:build: [36m
 motion:build: [1mtypes/react.d.ts[22m → [1mdist/react.d.ts[22m...[39m
-motion:build: [32mcreated [1mdist/react.d.ts[22m in [1m5ms[22m[39m
+motion:build: [32mcreated [1mdist/react.d.ts[22m in [1m7ms[22m[39m
 motion:build: [36m
 motion:build: [1mtypes/react-mini.d.ts[22m → [1mdist/react-mini.d.ts[22m...[39m
-motion:build: [32mcreated [1mdist/react-mini.d.ts[22m in [1m2ms[22m[39m
+motion:build: [32mcreated [1mdist/react-mini.d.ts[22m in [1m1ms[22m[39m
 motion:build: [36m
 motion:build: [1mtypes/react-m.d.ts[22m → [1mdist/react-m.d.ts[22m...[39m
-motion:build: [32mcreated [1mdist/react-m.d.ts[22m in [1m1ms[22m[39m
+motion:build: [32mcreated [1mdist/react-m.d.ts[22m in [1m2ms[22m[39m
 motion:build: [36m
 motion:build: [1mtypes/mini.d.ts[22m → [1mdist/mini.d.ts[22m...[39m
 motion:build: [32mcreated [1mdist/mini.d.ts[22m in [1m1ms[22m[39m
 motion:build: [36m
 motion:build: [1mtypes/react-client.d.ts[22m → [1mdist/react-client.d.ts[22m...[39m
-motion:build: [32mcreated [1mdist/react-client.d.ts[22m in [1m2ms[22m[39m
+motion:build: [32mcreated [1mdist/react-client.d.ts[22m in [1m1ms[22m[39m
 
  Tasks:    4 successful, 4 total
 Cached:    0 cached, 4 total
-  Time:    16.78s 
+  Time:    17.837s 
 

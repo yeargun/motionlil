@@ -1,4 +1,4 @@
-let Oa = (vk) => {
+let Pa = (vk) => {
   if (null == vk) return false;
   if ("object" == typeof vk) {
     var wk = !Array.isArray(vk), xk = wk;
@@ -6,5 +6,5 @@ let Oa = (vk) => {
   return xk;
 };
 export {
-  Oa
+  Pa
 };

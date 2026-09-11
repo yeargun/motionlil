@@ -1,6 +1,6 @@
 import { D } from "./part-113.js";
 import { _b } from "./part-144.js";
-let Ma = (vk, wk, xk, zk) => {
+let Na = (vk, wk, xk, zk) => {
   var Bk = vk.props.values;
   if ("object" == typeof Bk) {
     var Ck, Ak, yk, Dk = !!Bk[wk], Ek = Dk;
@@ -16,5 +16,5 @@ let Ma = (vk, wk, xk, zk) => {
   return Ck;
 };
 export {
-  Ma
+  Na
 };

@@ -6,7 +6,7 @@ import { ch } from "./part-211.js";
 import { $m91$MotionValue } from "./part-444.js";
 import { lk } from "./part-5.js";
 import { z } from "./part-522.js";
-import { Ta } from "./part-578.js";
+import { Ua } from "./part-578.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
@@ -32,7 +32,7 @@ let gc = (vk, wk, xk, yk) => {
     Bk = zk;
     Lk = Gk;
   } else {
-    if (Ta.has(xk)) {
+    if (Ua.has(xk)) {
       if (!aa(wk, "transformOrigin")) {
         Hk = null;
         Nk = new $m91$MotionValue(lk, Hk);

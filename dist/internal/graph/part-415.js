@@ -4,7 +4,7 @@ import { Ki } from "./part-411.js";
 import { pb } from "./part-412.js";
 import { Qe } from "./part-413.js";
 import { $m145$GroupAnimationWithThen } from "./part-446.js";
-import { ab } from "./part-54.js";
+import { bb } from "./part-54.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
@@ -52,7 +52,7 @@ let Re = (vk, wk, xk) => (Nk, Ok, Pk) => {
     Bk = vk;
     Bk.animations.push(Fk);
     Fk.getFinished().then((Il) => {
-      ab(Bk.animations, Fk);
+      bb(Bk.animations, Fk);
       return true;
     });
   }

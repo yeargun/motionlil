@@ -7,22 +7,17 @@ import { i } from "./part-495.js";
 import { xa } from "./part-497.js";
 import { ed } from "./part-72.js";
 import { La } from "./part-87.js";
-import { eb } from "./part-94.js";
+import { fb } from "./part-94.js";
 import { id } from "./part-98.js";
 import { cg } from "./part-99.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
-let fb = (vk) => {
-  if ("number" == typeof vk) return (Sk, Tk) => {
-    var Qk = 0, Rk = 0;
-    if ("number" == typeof Sk) Qk = Sk;
-    if ("number" == typeof Tk) Rk = Tk;
-    return (bl) => /* @__PURE__ */ g(Qk, Rk, bl);
-  };
+let Ma = (vk) => {
+  if ("number" == typeof vk) return (Qk, Sk) => (_k) => /* @__PURE__ */ g(Qk, Sk, _k);
   else {
     if ("string" == typeof vk) {
-      if (ed(vk)) return eb;
+      if (ed(vk)) return fb;
       if (h.test(vk)) return (Qk, Rk) => id(Qk, Rk);
       return fg;
     } else {
@@ -35,7 +30,7 @@ let fb = (vk) => {
       }
     }
   }
-  return eb;
+  return fb;
 };
 let jd = (vk, xk) => {
   var yk = [];
@@ -56,7 +51,7 @@ let jd = (vk, xk) => {
       Gk = xk[wk];
       Hk = Gk;
     } else Hk = 0;
-    Ck.push(fb(Dk)(Dk, Hk));
+    Ck.push(Ma(Dk)(Dk, Hk));
     wk += 1;
   }
   return (il) => {
@@ -91,7 +86,7 @@ let dg = (vk, wk) => {
       } else Lk = false;
       if (Lk) {
         Fk = Gk;
-        Ik.set(Dk, fb(Fk)(Fk, Bk));
+        Ik.set(Dk, Ma(Fk)(Fk, Bk));
       }
     }
   }
@@ -147,13 +142,13 @@ let fg = (wk, yk) => {
     };
   } else {
     va(true, `Complex values '${wk}' and '${yk}' too different to mix. Ensure all colors are of the same type, and that each contains the same quantity of number and color values. Falling back to instant transition.`, "complex-values-different");
-    return eb(wk, yk);
+    return fb(wk, yk);
   }
   throw Error();
 };
 export {
+  Ma,
   dg,
-  fb,
   fg,
   jd
 };

@@ -1,5 +1,5 @@
 import { Sf } from "./part-53.js";
-import { ab } from "./part-54.js";
+import { bb } from "./part-54.js";
 import "./effect-580.js";
 import "./effect-614.js";
 import "./effect-617.js";
@@ -11,7 +11,7 @@ class $m53$SubscriptionManager {
   add(wk) {
     Sf(this.subscriptions, wk);
     return () => {
-      ab(this.subscriptions, wk);
+      bb(this.subscriptions, wk);
     };
   }
   clear() {

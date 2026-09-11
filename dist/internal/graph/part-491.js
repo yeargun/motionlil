@@ -4,7 +4,7 @@ import { df } from "./part-480.js";
 import { H } from "./part-486.js";
 import { N } from "./part-75.js";
 import { Ja } from "./part-77.js";
-import { db } from "./part-80.js";
+import { eb } from "./part-80.js";
 import { P } from "./part-81.js";
 import { Q } from "./part-82.js";
 import "./effect-580.js";
@@ -90,7 +90,7 @@ var ga = {
     Uz.lightness = 0;
     Uz.alpha = 1;
     if (Ja(Oz)) {
-      var Pz, dA, Xz, aA, Yz, Qz, Zz, bA, Rz, eA, _z, $z, cA, Sz, Tz, Vz = db(Oz), Wz = Vz;
+      var Pz, dA, Xz, aA, Yz, Qz, Zz, bA, Rz, eA, _z, $z, cA, Sz, Tz, Vz = eb(Oz), Wz = Vz;
     } else Wz = Uz;
     Pz = H.transform;
     dA = y.transform;
