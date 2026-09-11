@@ -11,19 +11,19 @@
   "external": [],
   "samples": [
     {
-      "bundleSeconds": 0.041906000000000006,
-      "wallSeconds": 1.0115225049999998
+      "bundleSeconds": 0.37250471100000004,
+      "wallSeconds": 1.1626626189999998
     },
     {
-      "bundleSeconds": 0.03313680999999997,
-      "wallSeconds": 0.799851989
+      "bundleSeconds": 0.02776202400000011,
+      "wallSeconds": 0.6550257690000003
     },
     {
-      "bundleSeconds": 0.03168973899999992,
-      "wallSeconds": 0.8041800679999999
+      "bundleSeconds": 0.026104809999999815,
+      "wallSeconds": 0.6709701799999997
     }
   ],
-  "medianSeconds": 0.8041800679999999,
+  "medianSeconds": 0.6709701799999997,
   "toolchain": {
     "esbuild": "0.28.1",
     "terser": "5.51.2"
@@ -342,6 +342,6 @@
     "packages/framer-motion/dist/es/utils/distance.mjs",
     "packages/framer-motion/dist/es/dom.mjs",
     "packages/motion/dist/es/index.mjs",
-    "../../../../motion-behavior-final-20260911/build/upstream/motionlil/public-esm-entry.mjs"
+    "../../../../motion-cost-audit-20260911/build/upstream/motionlil/public-esm-entry.mjs"
   ]
 }

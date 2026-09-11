@@ -15,7 +15,7 @@
       "cause": "Existing formatting violations and unchanged interpreter-based differential-generator test: 14 output lines, expected 11."
     }
   },
-  "sourceCommit": "4f400f190b815492445ca74bf87a0baf7b153a4f",
+  "sourceCommit": "894693ba6474b0d6c3881c7b93414e1cfaf28401",
   "browser": {
     "passed": 37,
     "failed": 0,
@@ -40,10 +40,10 @@
     "site/styles.css": "5c26251782a3743b07b8be9106efe815bd602cba17a9c980ad49042530aab903",
     "site/demo.css": "ae1e775bb48c901fe31a2975df1e257790396c18bacffaba74945b97c367fd6f"
   },
-  "coverage": "Differential checks cover the documented animation scenarios. They do not establish complete Motion API parity.",
+  "coverage": "Differential checks cover the documented animation scenarios. Extended constructor/layout adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
   "measuredDistribution": {
-    "file": "dist/index.bundle.js",
-    "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+    "file": "dist/full.js",
+    "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
   },
   "sourceBuildChecks": {
     "machine": "Azure Standard_D16als_v7",
@@ -53,45 +53,54 @@
     "failed": 0,
     "log": "../source-build/lilscript-tests.log"
   },
+  "apiCoverage": {
+    "originalExports": 312,
+    "fullExports": 326,
+    "defaultExports": 52,
+    "fullMissingOriginalNames": [],
+    "comparisonEntry": "dist/full.js",
+    "behavior": "Selected animation scenarios are checked; extended constructor/layout adapters remain incomplete."
+  },
   "performance": {
+    "repetitions": 30,
     "workloads": 7,
-    "pairedRepetitions": 30,
+    "measured": 7,
     "backendAgreement": true,
     "libraryRafAgreement": true,
-    "naturalPlaybackWorkloads": 7,
+    "naturalPlaybackAgreement": true,
+    "rawSamples": "../../site/performance/performance.json",
+    "naturalValidation": "../../site/performance/natural-validation.json",
     "inputs": {
       "lilscript": {
         "file": "inputs/lilscript.js",
-        "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+        "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
       },
       "original": {
         "file": "inputs/original.js",
         "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
       },
       "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
-    },
-    "evidence": "../../site/performance/performance.json"
+    }
+  },
+  "packageChecks": {
+    "command": "npm run check",
+    "passed": true,
+    "nodeTests": 11,
+    "siteTests": 7,
+    "declarations": "passed",
+    "pack": "passed"
   },
   "pageChecks": {
     "demos": 16,
     "pageErrors": [],
     "viewport": {
       "width": 390,
-      "scroll": 490
+      "scroll": 390
     },
     "baselineMobile": {
       "width": 390,
       "scroll": 490
     },
     "mobileRegression": false
-  },
-  "packageChecks": {
-    "nodeTests": 11,
-    "siteTests": 7,
-    "types": "pass",
-    "pack": "pass",
-    "packFiles": 33,
-    "packedBytes": 452091,
-    "unpackedBytes": 1546396
   }
 }

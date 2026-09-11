@@ -1,34 +1,34 @@
 {
   "schemaVersion": 2,
   "name": "motionlil",
-  "measuredAt": "2026-09-11T07:36:09Z",
+  "measuredAt": "2026-09-11T08:44:53Z",
   "status": "complete",
   "buildPassed": true,
-  "summary": "All 7 browser workloads match native backends and sampled timelines; recorded runtime checks cover easing, repeats, interpolation, lifecycle callbacks, interruption and frame scheduling. These checks do not establish complete API parity.",
+  "summary": "All 7 browser workloads match native backends and sampled timelines; recorded runtime checks cover easing, repeats, interpolation, lifecycle callbacks, interruption and frame scheduling. Extended constructor/layout adapters remain incomplete; matching all original export names does not establish complete API parity.",
   "compiler": {
     "commit": "e5f7f254470ae4af178f3625b8b3dfd8fe501ad7",
     "sha256": "14f7c2d1e631126a862cc59b6008cf1cb968198f0c07c4512c406805f13a0125"
   },
-  "sourceCommit": "4f400f190b815492445ca74bf87a0baf7b153a4f",
+  "sourceCommit": "894693ba6474b0d6c3881c7b93414e1cfaf28401",
   "machine": {
     "provider": "Azure",
     "instanceClass": "Standard_D16als_v7",
     "cpu": "AMD EPYC 9V45 96-Core Processor",
     "logicalCpus": 16,
-    "memoryBytes": 33648435200,
+    "memoryBytes": 33648431104,
     "os": "Ubuntu 24.04.4 LTS",
     "kernel": "6.17.0-1022-azure",
     "node": "v24.11.1",
     "rayonThreads": 8,
     "loadAtStart": [
-      0.26953125,
-      0.5625,
-      0.59423828125
+      0.24853515625,
+      0.11669921875,
+      0.0419921875
     ],
     "loadAtEnd": [
-      1.625,
-      1.06787109375,
-      0.78515625
+      2.25341796875,
+      0.83447265625,
+      0.31396484375
     ]
   },
   "upstream": {
@@ -47,10 +47,10 @@
     },
     {
       "path": "dist/index.cjs",
-      "raw": 167325,
-      "gzip9": 50546,
-      "brotli11": 39116,
-      "sha256": "4e4aa0bd7c92ca5a7bb288e063207c6c8e0d097fda4b82413e6c72da96550e8b"
+      "raw": 149939,
+      "gzip9": 46929,
+      "brotli11": 37966,
+      "sha256": "fe0ab1eacccff575fa2a561bcfe2dee0db2c4fe9adeb2b4a5cd46424b377e7d4"
     },
     {
       "path": "dist/debug.cjs",
@@ -61,10 +61,10 @@
     },
     {
       "path": "dist/animate.js",
-      "raw": 110180,
-      "gzip9": 34215,
-      "brotli11": 29833,
-      "sha256": "fa39f000f51e907847062a4bf6881f2c042bbaf8e75463ff89287f1e67608a27"
+      "raw": 110269,
+      "gzip9": 34408,
+      "brotli11": 29908,
+      "sha256": "b292a7f6a1744666ae9a5cb1f7bb7183c78f43cd6cdeeb2ad0b85fc2c55e223f"
     },
     {
       "path": "dist/viewport.cjs",
@@ -75,10 +75,10 @@
     },
     {
       "path": "dist/animate-mini.js",
-      "raw": 32296,
-      "gzip9": 9658,
-      "brotli11": 8672,
-      "sha256": "799437f83a445deae76ab7df3312df24168a032668143c769f5e6ae259d81f64"
+      "raw": 14741,
+      "gzip9": 5312,
+      "brotli11": 4811,
+      "sha256": "a73d94c86ed032b16393422cf2358722ca5a1f496cc7f2ebb2b3b88ad05892f5"
     },
     {
       "path": "dist/resize.js",
@@ -96,10 +96,10 @@
     },
     {
       "path": "dist/full.cjs",
-      "raw": 195252,
-      "gzip9": 61461,
-      "brotli11": 52962,
-      "sha256": "f94362669bf5464a7a7b9a5bdff11c9948229199af1c19fefce10b9c61d00ad0"
+      "raw": 195241,
+      "gzip9": 61459,
+      "brotli11": 52964,
+      "sha256": "93eaba46b085903e873c7cfdd5385560981741022c1997a3c93c0ad7945e0853"
     },
     {
       "path": "dist/debug.js",
@@ -117,10 +117,10 @@
     },
     {
       "path": "dist/mini.cjs",
-      "raw": 39164,
-      "gzip9": 12289,
-      "brotli11": 11071,
-      "sha256": "8aa06b9a36f37599516c3f198c06e8b15271f71059edad044e682395d7e43be4"
+      "raw": 21498,
+      "gzip9": 7925,
+      "brotli11": 7187,
+      "sha256": "aa25e2d6b8fb829c7ed24c31e57f20770a25a66cc13443fbfc2c9058cac1d719"
     },
     {
       "path": "dist/viewport.js",
@@ -145,31 +145,31 @@
     },
     {
       "path": "dist/index.bundle.js",
-      "raw": 166938,
-      "gzip9": 50411,
-      "brotli11": 39169,
-      "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+      "raw": 149423,
+      "gzip9": 46782,
+      "brotli11": 37990,
+      "sha256": "bbd9c3ddc3c3abde89cfe049e5b4fc119ff7f754e78e050a4691ff58c06d27bc"
     },
     {
       "path": "dist/animate.cjs",
-      "raw": 111713,
-      "gzip9": 34617,
-      "brotli11": 30309,
-      "sha256": "0fe5a302515b1db77b75fc85b1789810c8e78fc4f52b336c5f214ff39b8c0aac"
+      "raw": 111706,
+      "gzip9": 34772,
+      "brotli11": 30336,
+      "sha256": "3ec09a691b1b50c5bf2cc37bd79612a881f23df4e661adabee7a668d2a6c5bb5"
     },
     {
       "path": "dist/animate-mini.cjs",
-      "raw": 33222,
-      "gzip9": 9877,
-      "brotli11": 8886,
-      "sha256": "dfc44c6434bf25588f9668f85445d95315641c0a4fbdd496df7f29d331475728"
+      "raw": 15506,
+      "gzip9": 5524,
+      "brotli11": 5011,
+      "sha256": "17a1b0c98a583188d0f86e77fc4d32b5b12560c2d1d48ff7326ec49a948a1413"
     },
     {
       "path": "dist/full.js",
-      "raw": 194173,
-      "gzip9": 61129,
-      "brotli11": 52494,
-      "sha256": "bc9e5bc2736b8e74492e031c3256bfbb4b038aa2437b199e08b8d0d50f5f35de"
+      "raw": 194166,
+      "gzip9": 61134,
+      "brotli11": 52586,
+      "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
     },
     {
       "path": "dist/gestures.js",
@@ -180,35 +180,35 @@
     },
     {
       "path": "dist/mini.js",
-      "raw": 38178,
-      "gzip9": 12002,
-      "brotli11": 10816,
-      "sha256": "82e8827d2e9f51feebf6eaa65c86cd511efb8a1a88249d568cdf55a6181e2cc8"
+      "raw": 20627,
+      "gzip9": 7661,
+      "brotli11": 6918,
+      "sha256": "f30b77cc4cfbee09f144b280172b0f40bf457e358483784b30ef0e517384ed10"
     },
     {
       "path": "dist/motionlil.global.js",
-      "raw": 167288,
-      "gzip9": 50516,
-      "brotli11": 39140,
-      "sha256": "a4fc419c0bb5106c5e565ef867c3c2428da89941633b137e2a1b382111a17fb1"
+      "raw": 149923,
+      "gzip9": 46906,
+      "brotli11": 37945,
+      "sha256": "d3a44fa3c70694d619d87ed5a9ab1c4025c697720e20549db343da4cd2e29f69"
     }
   ],
   "publicationArtifacts": [
     {
       "path": "dist/animate-mini.cjs",
-      "sha256": "dfc44c6434bf25588f9668f85445d95315641c0a4fbdd496df7f29d331475728"
+      "sha256": "17a1b0c98a583188d0f86e77fc4d32b5b12560c2d1d48ff7326ec49a948a1413"
     },
     {
       "path": "dist/animate-mini.js",
-      "sha256": "799437f83a445deae76ab7df3312df24168a032668143c769f5e6ae259d81f64"
+      "sha256": "a73d94c86ed032b16393422cf2358722ca5a1f496cc7f2ebb2b3b88ad05892f5"
     },
     {
       "path": "dist/animate.cjs",
-      "sha256": "0fe5a302515b1db77b75fc85b1789810c8e78fc4f52b336c5f214ff39b8c0aac"
+      "sha256": "3ec09a691b1b50c5bf2cc37bd79612a881f23df4e661adabee7a668d2a6c5bb5"
     },
     {
       "path": "dist/animate.js",
-      "sha256": "fa39f000f51e907847062a4bf6881f2c042bbaf8e75463ff89287f1e67608a27"
+      "sha256": "b292a7f6a1744666ae9a5cb1f7bb7183c78f43cd6cdeeb2ad0b85fc2c55e223f"
     },
     {
       "path": "dist/debug.cjs",
@@ -220,11 +220,11 @@
     },
     {
       "path": "dist/full.cjs",
-      "sha256": "f94362669bf5464a7a7b9a5bdff11c9948229199af1c19fefce10b9c61d00ad0"
+      "sha256": "93eaba46b085903e873c7cfdd5385560981741022c1997a3c93c0ad7945e0853"
     },
     {
       "path": "dist/full.js",
-      "sha256": "bc9e5bc2736b8e74492e031c3256bfbb4b038aa2437b199e08b8d0d50f5f35de"
+      "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
     },
     {
       "path": "dist/gestures.cjs",
@@ -236,11 +236,11 @@
     },
     {
       "path": "dist/index.bundle.js",
-      "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+      "sha256": "bbd9c3ddc3c3abde89cfe049e5b4fc119ff7f754e78e050a4691ff58c06d27bc"
     },
     {
       "path": "dist/index.cjs",
-      "sha256": "4e4aa0bd7c92ca5a7bb288e063207c6c8e0d097fda4b82413e6c72da96550e8b"
+      "sha256": "fe0ab1eacccff575fa2a561bcfe2dee0db2c4fe9adeb2b4a5cd46424b377e7d4"
     },
     {
       "path": "dist/index.js",
@@ -248,15 +248,15 @@
     },
     {
       "path": "dist/mini.cjs",
-      "sha256": "8aa06b9a36f37599516c3f198c06e8b15271f71059edad044e682395d7e43be4"
+      "sha256": "aa25e2d6b8fb829c7ed24c31e57f20770a25a66cc13443fbfc2c9058cac1d719"
     },
     {
       "path": "dist/mini.js",
-      "sha256": "82e8827d2e9f51feebf6eaa65c86cd511efb8a1a88249d568cdf55a6181e2cc8"
+      "sha256": "f30b77cc4cfbee09f144b280172b0f40bf457e358483784b30ef0e517384ed10"
     },
     {
       "path": "dist/motionlil.global.js",
-      "sha256": "a4fc419c0bb5106c5e565ef867c3c2428da89941633b137e2a1b382111a17fb1"
+      "sha256": "d3a44fa3c70694d619d87ed5a9ab1c4025c697720e20549db343da4cd2e29f69"
     },
     {
       "path": "dist/resize.cjs",
@@ -286,15 +286,15 @@
   "comparisonArtifacts": [
     {
       "path": "site/comparison.json",
-      "sha256": "b9a65993decc451a94eb966aea062cbbf6eaa6544be6db8fe7190b6a7341caa5"
+      "sha256": "5c140cfe3ea2111eccba869f7b3ad37fa6c97562193f8976aaf185ac96ce7690"
     },
     {
       "path": "site/source-build.json",
-      "sha256": "db1c36a3c06974c00677ff529af7549a07efc017bbbc1fdf66a5b56f02efce8e"
+      "sha256": "fb64f5bb91d1fdbff8db724edfc22fcc44a3355764c244cfbc9c40875978506f"
     },
     {
       "path": "site/performance.json",
-      "sha256": "9124b9951a7cb4688d0df65554df760e98df5113541fe4b159ec9ec9b0ff7f0b"
+      "sha256": "1a7bc433ad211ae86d664c1864a46252f5e76e0c4034718839352edec34140cb"
     },
     {
       "path": "site/results.json",
@@ -302,11 +302,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "183d19f814e79975dd5a0536663f31d9bf1179ef323f76bf95b5b66c80131522"
+      "sha256": "6f61ab121ca806f102311c65d4f00f34dcc18987ccc5284c251dffb658077a5f"
     },
     {
       "path": "site/index.html",
-      "sha256": "415884de9bd6d7b78fc12e618c9990cdf65de60e446dd6339865defd9e9b5b34"
+      "sha256": "52a5af9252501b07a103c856dcf7df812a901e29284a333b0c64e9e102a262f1"
     },
     {
       "path": ".github/workflows/ci.yml",
@@ -322,7 +322,7 @@
     },
     {
       "path": "site/esm-comparison/lilscript.js",
-      "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+      "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
     },
     {
       "path": "site/esm-comparison/original.js",
@@ -338,7 +338,7 @@
     },
     {
       "path": "site/performance/inputs/lilscript.js",
-      "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+      "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
     },
     {
       "path": "site/performance/inputs/original.js",
@@ -346,11 +346,11 @@
     },
     {
       "path": "site/performance/natural-validation.json",
-      "sha256": "212e34f2c4d5480ccaf48667c452034cd031339c0e59e0e6aec5121da63ead34"
+      "sha256": "20b96c43b26109f9426eb04ba83f9a831a290ee444fbe6dc72d47e7b7fe26df4"
     },
     {
       "path": "site/performance/performance.json",
-      "sha256": "7d11c3856bc7c12e54d256954acf7f307f7e246e2b63837d5fb92eae1f50fe87"
+      "sha256": "5c5d28a6269007214b20e4f332a7fef8807af4b8f3777318d534d5aecd2fe09d"
     },
     {
       "path": "site/performance/workloads.json",
@@ -362,27 +362,27 @@
     },
     {
       "path": "comparison/source-build/compiler-invocations.jsonl",
-      "sha256": "7d6c1e5ffa8a8bdb504880779f9ec74f8705c0c18a3ee95eefd16348545a1bc7"
+      "sha256": "ce630980279965f7ab0ab18531f8e93134253a5751d12e94489b95f5a043e256"
     },
     {
       "path": "comparison/source-build/esm.json",
-      "sha256": "e96c338524fa87466456947aa8f647878b1742dcab784b99eb9c9ed42c2f46d0"
+      "sha256": "d345f6bf9dc96870cce97c47a71c56dec4673380432d9133ca81f0f8dc246dbd"
     },
     {
       "path": "comparison/source-build/job.json",
-      "sha256": "bf9bb649a6505f3824fbf11ae6e16d7fc58335ad84753e26ff7c0cb7dcfba45f"
+      "sha256": "5c121cd2733f8255193b371e54178edf5abc6757f55b827dfbb5ebffc75f6f92"
     },
     {
       "path": "comparison/source-build/lilscript-build-1.log",
-      "sha256": "255402f2f0090e56652774e9d20c1c3275e7926234d9284b21364a3eb5a60068"
+      "sha256": "b69dde7b7fa12c43685f64aceb52d36eda1619104d818b83104afec5c9b76c72"
     },
     {
       "path": "comparison/source-build/lilscript-build-2.log",
-      "sha256": "255402f2f0090e56652774e9d20c1c3275e7926234d9284b21364a3eb5a60068"
+      "sha256": "b69dde7b7fa12c43685f64aceb52d36eda1619104d818b83104afec5c9b76c72"
     },
     {
       "path": "comparison/source-build/lilscript-build-3.log",
-      "sha256": "255402f2f0090e56652774e9d20c1c3275e7926234d9284b21364a3eb5a60068"
+      "sha256": "b69dde7b7fa12c43685f64aceb52d36eda1619104d818b83104afec5c9b76c72"
     },
     {
       "path": "comparison/source-build/lilscript-install.log",
@@ -394,19 +394,19 @@
     },
     {
       "path": "comparison/source-build/lilscript-tests.log",
-      "sha256": "e78f0d8e8343343b7b3d62a52f82957339cea92e1c4c46660524eaf558429ebf"
+      "sha256": "ca885fd92f3547b30ee13707a9c595aaf63087c3fdbf648a4f1aded07d636000"
     },
     {
       "path": "comparison/source-build/original-build-1.log",
-      "sha256": "073e8c9837892b98fa596873f85d5df4f1103e4264d55bfedcd4a2d10df30843"
+      "sha256": "a4bfa6a92cbfdabb040d4ed0fc0ad4cbad1b87ddd79263ce89f83823002851e1"
     },
     {
       "path": "comparison/source-build/original-build-2.log",
-      "sha256": "2129f427a8b8e31a26e44b294ac177baef93fc72db7a0ac357d93734ff92e0a8"
+      "sha256": "89c819be6ef368bfb9d134eaabb5326e84c00bd307e4f74b61182c949069d882"
     },
     {
       "path": "comparison/source-build/original-build-3.log",
-      "sha256": "c8466d64e318928214d7f564521f4f32639d057db06ad5e117e7e640e6f65d34"
+      "sha256": "689dcf997dc5bf44ad9a057c1ad5911e9c73cb3a29663371a24d24f3d60af893"
     },
     {
       "path": "comparison/source-build/original-esm.log",
@@ -414,7 +414,7 @@
     },
     {
       "path": "comparison/source-build/original-install.log",
-      "sha256": "124af8211aaf816c3681d14171fa4a764c5f19b93c2066aa9364d13b1e83f90a"
+      "sha256": "ea622640a9d3d64d42233f82090d09ef0b2147857d169f14746d986f84a0b062"
     },
     {
       "path": "comparison/source-build/original-yarn.lock",
@@ -422,15 +422,19 @@
     },
     {
       "path": "comparison/source-build/result.json",
-      "sha256": "b562e12be806096a7c3a790f99d2698c6b5f3a0fa87c0ca4fda498bf4977de2d"
+      "sha256": "1246a71ade78c09ce2371f62b2c0a05eecf6b3036b958678604cb42303848545"
     },
     {
       "path": "comparison/runtime-investigation/README.md",
-      "sha256": "db9aeb2564574d76ad87276bd46db951871c1033e59674992c54178fdb3af83c"
+      "sha256": "57af1e4b55e0f8b455de744c22c0f489b9cedf1850d6aff2be86fdb389ee3d1c"
+    },
+    {
+      "path": "comparison/runtime-investigation/cost-audit.json",
+      "sha256": "0bc5386446a7f364e75864fd69f23b2503e56d86cf43552403bde0c7487fc268"
     },
     {
       "path": "comparison/runtime-investigation/validation.json",
-      "sha256": "bfeb4e1344dce6c320bf18d78e979bdc673c1cd8dd23871434ed1abd55785af0"
+      "sha256": "caf5651f8ad072b7399d2de019cef7509b142dfdc9c2dc82434d07e7f006d94e"
     },
     {
       "path": "test/browser-backends.test.mjs",
@@ -456,7 +460,7 @@
       "sha256": "14f7c2d1e631126a862cc59b6008cf1cb968198f0c07c4512c406805f13a0125"
     },
     "source": {
-      "commit": "4f400f190b815492445ca74bf87a0baf7b153a4f"
+      "commit": "894693ba6474b0d6c3881c7b93414e1cfaf28401"
     },
     "upstream": {
       "package": "motion",
@@ -464,7 +468,7 @@
       "repository": "https://github.com/motiondivision/motion.git",
       "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
     },
-    "compatibility": "All 7 browser workloads match native backends and sampled timelines; recorded runtime checks cover easing, repeats, interpolation, lifecycle callbacks, interruption and frame scheduling. These checks do not establish complete API parity."
+    "compatibility": "All 7 browser workloads match native backends and sampled timelines; recorded runtime checks cover easing, repeats, interpolation, lifecycle callbacks, interruption and frame scheduling. Extended constructor/layout adapters remain incomplete; matching all original export names does not establish complete API parity."
   },
-  "publicationSourceFingerprint": "392ff28a5cca99958dcee495ab9e0fbdbfd5c7c4e903ee9de8bd4856a69463a5"
+  "publicationSourceFingerprint": "089643fee5d7055a098b21eb38e3164fcde68f734f75bdbf2c764ac362acb366"
 }

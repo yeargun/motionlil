@@ -2,17 +2,17 @@
 > motionlil@0.1.5 test
 > node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs
 
-✔ ESM entry points load without a browser global (1.97596ms)
-✔ pure utilities and MotionValue behavior work (2.387837ms)
-✔ CommonJS entry points expose the same public names (9.941112ms)
-✔ every Motion DOM export is present on the full entry (0.316444ms)
-✔ default entry keeps the JS consumer API (0.133089ms)
-✔ public constructor compatibility covers common direct usage (0.242453ms)
-✔ MotionValue uses its public prototype and preserves method defaults (0.552588ms)
-✔ group compatibility preserves existing native accessors and completion promises (0.474111ms)
-✔ named imports do not pull the whole consumer graph (2196.122508ms)
-✔ the distributed animate module survives a second Terser pass (953.840939ms)
-✔ Vite bundles the public package entry (1154.749785ms)
+✔ ESM entry points load without a browser global (1.116003ms)
+✔ pure utilities and MotionValue behavior work (1.480078ms)
+✔ CommonJS entry points expose the same public names (5.350429ms)
+✔ every Motion DOM export is present on the full entry (0.209444ms)
+✔ default entry keeps the JS consumer API (0.102924ms)
+✔ public constructor compatibility covers common direct usage (3.559886ms)
+✔ MotionValue uses its public prototype and preserves method defaults (0.409904ms)
+✔ group compatibility preserves existing native accessors and completion promises (0.311637ms)
+✔ named imports do not pull the whole consumer graph (1688.538753ms)
+✔ the distributed animate module survives a second Terser pass (820.867454ms)
+✔ Vite bundles the public package entry (1135.043896ms)
 ℹ tests 11
 ℹ suites 0
 ℹ pass 11
@@ -20,7 +20,7 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 2334.273978
+ℹ duration_ms 2227.135273
 
 > motionlil@0.1.5 check:types
 > tsc -p test/types/tsconfig.json
@@ -29,43 +29,43 @@
 > motionlil@0.1.5 test:browser
 > node --test test/browser-controls.test.mjs test/browser-runtime.test.mjs test/browser-backends.test.mjs test/browser-lifecycle.test.mjs
 
-✔ mini Bezier easing and repeat controls match (729.11349ms)
-✔ mini segmented easing matches (629.725427ms)
-✔ mini spring generator matches (599.986674ms)
-✔ function easing matches (600.255735ms)
-✔ anticipate easing matches (600.354161ms)
-✔ JavaScript function easing matches (598.77766ms)
-✔ opacity uses native animation (600.860459ms)
-✔ string transforms use native animation (600.797584ms)
-✔ x/y and opacity use the same mixed backends (598.187943ms)
-✔ width/margin and opacity use the same mixed backends (600.263568ms)
-✔ reverse repeat retains native timing (600.463103ms)
-✔ repeat delay selects JavaScript (598.636382ms)
-✔ mirror repeat selects JavaScript (600.229772ms)
-✔ cross-realm elements select JavaScript (599.691725ms)
-✔ native construction failure falls back to JavaScript (600.212501ms)
-✔ Bezier easing is retained (600.552456ms)
-✔ per-keyframe easing is retained (599.573428ms)
-✔ JS string values interpolate (599.143488ms)
-✔ spring opacity uses the same native easing (601.125756ms)
-✔ spring strings interpolate in JavaScript (599.09105ms)
-✔ JavaScript Bezier easing is retained (599.650027ms)
-✔ JavaScript segment easing is retained (606.485316ms)
-✔ autoplay false remains paused (594.180857ms)
-✔ JS colors interpolate (598.978425ms)
-✔ native control access matches Motion without unrelated effect timing reads (134.198139ms)
-✔ group controls seek, change speed and complete real browser animations (299.466762ms)
-✔ resume: controls, callbacks, completion and library RAF match Motion (271.363101ms)
-✔ cancel: controls, callbacks, completion and library RAF match Motion (163.665331ms)
-✔ stop: controls, callbacks, completion and library RAF match Motion (161.971167ms)
-✔ reverse: controls, callbacks, completion and library RAF match Motion (152.333396ms)
-✔ render requested inside render phase runs in that frame (158.538976ms)
-✔ native interruption preserves the sampled style and replacement keyframe without completing (148.471804ms)
-✔ frame queues match upstream deduplication, immediate scheduling and cancellation (258.175301ms)
-✔ linear: callbacks, values and completion match upstream under the same clock (165.703951ms)
-✔ delay: callbacks, values and completion match upstream under the same clock (160.137444ms)
-✔ reverse repeat: callbacks, values and completion match upstream under the same clock (164.667662ms)
-✔ mirror repeat: callbacks, values and completion match upstream under the same clock (154.614507ms)
+✔ mini Bezier easing and repeat controls match (9341.487696ms)
+✔ mini segmented easing matches (614.227312ms)
+✔ mini spring generator matches (583.204127ms)
+✔ function easing matches (583.268303ms)
+✔ anticipate easing matches (583.745344ms)
+✔ JavaScript function easing matches (565.474433ms)
+✔ opacity uses native animation (567.405527ms)
+✔ string transforms use native animation (584.192443ms)
+✔ x/y and opacity use the same mixed backends (581.655482ms)
+✔ width/margin and opacity use the same mixed backends (583.477641ms)
+✔ reverse repeat retains native timing (567.273464ms)
+✔ repeat delay selects JavaScript (582.068029ms)
+✔ mirror repeat selects JavaScript (550.417595ms)
+✔ cross-realm elements select JavaScript (599.726332ms)
+✔ native construction failure falls back to JavaScript (600.004383ms)
+✔ Bezier easing is retained (600.581599ms)
+✔ per-keyframe easing is retained (566.436135ms)
+✔ JS string values interpolate (582.249897ms)
+✔ spring opacity uses the same native easing (567.611441ms)
+✔ spring strings interpolate in JavaScript (565.8956ms)
+✔ JavaScript Bezier easing is retained (566.508159ms)
+✔ JavaScript segment easing is retained (583.169119ms)
+✔ autoplay false remains paused (567.775719ms)
+✔ JS colors interpolate (565.309671ms)
+✔ native control access matches Motion without unrelated effect timing reads (104.135579ms)
+✔ group controls seek, change speed and complete real browser animations (8929.704656ms)
+✔ resume: controls, callbacks, completion and library RAF match Motion (8888.176155ms)
+✔ cancel: controls, callbacks, completion and library RAF match Motion (139.450491ms)
+✔ stop: controls, callbacks, completion and library RAF match Motion (133.365226ms)
+✔ reverse: controls, callbacks, completion and library RAF match Motion (118.19982ms)
+✔ render requested inside render phase runs in that frame (133.736238ms)
+✔ native interruption preserves the sampled style and replacement keyframe without completing (112.619181ms)
+✔ frame queues match upstream deduplication, immediate scheduling and cancellation (8874.257583ms)
+✔ linear: callbacks, values and completion match upstream under the same clock (143.260573ms)
+✔ delay: callbacks, values and completion match upstream under the same clock (138.338671ms)
+✔ reverse repeat: callbacks, values and completion match upstream under the same clock (123.275343ms)
+✔ mirror repeat: callbacks, values and completion match upstream under the same clock (129.534254ms)
 ℹ tests 37
 ℹ suites 0
 ℹ pass 37
@@ -73,4 +73,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 15086.219886
+ℹ duration_ms 25364.922208

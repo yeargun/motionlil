@@ -61,7 +61,10 @@ See `validation.json` for the workflow, exact compiler and artifact hashes.
 
 ## Performance protocol
 
-The size and runtime comparisons use the same source-built ESM inputs. Each of
+The size and runtime comparisons use the same source-built full ESM inputs.
+The default entry has 52 exports; the full port has 326 and retains all 312
+original names. Some extended constructor/layout adapters remain incomplete, so
+export-name coverage is recorded separately from the behavior checks. Each of
 seven workloads runs 30 alternating paired trials with fresh pages, after two
 warmups per side. Every element is checked at five paused positions and at
 completion; native calls/options and active properties must match. An untimed
@@ -77,3 +80,17 @@ parity for every Motion export or measure all compositor/GPU work.
 Exact build commands, machine information and three clean build samples are in
 `../source-build/`. Public performance samples and input hashes are in
 `../../site/performance/`. The site stylesheets retain their recorded hashes.
+
+## Size and timing attribution
+
+The recorded cost audit is in `cost-audit.json`. A broad cast import pulled
+visual-element/frame-loop initialization into mini bundles; a direct typed
+WithPromise cast removes that unrelated dependency. The mini consumer size gate
+is 20 KB raw while retaining native easing, repeats and lifecycle controls.
+
+Controlled builds of the same published source with the two compiler revisions
+differ by 500 raw bytes in the default bundle. The larger growth came from port
+and dependency-graph changes. The unchanged original ESM also ran 35–39% slower
+in the previous session than in the earlier run, so absolute times across those
+sessions cannot isolate a code regression. Current tables compare both sides
+within the same recorded session.

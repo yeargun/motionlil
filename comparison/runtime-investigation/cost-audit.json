@@ -1,0 +1,826 @@
+{
+  "baselineSource": "04406251a29a397650be2781e99a5061663da802",
+  "publishedRegressionSource": "4f400f190b815492445ca74bf87a0baf7b153a4f",
+  "fixedSource": "894693ba6474b0d6c3881c7b93414e1cfaf28401",
+  "compilerAblation": {
+    "older": {
+      "commit": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b",
+      "sha256": "a38f3aa58bfb959b6b9dfa0244a0f1cc2edf34975d02026e0e7a4cb0ae12691b"
+    },
+    "current": {
+      "commit": "e5f7f254470ae4af178f3625b8b3dfd8fe501ad7",
+      "sha256": "14f7c2d1e631126a862cc59b6008cf1cb968198f0c07c4512c406805f13a0125"
+    },
+    "currentPortDifference": {
+      "raw": 500,
+      "gzip9": 199,
+      "brotli11": 246
+    },
+    "note": "Older compiler output is a diagnostic control only; its inherited-hook defect makes it unsuitable for publication."
+  },
+  "rawImportLeakRemoved": 17515,
+  "miniRawImportLeakRemoved": 17555,
+  "cause": "GroupAnimationWithThen imported a broad cast module whose VisualElement import retained unrelated initialization in mini bundles. The direct WithPromise cast removes that dependency without changing the conversion.",
+  "entries": {
+    "baseline": [
+      {
+        "path": "dist/animate-mini.js",
+        "raw": 10138,
+        "gzip9": 3503,
+        "brotli11": 3187,
+        "sha256": "8b53ded555b24e3894dd75923faa59db5a17d8b4df872d91a295634fe54ed88a"
+      },
+      {
+        "path": "dist/index.bundle.js",
+        "raw": 132103,
+        "gzip9": 40870,
+        "brotli11": 34517,
+        "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79"
+      },
+      {
+        "path": "dist/full.js",
+        "raw": 191643,
+        "gzip9": 60041,
+        "brotli11": 51083,
+        "sha256": "1215e8a488afd7f23917d5ecb253c096d67e1f7aab3cbe5ea54aea60d3d82315"
+      }
+    ],
+    "publishedRegression": [
+      {
+        "path": "dist/animate-mini.js",
+        "raw": 32296,
+        "gzip9": 9658,
+        "brotli11": 8672,
+        "sha256": "799437f83a445deae76ab7df3312df24168a032668143c769f5e6ae259d81f64"
+      },
+      {
+        "path": "dist/index.bundle.js",
+        "raw": 166938,
+        "gzip9": 50411,
+        "brotli11": 39169,
+        "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+      },
+      {
+        "path": "dist/full.js",
+        "raw": 194173,
+        "gzip9": 61129,
+        "brotli11": 52494,
+        "sha256": "bc9e5bc2736b8e74492e031c3256bfbb4b038aa2437b199e08b8d0d50f5f35de"
+      }
+    ],
+    "fixed": [
+      {
+        "path": "dist/animate-mini.js",
+        "raw": 14741,
+        "gzip9": 5312,
+        "brotli11": 4811,
+        "sha256": "a73d94c86ed032b16393422cf2358722ca5a1f496cc7f2ebb2b3b88ad05892f5"
+      },
+      {
+        "path": "dist/index.bundle.js",
+        "raw": 149423,
+        "gzip9": 46782,
+        "brotli11": 37990,
+        "sha256": "bbd9c3ddc3c3abde89cfe049e5b4fc119ff7f754e78e050a4691ff58c06d27bc"
+      },
+      {
+        "path": "dist/full.js",
+        "raw": 194166,
+        "gzip9": 61134,
+        "brotli11": 52586,
+        "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
+      }
+    ]
+  },
+  "referenceSessionEffect": {
+    "unchangedOriginalSha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d",
+    "originalCpuIncreaseAcrossEarlierSessions": "35\u201339%",
+    "originalBuildSeconds": [
+      17.148769764999997,
+      23.36253720700006,
+      17.84993904000001
+    ],
+    "conclusion": "Absolute times across sessions combine machine/session conditions with source changes. Within-session original/port comparisons are the relevant measurements.",
+    "sessions": {
+      "baseline": {
+        "inputs": {
+          "lilscript": {
+            "file": "inputs/lilscript.js",
+            "sha256": "a2685ce8bbe932bacf86203aa2c875d1ab47698dab7f4f6bcbcee765d8651a79"
+          },
+          "original": {
+            "file": "inputs/original.js",
+            "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+          },
+          "harnessSha256": "e4d4b71508c88835983fe0b423bddcf0e41812fea4e5e4bb3d223f44d85183e1"
+        },
+        "protocol": {
+          "repetitions": 30,
+          "warmups": 2,
+          "order": "Alternating original/LilScript and LilScript/original for each paired repetition; fresh browser page per lane.",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "deviceScaleFactor": 1,
+          "durationMs": 600,
+          "observationMs": 800,
+          "primary": "Renderer main-thread TaskDuration from Chromium DevTools Performance counters; fixed identical animation work.",
+          "excluded": "Bundle download, module evaluation and initial DOM creation occur before the CPU interval.",
+          "validation": "Five paused timeline samples plus final DOM values; identical element counts, keyframes, easing, durations, styles and viewport.",
+          "equivalenceMargin": 0.05,
+          "confidence": "95% paired bootstrap interval of median CPU ratio; 10,000 resamples. Equivalence requires the entire interval within [0.95, 1.05].",
+          "headless": true,
+          "frameCaveat": "Frame cadence is separately reported; equal configured duration or display-limited FPS alone does not establish equal runtime cost.",
+          "playwright": "1.58.2"
+        },
+        "workloads": [
+          {
+            "id": "mini-transform-64",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 16.366999999999997,
+                "scriptMs": 0.558,
+                "styleLayoutMs": 5.1545000000000005,
+                "setupMs": 1.5,
+                "frameP95Ms": 16.799999999999955,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 16.430999999999997,
+                "scriptMs": 0.507,
+                "styleLayoutMs": 5.182,
+                "setupMs": 1.6000000000931323,
+                "frameP95Ms": 16.75,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.0008366614723014,
+              "cpuRatio95": [
+                0.9932100653944702,
+                1.0117493705284635
+              ],
+              "withinFivePercent": true
+            }
+          },
+          {
+            "id": "mini-transform-256",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 56.854,
+                "scriptMs": 1.4075000000000002,
+                "styleLayoutMs": 19.186,
+                "setupMs": 4.400000000372529,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 56.899,
+                "scriptMs": 1.209,
+                "styleLayoutMs": 19.147000000000002,
+                "setupMs": 4.649999999906868,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.0005674911729414,
+              "cpuRatio95": [
+                0.9946412103557738,
+                1.0138933092042666
+              ],
+              "withinFivePercent": true
+            }
+          },
+          {
+            "id": "mini-layout-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 54.9375,
+                "scriptMs": 1.06,
+                "styleLayoutMs": 16.372500000000002,
+                "setupMs": 3.2000000001862645,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 55.048,
+                "scriptMs": 1.017,
+                "styleLayoutMs": 16.38,
+                "setupMs": 3.5,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.0019389987816054,
+              "cpuRatio95": [
+                0.9968445794895777,
+                1.007119510154395
+              ],
+              "withinFivePercent": true
+            }
+          },
+          {
+            "id": "animate-transform-128",
+            "status": "behavior-mismatch",
+            "summary": null
+          },
+          {
+            "id": "animate-xy-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 58.4625,
+                "scriptMs": 14.7365,
+                "styleLayoutMs": 19.362000000000002,
+                "setupMs": 3.1000000000931323,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 41.3545,
+                "scriptMs": 18.8865,
+                "styleLayoutMs": 5.566,
+                "setupMs": 5.800000000279397,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 0.7157102269056836,
+              "cpuRatio95": [
+                0.6930618430802904,
+                0.7234049484468913
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-layout-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 71.26400000000001,
+                "scriptMs": 12.933,
+                "styleLayoutMs": 21.8895,
+                "setupMs": 3.1000000000931323,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999996,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 50.069,
+                "scriptMs": 16.2,
+                "styleLayoutMs": 9.275,
+                "setupMs": 5.850000000093132,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 0.6993957221718545,
+              "cpuRatio95": [
+                0.6880648903460918,
+                0.7078446364254887
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "motion-values-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 22.200499999999998,
+                "scriptMs": 5.353,
+                "styleLayoutMs": 5.333,
+                "setupMs": 2.1999999997206032,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 23.405500000000004,
+                "scriptMs": 5.6915,
+                "styleLayoutMs": 5.2965,
+                "setupMs": 3.1000000000931323,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999996,
+                "frames": 49
+              },
+              "cpuRatio": 1.0516939424874971,
+              "cpuRatio95": [
+                1.0421830716917793,
+                1.0578051648303297
+              ],
+              "withinFivePercent": false
+            }
+          }
+        ]
+      },
+      "publishedRegression": {
+        "inputs": {
+          "lilscript": {
+            "file": "inputs/lilscript.js",
+            "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+          },
+          "original": {
+            "file": "inputs/original.js",
+            "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+          },
+          "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
+        },
+        "protocol": {
+          "repetitions": 30,
+          "warmups": 2,
+          "order": "Alternating original/LilScript and LilScript/original for each paired repetition; fresh browser page per lane.",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "deviceScaleFactor": 1,
+          "durationMs": 600,
+          "observationMs": 800,
+          "primary": "Renderer main-thread TaskDuration from Chromium DevTools Performance counters; fixed identical animation work.",
+          "excluded": "Bundle download, module evaluation and initial DOM creation occur before the CPU interval.",
+          "validation": "Five paused timeline samples, native backend calls/options, active native properties and final DOM values; identical element counts, keyframes, easing, durations, styles and viewport. Library RAF is counted separately in an untimed validation pass.",
+          "equivalenceMargin": 0.05,
+          "confidence": "95% paired bootstrap interval of median CPU ratio; 10,000 resamples. Equivalence requires the entire interval within [0.95, 1.05].",
+          "headless": true,
+          "frameCaveat": "Frame cadence is the benchmark observer RAF. Library RAF activity is separately recorded outside the timing interval; deterministic lifecycle tests compare scheduling, callbacks, pause/seek/replay/stop behavior.",
+          "playwright": "1.58.2"
+        },
+        "workloads": [
+          {
+            "id": "mini-transform-64",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 22.320500000000003,
+                "scriptMs": 0.74,
+                "styleLayoutMs": 7.057,
+                "setupMs": 2.0999999998603016,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 23.533,
+                "scriptMs": 1.184,
+                "styleLayoutMs": 7.1365,
+                "setupMs": 2.800000000046566,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.053315133976625,
+              "cpuRatio95": [
+                1.0460510159540903,
+                1.060385645978576
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "mini-transform-256",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 78.83500000000001,
+                "scriptMs": 1.8555000000000001,
+                "styleLayoutMs": 26.5255,
+                "setupMs": 6,
+                "frameP95Ms": 16.799999999999955,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 82.47300000000001,
+                "scriptMs": 2.713,
+                "styleLayoutMs": 26.455,
+                "setupMs": 8.650000000023283,
+                "frameP95Ms": 16.75,
+                "medianFrameMs": 16.699999999999932,
+                "frames": 49
+              },
+              "cpuRatio": 1.0617073611992298,
+              "cpuRatio95": [
+                1.028926655193736,
+                1.0726724859875825
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "mini-layout-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 76.028,
+                "scriptMs": 1.42,
+                "styleLayoutMs": 22.2125,
+                "setupMs": 4.400000000023283,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 79.28200000000001,
+                "scriptMs": 2.2975000000000003,
+                "styleLayoutMs": 22.2665,
+                "setupMs": 6.799999999930151,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.0478449597492259,
+              "cpuRatio95": [
+                1.028295033026021,
+                1.066741783271924
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-transform-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 47.7855,
+                "scriptMs": 7.6915,
+                "styleLayoutMs": 13.5015,
+                "setupMs": 3.699999999953434,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 53.047,
+                "scriptMs": 8.302499999999998,
+                "styleLayoutMs": 13.5625,
+                "setupMs": 7.5,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.699999999999974,
+                "frames": 49
+              },
+              "cpuRatio": 1.1046742655453312,
+              "cpuRatio95": [
+                1.0855839635097828,
+                1.150555302399631
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-xy-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 79.2015,
+                "scriptMs": 19.863500000000002,
+                "styleLayoutMs": 27.4465,
+                "setupMs": 4.199999999953434,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 87.69,
+                "scriptMs": 24.709,
+                "styleLayoutMs": 27.476,
+                "setupMs": 10.849999999976717,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.699999999999932,
+                "frames": 50
+              },
+              "cpuRatio": 1.096277763936474,
+              "cpuRatio95": [
+                1.0902763970819147,
+                1.1115267969068756
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-layout-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 98.18650000000001,
+                "scriptMs": 17.848,
+                "styleLayoutMs": 31.2505,
+                "setupMs": 4.25,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.699999999999932,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 107.41400000000002,
+                "scriptMs": 23.323999999999998,
+                "styleLayoutMs": 31.6095,
+                "setupMs": 9.699999999837019,
+                "frameP95Ms": 16.75,
+                "medianFrameMs": 16.699999999999946,
+                "frames": 49.5
+              },
+              "cpuRatio": 1.0962001134288686,
+              "cpuRatio95": [
+                1.0782816686107957,
+                1.1160343150029475
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "motion-values-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 30.023500000000002,
+                "scriptMs": 7.2715,
+                "styleLayoutMs": 7.1610000000000005,
+                "setupMs": 3,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 32.5485,
+                "scriptMs": 7.8125,
+                "styleLayoutMs": 7.196,
+                "setupMs": 4.699999999953434,
+                "frameP95Ms": 16.799999999999955,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.0787652619142623,
+              "cpuRatio95": [
+                1.0679257189119082,
+                1.0886654688199355
+              ],
+              "withinFivePercent": false
+            }
+          }
+        ]
+      },
+      "fixed": {
+        "inputs": {
+          "lilscript": {
+            "file": "inputs/lilscript.js",
+            "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
+          },
+          "original": {
+            "file": "inputs/original.js",
+            "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+          },
+          "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
+        },
+        "protocol": {
+          "repetitions": 30,
+          "warmups": 2,
+          "order": "Alternating original/LilScript and LilScript/original for each paired repetition; fresh browser page per lane.",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "deviceScaleFactor": 1,
+          "durationMs": 600,
+          "observationMs": 800,
+          "primary": "Renderer main-thread TaskDuration from Chromium DevTools Performance counters; fixed identical animation work.",
+          "excluded": "Bundle download, module evaluation and initial DOM creation occur before the CPU interval.",
+          "validation": "Five paused timeline samples, native backend calls/options, active native properties and final DOM values; identical element counts, keyframes, easing, durations, styles and viewport. Library RAF is counted separately in an untimed validation pass.",
+          "equivalenceMargin": 0.05,
+          "confidence": "95% paired bootstrap interval of median CPU ratio; 10,000 resamples. Equivalence requires the entire interval within [0.95, 1.05].",
+          "headless": true,
+          "frameCaveat": "Frame cadence is the benchmark observer RAF. Library RAF activity is separately recorded outside the timing interval; deterministic lifecycle tests compare scheduling, callbacks, pause/seek/replay/stop behavior.",
+          "playwright": "1.58.2"
+        },
+        "workloads": [
+          {
+            "id": "mini-transform-64",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 18.3945,
+                "scriptMs": 0.7789999999999999,
+                "styleLayoutMs": 5.657500000000001,
+                "setupMs": 1.599999999976717,
+                "frameP95Ms": 16.75,
+                "medianFrameMs": 16.699999999999932,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 19.683,
+                "scriptMs": 1.218,
+                "styleLayoutMs": 5.7044999999999995,
+                "setupMs": 2.1000000000349246,
+                "frameP95Ms": 16.799999999999955,
+                "medianFrameMs": 16.69999999999996,
+                "frames": 49
+              },
+              "cpuRatio": 1.062329489161498,
+              "cpuRatio95": [
+                1.051117078754495,
+                1.0760175700219423
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "mini-transform-256",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 62.84550000000001,
+                "scriptMs": 1.578,
+                "styleLayoutMs": 21.259499999999996,
+                "setupMs": 4.5,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999996,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 66.35300000000001,
+                "scriptMs": 2.2085,
+                "styleLayoutMs": 21.451,
+                "setupMs": 6.5,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.046296139984984,
+              "cpuRatio95": [
+                1.0067175196846097,
+                1.0646347414197401
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "mini-layout-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 59.434,
+                "scriptMs": 1.2115,
+                "styleLayoutMs": 17.682000000000002,
+                "setupMs": 3.2999999999883585,
+                "frameP95Ms": 16.75,
+                "medianFrameMs": 16.69999999999996,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 63.36950000000001,
+                "scriptMs": 1.9425,
+                "styleLayoutMs": 17.3595,
+                "setupMs": 5.099999999976717,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.699999999999932,
+                "frames": 49
+              },
+              "cpuRatio": 1.0692137435710352,
+              "cpuRatio95": [
+                1.0440985207945819,
+                1.0758728271559121
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-transform-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 37.583,
+                "scriptMs": 6.1385000000000005,
+                "styleLayoutMs": 10.350999999999999,
+                "setupMs": 2.7999999999883585,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 42.94,
+                "scriptMs": 6.8635,
+                "styleLayoutMs": 10.535499999999999,
+                "setupMs": 5.949999999982538,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.699999999999932,
+                "frames": 49
+              },
+              "cpuRatio": 1.1398188363304393,
+              "cpuRatio95": [
+                1.1148248255640927,
+                1.1531778952428338
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-xy-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 62.592,
+                "scriptMs": 16.468,
+                "styleLayoutMs": 20.722,
+                "setupMs": 3.199999999953434,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 70.548,
+                "scriptMs": 21.128,
+                "styleLayoutMs": 20.976,
+                "setupMs": 9,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999996,
+                "frames": 49
+              },
+              "cpuRatio": 1.1319527765285349,
+              "cpuRatio95": [
+                1.1079561944247944,
+                1.1507499228643674
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "animate-layout-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 77.89350000000002,
+                "scriptMs": 16.6435,
+                "styleLayoutMs": 23.6065,
+                "setupMs": 3.200000000069849,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 86.0965,
+                "scriptMs": 20.704500000000003,
+                "styleLayoutMs": 23.6045,
+                "setupMs": 9.049999999988358,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.1098827070231354,
+              "cpuRatio95": [
+                1.0805410699892661,
+                1.132060471993569
+              ],
+              "withinFivePercent": false
+            }
+          },
+          {
+            "id": "motion-values-128",
+            "status": "measured",
+            "summary": {
+              "original": {
+                "mainThreadMs": 25.118000000000002,
+                "scriptMs": 6.325,
+                "styleLayoutMs": 5.565999999999999,
+                "setupMs": 2.200000000069849,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "lilscript": {
+                "mainThreadMs": 27.2705,
+                "scriptMs": 6.679,
+                "styleLayoutMs": 5.585,
+                "setupMs": 3.599999999976717,
+                "frameP95Ms": 16.700000000000045,
+                "medianFrameMs": 16.69999999999999,
+                "frames": 49
+              },
+              "cpuRatio": 1.0790200494144995,
+              "cpuRatio95": [
+                1.0558604503869635,
+                1.133589879832058
+              ],
+              "withinFivePercent": false
+            }
+          }
+        ]
+      }
+    }
+  },
+  "apiCoverage": {
+    "originalExports": 312,
+    "fullExports": 326,
+    "defaultExports": 52,
+    "fullMissingOriginalNames": [],
+    "comparisonEntry": "dist/full.js",
+    "behavior": "Selected animation scenarios are checked; extended constructor/layout adapters remain incomplete."
+  },
+  "behaviorChecks": 37
+}
