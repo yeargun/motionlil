@@ -7,9 +7,9 @@
     "directory": "packages/motion"
   },
   "portSource": {
-    "commit": "8c3804f0f82e4d16322b9ceef0b4623fe4449ee6"
+    "commit": "4f400f190b815492445ca74bf87a0baf7b153a4f"
   },
-  "compilerCommit": "4dc4e3337d9ffd758d65e3852682d6e13d9331c1",
+  "compilerCommit": "e5f7f254470ae4af178f3625b8b3dfd8fe501ad7",
   "install": [
     "corepack",
     "yarn",
@@ -36,7 +36,7 @@
   "entry": "packages/motion/dist/es/index.mjs",
   "defaultExport": false,
   "external": [],
-  "esmScope": "motion@13.1.0 public ESM runtime graph; dependency installation excluded; this is a comparison bundle build, not the upstream vendor release pipeline",
+  "esmScope": "motion@13.1.0 public ESM runtime graph, assembled from the pinned upstream source build",
   "lilscriptBuild": "node scripts/build.mjs --compile --force",
   "test": "npm test && npm run check:types && npm run test:browser"
 }

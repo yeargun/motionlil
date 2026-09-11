@@ -9,14 +9,14 @@ The [comparison page](https://yeargun.github.io/motionlil/) records the current 
 <!-- current-esm:start -->
 | Current public ESM | Motion 13.1.0 | motionlil |
 | --- | ---: | ---: |
-| Raw | 137,560 B | 132,103 B |
-| gzip-9 | 45,031 B | 40,870 B |
-| Brotli-11 | 40,141 B | 34,517 B |
+| Raw | 137,560 B | 166,938 B |
+| gzip-9 | 45,031 B | 50,411 B |
+| Brotli-11 | 40,141 B | 39,169 B |
 
-Three clean source builds on the same Azure Standard_D16als_v7 worker (AMD EPYC 9V45, 16 vCPUs, 31.3 GiB RAM, Ubuntu 24.04.4, Node 24.11.1): **17.15 s original, 8.03 s LilScript**, medians. Dependency installation is excluded; each package's output formats and checks differ, so these are contextual build times. Exact commands and samples are in [site/source-build.json](./site/source-build.json).
+Three clean source builds on the same Azure Standard_D16als_v7 worker (AMD EPYC 9V45, 16 vCPUs, 31.3 GiB RAM, Ubuntu 24.04.4, Node 24.11.1): **23.36 s original, 12.04 s LilScript**, medians. Dependency installation is excluded; each package's output formats and checks differ, so these are contextual build times. Exact commands and samples are in [site/source-build.json](./site/source-build.json).
 <!-- current-esm:end -->
 
-In 30 paired browser trials, the three WAAPI workloads meet the ±5% CPU-equivalence criterion. The x/y and layout workloads use 28.4% and 30.1% less renderer CPU; MotionValue plus DOM writes uses 5.2% more (95% interval: 4.2–5.8% more). The [full performance table](https://yeargun.github.io/motionlil/#performance) separates script, style/layout, setup and frame costs and links every sample. Full `animate()` string transforms fail the timeline check and are excluded from speed scores.
+All seven measured workloads match native backends/options, sampled timelines, final values and library RAF counts. In 30 paired trials per workload, Motionlil uses 4.8–10.5% more renderer CPU at the paired medians; these trials do not establish ±5% CPU equivalence. The [full performance table](https://yeargun.github.io/motionlil/#performance) separates script, style/layout, setup and frame costs and links every sample. Natural playback is checked separately. CPU figures do not rate animation behavior.
 
 ```sh
 npm install motionlil
@@ -43,7 +43,7 @@ console.log(easing.next(16))
 
 `motionlil` is built for Vite, Astro, and other ESM bundlers. The default entry is a tree-shakeable JS barrel over separately compiled features (`animate`, `animateMini`, `scroll`, gestures, `inView`, `resize`). `import { animateMini } from "motionlil"` loads only the WAAPI mini runtime. Unused projection / view-transition / visual-element internals are not part of the module graph.
 
-Additional Motion DOM constructors and layout internals are exposed through `motionlil/full`. The recorded browser tests cover selected APIs; full `animate()` string transforms still fail the comparison timeline check.
+Additional Motion DOM constructors and layout internals are exposed through `motionlil/full`. The recorded browser tests cover selected APIs and animation scenarios; they do not establish complete parity for every Motion export.
 
 React-specific entry points such as `motion/react` are intentionally not included. Use the normal `motion` package if you need Motion’s React components and hooks.
 
@@ -89,7 +89,7 @@ The LilScript compiler performs whole-program optimization with identifier and p
 
 ESM targets ES2022 and preserves native class fields and shared MotionValue prototype methods. CommonJS and the browser global target ES2020. A consuming bundler can downlevel the ESM build for older browsers.
 
-The recorded build uses LilScript [fe444cdf](https://github.com/yeargun/lilscript/commit/fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b), which fixes default parameters and method arity on exported constructors. Set `MOTIONLIL_LILSCRIPT_BIN` to that release compiler when rebuilding this source snapshot.
+The recorded build uses LilScript [e5f7f254](https://github.com/yeargun/lilscript/commit/e5f7f254470ae4af178f3625b8b3dfd8fe501ad7). This compiler preserves public constructor defaults, method arity and inherited field values, including callbacks assigned by derived animation classes. Set `MOTIONLIL_LILSCRIPT_BIN` to that release compiler when rebuilding this source snapshot.
 
 To build from source, keep `motionlil` next to a LilScript checkout, or point to its release compiler explicitly:
 
@@ -106,6 +106,7 @@ Set `MOTIONLIL_BUILD_MODE=development` for a faster local build. Production is t
 ```sh
 npm test          # Node, ESM/CJS parity, Vite, Terser, export parity
 npm run check     # tests, TypeScript declarations, npm tarball audit
+npm run test:browser # 37 browser checks against source-built Motion
 npm run test:size # reproducible size report
 npm run build:site # build the GitHub Pages demo lab
 ```
@@ -116,4 +117,6 @@ The implementation is MIT licensed. See [NOTICE.md](./NOTICE.md) for upstream at
 
 Run `npm ci`, `npx playwright install chromium`, then `npm run test:performance`. This serves the exact source-built ESM inputs in `site/performance/` and records 30 alternating paired trials per passing workload. `node scripts/check-natural-performance.mjs site/performance` checks uninterrupted playback separately. Raw results, machine details, compiler and upstream source revisions accompany the page. These commands measure the recorded fixture; replacing inputs requires a fresh measurement.
 
-The production compiler configuration retains maximum IR optimizations and uses JavaScript optimization level 0 with the package’s Terser step. This avoids the invalid keyframe-resolver output produced by the final optimization stage at the recorded compiler revision. Six tested browser workloads match; full `animate()` string transforms remain unsupported. No timing result is claimed for that failing workload.
+The production compiler configuration retains maximum IR optimizations and uses JavaScript optimization level 0 with the package’s Terser step. The measured distribution is the output validated by the browser tests.
+
+The rewrite must preserve Motion's behavior: native animation eligibility, interpolation, easing, repeats, controls, interruption, completion callbacks and frame scheduling. The 37 browser checks exercise those contracts against the pinned original ESM, including shared-clock lifecycle checks. Performance validation separately requires matching native calls/options, paused timeline samples and final values, followed by natural playback checks. The benchmark's frame observer and the library's own RAF activity are recorded separately. Coverage and exact evidence are documented in [comparison/runtime-investigation](./comparison/runtime-investigation/README.md).

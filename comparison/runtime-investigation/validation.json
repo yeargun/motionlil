@@ -1,37 +1,76 @@
 {
-  "runtimeSourceCommit": "0440625",
-  "compilerCommit": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b",
-  "checks": {
-    "runtimeNode": 11,
-    "runtimeBrowser": 6,
-    "typeDeclarations": "pass",
-    "packageAudit": "pass",
-    "recordedCompilerCodegen": 441,
-    "workspaceCompilerCodegen": 435,
-    "site": 7
-  },
-  "compilerRegressionTests": [
-    "public_class_defaults_preserve_omitted_calls_and_method_arity",
-    "public_class_rejects_caller_materialized_defaults"
-  ],
-  "stylesheets": [
-    {
-      "path": "site/demo.css",
-      "sha256": "ae1e775bb48c901fe31a2975df1e257790396c18bacffaba74945b97c367fd6f",
-      "unchangedFrom": "1c10d14588c1d259601d9f2fa2d07ebd49fbaba9"
+  "compiler": {
+    "commit": "e5f7f254470ae4af178f3625b8b3dfd8fe501ad7",
+    "tests": {
+      "passed": 1626,
+      "failed": 0
     },
-    {
-      "path": "site/styles.css",
-      "sha256": "5c26251782a3743b07b8be9106efe815bd602cba17a9c980ad49042530aab903",
-      "unchangedFrom": "1c10d14588c1d259601d9f2fa2d07ebd49fbaba9"
+    "patch": "https://github.com/yeargun/lilscript/pull/2",
+    "workspaceRegressionPassed": true,
+    "sha256": "14f7c2d1e631126a862cc59b6008cf1cb968198f0c07c4512c406805f13a0125",
+    "ci": {
+      "url": "https://github.com/yeargun/lilscript/actions/runs/34573802145",
+      "libraryTests": "1626 pass",
+      "overall": "failed",
+      "cause": "Existing formatting violations and unchanged interpreter-based differential-generator test: 14 output lines, expected 11."
     }
-  ],
-  "compilerCi": {
-    "url": "https://github.com/yeargun/lilscript/actions/runs/34542109202",
-    "status": "failed",
-    "cause": "The pinned compiler base already has formatting violations and a differential-generator test expecting 11 output lines instead of 14. The generator uses the interpreter, not the modified JavaScript emitter; its source is unchanged from the base. All targeted code-generation tests pass.",
-    "formatFollowup": "a5efdbb",
-    "recordedBuildRevision": "fe444cdf62fdb1c9420b6e568c4abcd8e8bc048b"
+  },
+  "sourceCommit": "4f400f190b815492445ca74bf87a0baf7b153a4f",
+  "browser": {
+    "passed": 37,
+    "failed": 0,
+    "reference": {
+      "sourceCommit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
+      "esmSha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+    },
+    "suites": [
+      "test/browser-backends.test.mjs",
+      "test/browser-lifecycle.test.mjs",
+      "test/browser-runtime.test.mjs",
+      "test/browser-controls.test.mjs"
+    ]
+  },
+  "nodeTests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "types": "passed",
+  "pack": "passed",
+  "styles": {
+    "site/styles.css": "5c26251782a3743b07b8be9106efe815bd602cba17a9c980ad49042530aab903",
+    "site/demo.css": "ae1e775bb48c901fe31a2975df1e257790396c18bacffaba74945b97c367fd6f"
+  },
+  "coverage": "Differential checks cover the documented animation scenarios. They do not establish complete Motion API parity.",
+  "measuredDistribution": {
+    "file": "dist/index.bundle.js",
+    "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+  },
+  "sourceBuildChecks": {
+    "machine": "Azure Standard_D16als_v7",
+    "node": "v24.11.1",
+    "browserTests": 37,
+    "nodeTests": 11,
+    "failed": 0,
+    "log": "../source-build/lilscript-tests.log"
+  },
+  "performance": {
+    "workloads": 7,
+    "pairedRepetitions": 30,
+    "backendAgreement": true,
+    "libraryRafAgreement": true,
+    "naturalPlaybackWorkloads": 7,
+    "inputs": {
+      "lilscript": {
+        "file": "inputs/lilscript.js",
+        "sha256": "35cec476600712ce5d511c54004014699b1997d6b0be838e999adc753e84682d"
+      },
+      "original": {
+        "file": "inputs/original.js",
+        "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d"
+      },
+      "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
+    },
+    "evidence": "../../site/performance/performance.json"
   },
   "pageChecks": {
     "demos": 16,
@@ -45,5 +84,14 @@
       "scroll": 490
     },
     "mobileRegression": false
+  },
+  "packageChecks": {
+    "nodeTests": 11,
+    "siteTests": 7,
+    "types": "pass",
+    "pack": "pass",
+    "packFiles": 33,
+    "packedBytes": 452091,
+    "unpackedBytes": 1546396
   }
 }

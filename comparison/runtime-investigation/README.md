@@ -1,50 +1,79 @@
-# Motion runtime investigation
+# Motion behavior and performance verification
 
-The behavioral reference is Motion 13.1.0, Git commit
-`adaf7a4e5368d704ea350669f6ac674fb26ff270`. Runtime fixes are implemented in
-LilScript; the JavaScript boundary supplies property accessors that the language
-does not yet express directly.
+The behavioral reference is Motion 13.1.0, source commit
+`adaf7a4e5368d704ea350669f6ac674fb26ff270`. The rewrite must preserve its
+observable animation behavior. Timing is only compared after the recorded
+behavior checks pass; lower CPU is not an animation-quality score.
 
-- The numeric animation callback was wired through both `JSAnimationOptions.onUpdate`
-  and its dynamic option bag. A single frame dispatched it twice. The callback is
-  now resolved once into a typed function reference and dispatched once.
-- `MotionValue` now uses `export constructor` and shared prototype methods,
-  removing its per-instance method wrappers. The compiler's public-class default
-  parameter bug is fixed in the compiler revision recorded with the build.
-- Animation delay, repeat count, repeat delay, repeat mode and final numeric
-  keyframe are resolved at setup into a typed class and enum. Numeric final-value
-  selection, clamp, progress and mixing have checked `pure` contracts. These
-  annotations verify effects; they do not themselves guarantee a speedup.
-- The frame loop reuses generator/delay state instead of allocating an additional
-  sample object each tick. Mirrored repeats sample only their active generator.
-- Control accessors share their functions and descriptors, with a batched install
-  for fresh controls. Existing host properties retain their original descriptors.
-- ESM preserves native class fields. Downleveling those fields added helper calls
-  during setup; CommonJS and global bundles retain the ES2020 target.
-- Valid animations avoid formatting an unused diagnostic. Transition properties
-  already copied into the owned options object are not read and copied again.
+The current implementation uses Motion's native-animation eligibility rules.
+Native transform and opacity use WAAPI; x/y and layout properties use the
+JavaScript animation path with native opacity where eligible. Native creation
+failures fall back to JavaScript. Native accessors query only the requested
+browser property; computed effect timing is read for duration. Keyframe interpolation preserves strings,
+colors, easing functions and segments. Spring-generated native easing, repeats,
+interruptions and replacement animations are also compared with the original.
 
-An alternative matching upstream's Set-based frame queues was also measured.
-It did not improve the 128-value workload, so the shipped implementation retains
-the array queues. Callback deduplication, live immediate scheduling, persistent
-callbacks and cancellation are still checked against upstream.
+The frame loop uses reusable Sets and a WeakSet for persistent callbacks, with
+stable render callbacks for deduplication and cancellation. Controls preserve
+pause, seek, replay, reverse, stop, completion promises and callback order.
+Typed numeric generator state, timing options, repeat enums, callback references
+and checked pure numeric helpers remain in the LilScript implementation. The
+JavaScript boundary supplies host access and public property accessors.
 
-`test/browser-runtime.test.mjs` drives both implementations with the same clock
-and frame queue, comparing callback counts, values and completion for ordinary,
-delayed, reversed and mirrored animations. `test/browser-controls.test.mjs`
-checks actual browser styles and controls. Node tests cover constructor identity,
-shared methods, defaults and preservation of existing control accessors.
+## Identified drift
 
-Published timing results compare the final source-built ESM with the original
-source-built ESM. They use 30 alternating paired trials, fresh pages and two
-warmups per lane. Natural playback is separately checked across every animated
-property of every fixture element. These checks cover the named workloads; the
-existing full `animate()` string-transform mismatch remains explicitly unscored.
+The former hybrid path forced JavaScript animation where Motion selected native
+opacity, changing browser style work. Its lower style/layout measurements could
+not demonstrate an equivalent rewrite running faster. A numeric-only fallback
+also replaced string keyframes with zero. Native easing sampled an integer
+division, and frame/control paths differed in rendering, pause/replay and stop
+semantics. The current source corrects these differences instead of retaining
+them as performance shortcuts.
 
-The recorded compiler build passed 441 code-generation tests; the same fix in
-the user's working compiler passed 435. The compiler branch's broader CI is
-blocked by inherited formatting violations and the unrelated interpreter-based
-`generator_is_deterministic_and_checked` test (14 output lines versus an expected
-11). The generator is unchanged from the measured base. A formatting-only
-follow-up at `a5efdbb` formats the added predicate; measurements remain pinned to
-`fe444cdf`. See `validation.json` for the CI link and stylesheet hashes.
+A compiler defect independently removed an inherited animation update hook:
+field analysis treated a base-class null default and a derived-class callback
+assignment as separate slots. The compiler at
+[`e5f7f254`](https://github.com/yeargun/lilscript/commit/e5f7f254470ae4af178f3625b8b3dfd8fe501ad7)
+joins inherited field summaries, preserving the callback and integer ranges.
+This matters when stopping a native animation and starting its replacement.
+The [compiler regression](https://github.com/yeargun/lilscript/pull/2) also
+checks multi-level inheritance and integer overflow with inlining on and off.
+
+## Recorded checks
+
+The source-build log records 11 Node tests and 37 browser tests, all passing,
+plus declaration checks. Browser tests use the exact original source-built ESM:
+
+- `test/browser-backends.test.mjs` compares native eligibility, keyframes and
+  options, JavaScript strings/colors, named/function/segment easing, springs,
+  repeats, mini controls, native rejection and cross-realm subjects.
+- `test/browser-lifecycle.test.mjs` uses a shared clock to compare controls,
+  callback order, completion, library RAF activity and rendering. It also checks
+  native interruption and the replacement animation's initial keyframe.
+- `test/browser-runtime.test.mjs` compares frame queue behavior and numeric
+  animations with delay, reversed repeats and mirrored repeats.
+- `test/browser-controls.test.mjs` checks browser styles and controls.
+
+All 1,626 compiler library tests pass locally and in GitHub CI. The broader
+compiler workflow still fails on pre-existing formatting and the unchanged
+interpreter-based differential-generator test (14 output lines, expected 11).
+See `validation.json` for the workflow, exact compiler and artifact hashes.
+
+## Performance protocol
+
+The size and runtime comparisons use the same source-built ESM inputs. Each of
+seven workloads runs 30 alternating paired trials with fresh pages, after two
+warmups per side. Every element is checked at five paused positions and at
+completion; native calls/options and active properties must match. An untimed
+natural-playback check examines every animated property of every element across
+three fresh pages per side.
+
+Renderer CPU includes setup, script, style and layout in the recorded interval.
+The benchmark observer's RAF cadence is separate from the library's own RAF
+counts. Intrusive behavior instrumentation and natural-playback style reads are
+outside CPU timings. These tests cover the named scenarios; they do not establish
+parity for every Motion export or measure all compositor/GPU work.
+
+Exact build commands, machine information and three clean build samples are in
+`../source-build/`. Public performance samples and input hashes are in
+`../../site/performance/`. The site stylesheets retain their recorded hashes.
