@@ -54,7 +54,7 @@ export class AnimationStateController {
   Map<string, AnimationTypeState> typeStates;
   bool isInitialRender;
   bool wasReset;
-  (func(JsValue[])->Task<bool>)? animateFn;
+  (func(JsValue[])->Task<JsValue>)? animateFn;
 
   init(JsValue visualElement) {
     initReverseOrder();
@@ -66,7 +66,7 @@ export class AnimationStateController {
     this.resetState();
     AnimationStateController self = this;
     this.animateFn = (JsValue[] animations) => {
-      Task<bool>[] tasks = [];
+      Task<JsValue>[] tasks = [];
       for (int i = 0; i < animations.length; i++) {
         JsValue item = animations[i];
         tasks.push(animateVisualElement(self.visualElement, item["animation"], item["options"]));
@@ -74,7 +74,7 @@ export class AnimationStateController {
       if (tasks.length == 0) {
         return Task.resolve(true);
       }
-      return Task.all(tasks).then((bool[] _v) => true);
+      return Task.all(tasks).then((JsValue[] _v) => true);
     };
   }
 
@@ -139,7 +139,7 @@ export class AnimationStateController {
     return acc;
   }
 
-  Task<bool> animateChanges(string? changedActiveType = null) {
+  Task<JsValue> animateChanges(string? changedActiveType = null) {
     JsValue visualElement = this.visualElement;
     JsValue props = callMethod0(visualElement, "getProps");
     JsValue parent = visualElement["parent"];
@@ -410,15 +410,15 @@ export class AnimationStateController {
     if (!shouldAnimate) {
       return Task.resolve(true);
     }
-    (func(JsValue[])->Task<bool>)? animateOpt = this.animateFn;
+    (func(JsValue[])->Task<JsValue>)? animateOpt = this.animateFn;
     if (animateOpt != null) {
-      func(JsValue[])->Task<bool> animate = animateOpt;
+      func(JsValue[])->Task<JsValue> animate = animateOpt;
       return animate(animations);
     }
     return Task.resolve(true);
   }
 
-  Task<bool> setActive(string type, bool isActive) {
+  Task<JsValue> setActive(string type, bool isActive) {
     AnimationTypeState? stateOpt = this.typeStates.get(type);
     if (stateOpt == null) {
       return Task.resolve(true);
@@ -438,7 +438,7 @@ export class AnimationStateController {
       });
     }
     state.isActive = isActive;
-    Task<bool> animations = this.animateChanges(type);
+    Task<JsValue> animations = this.animateChanges(type);
     for (int i = 0; i < variantPriorityOrder.length; i++) {
       AnimationTypeState? typeStateOpt = this.typeStates.get(variantPriorityOrder[i]);
       if (typeStateOpt != null) {

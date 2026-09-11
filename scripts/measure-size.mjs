@@ -69,7 +69,7 @@ const lab = ["animate", "animateMini", "hover", "inView", "motionValue", "press"
 const report = {
   artifacts: {
     "motionlil barrel": bytes(await readFile(join(root, "dist", "index.js"))),
-    "motionlil/mini": bytes(await readFile(join(root, "dist", "mini.js"))),
+    "motionlil/mini": await bundledImports("motionlil/mini"),
     "motion/mini": await bundledImports("motion/mini"),
   },
   imports: {

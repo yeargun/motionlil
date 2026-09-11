@@ -43,7 +43,7 @@ export class ViewTransitionBuilder {
       self.notifyReject = (JsValue _error) => {
         resolve();
       };
-    }).then((bool _v) => null);
+    }).then((JsValue _v) => null);
     addToQueue(this);
   }
 

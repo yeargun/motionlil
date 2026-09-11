@@ -787,7 +787,7 @@ export class VisualElement {
   void notify(string eventName, JsValue? arg = null) {
     SubscriptionManager? manager = this.events.get(eventName);
     if (manager != null) {
-      manager.notify(arg);
+      manager.notify(arg, JS.undefined(), JS.undefined());
     }
   }
 

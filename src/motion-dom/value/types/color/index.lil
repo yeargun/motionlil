@@ -1,4 +1,4 @@
-import { HSLA, RGBA, ValueType } from "../types";
+import { HSLA, RGBA, ValueType, valueTypeRecord } from "../types";
 import { hex } from "./hex";
 import { hsla } from "./hsla";
 import { rgba } from "./rgba";
@@ -52,13 +52,6 @@ JsValue colorGetAnimatableNone(JsValue v) {
   return parsed;
 }
 
-export ValueType color = new ValueType(
-  colorTest,
-  colorParse,
-  colorTransform,
-  null,
-  null,
-  colorGetAnimatableNone
-);
+export ValueType color = valueTypeRecord(object{test: colorTest, parse: colorParse, transform: colorTransform, getAnimatableNone: colorGetAnimatableNone});
 
 export { hex, hsla, rgba };

@@ -2,6 +2,8 @@
 preset = "maximum"
 
 [javascript]
+local_name_coalescing = false
+emit_pure_annotations = true
 priority = "size-first"
 optimization_level = 0
 cost_model = "brotli"

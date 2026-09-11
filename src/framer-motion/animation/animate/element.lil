@@ -76,7 +76,7 @@ export func(JsValue, JsValue?, JsValue?)->GroupAnimationWithThen createScopedAni
 
     if (animationOnComplete != null) {
       (func()->void) done = animationOnComplete;
-      animation.finished().then((bool _v) => {
+      animation.getFinished().then((JsValue _v) => {
         done();
         return true;
       });
@@ -85,7 +85,7 @@ export func(JsValue, JsValue?, JsValue?)->GroupAnimationWithThen createScopedAni
     if (scope != null) {
       AnimationScope activeScope = scope;
       activeScope.animations.push(animation);
-      animation.finished().then((bool _v) => {
+      animation.getFinished().then((JsValue _v) => {
         removeItem(activeScope.animations, animation);
         return true;
       });

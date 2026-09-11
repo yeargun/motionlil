@@ -1,6 +1,6 @@
 import { complex } from "./index";
 import { floatRegex } from "../utils/float-regex";
-import { ValueType } from "../types";
+import { ValueType, valueTypeRecord } from "../types";
 import {
   stringMatch,
   stringReplace,
@@ -46,13 +46,7 @@ string applyDefaultFilter(string v) {
   return name + "(" + `${defaultValue}` + unit + ")";
 }
 
-export ValueType filter = new ValueType(
-  complex.test,
-  complex.parse,
-  complex.transform,
-  complex.createTransformer,
-  complex.defaultValue,
-  (JsValue v) => {
+export ValueType filter = valueTypeRecord(object{test: complex.test, parse: complex.parse, transform: complex.transform, createTransformer: complex.createTransformer, getAnimatableNone: (JsValue v) => {
     if (!(v is string)) {
       return v;
     }
@@ -74,5 +68,4 @@ export ValueType filter = new ValueType(
       i = i + 1;
     }
     return output;
-  }
-);
+  }});

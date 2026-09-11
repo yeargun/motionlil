@@ -1,6 +1,7 @@
+import { finishedTask as taskFromCallback } from "../animation/utils/control-abi";
 import { SubscriptionManager } from "../../motion-utils/subscription-manager";
 import { velocityPerSecond } from "../../motion-utils/velocity-per-second";
-import { parseFloatValue, taskFromCallback, callFn0, callMethod0, isFunction, setProp, getProp } from "../dom-host";
+import { parseFloatValue, callFn0, callMethod0, isFunction, setProp, getProp } from "../dom-host";
 import { frame } from "../frameloop/index";
 import { time } from "../frameloop/sync-time";
 import { FrameData } from "../frameloop/types";
@@ -82,7 +83,6 @@ export class MotionValue {
   (func()->void)? stopPassiveEffect;
   bool? isEffectActive;
   JsValue? animation;
-  (func()->void)? stopActive;
   bool? canTrackVelocity;
   MotionValue[]? dependents;
   bool? liveStyle;
@@ -102,7 +102,6 @@ export class MotionValue {
     this.stopPassiveEffect = null;
     this.isEffectActive = null;
     this.animation = null;
-    this.stopActive = null;
     this.canTrackVelocity = null;
     this.dependents = null;
     this.liveStyle = null;
@@ -219,7 +218,7 @@ export class MotionValue {
   void dirty() {
     SubscriptionManager? change = this.events.get("change");
     if (change != null) {
-      change.notify(this.current);
+      change.notify(this.current, JS.undefined(), JS.undefined());
     }
   }
 
@@ -256,7 +255,7 @@ export class MotionValue {
     if (this.current != this.prev) {
       SubscriptionManager? change = this.events.get("change");
       if (change != null) {
-        change.notify(this.current);
+        change.notify(this.current, JS.undefined(), JS.undefined());
       }
       MotionValue[]? deps = this.dependents;
       if (deps != null) {
@@ -315,51 +314,34 @@ export class MotionValue {
     );
   }
 
-  Task<bool> start(func(func()->void)->JsValue? startAnimation) {
+  Task<JsValue> start(func(func()->void)->JsValue? startAnimation) {
     this.stop();
     MotionValue self = this;
     return taskFromCallback((func()->void resolve) => {
       self.hasAnimated = true;
       JsValue? anim = startAnimation(resolve);
       self.animation = anim;
-      if (anim != null) {
-        JsValue captured = anim;
-        self.stopActive = () => {
-          JsValue stopFn = captured["stopActive"];
-          if (isFunction(stopFn)) {
-            callFn0(stopFn);
-          }
-        };
-      }
       SubscriptionManager? startEvt = self.events.get("animationStart");
       if (startEvt != null) {
-        startEvt.notify();
+        startEvt.notify(JS.undefined(), JS.undefined(), JS.undefined());
       }
-    }).then((bool _done) => {
+    }).then((JsValue _done) => {
       SubscriptionManager? complete = self.events.get("animationComplete");
       if (complete != null) {
-        complete.notify();
+        complete.notify(JS.undefined(), JS.undefined(), JS.undefined());
       }
       self.clearAnimation();
-      return true;
+      return JS.undefined();
     });
   }
 
   void stop() {
     JsValue? animation = this.animation;
     if (animation != null) {
-      JsValue stopFn = getProp(animation, "stop");
-      if (isFunction(stopFn)) {
-        callMethod0(animation, "stop");
-      } else {
-        (func()->void)? cancelActive = this.stopActive;
-        if (cancelActive != null) {
-          cancelActive();
-        }
-      }
+      callMethod0(animation, "stop");
       SubscriptionManager? cancel = this.events.get("animationCancel");
       if (cancel != null) {
-        cancel.notify();
+        cancel.notify(JS.undefined(), JS.undefined(), JS.undefined());
       }
     }
     this.clearAnimation();
@@ -371,7 +353,6 @@ export class MotionValue {
 
   void clearAnimation() {
     this.animation = null;
-    this.stopActive = null;
   }
 
   void destroy() {
@@ -379,7 +360,7 @@ export class MotionValue {
     this.dependents = cleared;
     SubscriptionManager? destroyEvt = this.events.get("destroy");
     if (destroyEvt != null) {
-      destroyEvt.notify();
+      destroyEvt.notify(JS.undefined(), JS.undefined(), JS.undefined());
     }
     this.clearListeners();
     this.stop();

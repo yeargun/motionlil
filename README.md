@@ -41,9 +41,9 @@ console.log(easing.next(16))
 
 ## Compatibility
 
-`motionlil` is built for Vite, Astro, and other ESM bundlers. The default entry is a tree-shakeable JS barrel over separately compiled features (`animate`, `animateMini`, `scroll`, gestures, `inView`, `resize`). `import { animateMini } from "motionlil"` loads only the WAAPI mini runtime. Unused projection / view-transition / visual-element internals are not part of the module graph.
+`motionlil` is built for Vite, Astro, and other ESM bundlers. The default entry is a tree-shakeable JS barrel over a single compiled graph shared by its feature entries (`animate`, `animateMini`, `scroll`, gestures, `inView`, `resize`). `import { animateMini } from "motionlil"` loads only the WAAPI mini runtime. Unused projection / view-transition / visual-element internals are not part of the module graph.
 
-The full entry exposes all 312 original export names (326 names including port-specific exports). Some extended constructor and layout adapters remain incomplete. The 37 browser checks cover selected animation APIs and scenarios; export-name coverage does not establish complete behavior parity.
+The full entry exposes all 312 original export names (326 names including port-specific exports). Some extended constructor and layout adapters remain incomplete. The 39 browser checks cover selected animation APIs and scenarios; export-name coverage does not establish complete behavior parity.
 
 React-specific entry points such as `motion/react` are intentionally not included. Use the normal `motion` package if you need Motion’s React components and hooks.
 
@@ -85,7 +85,7 @@ The default `motionlil` entry is a narrower 52-export consumer API. Its complete
 
 ## Build pipeline
 
-The LilScript compiler performs whole-program optimization with identifier and property mangling enabled. Each consumer feature is compiled on its own, then published as a separate ESM file so bundlers can drop unused features. CommonJS and the browser global remain single-file builds. Terser runs three compression passes, top-level identifier mangling, and private-property mangling. A second Terser pass, a Vite consumer build, and a named-import shake test are part of the test suite.
+The LilScript compiler performs whole-program optimization with identifier and property mangling enabled. The full LilScript source is compiled once. Shared definitions and their initialization are published as ESM modules, so feature imports retain one set of constructors, caches and frame queues while unused definitions can be removed. CommonJS entries share one cached full runtime. `dist/full.bundle.js` and `dist/index.bundle.js` are self-contained ESM artifacts for size and browser measurements. Terser runs three compression passes, top-level identifier mangling, and private-property mangling. A second Terser pass, a Vite consumer build, and a named-import shake test are part of the test suite.
 
 ESM targets ES2022 and preserves native class fields and shared MotionValue prototype methods. CommonJS and the browser global target ES2020. A consuming bundler can downlevel the ESM build for older browsers.
 
@@ -119,4 +119,4 @@ Run `npm ci`, `npx playwright install chromium`, then `npm run test:performance`
 
 The production compiler configuration retains maximum IR optimizations and uses JavaScript optimization level 0 with the package’s Terser step. The measured distribution is the output validated by the browser tests.
 
-The rewrite must preserve Motion's behavior: native animation eligibility, interpolation, easing, repeats, controls, interruption, completion callbacks and frame scheduling. The 37 browser checks exercise those contracts against the pinned original ESM, including shared-clock lifecycle checks. Performance validation separately requires matching native calls/options, paused timeline samples and final values, followed by natural playback checks. The benchmark's frame observer and the library's own RAF activity are recorded separately. Coverage and exact evidence are documented in [comparison/runtime-investigation](./comparison/runtime-investigation/README.md).
+The rewrite must preserve Motion's behavior: native animation eligibility, interpolation, easing, repeats, controls, interruption, completion callbacks and frame scheduling. The 39 browser checks exercise those contracts against the pinned original ESM, including shared-clock lifecycle checks. Performance validation separately requires matching native calls/options, paused timeline samples and final values, followed by natural playback checks. The benchmark's frame observer and the library's own RAF activity are recorded separately. Coverage and exact evidence are documented in [comparison/runtime-investigation](./comparison/runtime-investigation/README.md).

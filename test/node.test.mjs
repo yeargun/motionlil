@@ -111,3 +111,79 @@ test("group compatibility preserves existing native accessors and completion pro
     assert.deepEqual(await group.finished, ['done'])
   }
 })
+
+test("ESM entry points share the same frame queue, values and control constructors", async () => {
+  assert.equal(motion.frame, full.frame)
+  assert.equal(motion.motionValue, full.motionValue)
+  assert.equal(motion.MotionValue, full.MotionValue)
+  assert.equal(motion.GroupAnimation, full.GroupAnimation)
+  assert.equal(debug.recordStats, full.recordStats)
+  const require = createRequire(import.meta.url)
+  const common = require('motionlil'), wide = require('motionlil/full')
+  assert.equal(common.frame, wide.frame)
+  assert.equal(common.MotionValue, wide.MotionValue)
+})
+
+test("value type tables use Motion's object keys, identities and defaults", () => {
+  for (const name of ['transformValueTypes', 'numberValueTypes', 'defaultValueTypes']) {
+    assert.equal(Object.getPrototypeOf(full[name]), Object.prototype, name)
+    assert.deepEqual(Object.keys(full[name]), Object.keys(upstream[name]), name)
+  }
+  assert.equal(full.defaultValueTypes.opacity, full.alpha)
+  assert.equal(full.numberValueTypes.scale, full.scale)
+  assert.equal(full.transformValueTypes.x, full.px)
+  assert.equal(full.scale.default, upstream.scale.default)
+  for (const key of ['width', 'x', 'opacity', 'color', 'filter', 'missing']) {
+    assert.equal(full.getDefaultValueType(key), full.defaultValueTypes[key])
+  }
+})
+
+test("subscriptions preserve mutation order, omitted arguments and the cleared array", () => {
+  const traces = []
+  for (const runtime of [upstream, full]) {
+    const manager = new runtime.SubscriptionManager(), trace = []
+    const remove = manager.add((...args) => { trace.push(args); remove() })
+    manager.add(() => trace.push('second'))
+    manager.notify()
+    const list = manager.subscriptions
+    manager.clear()
+    traces.push({trace, same: manager.subscriptions === list, remaining: list.length, arity: manager.notify.length})
+  }
+  assert.deepEqual(traces[1], traces[0])
+})
+
+test("MotionValue start resolves with undefined", async () => {
+  for (const runtime of [motion, full]) {
+    const value = runtime.motionValue(0)
+    const completion = value.start(resolve => { resolve(); return {stop() {}} })
+    assert.equal(await completion, undefined)
+    value.destroy()
+  }
+})
+
+test('keyframe helpers preserve null, undefined, holes and nonnumeric values like Motion', () => {
+  const fn=()=>7
+  const cases=[[], [null], [undefined], [1,null,undefined,2], [1,fn], [1,false], [,2], [null,3]]
+  for (const input of cases) {
+    const expected=input.slice(), actual=input.slice()
+    upstream.fillWildcards(expected);full.fillWildcards(actual)
+    assert.deepEqual(actual,expected)
+    for (const options of [{}, {repeat:1,repeatType:'reverse'}, {repeat:2.9,repeatType:'reverse'}]) {
+      for (const end of [undefined,null,9]) {
+        assert.equal(full.getFinalKeyframe(input,options,end),upstream.getFinalKeyframe(input,options,end))
+      }
+    }
+  }
+})
+
+test('transition lookup uses property access, nullish fallback and inherited properties', () => {
+  for (const make of [
+    ()=>({opacity:null,default:{duration:1}}),
+    ()=>Object.create({opacity:{duration:2}}),
+    ()=>({opacity:undefined,default:{duration:3}}),
+    ()=>({opacity:false,default:{duration:4}}),
+  ]) {
+    const value=make()
+    assert.equal(full.getValueTransition(value,'opacity'),upstream.getValueTransition(value,'opacity'))
+  }
+})

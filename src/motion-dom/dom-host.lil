@@ -123,7 +123,7 @@ export extern JsValue callFn5(JsValue fn, JsValue a, JsValue b, JsValue c, JsVal
 export extern JsValue callFn0(JsValue fn);
 export extern JsValue callFn1(JsValue fn, JsValue a);
 export extern JsValue callFn2(JsValue fn, JsValue a, JsValue b);
-export extern Task<bool> taskFromCallback(func(func()->void)->void runner);
+export extern Task<JsValue> taskFromCallback(func(func()->void)->void runner);
 
 export extern JsValue getComputedStyleValue(JsValue element);
 export extern string getComputedStyleProperty(JsValue element, string name);

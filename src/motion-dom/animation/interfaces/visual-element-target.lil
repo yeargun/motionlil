@@ -230,11 +230,11 @@ export JsValue[] animateTarget(
       }, false, false);
     };
     if (animations.length > 0) {
-      Task<bool>[] tasks = [];
+      Task<JsValue>[] tasks = [];
       for (int i = 0; i < animations.length; i++) {
-        tasks.push(withPromiseOf(animations[i]).finished());
+        tasks.push(withPromiseOf(animations[i]).getFinished());
       }
-      Task.all(tasks).then((bool[] _v) => {
+      Task.all(tasks).then((JsValue[] _v) => {
         applyTransitionEnd();
         return true;
       });

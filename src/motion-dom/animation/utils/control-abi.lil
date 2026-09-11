@@ -1,0 +1,14 @@
+import extern { installControlProperties, finishedTask, thenFinished, groupFinished, thenGroup } from "./control-abi.ts";
+export extern void installControlProperties(JsValue control);
+export extern Task<JsValue> finishedTask(func(func()->void)->void runner);
+export extern Task<JsValue> thenFinished(Task<JsValue> task, JsValue resolve, JsValue? reject);
+export extern Task<JsValue> groupFinished(JsValue[] animations);
+export extern Task<JsValue> thenGroup(Task<JsValue> task, JsValue resolve);
+import extern { getControlProperty } from "./control-abi.ts";
+export extern JsValue getControlProperty(JsValue control, string name);
+export pure Record<float?> numericControl(JsValue control) { return JS.assume(control); }
+import extern { asyncOptions } from "./control-abi.ts";
+export extern JsValue asyncOptions(JsValue options);
+
+import extern { copyOptions } from "./control-abi.ts";
+export extern JsValue copyOptions(JsValue value);

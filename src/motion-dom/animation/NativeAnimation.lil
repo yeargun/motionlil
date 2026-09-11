@@ -1,3 +1,5 @@
+import { NativeOptions, nativeOptionsOf, transitionOf, browserAnimationOf } from "./utils/typed-options";
+extern float Number(JsValue value);
 import { WithPromise } from "./utils/WithPromise";
 import { startWaapiAnimation } from "./waapi/start-waapi-animation";
 import { ValueAnimationTransition } from "./types";
@@ -31,227 +33,78 @@ JsValue nativeTransition(JsValue options) {
   return transition;
 }
 
-void appendNumericItems(float[] target, JsValue source) {
-  int len = source.length.toInt();
-  for (int i = 0; i < len; i++) {
-    JsValue item = source[i];
-    if (item is float) {
-      target.push(item);
-    }
-  }
-}
-
 export class NativeAnimation extends WithPromise {
   JsValue options;
   JsValue animation;
   bool isStopped;
-  float time;
-  float? startTime;
   float? finishedTime;
-  float speed;
-  float duration;
-  float iterationDuration;
-  string state;
   bool allowFlatten;
   bool isPseudoElement;
   float? manualStartTime;
-  (func(JsValue?)->void)? updateMotionValueHook;
 
   init(JsValue? options = null) {
     super();
     this.options = options;
     this.animation = null;
     this.isStopped = false;
-    this.time = 0.0;
-    this.startTime = null;
     this.finishedTime = null;
-    this.speed = 1.0;
-    this.duration = 0.0;
-    this.iterationDuration = 0.0;
-    this.state = "idle";
     this.allowFlatten = false;
     this.isPseudoElement = false;
     this.manualStartTime = null;
-    this.updateMotionValueHook = null;
-    if (options != null) {
-      JsValue optionsValue = options;
-      if (optionsValue.isObject()) {
-        JsValue typeVal = optionsValue["type"];
-        invariant(!(typeVal is string), "Mini animate() doesn't support \"type\" as a string.", "mini-spring");
-        JsValue element = optionsValue["element"];
-        JsValue name = optionsValue["name"];
-        JsValue keyframes = optionsValue["keyframes"];
-        JsValue pseudoElement = optionsValue["pseudoElement"];
-        JsValue allowFlattenVal = optionsValue["allowFlatten"];
-        if (allowFlattenVal is bool) {
-          this.allowFlatten = allowFlattenVal;
-        }
-        string nameStr = "";
-        if (name is string) {
-          nameStr = name;
-        }
-        string? pseudo = null;
-        if (pseudoElement is string) {
-          pseudo = pseudoElement;
-          this.isPseudoElement = true;
-        }
-        JsValue preparedTransition = nativeTransition(optionsValue);
-        ValueAnimationTransition transition = new ValueAnimationTransition();
-        JsValue delay = preparedTransition["delay"];
-        if (delay is float) {
-          transition.delay = delay;
-        }
-        JsValue durationVal = preparedTransition["duration"];
-        if (durationVal is float) {
-          transition.duration = durationVal;
-        }
-        JsValue ease = preparedTransition["ease"];
-        if (ease.truthy()) {
-          transition.ease = ease;
-        }
-        JsValue times = optionsValue["times"];
-        if (times.truthy() && times.isArray()) {
-          float[] t = [];
-          appendNumericItems(t, times);
-          transition.times = t;
-        }
-        JsValue repeat = optionsValue["repeat"];
-        if (repeat is float) { transition.repeat = repeat; }
-        JsValue repeatType = optionsValue["repeatType"];
-        if (repeatType is string) { transition.repeatType = repeatType; }
-        JsValue autoplay = optionsValue["autoplay"];
-        this.animation = startWaapiAnimation(element, nameStr, keyframes, transition, pseudo);
-        this.state = "running";
-        if (autoplay is bool) {
-          bool shouldPlay = autoplay;
-          if (shouldPlay == false) {
-            this.pause();
-          }
-        }
-        NativeAnimation selfFinish = this;
-        setProp(this.animation, "onfinish", () => {
-          selfFinish.onAnimationFinish();
-        });
-      } else {
-        this.notifyFinished();
-      }
-    } else {
-      this.notifyFinished();
-    }
+    if (options == null) { return; }
+    NativeOptions input = nativeOptionsOf(options);
+    invariant(!(options["type"] is string), "Mini animate() doesn't support \"type\" as a string.", "mini-spring");
+    this.allowFlatten = input.allowFlatten ?? false;
+    this.isPseudoElement = input.pseudoElement != null && input.pseudoElement != "";
+    JsValue prepared = nativeTransition(options);
+    this.animation = startWaapiAnimation(input.element, input.name, input.keyframes, transitionOf(prepared), input.pseudoElement);
+    if (nativeOptionsOf(prepared).autoplay == false) { browserAnimationOf(this.animation).pause(); }
     NativeAnimation self = this;
-    setProp(this, "attachTimeline", (JsValue timelineOptions) => {
-      return self.attachTimeline(timelineOptions);
-    });
-    setProp(this, "pause", () => {
-      self.pause();
-    });
-    setProp(this, "play", () => {
-      self.play();
-    });
-    setProp(this, "stop", () => {
-      self.stop();
-    });
-    setProp(this, "getPlaybackTime", () => {
-      return self.getPlaybackTime();
-    });
-    setProp(this, "setPlaybackTime", (JsValue value) => {
-      if (value is float) {
-        self.setPlaybackTime(value);
+    JsValue keyframes = input.keyframes;
+    JsValue finalKeyframe = input.finalKeyframe;
+    JsValue element = input.element;
+    string name = input.name;
+    string? pseudoElement = input.pseudoElement;
+    (func()->void)? onComplete = input.onComplete;
+    setProp(this.animation, "onfinish", () => {
+      self.finishedTime = self.getPlaybackTime();
+      if (pseudoElement == null || pseudoElement == "") {
+        JsValue keyframe = getFinalKeyframe(keyframes, self.options, finalKeyframe, self.getPlaybackSpeed());
+        if (getProp(self, "updateMotionValue") != null) { callMethod1(self, "updateMotionValue", keyframe); }
+        setStyle(element, name, keyframe);
+        browserAnimationOf(self.animation).cancel();
       }
+      if (onComplete != null) { onComplete(); }
+      self.notifyFinished();
     });
-    setProp(this, "getFinished", () => { return self.finished(); });
-    setProp(this, "getState", () => { return self.getState(); });
-    setProp(this, "getStartTime", () => { return self.getStartTime(); });
-    setProp(this, "getIterationDuration", () => { return self.getIterationDuration(); });
-    setProp(this, "getDuration", () => {
-      return self.getDuration();
-    });
-    setProp(this, "getPlaybackSpeed", () => { return self.getPlaybackSpeed(); });
-    setProp(this, "setPlaybackSpeed", (JsValue value) => { if (value is float) { self.setPlaybackSpeed(value); } });
-    setProp(this, "cancel", () => { self.cancel(); });
-    setProp(this, "complete", () => { self.complete(); });
-  }
-
-  void onAnimationFinish() {
-    float finished = this.getPlaybackTime();
-    this.finishedTime = finished;
-    this.time = finished;
-    JsValue options = this.options;
-    if (!options.truthy() || !options.isObject()) {
-      this.state = "finished";
-      this.notifyFinished();
-      return;
-    }
-    if (!this.isPseudoElement) {
-      JsValue keyframes = options["keyframes"];
-      JsValue finalKeyframe = options["finalKeyframe"];
-      JsValue keyframe = getFinalKeyframe(keyframes, options, finalKeyframe, this.getPlaybackSpeed());
-      (func(JsValue?)->void)? hook = this.updateMotionValueHook;
-      if (hook != null) {
-        hook(keyframe);
-      }
-      JsValue element = options["element"];
-      JsValue name = options["name"];
-      if (element.truthy() && (name is string)) {
-        string nameStr = name;
-        setStyle(element, nameStr, keyframe);
-      }
-      this.cancel();
-    }
-    JsValue onComplete = options["onComplete"];
-    if (isFunction(onComplete)) {
-      callFn0(onComplete);
-    }
-    this.state = "finished";
-    this.notifyFinished();
   }
 
   float getIterationDuration() {
-    JsValue options = this.options;
-    float delaySec = 0.0;
-    if (options.truthy() && options.isObject()) {
-      JsValue delay = options["delay"];
-      if (delay is float) {
-        delaySec = millisecondsToSeconds(delay);
-      }
-    }
-    return this.getDuration() + delaySec;
+    float delay = 0.0;
+    if (this.options != null) { delay = nativeOptionsOf(this.options).delay ?? 0.0; }
+    return this.getDuration() + millisecondsToSeconds(delay);
   }
-
   string getState() {
-    if (this.finishedTime != null) {
-      return "finished";
-    }
-    JsValue playState = this.animation["playState"];
-    if (playState is string) { return playState; }
-    return "idle";
+    if (this.finishedTime != null) { return "finished"; }
+    return browserAnimationOf(this.animation).playState;
   }
-
   void setStartTime(float start) {
     this.manualStartTime = start;
-    this.startTime = start;
-    if (this.animation.truthy()) { setProp(this.animation, "startTime", start); }
+    browserAnimationOf(this.animation).startTime = start;
   }
-
   float getStartTime() {
-    float? manual = this.manualStartTime;
-    if (manual != null) { return manual; }
-    JsValue start = this.animation["startTime"];
-    if (start is float) { return start; }
-    return 0.0;
+    return this.manualStartTime ?? Number(browserAnimationOf(this.animation).startTime);
   }
-
   float getPlaybackTime() {
-    JsValue currentTime = this.animation["currentTime"];
-    if (currentTime is float) { return millisecondsToSeconds(currentTime); }
-    return 0.0;
+    float value = Number(browserAnimationOf(this.animation).currentTime);
+    if (value == 0.0 || value != value) { value = 0.0; }
+    return millisecondsToSeconds(value);
   }
 
   void setPlaybackTime(float newTime) {
     bool wasFinished = this.finishedTime != null;
     this.manualStartTime = null;
     this.finishedTime = null;
-    this.time = newTime;
     JsValue anim = this.animation;
     if (anim.truthy()) {
       setProp(anim, "currentTime", secondsToMilliseconds(newTime));
@@ -261,17 +114,12 @@ export class NativeAnimation extends WithPromise {
     }
   }
 
-  float getPlaybackSpeed() {
-    JsValue rate = this.animation["playbackRate"];
-    if (rate is float) { return rate; }
-    return 1.0;
-  }
+  float getPlaybackSpeed() { return browserAnimationOf(this.animation).playbackRate; }
 
   void setPlaybackSpeed(float newSpeed) {
     if (newSpeed < 0.0) {
       this.finishedTime = null;
     }
-    this.speed = newSpeed;
     JsValue anim = this.animation;
     if (anim.truthy()) {
       setProp(anim, "playbackRate", newSpeed);
@@ -283,7 +131,7 @@ export class NativeAnimation extends WithPromise {
     if (effect.truthy()) {
       JsValue timing = callMethod0(effect, "getComputedTiming");
       if (timing.truthy()) {
-        return millisecondsToSeconds(parseFloatValue(timing["duration"]));
+        return millisecondsToSeconds(Number(timing["duration"]));
       }
     }
     return 0.0;
@@ -313,10 +161,7 @@ export class NativeAnimation extends WithPromise {
   }
 
   void cancel() {
-    JsValue anim = this.animation;
-    if (anim.truthy() && hasFunctionNamed(anim, "cancel")) {
-      callMethod0(anim, "cancel");
-    }
+    try { browserAnimationOf(this.animation).cancel(); } catch {}
   }
 
   void complete() {
@@ -335,39 +180,20 @@ export class NativeAnimation extends WithPromise {
     if (state == "idle" || state == "finished") {
       return;
     }
-    (func(JsValue?)->void)? hook = this.updateMotionValueHook;
-    if (hook != null) {
-      hook(null);
-    } else {
-      this.commitStyles();
-    }
+    if (getProp(this, "updateMotionValue") != null) { callMethod0(this, "updateMotionValue"); }
+    else { this.commitStyles(); }
     if (!this.isPseudoElement) {
       this.cancel();
     }
-    this.state = "idle";
   }
 
-  void pause() {
-    JsValue anim = this.animation;
-    if (anim.truthy() && hasFunctionNamed(anim, "pause")) {
-      callMethod0(anim, "pause");
-    }
-    this.state = "paused";
-  }
+  void pause() { browserAnimationOf(this.animation).pause(); }
 
   void play() {
-    if (this.isStopped) {
-      return;
-    }
+    if (this.isStopped) { return; }
     this.manualStartTime = null;
-    JsValue anim = this.animation;
-    if (anim.truthy() && hasFunctionNamed(anim, "play")) {
-      callMethod0(anim, "play");
-    }
-    if (this.getState() == "finished") {
-      this.updateFinished();
-    }
-    this.state = "running";
+    browserAnimationOf(this.animation).play();
+    if (this.getState() == "finished") { this.updateFinished(); }
   }
 
   func()->void attachTimeline(JsValue timelineOptions) {
@@ -420,3 +246,5 @@ bool hasFunctionNamed(JsValue obj, string name) {
   JsValue method = getProp(obj, name);
   return isFunction(method);
 }
+
+export constructor NativeAnimation as NativeAnimationConstructor;

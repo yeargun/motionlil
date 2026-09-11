@@ -1,3 +1,4 @@
+import { optionalValueType } from "../../../value/types/types";
 import { getAsType } from "../../../value/types/utils/get-as-type";
 import { numberValueTypes } from "../../../value/types/maps/number";
 import { transformProps } from "../../utils/keys-transform";
@@ -23,7 +24,7 @@ export void buildHTMLStyles(
       vars[key] = value;
       continue;
     } else {
-      JsValue valueAsType = getAsType(value, numberValueTypes.get(key));
+      JsValue valueAsType = getAsType(value, optionalValueType(numberValueTypes[key]));
       if (key.startsWith("origin")) {
         hasTransformOrigin = true;
         transformOrigin[key] = valueAsType;

@@ -5,7 +5,7 @@ import { VisualElement } from "../../render/VisualElement";
 import { visualElementOf, withPromiseOf } from "../../cast";
 import { isFunction } from "../../dom-host";
 
-export Task<bool> animateVisualElement(
+export Task<JsValue> animateVisualElement(
   JsValue visualElement,
   JsValue definition,
   JsValue? options = null
@@ -16,14 +16,14 @@ export Task<bool> animateVisualElement(
   }
   VisualElement element = visualElementOf(visualElement);
   element.notify("AnimationStart", definition);
-  Task<bool> animation = Task.resolve(true);
+  Task<JsValue> animation = Task.resolve(true);
   if (definition.isArray()) {
-    Task<bool>[] tasks = [];
+    Task<JsValue>[] tasks = [];
     int len = definition.length.toInt();
     for (int i = 0; i < len; i++) {
       tasks.push(animateVariant(visualElement, definition[i], opts));
     }
-    animation = Task.all(tasks).then((bool[] _v) => true);
+    animation = Task.all(tasks).then((JsValue[] _v) => true);
   } else if (definition is string) {
     animation = animateVariant(visualElement, definition, opts);
   } else {
@@ -35,13 +35,13 @@ export Task<bool> animateVisualElement(
       }
     }
     JsValue[] controls = animateTarget(visualElement, resolvedDefinition, opts);
-    Task<bool>[] targetTasks = [];
+    Task<JsValue>[] targetTasks = [];
     for (int i = 0; i < controls.length; i++) {
-      targetTasks.push(withPromiseOf(controls[i]).finished());
+      targetTasks.push(withPromiseOf(controls[i]).getFinished());
     }
-    animation = Task.all(targetTasks).then((bool[] _v) => true);
+    animation = Task.all(targetTasks).then((JsValue[] _v) => true);
   }
-  return animation.then((bool _done) => {
+  return animation.then((JsValue _done) => {
     element.notify("AnimationComplete", definition);
     return true;
   });

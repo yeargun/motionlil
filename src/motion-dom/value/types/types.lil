@@ -26,27 +26,16 @@ export class HSLA {
   }
 }
 
-export class ValueType {
+export extern class ValueType {
   func(JsValue)->bool test;
   func(JsValue)->JsValue parse;
   (func(JsValue)->JsValue)? transform;
   (func(string)->func(JsValue)->JsValue)? createTransformer;
-  JsValue? defaultValue;
+  JsValue? default;
   (func(JsValue)->JsValue)? getAnimatableNone;
 
-  init(
-    func(JsValue)->bool test,
-    func(JsValue)->JsValue parse,
-    (func(JsValue)->JsValue)? transform = null,
-    (func(string)->func(JsValue)->JsValue)? createTransformer = null,
-    JsValue? defaultValue = null,
-    (func(JsValue)->JsValue)? getAnimatableNone = null
-  ) {
-    this.test = test;
-    this.parse = parse;
-    this.transform = transform;
-    this.createTransformer = createTransformer;
-    this.defaultValue = defaultValue;
-    this.getAnimatableNone = getAnimatableNone;
-  }
 }
+
+export pure ValueType valueTypeRecord(JsValue value) { return JS.assume(value); }
+
+export pure ValueType? optionalValueType(JsValue value) { return JS.assume(value); }

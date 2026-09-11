@@ -1,53 +1,17 @@
 export JsValue getFinalKeyframe(
   JsValue keyframesInput,
   JsValue options,
-  JsValue? finalKeyframe = null,
+  JsValue finalKeyframe = JS.undefined(),
   float speed = 1.0
 ) {
-  JsValue[] keyframes = [];
-  if (keyframesInput.isArray()) {
-    int len = keyframesInput.length.toInt();
-    for (int i = 0; i < len; i++) {
-      keyframes.push(keyframesInput[i]);
-    }
-  }
-  JsValue[] resolvedKeyframes = [];
-  for (int i = 0; i < keyframes.length; i++) {
-    JsValue value = keyframes[i];
-    bool defined =
-      (value is float) ||
-      (value is string) ||
-      (value is bool) ||
-      value.isArray() ||
-      (value.isObject() && value.truthy());
-    if (defined) {
-      resolvedKeyframes.push(value);
-    }
-  }
-  bool useFirstKeyframe = speed < 0.0;
-  if (!useFirstKeyframe) {
-    JsValue repeat = options["repeat"];
-    JsValue repeatType = options["repeatType"];
-    string repeatTypeName = "loop";
-    if (repeatType is string) {
-      repeatTypeName = repeatType;
-    }
-    if (repeat is float) {
-      float repeatFloat = repeat;
-      if (repeatTypeName != "loop") {
-        int repeatCount = repeatFloat.toInt();
-        if (repeatCount % 2 == 1) {
-          useFirstKeyframe = true;
-        }
-      }
-    }
-  }
+  JsValue[] keyframes = JS.assume(keyframesInput);
+  JsValue[] resolvedKeyframes = keyframes.filter((JsValue value) => !JS.strictEqual(value, null));
+  JsValue repeat = options["repeat"];
+  JsValue repeatType = options["repeatType"];
+  if (JS.isUndefined(repeatType)) { repeatType = "loop"; }
+  bool useFirstKeyframe = speed < 0.0 || (repeat.truthy() && !JS.strictEqual(repeatType, "loop") && JS.strictEqual(JS.mod(repeat, 2), 1));
   int index = resolvedKeyframes.length - 1;
-  if (useFirstKeyframe) {
-    index = 0;
-  }
-  if (index == 0 || finalKeyframe == null) {
-    return resolvedKeyframes[index];
-  }
+  if (useFirstKeyframe) { index = 0; }
+  if (index == 0 || JS.isUndefined(finalKeyframe)) { return resolvedKeyframes[index]; }
   return finalKeyframe;
 }

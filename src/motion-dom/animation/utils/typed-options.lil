@@ -1,0 +1,37 @@
+import { ValueAnimationTransition } from "../types";
+
+export extern class NativeOptions {
+  JsValue element;
+  string name;
+  JsValue keyframes;
+  JsValue finalKeyframe;
+  string? pseudoElement;
+  bool? allowFlatten;
+  bool? autoplay;
+  float? delay;
+  (func()->void)? onComplete;
+}
+export extern class BrowserAnimation {
+  JsValue currentTime;
+  JsValue startTime;
+  float playbackRate;
+  string playState;
+  void play();
+  void pause();
+  void cancel();
+}
+export pure NativeOptions nativeOptionsOf(JsValue value) { return JS.assume(value); }
+export pure ValueAnimationTransition transitionOf(JsValue value) { return JS.assume(value); }
+export pure BrowserAnimation browserAnimationOf(JsValue value) { return JS.assume(value); }
+export extern class AnimationOptions {
+  string? name;
+  float? delay;
+  JsValue motionValue;
+  JsValue element;
+  JsValue[] keyframes;
+  float? velocity;
+  JsValue type;
+  bool? autoplay;
+  (func(JsValue)->void)? onUpdate;
+}
+export pure AnimationOptions animationOptionsOf(JsValue value) { return JS.assume(value); }

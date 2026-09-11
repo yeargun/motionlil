@@ -1,30 +1,31 @@
+import { degrees, px, progressPercentage } from "../numbers/units";
 import { alpha, scale } from "../numbers/index";
-import { degrees, progressPercentage, px } from "../numbers/units";
-import { ValueTypeMap } from "./types";
+import { intType } from "../int";
 
-export ValueTypeMap transformValueTypes = new ValueTypeMap();
-transformValueTypes.set("rotate", degrees);
-transformValueTypes.set("pathRotation", degrees);
-transformValueTypes.set("rotateX", degrees);
-transformValueTypes.set("rotateY", degrees);
-transformValueTypes.set("rotateZ", degrees);
-transformValueTypes.set("scale", scale);
-transformValueTypes.set("scaleX", scale);
-transformValueTypes.set("scaleY", scale);
-transformValueTypes.set("scaleZ", scale);
-transformValueTypes.set("skew", degrees);
-transformValueTypes.set("skewX", degrees);
-transformValueTypes.set("skewY", degrees);
-transformValueTypes.set("distance", px);
-transformValueTypes.set("translateX", px);
-transformValueTypes.set("translateY", px);
-transformValueTypes.set("translateZ", px);
-transformValueTypes.set("x", px);
-transformValueTypes.set("y", px);
-transformValueTypes.set("z", px);
-transformValueTypes.set("perspective", px);
-transformValueTypes.set("transformPerspective", px);
-transformValueTypes.set("opacity", alpha);
-transformValueTypes.set("originX", progressPercentage);
-transformValueTypes.set("originY", progressPercentage);
-transformValueTypes.set("originZ", px);
+export JsValue transformValueTypes = object{
+  rotate: degrees,
+  pathRotation: degrees,
+  rotateX: degrees,
+  rotateY: degrees,
+  rotateZ: degrees,
+  scale: scale,
+  scaleX: scale,
+  scaleY: scale,
+  scaleZ: scale,
+  skew: degrees,
+  skewX: degrees,
+  skewY: degrees,
+  distance: px,
+  translateX: px,
+  translateY: px,
+  translateZ: px,
+  x: px,
+  y: px,
+  z: px,
+  perspective: px,
+  transformPerspective: px,
+  opacity: alpha,
+  originX: progressPercentage,
+  originY: progressPercentage,
+  originZ: px
+};

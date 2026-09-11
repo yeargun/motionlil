@@ -5,7 +5,7 @@ import extern {
   weakSetDelete
 } from "../../../weak-host.ts";
 
-extern JsValue weakSetCreate();
+pure extern JsValue weakSetCreate();
 extern void weakSetAdd(JsValue set, JsValue value);
 extern bool weakSetHas(JsValue set, JsValue value);
 extern void weakSetDelete(JsValue set, JsValue value);

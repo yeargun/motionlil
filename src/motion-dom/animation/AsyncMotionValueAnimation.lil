@@ -1,3 +1,5 @@
+import { asyncOptions } from "./utils/control-abi";
+import { animationOptionsOf } from "./utils/typed-options";
 import { NativeAnimationExtended } from "./NativeAnimationExtended";
 import { supportsResolvedBrowserAnimation } from "./waapi/supports/waapi";
 import { readNumberUpdate } from "./timing";
@@ -28,112 +30,38 @@ export class AsyncMotionValueAnimation extends WithPromise {
   float? resolvedAt;
   JsValue? pendingTimeline;
   (func()->void)? stopTimeline;
-  (func()->void)? stopActive;
   bool isStopped;
 
   init(JsValue options) {
     super();
-    this.options = options;
+    this.options = asyncOptions(options);
     this.animation = null;
     this.resolver = null;
     this.createdAt = time.now();
     this.resolvedAt = null;
     this.pendingTimeline = null;
     this.stopTimeline = null;
-    this.stopActive = null;
     this.isStopped = false;
     this.createAnimation();
     AsyncMotionValueAnimation selfControls = this;
-    setProp(this, "attachTimeline", (JsValue timeline) => {
-      return selfControls.attachTimeline(timeline);
-    });
-    setProp(this, "pause", () => {
-      selfControls.pause();
-    });
-    setProp(this, "play", () => {
-      selfControls.play();
-    });
-    setProp(this, "stop", () => {
-      selfControls.stop();
-    });
-    setProp(this, "cancel", () => { selfControls.cancel(); });
-    setProp(this, "complete", () => { selfControls.complete(); });
-    setProp(this, "getPlaybackTime", () => {
-      JsValue animation = selfControls.getAnimation();
-      if (animation.truthy()) { return callMethod0(animation, "getPlaybackTime"); }
-      return 0.0;
-    });
-    setProp(this, "getPlaybackSpeed", () => {
-      JsValue animation = selfControls.getAnimation();
-      if (animation.truthy()) { return callMethod0(animation, "getPlaybackSpeed"); }
-      return 1.0;
-    });
-    setProp(this, "getFinished", () => { return selfControls.finished(); });
-    setProp(this, "getState", () => {
-      JsValue animation = selfControls.getAnimation();
-      return callMethod0(animation, "getState");
-    });
-    setProp(this, "getStartTime", () => {
-      JsValue animation = selfControls.getAnimation();
-      return callMethod0(animation, "getStartTime");
-    });
-    setProp(this, "getIterationDuration", () => {
-      JsValue animation = selfControls.getAnimation();
-      return callMethod0(animation, "getIterationDuration");
-    });
-    setProp(this, "getDuration", () => {
-      JsValue animation = selfControls.getAnimation();
-      if (animation.truthy()) { return callMethod0(animation, "getDuration"); }
-      return 0.0;
-    });
-    setProp(this, "setPlaybackTime", (JsValue value) => {
-      JsValue animation = selfControls.getAnimation();
-      if (animation.truthy()) { callMethod1(animation, "setPlaybackTime", value); }
-    });
-    setProp(this, "setPlaybackSpeed", (JsValue value) => {
-      JsValue animation = selfControls.getAnimation();
-      if (animation.truthy()) { callMethod1(animation, "setPlaybackSpeed", value); }
-    });
+    setProp(this, "stop", () => { selfControls.stopAnimation(); });
   }
+
+  JsValue getPlaybackTime() { return callMethod0(this.getAnimation(), "getPlaybackTime"); }
+  JsValue getPlaybackSpeed() { return callMethod0(this.getAnimation(), "getPlaybackSpeed"); }
+  JsValue getState() { return callMethod0(this.getAnimation(), "getState"); }
+  JsValue getStartTime() { return callMethod0(this.getAnimation(), "getStartTime"); }
+  JsValue getIterationDuration() { return callMethod0(this.getAnimation(), "getIterationDuration"); }
+  JsValue getDuration() { return callMethod0(this.getAnimation(), "getDuration"); }
+  void setPlaybackTime(float value) { callMethod1(this.getAnimation(), "setPlaybackTime", value); }
+  void setPlaybackSpeed(float value) { callMethod1(this.getAnimation(), "setPlaybackSpeed", value); }
 
   void createAnimation() {
     JsValue options = this.options;
-    if (!(options["autoplay"] is bool)) {
-      options["autoplay"] = true;
-    }
-    if (!(options["delay"] is float)) {
-      options["delay"] = 0.0;
-    }
-    JsValue typeOpt = options["type"];
-    bool typeIsFalse = typeOpt is bool && typeOpt == false;
-    if (!(typeOpt is string) && !typeIsFalse && !isFunction(typeOpt)) {
-      options["type"] = "keyframes";
-    }
-    if (!(options["repeat"] is float)) {
-      options["repeat"] = 0.0;
-    }
-    if (!(options["repeatDelay"] is float)) {
-      options["repeatDelay"] = 0.0;
-    }
-    if (!(options["repeatType"] is string)) {
-      options["repeatType"] = "loop";
-    }
-
-    JsValue keyframes = options["keyframes"];
-    JsValue[] unresolved = [];
-    if (keyframes.isArray()) {
-      int len = keyframes.length.toInt();
-      for (int i = 0; i < len; i++) {
-        unresolved.push(keyframes[i]);
-      }
-    }
-    string? name = null;
-    JsValue nameVal = options["name"];
-    if (nameVal is string) {
-      name = nameVal;
-    }
-    JsValue motionValue = options["motionValue"];
-    JsValue element = options["element"];
+    JsValue[] unresolved = animationOptionsOf(options).keyframes;
+    string? name = animationOptionsOf(options).name;
+    JsValue motionValue = animationOptionsOf(options).motionValue;
+    JsValue element = animationOptionsOf(options).element;
     AsyncMotionValueAnimation self = this;
 
     func(JsValue[], JsValue?, bool)->void onKeyframesResolved = (
@@ -174,22 +102,10 @@ export class AsyncMotionValueAnimation extends WithPromise {
     JsValue options = this.options;
     this.resolvedAt = time.now();
 
-    string? name = null;
-    JsValue nameVal = options["name"];
-    if (nameVal is string) {
-      name = nameVal;
-    }
+    string? name = animationOptionsOf(options).name;
     JsValue type = options["type"];
-    float velocity = 0.0;
-    JsValue velocityVal = options["velocity"];
-    if (velocityVal is float) {
-      velocity = velocityVal;
-    }
-    float delay = 0.0;
-    JsValue delayVal = options["delay"];
-    if (delayVal is float) {
-      delay = delayVal;
-    }
+    float velocity = animationOptionsOf(options).velocity ?? 0.0;
+    float delay = animationOptionsOf(options).delay ?? 0.0;
     bool isHandoff = options["isHandoff"].truthy();
     JsValue onUpdate = options["onUpdate"];
 
@@ -239,40 +155,21 @@ export class AsyncMotionValueAnimation extends WithPromise {
     }
 
     JsValue animation = null;
-    (func()->void)? stopActive = null;
     if (canAnimateValue && !isHandoff && supportsResolvedBrowserAnimation(options, keyframes)) {
       try {
         NativeAnimationExtended native = new NativeAnimationExtended(options);
         animation = native;
-        stopActive = () => { native.stop(); };
       } catch {
         // Motion falls back to its JS driver if native animation construction fails.
       }
     }
     if (animation == null) {
-      string? typeStr = null;
-      if (type is string) {
-        typeStr = type;
-      }
-      (func(float)->void)? onUpdateFn = readNumberUpdate(onUpdate);
-      JSAnimationOptions jsOpts = new JSAnimationOptions(
-        [],
-        velocity,
-        typeStr,
-        null,
-        null,
-        onUpdateFn
-      );
-      jsOpts.extra = options;
-      JSAnimation jsAnim = new JSAnimation(jsOpts);
+      JSAnimation jsAnim = new JSAnimation(options);
       animation = jsAnim;
-      stopActive = () => {
-        jsAnim.stop();
-      };
     }
 
     AsyncMotionValueAnimation self = this;
-    asWithPromise(animation).finished().then((bool _v) => {
+    asWithPromise(animation).getFinished().then((JsValue _v) => {
       self.notifyFinished();
       return true;
     });
@@ -290,9 +187,8 @@ export class AsyncMotionValueAnimation extends WithPromise {
       this.pendingTimeline = null;
     }
 
-    this.stopActive = stopActive;
     this.animation = animation;
-    this.finishedHook = () => asWithPromise(animation).finished();
+    this.finishedHook = () => asWithPromise(animation).getFinished();
   }
 
   JsValue getAnimation() {
@@ -359,12 +255,11 @@ export class AsyncMotionValueAnimation extends WithPromise {
     }
   }
 
-  void stop() {
+  void stop() { this.stopAnimation(); }
+
+  void stopAnimation() {
     this.isStopped = true;
-    (func()->void)? stopActive = this.stopActive;
-    if (stopActive != null) {
-      stopActive();
-    }
+    if (this.animation != null) { callMethod0(this.animation, "stop"); }
     (func()->void)? stopTimeline = this.stopTimeline;
     if (stopTimeline != null) {
       stopTimeline();
@@ -389,3 +284,5 @@ export class AsyncMotionValueAnimation extends WithPromise {
     return 0.0;
   }
 }
+
+export constructor AsyncMotionValueAnimation as AsyncMotionValueAnimationConstructor;

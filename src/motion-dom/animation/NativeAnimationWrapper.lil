@@ -6,8 +6,10 @@ export class NativeAnimationWrapper extends NativeAnimation {
     this.animation = animation;
     NativeAnimationWrapper self = this;
     animation["onfinish"] = () => {
-      self.finishedTime = self.time;
+      self.finishedTime = self.getPlaybackTime();
       self.notifyFinished();
     };
   }
 }
+
+export constructor NativeAnimationWrapper as NativeAnimationWrapperConstructor;

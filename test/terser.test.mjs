@@ -3,9 +3,11 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
 import { pathToFileURL } from "node:url"
 import test from "node:test"
 import { minify } from "terser"
+import { build } from "esbuild"
 
 test("the distributed animate module survives a second Terser pass", async () => {
-  const input = await readFile(new URL("../dist/animate.js", import.meta.url), "utf8")
+  const built = await build({entryPoints:[new URL("../dist/animate.js", import.meta.url).pathname], bundle:true, format:"esm", write:false})
+  const input = built.outputFiles[0].text
   const result = await minify(input, {
     module: true,
     compress: { passes: 3 },

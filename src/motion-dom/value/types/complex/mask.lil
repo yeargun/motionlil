@@ -1,14 +1,8 @@
 import { complex } from "./index";
-import { HSLA, RGBA, ValueType } from "../types";
+import { HSLA, RGBA, ValueType, valueTypeRecord } from "../types";
 import { isHslaShape, isRgbaShape, hslaFromJs, rgbaFromJs } from "../color/shape";
 
-export ValueType mask = new ValueType(
-  complex.test,
-  complex.parse,
-  complex.transform,
-  complex.createTransformer,
-  complex.defaultValue,
-  (JsValue v) => {
+export ValueType mask = valueTypeRecord(object{test: complex.test, parse: complex.parse, transform: complex.transform, createTransformer: complex.createTransformer, getAnimatableNone: (JsValue v) => {
     JsValue parsed = complex.parse(v);
     (func(string)->func(JsValue)->JsValue)? createTransformer = complex.createTransformer;
     if (createTransformer == null) {
@@ -36,5 +30,4 @@ export ValueType mask = new ValueType(
       }
     }
     return transformer(mapped);
-  }
-);
+  }});

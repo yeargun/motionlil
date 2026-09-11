@@ -1,3 +1,4 @@
+import { copyOptions } from "../../../../motion-dom/animation/utils/control-abi";
 import {
   animationMapKey,
   getAnimationMap
@@ -11,7 +12,7 @@ import { resolveElements, AnimationScope } from "../../../../motion-dom/utils/re
 import { invariant } from "../../../../motion-utils/errors";
 import { secondsToMilliseconds } from "../../../../motion-utils/time-conversion";
 import {
-  callFn0,
+  callMethod0,
   callFn2,
   callMethod2,
   isFunction,
@@ -56,10 +57,7 @@ export JsValue[] animateElements(
 
   for (int i = 0; i < numElements; i++) {
     JsValue element = elements[i];
-    JsValue elementTransition = record{};
-    if (options != null && options.isObject()) {
-      callMethod2(windowGet("Object"), "assign", elementTransition, options);
-    }
+    JsValue elementTransition = copyOptions(options);
 
     JsValue delayVal = elementTransition["delay"];
     if (isFunction(delayVal)) {
@@ -70,55 +68,28 @@ export JsValue[] animateElements(
       for (string valueName in keyframes) {
         JsValue valueKeyframes = keyframes[valueName];
         JsValue[] unresolved = [];
-        if (valueKeyframes.isArray()) {
-          int klen = valueKeyframes.length.toInt();
-          for (int ki = 0; ki < klen; ki++) {
-            unresolved.push(valueKeyframes[ki]);
-          }
-        } else {
-          unresolved.push(valueKeyframes);
-        }
+        if (valueKeyframes.isArray()) { unresolved = JS.assume(valueKeyframes); }
+        else { unresolved = [valueKeyframes]; }
 
-        JsValue sharedOptions = getValueTransition(elementTransition, valueName);
-        JsValue valueOptions = record{};
-        if (sharedOptions != null && sharedOptions.isObject()) {
-          for (string k in sharedOptions) {
-            valueOptions[k] = sharedOptions[k];
-          }
+        JsValue valueOptions = copyOptions(getValueTransition(elementTransition, valueName));
+        if (valueOptions["duration"].truthy()) {
+          float duration = JS.assume(valueOptions["duration"]);
+          valueOptions["duration"] = secondsToMilliseconds(duration);
         }
-
-        JsValue durationVal = valueOptions["duration"];
-        if (durationVal is float) {
-          valueOptions["duration"] = secondsToMilliseconds(durationVal);
-        }
-        JsValue delayOpt = valueOptions["delay"];
-        if (delayOpt is float) {
-          valueOptions["delay"] = secondsToMilliseconds(delayOpt);
+        if (valueOptions["delay"].truthy()) {
+          float delay = JS.assume(valueOptions["delay"]);
+          valueOptions["delay"] = secondsToMilliseconds(delay);
         }
 
         Map<string, JsValue> map = getAnimationMap(element);
-        string pseudo = "";
-        JsValue pseudoVal = valueOptions["pseudoElement"];
-        if (pseudoVal is string) {
-          pseudo = pseudoVal;
-        }
+        string pseudo = JS.assume(JS.or(valueOptions["pseudoElement"], ""));
         string key = animationMapKey(valueName, pseudo);
-        JsValue? currentAnimation = map.get(key);
-        if (currentAnimation != null) {
-          JsValue stop = currentAnimation["stop"];
-          if (isFunction(stop)) {
-            callFn0(stop);
-          }
-        }
-
-        JsValue animOptions = record{};
-        for (string k in valueOptions) {
-          animOptions[k] = valueOptions[k];
-        }
+        JsValue currentAnimation = map.get(key);
+        if (currentAnimation.truthy()) { JS.invoke(currentAnimation, "stop"); }
+        JsValue animOptions = copyOptions(valueOptions);
         animOptions["element"] = element;
         animOptions["name"] = valueName;
-        bool allowFlatten = elementTransition["type"] == null && elementTransition["ease"] == null;
-        animOptions["allowFlatten"] = allowFlatten;
+        animOptions["allowFlatten"] = !elementTransition["type"].truthy() && !elementTransition["ease"].truthy();
 
         animationDefinitions.push(
           new AnimationDefinition(map, key, unresolved, animOptions)
@@ -132,14 +103,10 @@ export JsValue[] animateElements(
     JsValue[] unresolvedKeyframes = def.unresolvedKeyframes;
     JsValue animationOptions = def.options;
     JsValue element = animationOptions["element"];
-    string name = "";
-    JsValue nameVal = animationOptions["name"];
-    if (nameVal is string) {
-      name = nameVal;
-    }
+    string name = JS.assume(animationOptions["name"]);
     JsValue pseudoElement = animationOptions["pseudoElement"];
 
-    if (!pseudoElement.truthy() && unresolvedKeyframes.length > 0 && unresolvedKeyframes[0] == null) {
+    if (!pseudoElement.truthy() && JS.strictEqual(unresolvedKeyframes[0], null)) {
       unresolvedKeyframes[0] = getComputedStyle(element, name);
     }
 
@@ -147,8 +114,7 @@ export JsValue[] animateElements(
     applyPxDefaults(unresolvedKeyframes, name);
 
     if (!pseudoElement.truthy() && unresolvedKeyframes.length < 2) {
-      unresolvedKeyframes = [getComputedStyle(element, name), ...unresolvedKeyframes];
-      def.unresolvedKeyframes = unresolvedKeyframes;
+      JS.invoke(unresolvedKeyframes, "unshift", getComputedStyle(element, name));
     }
 
     animationOptions["keyframes"] = unresolvedKeyframes;
@@ -159,10 +125,7 @@ export JsValue[] animateElements(
     AnimationDefinition def = animationDefinitions[i];
     NativeAnimation animation = new NativeAnimation(def.options);
     def.map.set(def.key, animation);
-    animation.finished().then((bool _v) => {
-      def.map.delete(def.key);
-      return true;
-    });
+    JS.invoke(animation.getFinished(), "finally", () => { def.map.delete(def.key); });
     animations.push(animation);
   }
 

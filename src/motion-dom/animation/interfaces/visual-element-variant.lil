@@ -3,7 +3,7 @@ import { calcChildStagger } from "../utils/calc-child-stagger";
 import { animateTarget } from "./visual-element-target";
 import { callMethod0, callMethod1, callMethod2, isFunction, setValues } from "../../dom-host";
 
-Task<bool> animateChildren(
+Task<JsValue> animateChildren(
   JsValue visualElement,
   JsValue variant,
   float delayAmt,
@@ -12,7 +12,7 @@ Task<bool> animateChildren(
   float staggerDirection,
   JsValue options
 ) {
-  Task<bool>[] animations = [];
+  Task<JsValue>[] animations = [];
   JsValue children = visualElement["variantChildren"];
   if (children.truthy()) {
     JsValue[] childList = setValues(children);
@@ -36,17 +36,17 @@ Task<bool> animateChildren(
       }
       childOptions["delay"] = childDelay;
       animations.push(
-        animateVariant(child, variant, childOptions).then((bool _v) => {
+        animateVariant(child, variant, childOptions).then((JsValue _v) => {
           callMethod2(child, "notify", "AnimationComplete", variant);
           return true;
         })
       );
     }
   }
-  return Task.all(animations).then((bool[] _v) => true);
+  return Task.all(animations).then((JsValue[] _v) => true);
 }
 
-export Task<bool> animateVariant(
+export Task<JsValue> animateVariant(
   JsValue visualElement,
   JsValue variant,
   JsValue? options = null
@@ -82,23 +82,23 @@ export Task<bool> animateVariant(
   if (opts["transitionOverride"].truthy()) {
     transition = opts["transitionOverride"];
   }
-  func()->Task<bool> getAnimation = () => Task.resolve(true);
+  func()->Task<JsValue> getAnimation = () => Task.resolve(true);
   if (resolved != null) {
     JsValue resolvedCapture = resolved;
     JsValue optsCapture = opts;
     getAnimation = () => {
       JsValue[] controls = animateTarget(visualElement, resolvedCapture, optsCapture);
-      Task<bool>[] tasks = [];
+      Task<JsValue>[] tasks = [];
       for (int i = 0; i < controls.length; i++) {
         tasks.push(Task.resolve(true));
       }
       if (tasks.length == 0) {
         return Task.resolve(true);
       }
-      return Task.all(tasks).then((bool[] _v) => true);
+      return Task.all(tasks).then((JsValue[] _v) => true);
     };
   }
-  func(float)->Task<bool> getChildAnimations = (float forwardDelay = 0.0) => Task.resolve(true);
+  func(float)->Task<JsValue> getChildAnimations = (float forwardDelay = 0.0) => Task.resolve(true);
   JsValue variantChildren = visualElement["variantChildren"];
   if (variantChildren.truthy() && variantChildren["size"].truthy()) {
     JsValue transitionCapture = transition;
@@ -133,15 +133,15 @@ export Task<bool> animateVariant(
   JsValue when = transition["when"];
   if (when.truthy()) {
     if (when == "beforeChildren") {
-      return getAnimation().then((bool _v) => getChildAnimations(0.0));
+      return getAnimation().then((JsValue _v) => getChildAnimations(0.0));
     }
-    return getChildAnimations(0.0).then((bool _v) => getAnimation());
+    return getChildAnimations(0.0).then((JsValue _v) => getAnimation());
   }
   float delayOpt = 0.0;
   JsValue delayOptVal = opts["delay"];
   if (delayOptVal is float) {
     delayOpt = delayOptVal;
   }
-  Task<bool>[] both = [getAnimation(), getChildAnimations(delayOpt)];
-  return Task.all(both).then((bool[] _v) => true);
+  Task<JsValue>[] both = [getAnimation(), getChildAnimations(delayOpt)];
+  return Task.all(both).then((JsValue[] _v) => true);
 }

@@ -1,10 +1,9 @@
-import { ValueType } from "../types";
+import { ValueType, valueTypeRecord } from "../types";
 
 extern float parseFloat(string v);
 
 ValueType createUnitType(string unit) {
-  return new ValueType(
-    (JsValue v) => {
+  return valueTypeRecord(object{test: (JsValue v) => {
       if (!(v is string)) {
         return false;
       }
@@ -24,8 +23,7 @@ ValueType createUnitType(string unit) {
         i = i + 1;
       }
       return spaces == 0;
-    },
-    (JsValue v) => {
+    }, parse: (JsValue v) => {
       if (v is string) {
         return parseFloat(v);
       }
@@ -33,11 +31,9 @@ ValueType createUnitType(string unit) {
         return v;
       }
       return 0.0;
-    },
-    (JsValue v) => {
+    }, transform: (JsValue v) => {
       return `${v}${unit}`;
-    }
-  );
+    }});
 }
 
 export ValueType degrees = createUnitType("deg");
@@ -46,16 +42,13 @@ export ValueType px = createUnitType("px");
 export ValueType vh = createUnitType("vh");
 export ValueType vw = createUnitType("vw");
 
-export ValueType progressPercentage = new ValueType(
-  percent.test,
-  (JsValue v) => {
+export ValueType progressPercentage = valueTypeRecord(object{test: percent.test, parse: (JsValue v) => {
     JsValue parsed = percent.parse(v);
     if (parsed is float) {
       return parsed / 100.0;
     }
     return 0.0;
-  },
-  (JsValue v) => {
+  }, transform: (JsValue v) => {
     float n = 0.0;
     if (v is float) {
       n = v;
@@ -65,5 +58,4 @@ export ValueType progressPercentage = new ValueType(
       return transform(n * 100.0);
     }
     return `${n * 100.0}%`;
-  }
-);
+  }});

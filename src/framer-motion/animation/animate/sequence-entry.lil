@@ -67,7 +67,7 @@ export func(JsValue, JsValue?, JsValue?)->GroupAnimationWithThen animate =
 
     if (animationOnComplete != null) {
       (func()->void) done = animationOnComplete;
-      animation.finished().then((bool _v) => {
+      animation.getFinished().then((JsValue _v) => {
         done();
         return true;
       });

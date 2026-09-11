@@ -9,7 +9,7 @@ before(async () => {
   const sources = {
     '/original.js': readFileSync('site/esm-comparison/original.js', 'utf8'),
     '/lilscript.js': readFileSync('dist/index.bundle.js', 'utf8'),
-    '/full.js': readFileSync('dist/full.js', 'utf8'),
+    '/full.js': readFileSync('dist/full.bundle.js', 'utf8'),
   }
   server = createServer((req, res) => {
     res.setHeader('Content-Type', req.url in sources ? 'text/javascript' : 'text/html')

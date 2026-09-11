@@ -245,9 +245,9 @@ void flushPendingBuilders() {
     }
   }
 
-  Task<bool>[] updatePromises = [];
+  Task<JsValue>[] updatePromises = [];
   for (int bi = 0; bi < builders.length; bi++) {
-    Task<bool>? result = builders[bi].runUpdate();
+    Task<JsValue>? result = builders[bi].runUpdate();
     if (result != null) {
       updatePromises.push(result);
     }
@@ -267,7 +267,7 @@ void flushPendingBuilders() {
   };
 
   if (updatePromises.length > 0) {
-    Task.all(updatePromises).then((bool[] _v) => {
+    Task.all(updatePromises).then((JsValue[] _v) => {
       commit();
       return true;
     });
@@ -310,7 +310,7 @@ export class LayoutAnimationBuilder {
       self.rejectReady = (JsValue _error) => {
         resolve();
       };
-    }).then((bool _v) => null);
+    }).then((JsValue _v) => null);
 
     if (pendingBuilders == null) {
       LayoutAnimationBuilder[] emptyPending = [];
@@ -363,7 +363,7 @@ export class LayoutAnimationBuilder {
     return collectLayoutElements(this.scope);
   }
 
-  Task<bool>? runUpdate() {
+  Task<JsValue>? runUpdate() {
     try {
       this.updateDom();
     } catch (JsValue error) {

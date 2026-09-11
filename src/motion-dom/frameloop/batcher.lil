@@ -9,15 +9,13 @@ class BatchState {
   bool runNextFrame;
   bool useDefaultElapsed;
   FrameData state;
-  Steps steps;
   (func()->void)? processBatch;
   (func()->void)? wake;
 
-  init(Steps steps) {
+  init() {
     this.runNextFrame = false;
     this.useDefaultElapsed = true;
     this.state = new FrameData();
-    this.steps = steps;
     this.processBatch = null;
     this.wake = null;
   }
@@ -47,36 +45,20 @@ func(FrameData)->void bindStep(BatchState cell, Step step, func(FrameData)->void
   return step.schedule(process, keepAlive, immediate);
 }
 
-export RenderBatcher createRenderBatcher(
+export pure RenderBatcher createRenderBatcher(
   func(func()->void)->void scheduleNextBatch,
   bool allowKeepAlive
 ) {
-  Step setup = createRenderStep(() => {});
-  Step read = createRenderStep(() => {});
-  Step resolveKeyframes = createRenderStep(() => {});
-  Step preUpdate = createRenderStep(() => {});
-  Step update = createRenderStep(() => {});
-  Step preRender = createRenderStep(() => {});
-  Step render = createRenderStep(() => {});
-  Step postRender = createRenderStep(() => {});
-
-  Steps steps = new Steps(
-    setup, read, resolveKeyframes, preUpdate, update, preRender, render, postRender
-  );
-  BatchState cell = new BatchState(steps);
-
-  setup = createRenderStep(() => { cell.runNextFrame = true; });
-  read = createRenderStep(() => { cell.runNextFrame = true; });
-  resolveKeyframes = createRenderStep(() => { cell.runNextFrame = true; });
-  preUpdate = createRenderStep(() => { cell.runNextFrame = true; });
-  update = createRenderStep(() => { cell.runNextFrame = true; });
-  preRender = createRenderStep(() => { cell.runNextFrame = true; });
-  render = createRenderStep(() => { cell.runNextFrame = true; });
-  postRender = createRenderStep(() => { cell.runNextFrame = true; });
-  steps = new Steps(
-    setup, read, resolveKeyframes, preUpdate, update, preRender, render, postRender
-  );
-  cell.steps = steps;
+  BatchState cell = new BatchState();
+  Step setup = createRenderStep(() => { cell.runNextFrame = true; });
+  Step read = createRenderStep(() => { cell.runNextFrame = true; });
+  Step resolveKeyframes = createRenderStep(() => { cell.runNextFrame = true; });
+  Step preUpdate = createRenderStep(() => { cell.runNextFrame = true; });
+  Step update = createRenderStep(() => { cell.runNextFrame = true; });
+  Step preRender = createRenderStep(() => { cell.runNextFrame = true; });
+  Step render = createRenderStep(() => { cell.runNextFrame = true; });
+  Step postRender = createRenderStep(() => { cell.runNextFrame = true; });
+  Steps steps = new Steps(setup, read, resolveKeyframes, preUpdate, update, preRender, render, postRender);
 
   cell.processBatch = () => {
     bool manual = MotionGlobalConfig.useManualTiming == true;
@@ -101,14 +83,14 @@ export RenderBatcher createRenderBatcher(
     }
     cell.state.timestamp = timestamp;
     cell.state.isProcessing = true;
-    cell.steps.setup.process(cell.state);
-    cell.steps.read.process(cell.state);
-    cell.steps.resolveKeyframes.process(cell.state);
-    cell.steps.preUpdate.process(cell.state);
-    cell.steps.update.process(cell.state);
-    cell.steps.preRender.process(cell.state);
-    cell.steps.render.process(cell.state);
-    cell.steps.postRender.process(cell.state);
+    steps.setup.process(cell.state);
+    steps.read.process(cell.state);
+    steps.resolveKeyframes.process(cell.state);
+    steps.preUpdate.process(cell.state);
+    steps.update.process(cell.state);
+    steps.preRender.process(cell.state);
+    steps.render.process(cell.state);
+    steps.postRender.process(cell.state);
     cell.state.isProcessing = false;
     if (cell.runNextFrame && allowKeepAlive) {
       cell.useDefaultElapsed = false;

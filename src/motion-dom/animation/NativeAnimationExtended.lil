@@ -34,13 +34,9 @@ export class NativeAnimationExtended extends NativeAnimation {
       }
     }
     this.options = options;
-    NativeAnimationExtended self = this;
-    this.updateMotionValueHook = (JsValue? value) => {
-      self.applyMotionValueUpdate(value);
-    };
   }
 
-  void applyMotionValueUpdate(JsValue? value = null) {
+  void updateMotionValue(JsValue? value = null) {
     JsValue options = this.options;
     JsValue motionValue = options["motionValue"];
     if (!motionValue.truthy()) {
@@ -57,9 +53,7 @@ export class NativeAnimationExtended extends NativeAnimation {
       }
     }
     sampleOptions["autoplay"] = false;
-    JSAnimationOptions jsOptions = new JSAnimationOptions([], 0.0, null, null, null, null);
-    jsOptions.extra = sampleOptions;
-    JSAnimation sampleAnimation = new JSAnimation(jsOptions);
+    JSAnimation sampleAnimation = new JSAnimation(sampleOptions);
     float start = 0.0;
     float? startTimeOpt = this.getStartTime();
     if (startTimeOpt != null) {
@@ -89,3 +83,5 @@ export class NativeAnimationExtended extends NativeAnimation {
     sampleAnimation.stop();
   }
 }
+
+export constructor NativeAnimationExtended as NativeAnimationExtendedConstructor;

@@ -5,7 +5,7 @@ import {before,after,test} from 'node:test'
 import {chromium} from 'playwright'
 let server,browser,origin
 before(async()=>{
- const sources={'/original.js':readFileSync('site/esm-comparison/original.js'),'/lilscript.js':readFileSync('dist/index.bundle.js'),'/full.js':readFileSync('dist/full.js')}
+ const sources={'/original.js':readFileSync('site/esm-comparison/original.js'),'/lilscript.js':readFileSync('dist/index.bundle.js'),'/full.js':readFileSync('dist/full.bundle.js')}
  server=createServer((req,res)=>{res.setHeader('Content-Type',req.url in sources?'text/javascript':'text/html');res.end(sources[req.url]??'<!doctype html><body></body>')})
  await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port
  browser=await chromium.launch({headless:true})
@@ -101,4 +101,61 @@ test('native interruption preserves the sampled style and replacement keyframe w
   }finally{await page.close()}
  }
  assert.deepEqual(results[1],results[0]);assert.deepEqual(results[2],results[0])
+})
+
+test('public animation constructors share methods, preserve bound stop and resolve with Motion values', {timeout:15000}, async()=>{
+ const results=[]
+ for(const lane of ['original','full']){
+  const page=await browser.newPage()
+  try{
+   await page.goto(origin)
+   results.push(await page.evaluate(async lane=>{
+    const m=await import('/'+lane+'.js')
+    const options=()=>({keyframes:[0,12],duration:300,ease:'linear',autoplay:false})
+    const a=new m.JSAnimation(options()),b=new m.JSAnimation(options())
+    const shared={pause:a.pause===b.pause,play:a.play===b.play,stop:a.stop===b.stop,instance:a instanceof m.JSAnimation}
+    const values=[0,150,300].map(t=>{const state=a.sample(t);return {value:state.value,done:state.done}})
+    const before=a.finished
+    a.complete()
+    const value=await a.finished
+    const promise={stable:before===a.finished,value}
+    const group=new m.GroupAnimation([a,b,null])
+    const stop=group.stop;stop()
+    let emptyTimeThrows=false
+    try{new m.GroupAnimation([]).time}catch(e){emptyTimeThrows=e instanceof TypeError}
+    const fake={currentTime:125,playbackRate:1,playState:'paused',startTime:null,effect:{getComputedTiming:()=>({duration:300})},pause(){},play(){},cancel(){},finish(){this.onfinish()}}
+    const wrapped=new m.NativeAnimationWrapper(fake)
+    const initial=wrapped.finished
+    let settled=false;initial.then(()=>settled=true)
+    await Promise.resolve()
+    const pending=!settled
+    wrapped.complete();const nativeValue=await initial
+    const native={pending,stable:initial===wrapped.finished,value:nativeValue,time:wrapped.time,state:wrapped.state}
+    a.stop();b.stop()
+    return {shared,values,promise,native,emptyTimeThrows}
+   },lane))
+  }finally{await page.close()}
+ }
+ assert.deepEqual(results[1],results[0])
+})
+
+test('mini updates caller keyframes and copies option getters with the same order as Motion', async()=>{
+ const results=[]
+ for(const lane of ['original','full']){
+  const page=await browser.newPage()
+  try{
+   await page.goto(origin)
+   results.push(await page.evaluate(async lane=>{
+    const m=await import('/'+lane+'.js'),el=document.createElement('div')
+    el.style.opacity='.25';el.style.width='10px';document.body.append(el)
+    const trace=[],input={opacity:[null,1],width:[20]}
+    const options={get duration(){trace.push('duration');return .3},get ease(){trace.push('ease');return 'linear'},autoplay:false}
+    const native=el.animate.bind(el),calls=[]
+    el.animate=(keys,options)=>{calls.push({keys:structuredClone(keys),options:structuredClone(options)});return native(keys,options)}
+    const animation=m.animateMini(el,input,options);animation.stop()
+    return {input,trace,calls}
+   },lane))
+  }finally{await page.close()}
+ }
+ assert.deepEqual(results[1],results[0])
 })

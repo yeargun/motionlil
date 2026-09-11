@@ -380,18 +380,17 @@ import {
   distance,
   distance2D
 } from "./dom";
+export constructor AsyncMotionValueAnimation;
+export constructor NativeAnimationWrapper;
+export constructor NativeAnimationExtended;
+export constructor NativeAnimation;
+export constructor GroupAnimationWithThen;
+export constructor GroupAnimation;
 export constructor MotionValue;
 
 export {
-  AsyncMotionValueAnimation,
-  GroupAnimation,
-  GroupAnimationWithThen,
-  JSAnimation,
   JSAnimationOptions,
   SampleResult,
-  NativeAnimation,
-  NativeAnimationExtended,
-  NativeAnimationWrapper,
   AnimationPlaybackControls,
   AnimationPlaybackControlsWithThen,
   AnimationState,
@@ -708,7 +707,6 @@ export {
   cancelSync,
   sync,
   MotionGlobalConfig,
-  SubscriptionManager,
   addUniqueItem,
   anticipate,
   backIn,
@@ -763,3 +761,12 @@ export {
   distance,
   distance2D
 };
+
+export constructor JSAnimation;
+import { animateSequence as animateSequenceMini } from "./framer-motion/animation/animators/waapi/animate-sequence";
+export { animateSequenceMini };
+
+import { createScopedAnimateWithSettings } from "./framer-motion/animation/animate/index";
+export { createScopedAnimateWithSettings as __lilCreateScopedAnimate };
+
+export constructor SubscriptionManager;

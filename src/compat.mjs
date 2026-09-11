@@ -1,5 +1,4 @@
 import * as core from "./.__compiled-index.mjs"
-import { normalizeControls } from "./control-compat.mjs"
 
 const noop = () => {}
 
@@ -10,173 +9,14 @@ export function defaultEasing(values, easing = core.easeInOut) {
   return values.map(() => easing || core.easeInOut).slice(0, -1)
 }
 
-export class SubscriptionManager {
-  constructor() {
-    this.subscriptions = []
-  }
-
-  add(handler) {
-    if (!this.subscriptions.includes(handler)) this.subscriptions.push(handler)
-    return () => {
-      const index = this.subscriptions.indexOf(handler)
-      if (index !== -1) this.subscriptions.splice(index, 1)
-    }
-  }
-
-  notify(a, b, c) {
-    for (const subscription of [...this.subscriptions]) subscription(a, b, c)
-  }
-
-  getSize() {
-    return this.subscriptions.length
-  }
-
-  clear() {
-    this.subscriptions.length = 0
-  }
-}
+export { SubscriptionManager } from "./.__compiled-index.mjs"
 
 export { MotionValue } from "./.__compiled-index.mjs"
 
-export class GroupAnimation {
-  constructor(animations = []) {
-    this.animations = animations.filter(Boolean).map(normalizeControls)
-    this.stop = () => this.runAll("stop")
-  }
+export { GroupAnimation, GroupAnimationWithThen, NativeAnimation, NativeAnimationExtended, NativeAnimationWrapper, AsyncMotionValueAnimation } from "./.__compiled-index.mjs"
 
-  get finished() {
-    return Promise.all(this.animations.map((animation) => animation.finished))
-  }
-
-  getAll(name) {
-    return this.animations[0]?.[name]
-  }
-
-  setAll(name, value) {
-    for (const animation of this.animations) animation[name] = value
-  }
-
-  get time() { return this.getAll("time") ?? 0 }
-  set time(value) { this.setAll("time", value) }
-  get speed() { return this.getAll("speed") ?? 1 }
-  set speed(value) { this.setAll("speed", value) }
-  get state() { return this.getAll("state") ?? "idle" }
-  get startTime() { return this.getAll("startTime") ?? null }
-  get duration() { return this.getMax("duration") }
-  get iterationDuration() { return this.getMax("iterationDuration") }
-
-  getMax(name) {
-    return this.animations.reduce((maximum, animation) => {
-      const value = animation[name]
-      return typeof value === "number" && value > maximum ? value : maximum
-    }, 0)
-  }
-
-  attachTimeline(timeline) {
-    const subscriptions = this.animations.map((animation) => animation.attachTimeline?.(timeline))
-    return () => subscriptions.forEach((cancel, index) => {
-      cancel?.()
-      this.animations[index].stop?.()
-    })
-  }
-
-  runAll(method) {
-    for (const animation of this.animations) animation[method]?.()
-  }
-
-  play() { this.runAll("play") }
-  pause() { this.runAll("pause") }
-  cancel() { this.runAll("cancel") }
-  complete() { this.runAll("complete") }
-}
-
-export class GroupAnimationWithThen extends GroupAnimation {
-  then(resolve, reject) {
-    return this.finished.then(resolve, reject)
-  }
-}
-
-function animationFromOptions(options = {}) {
-  const keyframes = options.keyframes ?? [0, 1]
-  const first = Array.isArray(keyframes) ? keyframes[0] : keyframes
-  return normalizeControls(core.animateSingleValue(first, keyframes, options))
-}
-
-export class JSAnimation {
-  constructor(options) {
-    return animationFromOptions(options)
-  }
-
-  static [Symbol.hasInstance](value) {
-    return Boolean(value && typeof value.play === "function" && typeof value.stop === "function")
-  }
-}
-
-export function animateValue(options) {
-  return new JSAnimation(options)
-}
-
-export class AsyncMotionValueAnimation extends JSAnimation {}
-
-export class NativeAnimationWrapper {
-  constructor(animation) {
-    this.animation = animation
-    this.finishedTime = null
-    this.isStopped = false
-    this.manualStartTime = null
-    this._finished = new Promise((resolve) => { this._resolve = resolve })
-    if (animation) {
-      animation.onfinish = () => {
-        this.finishedTime = this.time
-        this._resolve()
-      }
-    }
-  }
-
-  get finished() { return this._finished }
-  then(resolve, reject) { return this.finished.then(resolve, reject) }
-  play() { if (!this.isStopped) this.animation?.play?.() }
-  pause() { this.animation?.pause?.() }
-  complete() { this.animation?.finish?.() }
-  cancel() { try { this.animation?.cancel?.() } catch {} }
-  stop() { this.isStopped = true; this.cancel() }
-  get duration() { return Number(this.animation?.effect?.getComputedTiming?.().duration || 0) / 1000 }
-  get iterationDuration() { return this.duration }
-  get time() { return Number(this.animation?.currentTime || 0) / 1000 }
-  set time(value) { if (this.animation) this.animation.currentTime = value * 1000 }
-  get speed() { return this.animation?.playbackRate ?? 1 }
-  set speed(value) { if (this.animation) this.animation.playbackRate = value }
-  get state() { return this.finishedTime === null ? this.animation?.playState ?? "idle" : "finished" }
-  get startTime() { return this.manualStartTime ?? Number(this.animation?.startTime ?? 0) }
-  set startTime(value) {
-    this.manualStartTime = value
-    if (this.animation) this.animation.startTime = value
-  }
-  attachTimeline({ timeline, rangeStart, rangeEnd, observe } = {}) {
-    if (timeline && this.animation) {
-      this.animation.timeline = timeline
-      if (rangeStart) this.animation.rangeStart = rangeStart
-      if (rangeEnd) this.animation.rangeEnd = rangeEnd
-      return noop
-    }
-    return observe?.(this) ?? noop
-  }
-}
-
-export class NativeAnimation extends NativeAnimationWrapper {
-  constructor(options) {
-    if (!options) {
-      super(null)
-      return
-    }
-    const { element, name, keyframes, pseudoElement, ...transition } = options
-    const animation = core.startWaapiAnimation(element, name, keyframes, transition, pseudoElement)
-    super(animation)
-    this.options = options
-  }
-}
-
-export class NativeAnimationExtended extends NativeAnimation {}
+export { JSAnimation } from "./.__compiled-index.mjs"
+export function animateValue(options) { return new core.JSAnimation(options) }
 
 const resolverQueue = new Set()
 
@@ -382,10 +222,4 @@ export class LayoutAnimationBuilder {
   }
 }
 
-export function animate(...args) {
-  return normalizeControls(core.animate(...args))
-}
-
-export function animateMini(...args) {
-  return normalizeControls(core.animateMini(...args))
-}
+export { animate, animateMini } from "./.__compiled-index.mjs"

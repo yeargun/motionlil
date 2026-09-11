@@ -1,65 +1,41 @@
-import { taskFromCallback } from "../../dom-host";
+import { installControlProperties, finishedTask, thenFinished } from "./control-abi";
 
 export class WithPromise {
-  Task<bool>? finishedTask;
+  Task<JsValue>? finishedTask;
   (func()->void)? resolveFn;
-  bool resolved;
-  (func()->Task<bool>)? finishedHook;
+  (func()->Task<JsValue>)? finishedHook;
 
   init() {
     this.finishedTask = null;
     this.resolveFn = null;
-    this.resolved = false;
     this.finishedHook = null;
+    this.updateFinished();
+    installControlProperties(this);
   }
 
-  Task<bool> finished() {
-    (func()->Task<bool>)? hook = this.finishedHook;
+  Task<JsValue> getFinished() {
+    (func()->Task<JsValue>)? hook = this.finishedHook;
     if (hook != null) { return hook(); }
     return this.baseFinished();
   }
 
-  Task<bool> baseFinished() {
-    if (this.resolved) {
-      return Task.resolve(true);
-    }
-    Task<bool>? task = this.finishedTask;
-    if (task == null) {
-      this.createFinishedTask();
-      task = this.finishedTask;
-    }
-    if (task != null) {
-      return task;
-    }
-    return Task.resolve(this.resolved);
+  Task<JsValue> baseFinished() {
+    Task<JsValue>? task = this.finishedTask;
+    if (task != null) { return task; }
+    return Task.resolve(null);
   }
 
   void updateFinished() {
-    this.finishedTask = null;
-    this.resolveFn = null;
-    this.resolved = false;
-  }
-
-  void createFinishedTask() {
     WithPromise self = this;
-    this.finishedTask = taskFromCallback((func()->void resolve) => {
-      self.resolveFn = resolve;
-    });
+    this.finishedTask = finishedTask((func()->void resolve) => { self.resolveFn = resolve; });
   }
 
   void notifyFinished() {
-    this.resolved = true;
     (func()->void)? resolve = this.resolveFn;
-    if (resolve != null) {
-      resolve();
-      this.resolveFn = null;
-    }
+    if (resolve != null) { resolve(); }
   }
 
-  Task<bool> then(func()->void onResolve, (func()->void)? onReject = null) {
-    return this.finished().then((bool _v) => {
-      onResolve();
-      return true;
-    });
+  Task<JsValue> then(JsValue onResolve, JsValue? onReject = null) {
+    return thenFinished(this.getFinished(), onResolve, onReject);
   }
 }

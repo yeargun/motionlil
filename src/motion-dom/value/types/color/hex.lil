@@ -1,5 +1,5 @@
 import { RGBA } from "../types";
-import { ValueType } from "../types";
+import { ValueType, valueTypeRecord } from "../types";
 import { rgba } from "./rgba";
 import { isColorString } from "./utils";
 import { stringSubstring } from "../../../string-host";
@@ -33,13 +33,9 @@ RGBA parseHex(string v) {
   return new RGBA(parseInt(r, 16), parseInt(g, 16), parseInt(b, 16), alpha);
 }
 
-export ValueType hex = new ValueType(
-  isColorString("#"),
-  (JsValue v) => {
+export ValueType hex = valueTypeRecord(object{test: isColorString("#"), parse: (JsValue v) => {
     if (v is string) {
       return parseHex(v);
     }
     return new RGBA();
-  },
-  rgba.transform
-);
+  }, transform: rgba.transform});

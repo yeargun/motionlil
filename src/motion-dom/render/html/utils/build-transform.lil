@@ -1,3 +1,4 @@
+import { optionalValueType } from "../../../value/types/types";
 import { getAsType } from "../../../value/types/utils/get-as-type";
 import { numberValueTypes } from "../../../value/types/maps/number";
 import { transformPropOrder } from "../../utils/keys-transform";
@@ -51,7 +52,7 @@ export string buildTransform(
       }
     }
     if (!valueIsDefault || transformTemplate != null) {
-      JsValue valueAsType = getAsType(value, numberValueTypes.get(key));
+      JsValue valueAsType = getAsType(value, optionalValueType(numberValueTypes[key]));
       if (!valueIsDefault) {
         transformIsDefault = false;
         string transformName = key;
@@ -71,7 +72,7 @@ export string buildTransform(
     transformIsDefault = false;
     transformString =
       transformString +
-      `rotate(${getAsType(pathRotation, numberValueTypes.get("pathRotation"))}) `;
+      `rotate(${getAsType(pathRotation, optionalValueType(numberValueTypes["pathRotation"]))}) `;
   }
   transformString = stringTrim(transformString);
   if (transformTemplate != null && isFunction(transformTemplate)) {

@@ -3,7 +3,7 @@ import { FrameData } from "../frameloop/types";
 import { MotionValue } from "../value/index";
 import { numberValueTypes } from "../value/types/maps/number";
 import { getAsType } from "../value/types/utils/get-as-type";
-import { ValueType } from "../value/types/types";
+import { ValueType, optionalValueType } from "../value/types/types";
 
 class StoredValue {
   MotionValue value;
@@ -50,7 +50,7 @@ export class MotionValueState {
     ) => {
       JsValue v = value.get();
       if (useDefaultValueType) {
-        ValueType? valueType = numberValueTypes.get(name);
+        ValueType? valueType = optionalValueType(numberValueTypes[name]);
         self.latest[name] = getAsType(v, valueType);
       } else {
         self.latest[name] = v;

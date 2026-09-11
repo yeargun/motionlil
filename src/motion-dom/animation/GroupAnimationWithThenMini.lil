@@ -6,24 +6,24 @@ export class GroupAnimationWithThen extends GroupAnimation {
   init(NativeAnimation[] input) {
     super(input);
     GroupAnimationWithThen self = this;
-    setProp(this, "getFinished", () => { return self.finished(); });
+    setProp(this, "getFinished", () => { return self.getFinished(); });
   }
 
-  Task<bool> finished() {
-    Task<bool>[] tasks = [];
+  Task<JsValue> getFinished() {
+    Task<JsValue>[] tasks = [];
     for (int i = 0; i < this.animations.length; i++) {
-      tasks.push(this.animations[i].finished());
+      tasks.push(this.animations[i].getFinished());
     }
     if (tasks.length == 0) {
       return Task.resolve(true);
     }
-    return Task.all(tasks).then((bool[] _values) => {
+    return Task.all(tasks).then((JsValue[] _values) => {
       return true;
     });
   }
 
-  Task<bool> then(func()->void onResolve, (func()->void)? onReject = null) {
-    return this.finished().then((bool _v) => {
+  Task<JsValue> then(func()->void onResolve, (func()->void)? onReject = null) {
+    return this.getFinished().then((JsValue _v) => {
       onResolve();
       return true;
     });

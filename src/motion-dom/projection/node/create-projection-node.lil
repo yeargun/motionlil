@@ -2299,7 +2299,7 @@ export void cleanDirtyNodes(ProjectionNode node) {
   node.isTransformDirty = false;
 }
 
-export func(JsValue)->ProjectionNode createProjectionNode(JsValue config) {
+export pure func(JsValue)->ProjectionNode createProjectionNode(JsValue config) {
   return (JsValue options) => {
     return new ProjectionNode(options, config);
   };

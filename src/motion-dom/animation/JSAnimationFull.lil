@@ -1,3 +1,4 @@
+import { animationOptionsOf } from "./utils/typed-options";
 import { clamp } from "../../motion-utils/clamp";
 import { millisecondsToSeconds, secondsToMilliseconds } from "../../motion-utils/time-conversion";
 import { time } from "../frameloop/sync-time";
@@ -77,7 +78,8 @@ export class SampleResult {
 }
 
 export class JSAnimation extends WithPromise {
-  JSAnimationOptions options;
+  JsValue options;
+  float initialVelocity;
   JsValue[] resolvedKeyframes;
   (func(float)->JsValue)? mixKeyframes;
   AnimationTiming timing;
@@ -95,17 +97,13 @@ export class JSAnimation extends WithPromise {
   DriverControls? driver;
   AnimationState delayState;
 
-  init(JSAnimationOptions options) {
+  init(JsValue options) {
     super();
     this.options = options;
     this.resolvedKeyframes = [];
     this.mixKeyframes = null;
-    this.timing = new AnimationTiming(options.extra);
-    JsValue boundaryOptions = options.extra;
-    if (options.onUpdate == null && boundaryOptions.truthy()) {
-      JsValue callback = boundaryOptions["onUpdate"];
-      options.onUpdate = readNumberUpdate(callback);
-    }
+    this.timing = new AnimationTiming(options);
+    this.initialVelocity = animationOptionsOf(options).velocity ?? 0.0;
     this.stopped = false;
     this.state = "idle";
     this.startTime = null;
@@ -121,72 +119,23 @@ export class JSAnimation extends WithPromise {
     this.delayState = new AnimationState(0.0);
     this.initAnimation();
     this.play();
-    JsValue extra = options.extra;
-    if (extra.truthy()) {
-      JsValue autoplay = extra["autoplay"];
-      if (autoplay is bool) {
-        bool autoplayFlag = autoplay;
-        if (autoplayFlag == false) {
-          this.pause();
-        }
-      }
-    }
+    if (animationOptionsOf(options).autoplay == false) { this.pause(); }
     JSAnimation self = this;
-    setProp(this, "attachTimeline", (JsValue timeline) => {
-      return self.attachTimeline(timeline);
-    });
-    setProp(this, "pause", () => {
-      self.pause();
-    });
-    setProp(this, "play", () => {
-      self.play();
-    });
-    setProp(this, "stop", () => {
-      self.stop();
-    });
-    setProp(this, "getPlaybackTime", () => {
-      return self.getPlaybackTime();
-    });
-    setProp(this, "setPlaybackTime", (JsValue value) => {
-      if (value is float) {
-        self.setPlaybackTime(value);
-      }
-    });
-    setProp(this, "getFinished", () => { return self.finished(); });
-    setProp(this, "getState", () => { return self.state; });
-    setProp(this, "getStartTime", () => { return self.startTime; });
-    setProp(this, "getIterationDuration", () => { return self.getDuration() + millisecondsToSeconds(self.timing.delay); });
-    setProp(this, "getDuration", () => {
-      return self.getDuration();
-    });
-    setProp(this, "getPlaybackSpeed", () => { return self.getPlaybackSpeed(); });
-    setProp(this, "setPlaybackSpeed", (JsValue value) => { if (value is float) { self.setPlaybackSpeed(value); } });
-    setProp(this, "cancel", () => { self.cancel(); });
-    setProp(this, "complete", () => { self.complete(); });
-    self.refreshIterationDuration();
+    setProp(this, "stop", () => { self.stopAnimation(); });
   }
 
-  void refreshIterationDuration() {
-    float delaySec = 0.0;
-    JsValue extraOpts = this.options.extra;
-    if (extraOpts.truthy() && extraOpts.isObject()) {
-      JsValue delay = extraOpts["delay"];
-      if (delay is float) {
-        delaySec = millisecondsToSeconds(delay);
-      }
-    }
-    setProp(this, "iterationDuration", this.getDuration() + delaySec);
-  }
+  string getState() { return this.state; }
+  float? getStartTime() { return this.startTime; }
+  float getIterationDuration() { return this.getDuration() + millisecondsToSeconds(this.timing.delay); }
 
   SpringGenerator buildGenerator(JsValue[] keys, bool mirrored = false) {
-    JsValue extra = this.options.extra;
-    if (extra == null) { extra = record{}; this.options.extra = extra; }
+    JsValue extra = this.options;
+    if (extra == null) { extra = record{}; this.options = extra; }
     JsValue type = extra["type"];
-    if (type == null) { type = this.options.type; }
     JsValue generatorOptions = record{};
     for (string key in extra) { generatorOptions[key] = extra[key]; }
     generatorOptions["keyframes"] = keys;
-    if (mirrored) { generatorOptions["velocity"] = -this.options.velocity; }
+    if (mirrored) { generatorOptions["velocity"] = -this.initialVelocity; }
     if ((type is string && type == "spring") || type == springFactory) {
       return numericValueGenerator(spring(generatorOptions));
     }
@@ -244,20 +193,11 @@ export class JSAnimation extends WithPromise {
   }
 
   void initAnimation() {
-    JsValue[] keys = [];
-    JsValue extra = this.options.extra;
-    if (extra == null) { extra = record{}; this.options.extra = extra; }
-    JsValue suppliedKeys = extra["keyframes"];
-    if (suppliedKeys.isArray()) {
-      for (int i = 0; i < suppliedKeys.length.toInt(); i++) { keys.push(suppliedKeys[i]); }
-    } else {
-      for (int i = 0; i < this.options.keyframes.length; i++) { keys.push(this.options.keyframes[i]); }
-    }
-    if (keys.length == 0) { keys.push(0.0); }
+    JsValue extra = this.options;
+    JsValue[] keys = animationOptionsOf(extra).keyframes;
     this.resolvedKeyframes = keys;
     this.mixKeyframes = null;
     JsValue type = extra["type"];
-    if (type == null) { type = this.options.type; }
     bool isPhysics = (type is string && (type == "spring" || type == "inertia" || type == "decay")) || (isFunction(type) && type != keyframesFactory);
     if (isPhysics && !(keys[0] is float)) {
       auto mixerFactory = getMixer(keys[0]);
@@ -379,18 +319,13 @@ export class JSAnimation extends WithPromise {
       done = this.currentTime >= this.totalDuration; if (this.playbackSpeed < 0.0) { done = this.currentTime <= 0.0; }
     }
     bool finished = this.holdTime == null && (forcedComplete || (this.state == "running" && done));
-    JsValue extra = this.options.extra;
+    JsValue extra = this.options;
     JsValue type = extra["type"];
     if (finished && type != inertiaFactory && !(type is string && (type == "inertia" || type == "decay"))) {
       result.value = getFinalKeyframe(this.resolvedKeyframes, extra, extra["finalKeyframe"], this.playbackSpeed);
     }
-    JsValue onUpdate = extra["onUpdate"];
-    if (isFunction(onUpdate)) { callFn1(onUpdate, result.value); }
-    else {
-      (func(float)->void)? numericUpdate = this.options.onUpdate;
-      JsValue value = result.value;
-      if (numericUpdate != null && value is float) { numericUpdate(value); }
-    }
+    (func(JsValue)->void)? onUpdate = animationOptionsOf(extra).onUpdate;
+    if (onUpdate != null) { onUpdate(result.value); }
     if (finished) { this.finish(); }
     return result;
   }
@@ -401,7 +336,7 @@ export class JSAnimation extends WithPromise {
     if (this.driver == null) {
       this.driver = frameloopDriver((float timestamp) => { self.tick(timestamp); });
     }
-    JsValue extra = this.options.extra;
+    JsValue extra = this.options;
     JsValue onPlay = extra["onPlay"];
     if (isFunction(onPlay)) { callFn0(onPlay); }
     DriverControls? driver = this.driver;
@@ -433,8 +368,10 @@ export class JSAnimation extends WithPromise {
     this.holdTime = this.currentTime;
   }
 
-  void stop() {
-    JsValue stopOptions = this.options.extra;
+  void stop() { this.stopAnimation(); }
+
+  void stopAnimation() {
+    JsValue stopOptions = this.options;
     JsValue motionValue = stopOptions["motionValue"];
     if (motionValue.truthy() && motionValueOf(motionValue).updatedAt != time.now()) { this.tick(time.now()); }
     if (this.state == "idle") {
@@ -443,7 +380,7 @@ export class JSAnimation extends WithPromise {
     }
     this.stopped = true;
     this.teardown();
-    JsValue extra = this.options.extra;
+    JsValue extra = this.options;
     if (extra.truthy()) {
       JsValue os = extra["onStop"];
       if (isFunction(os)) {
@@ -464,7 +401,7 @@ export class JSAnimation extends WithPromise {
     this.notifyFinished();
     this.teardown();
     this.state = "finished";
-    JsValue extra = this.options.extra;
+    JsValue extra = this.options;
     if (extra.truthy()) {
       JsValue oc = extra["onComplete"];
       if (isFunction(oc)) {
@@ -478,7 +415,7 @@ export class JSAnimation extends WithPromise {
     this.startTime = 0.0;
     this.tick(0.0);
     this.teardown();
-    JsValue extra = this.options.extra;
+    JsValue extra = this.options;
     if (extra.truthy()) {
       JsValue oc = extra["onCancel"];
       if (isFunction(oc)) {
@@ -550,7 +487,7 @@ export class JSAnimation extends WithPromise {
   }
 
   float getGeneratorVelocity() {
-    if (this.currentTime <= 0.0) { return this.options.velocity; }
+    if (this.currentTime <= 0.0) { return this.initialVelocity; }
     SpringGenerator? gen = this.springGen;
     if (gen != null) {
       (func(float)->float)? velocity = gen.velocity;
@@ -564,11 +501,11 @@ export class JSAnimation extends WithPromise {
         }, this.currentTime, current);
       }
     }
-    return this.options.velocity;
+    return this.initialVelocity;
   }
 
   func()->void attachTimeline(JsValue timeline) {
-    JsValue extra = this.options.extra;
+    JsValue extra = this.options;
     if (extra.truthy()) {
       JsValue allowFlatten = extra["allowFlatten"];
       if (allowFlatten is bool) {
@@ -576,14 +513,12 @@ export class JSAnimation extends WithPromise {
         if (flatten) {
           extra["type"] = "keyframes";
           extra["ease"] = "linear";
-          this.options.extra = extra;
+          this.options = extra;
           this.initAnimation();
-          this.refreshIterationDuration();
         }
       }
     }
     this.stopDriver();
-    this.refreshIterationDuration();
     if (timeline.isObject()) {
       JsValue observe = timeline["observe"];
       if (isFunction(observe)) {
@@ -607,3 +542,5 @@ export class JSAnimation extends WithPromise {
   }
 
 }
+
+export constructor JSAnimation as JSAnimationConstructor;

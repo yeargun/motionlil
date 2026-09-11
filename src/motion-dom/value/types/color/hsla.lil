@@ -1,15 +1,12 @@
 import { alpha as alphaType } from "../numbers/index";
 import { percent } from "../numbers/units";
 import { HSLA } from "../types";
-import { ValueType } from "../types";
+import { ValueType, valueTypeRecord } from "../types";
 import { sanitize } from "../utils/sanitize";
 import { isHslaShape, hslaFromJs } from "./shape";
 import { isColorString, splitColorHSLA } from "./utils";
 
-export ValueType hsla = new ValueType(
-  isColorString("hsl", "hue"),
-  (JsValue v) => splitColorHSLA("hue", "saturation", "lightness")(v),
-  (JsValue v) => {
+export ValueType hsla = valueTypeRecord(object{test: isColorString("hsl", "hue"), parse: (JsValue v) => splitColorHSLA("hue", "saturation", "lightness")(v), transform: (JsValue v) => {
     HSLA color = new HSLA();
     if (isHslaShape(v)) {
       color = hslaFromJs(v);
@@ -32,5 +29,4 @@ export ValueType hsla = new ValueType(
       }
     }
     return "hsla(" + `${color.hue.round()}` + ", " + sat + ", " + light + ", " + `${sanitize(aNum)}` + ")";
-  }
-);
+  }});

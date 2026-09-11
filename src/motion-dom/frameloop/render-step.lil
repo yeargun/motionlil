@@ -1,6 +1,6 @@
 import { FrameData, Step } from "./types";
 import extern { weakSetCreate, weakSetAdd, weakSetHas, weakSetDelete, setForEach } from "../weak-host.ts";
-extern JsValue weakSetCreate();
+pure extern JsValue weakSetCreate();
 extern void weakSetAdd(JsValue set, JsValue value);
 extern bool weakSetHas(JsValue set, JsValue value);
 extern void weakSetDelete(JsValue set, JsValue value);
@@ -26,7 +26,7 @@ class StepState {
   }
 }
 
-export Step createRenderStep(func()->void runNextFrame) {
+export pure Step createRenderStep(func()->void runNextFrame) {
   StepState state = new StepState();
 
   func(func(FrameData)->void)->void triggerCallback = (func(FrameData)->void callback) => {

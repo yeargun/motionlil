@@ -965,7 +965,7 @@ export Task<JsValue> startViewAnimation(JsValue builder) {
         callFn0(update);
       }
       resolve();
-    }).then((bool _v) => new GroupAnimation([]));
+    }).then((JsValue _v) => new GroupAnimation([]));
   }
 
   ViewRuntime rt = new ViewRuntime(builder, defaultOptions, update);
@@ -1016,7 +1016,7 @@ export Task<JsValue> startViewAnimation(JsValue builder) {
       resultBox["animation"] = new GroupAnimation([]);
       resolve();
     }
-  }).then((bool _v) => {
+  }).then((JsValue _v) => {
     JsValue anim = resultBox["animation"];
     if (anim.truthy()) {
       return anim;

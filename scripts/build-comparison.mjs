@@ -7,7 +7,7 @@ import {fileURLToPath} from 'node:url';
 
 export const hash = value => createHash('sha256').update(value).digest('hex');
 export function sourceFingerprint(root) {
-  const files=execFileSync('git',['ls-files','-z','--','src','config','lilscript*.toml','package.json','package-lock.json','scripts/build.mjs','tooling','packages'],{cwd:root}).toString().split('\0').filter(Boolean).sort();
+  const files=execFileSync('git',['ls-files','-z','--','src','config','lilscript*.toml','package.json','package-lock.json','scripts/build.mjs','scripts/shared-graph.mjs','tooling','packages'],{cwd:root}).toString().split('\0').filter(Boolean).sort();
   return hash(files.map(path=>`${path}\0${existsSync(join(root,path))?hash(readFileSync(join(root,path))):'MISSING'}\n`).join(''));
 }
 export function verifyComparison(root, receipt) {

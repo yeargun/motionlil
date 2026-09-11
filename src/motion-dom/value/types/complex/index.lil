@@ -2,7 +2,7 @@ import { color } from "../color/index";
 import { colorRegex } from "../utils/color-regex";
 import { floatRegex } from "../utils/float-regex";
 import { sanitize } from "../utils/sanitize";
-import { ValueType } from "../types";
+import { ValueType, valueTypeRecord } from "../types";
 import {
   isNaNNumber,
   stringMatch,
@@ -201,13 +201,6 @@ bool complexTest(JsValue v) {
   return false;
 }
 
-export ValueType complex = new ValueType(
-  complexTest,
-  parseComplexValue,
-  null,
-  createTransformer,
-  null,
-  getAnimatableNone
-);
+export ValueType complex = valueTypeRecord(object{test: complexTest, parse: parseComplexValue, createTransformer: createTransformer, getAnimatableNone: getAnimatableNone});
 
 export { createTransformer as createComplexTransformer };

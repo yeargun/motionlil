@@ -1,13 +1,9 @@
 import { numberType } from "./numbers/index";
-import { ValueType } from "./types";
+import { ValueType, valueTypeRecord } from "./types";
 
-export ValueType intType = new ValueType(
-  numberType.test,
-  numberType.parse,
-  (JsValue v) => {
+export ValueType intType = valueTypeRecord(object{test: numberType.test, parse: numberType.parse, transform: (JsValue v) => {
     if (v is float) {
       return v.round();
     }
     return 0.0;
-  }
-);
+  }});
