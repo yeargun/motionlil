@@ -18,11 +18,20 @@ export async function splitSharedGraph(file, directory) {
   const nodes=[], owner=new Map(), foreign=new Map(), exports=[]
   const topDef = symbol => symbol?.definition?.()?.scope === ast ? symbol.definition() : null
   function add(node, code, declarations=[]) {
+    declarations = [...declarations]
+    node.walk(new TreeWalker(function(symbol) {
+      if (!['SymbolVar','SymbolLet','SymbolConst','SymbolDefun','SymbolClass'].includes(symbol.TYPE)) return
+      const definition = topDef(symbol)
+      if (definition && !declarations.includes(definition)) declarations.push(definition)
+    }))
     const id=nodes.length
     nodes.push({node, code, declarations, dependencies:new Set(), reads:new Set(), writes:new Set(), initializes:new Set()})
     for(const definition of declarations) {
-      if(owner.has(definition)) throw new Error(`Multiple declarations for ${definition.name}`)
-      owner.set(definition,id)
+      if(owner.has(definition)) {
+        const previous = owner.get(definition)
+        nodes[previous].dependencies.add(id)
+        nodes[id].dependencies.add(previous)
+      } else owner.set(definition,id)
     }
   }
   for(const statement of ast.body) {
@@ -213,11 +222,14 @@ export async function splitSharedGraph(file, directory) {
   await mkdir(directory,{recursive:true})
   await writeFile(join(directory, 'package.json'), JSON.stringify({sideEffects:['./effect-*.mjs']}))
   for(let id=0;id<components.length;id++) {
-    const imports=new Map(), bindings=new Set(), declarations=[]
+    const imports=new Map(), bindings=new Set(), declarations=new Set(), hoisted=new Set()
     const addImport=(from,name)=>{if(!imports.has(from))imports.set(from,new Set());imports.get(from).add(name)}
     for(const member of components[id]) {
       const item=nodes[member]
-      for(const definition of item.declarations)declarations.push(definition.name)
+      for(const definition of item.declarations) {
+        declarations.add(definition.name)
+        if (!['VarDef','Defun','DefClass'].includes(item.node.TYPE)) hoisted.add(definition.name)
+      }
       for(const definition of item.reads) {
         if(foreign.has(definition)) {
           const external=foreign.get(definition)
@@ -236,13 +248,17 @@ export async function splitSharedGraph(file, directory) {
     // SCC imports already initialize all dependencies. Normally every edge has
     // a binding; retain an explicit dependency for any statement-only edge.
     for(const from of [...bindings].sort())if(!imports.has(from))lines.push(`import ${JSON.stringify(from)};`)
+    // Expose hoisted var bindings to downstream module tree shakers even when
+    // their original declaration was nested in a conditional initializer.
+    if (hoisted.size) lines.push(`var ${[...hoisted].join(',')};`)
     for(const member of components[id])lines.push(nodes[member].code)
-    if(declarations.length)lines.push(`export {${declarations.join(',')}};`)
+    if(declarations.size)lines.push(`export {${[...declarations].join(',')}};`)
     await writeFile(join(directory,path(id)),lines.join('\n')+'\n')
   }
   const lines=[]
   for(const exported of exports) {
     const external=foreign.get(exported.definition)
+    if (!external && !owner.has(exported.definition)) throw new Error(`Unresolved graph export ${exported.name} (${exported.definition?.name})`)
     const from=external ? importedPath(external.path) : './'+path(componentOf.get(owner.get(exported.definition)))
     const local=external ? external.imported : exported.definition?.name
     if(!local || from.includes('undefined'))throw new Error(`Unresolved graph export ${exported.name}`)

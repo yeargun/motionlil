@@ -55,3 +55,8 @@ test('shared graph retains unclassified effects and prunes unrelated definitions
     delete globalThis.__motionGraphProbe
   } finally {await rm(directory,{recursive:true,force:true})}
 })
+
+test('shared graph retains module var bindings declared inside control flow', async () => {
+  await compare(`if (true) {var value = 7} else {var value = 3};
+    function read(){return value}; export {read,value};`, api => [api.read(),api.value])
+})
