@@ -1,0 +1,5 @@
+let Mf = () => {
+};
+export {
+  Mf
+};

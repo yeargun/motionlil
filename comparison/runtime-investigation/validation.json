@@ -1,23 +1,22 @@
 {
   "compiler": {
-    "commit": "e5f7f254470ae4af178f3625b8b3dfd8fe501ad7",
+    "commit": "10f5734a70a49e550d2c7577549d5595de743e2f",
+    "sha256": "ea725196ae4fbb63736dc784db12b40717d8a38ed00028045c13767e396cc953",
     "tests": {
-      "passed": 1626,
+      "passed": 1635,
       "failed": 0
     },
-    "patch": "https://github.com/yeargun/lilscript/pull/2",
-    "workspaceRegressionPassed": true,
-    "sha256": "14f7c2d1e631126a862cc59b6008cf1cb968198f0c07c4512c406805f13a0125",
+    "patch": "https://github.com/yeargun/lilscript/pull/3",
     "ci": {
-      "url": "https://github.com/yeargun/lilscript/actions/runs/34573802145",
-      "libraryTests": "1626 pass",
+      "url": "https://github.com/yeargun/lilscript/actions/runs/34596906863",
       "overall": "failed",
-      "cause": "Existing formatting violations and unchanged interpreter-based differential-generator test: 14 output lines, expected 11."
+      "baseline": "Earlier compiler workflow passed all library tests, then failed existing repository formatting and differential-generator output-count checks.",
+      "cause": "Existing repository formatting violations and differential-generator output-count assertion."
     }
   },
-  "sourceCommit": "894693ba6474b0d6c3881c7b93414e1cfaf28401",
+  "sourceCommit": "8498c200bbb892286258b775f04d3b682435c65a",
   "browser": {
-    "passed": 37,
+    "passed": 39,
     "failed": 0,
     "reference": {
       "sourceCommit": "adaf7a4e5368d704ea350669f6ac674fb26ff270",
@@ -31,7 +30,7 @@
     ]
   },
   "nodeTests": {
-    "passed": 11,
+    "passed": 21,
     "failed": 0
   },
   "types": "passed",
@@ -40,16 +39,16 @@
     "site/styles.css": "5c26251782a3743b07b8be9106efe815bd602cba17a9c980ad49042530aab903",
     "site/demo.css": "ae1e775bb48c901fe31a2975df1e257790396c18bacffaba74945b97c367fd6f"
   },
-  "coverage": "Differential checks cover the documented animation scenarios. Extended constructor/layout adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
+  "coverage": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
   "measuredDistribution": {
-    "file": "dist/full.js",
-    "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
+    "file": "dist/full.bundle.js",
+    "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574"
   },
   "sourceBuildChecks": {
     "machine": "Azure Standard_D16als_v7",
     "node": "v24.11.1",
-    "browserTests": 37,
-    "nodeTests": 11,
+    "browserTests": 39,
+    "nodeTests": 21,
     "failed": 0,
     "log": "../source-build/lilscript-tests.log"
   },
@@ -58,8 +57,8 @@
     "fullExports": 326,
     "defaultExports": 52,
     "fullMissingOriginalNames": [],
-    "comparisonEntry": "dist/full.js",
-    "behavior": "Selected animation scenarios are checked; extended constructor/layout adapters remain incomplete."
+    "comparisonEntry": "dist/full.bundle.js",
+    "behavior": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity."
   },
   "performance": {
     "repetitions": 30,
@@ -73,7 +72,7 @@
     "inputs": {
       "lilscript": {
         "file": "inputs/lilscript.js",
-        "sha256": "b4a3328d68d3514804647a58248fa800522ebb767cc212fdda130b4c19c280a2"
+        "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574"
       },
       "original": {
         "file": "inputs/original.js",
@@ -85,7 +84,7 @@
   "packageChecks": {
     "command": "npm run check",
     "passed": true,
-    "nodeTests": 11,
+    "nodeTests": 21,
     "siteTests": 7,
     "declarations": "passed",
     "pack": "passed"

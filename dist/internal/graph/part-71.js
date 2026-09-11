@@ -1,0 +1,11 @@
+import "./effect-580.js";
+import "./effect-614.js";
+import "./effect-617.js";
+let Tb = (vk) => {
+  if (null == vk) return false;
+  if ("string" == typeof vk) return vk.startsWith("--");
+  return false;
+};
+export {
+  Tb
+};

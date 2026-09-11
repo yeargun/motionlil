@@ -1,0 +1,4 @@
+let lk = "";
+export {
+  lk
+};

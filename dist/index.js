@@ -1,6 +1,1 @@
-export { createScopedAnimate, stagger, delay, delayInSeconds, spring, inertia, keyframes, motionValue, mapValue, transformValue, springValue, followValue, mix, interpolate, transform, clamp, wrap, progress, distance, distance2D, frame, cancelFrame, easeIn, easeOut, easeInOut, cubicBezier, backIn, backOut, backInOut, circIn, circOut, circInOut, anticipate, steps, numberType, getAsType, isMotionValue, animate, MotionValue, SubscriptionManager, GroupAnimation, GroupAnimationWithThen, number, getValueAsType, defaultEasing } from "./animate.js"
-export { animateMini } from "./animate-mini.js"
-export { scroll, scrollInfo } from "./scroll.js"
-export { hover, press } from "./gestures.js"
-export { inView } from "./viewport.js"
-export { resize } from "./resize.js"
+export * from "./internal/entry-index.js";

@@ -1,0 +1,80 @@
+{
+  "compiler": {
+    "commit": "10f5734a70a49e550d2c7577549d5595de743e2f",
+    "sha256": "ea725196ae4fbb63736dc784db12b40717d8a38ed00028045c13767e396cc953"
+  },
+  "sourceCommit": "8498c200bbb892286258b775f04d3b682435c65a",
+  "typeContract": "Ordinary annotations are compile-time information. Explicit source type tests/conversions retain their observable runtime semantics. JS.assume assertions erase. Existing int arithmetic semantics are unchanged.",
+  "compilerFixes": [
+    "Native public classes retain helpers required by their prototype methods.",
+    "Initializer calls named of do not terminate declaration parsing.",
+    "Pure export annotations preserve binding identity and argument effects.",
+    "Opaque template uses keep their callback and captured bindings live in token and tree optimizers."
+  ],
+  "portFixes": [
+    "One shared ESM graph preserves constructors, frame queues and caches across entry points.",
+    "Native controls use shared prototype methods and original stop binding behavior.",
+    "Typed options, numeric state and callbacks remove redundant source guards and adapters.",
+    "Completion promises, keyframe array identity, undefined/null handling and option getter semantics follow Motion.",
+    "Pure factory metadata supports removal of unused initialization."
+  ],
+  "full": {
+    "raw": 182803,
+    "gzip9": 60557,
+    "brotli11": 52367,
+    "sha256": "1d976c7cf725a48fdd49598917f79548985c06df1632c526b6a65f4417a69574",
+    "file": "./esm-comparison/lilscript.js"
+  },
+  "original": {
+    "raw": 137560,
+    "gzip9": 45031,
+    "brotli11": 40141,
+    "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d",
+    "file": "./esm-comparison/original.js"
+  },
+  "default": {
+    "path": "dist/index.bundle.js",
+    "raw": 122369,
+    "gzip9": 40388,
+    "brotli11": 35263,
+    "sha256": "7dbb137b35fb81515ceea80cfa40e7f6ac323757c8ac1daed5a63a2362730d58"
+  },
+  "tests": {
+    "browser": 39,
+    "node": 21,
+    "compilerLibrary": 1635
+  },
+  "coverage": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
+  "measuredJavaScriptOptimizationLevel": 0,
+  "higherOptimization": {
+    "level": 13,
+    "browserChecks": {
+      "pass": 39,
+      "fail": 0
+    },
+    "packageChecks": {
+      "pass": 20,
+      "fail": 1
+    },
+    "miniConsumerRawBytes": 24306,
+    "sizeGateRawBytes": 20000,
+    "published": false,
+    "reason": "The full entry passes behavior checks, but merged initialization retains too much code in narrow consumer bundles.",
+    "artifacts": [
+      {
+        "file": "full.bundle.js",
+        "raw": 178722,
+        "gzip9": 59734,
+        "brotli11": 51777,
+        "sha256": "425797ae1603200d9276af8294b7b42915e093832817c6dd6b5df1d5ff00a63c"
+      },
+      {
+        "file": "index.bundle.js",
+        "raw": 121083,
+        "gzip9": 40234,
+        "brotli11": 35419,
+        "sha256": "56ee295d78241d3b904ab9c512d878d24152fd94d17a2f51134bb04bc6042348"
+      }
+    ]
+  }
+}
