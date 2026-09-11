@@ -54,7 +54,7 @@
   },
   "apiCoverage": {
     "originalExports": 312,
-    "fullExports": 326,
+    "fullExports": 327,
     "defaultExports": 52,
     "fullMissingOriginalNames": [],
     "comparisonEntry": "dist/full.bundle.js",

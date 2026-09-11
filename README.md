@@ -43,7 +43,7 @@ console.log(easing.next(16))
 
 `motionlil` is built for Vite, Astro, and other ESM bundlers. The default entry is a tree-shakeable JS barrel over a single compiled graph shared by its feature entries (`animate`, `animateMini`, `scroll`, gestures, `inView`, `resize`). `import { animateMini } from "motionlil"` loads only the WAAPI mini runtime. Unused projection / view-transition / visual-element internals are not part of the module graph.
 
-The full entry exposes all 312 original export names (326 names including port-specific exports). Low-level layout/rendering adapters remain incomplete. The 39 browser checks cover selected animation APIs and scenarios; export-name coverage does not establish complete behavior parity.
+The full entry exposes all 312 original export names (327 names including port-specific exports). Low-level layout/rendering adapters remain incomplete. The 39 browser checks cover selected animation APIs and scenarios; export-name coverage does not establish complete behavior parity.
 
 React-specific entry points such as `motion/react` are intentionally not included. Use the normal `motion` package if you need Motion’s React components and hooks.
 

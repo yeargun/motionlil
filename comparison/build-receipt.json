@@ -7403,7 +7403,7 @@
   "comparisonArtifacts": [
     {
       "path": "site/comparison.json",
-      "sha256": "4541593bb7506e39ebc5c9ea7d6be87faca731a0d41bcadfb577036d1741915e"
+      "sha256": "b5131b60f4f964dc044a76ffba611a48e83d5565511690991c45bcd75b8f5c8c"
     },
     {
       "path": "site/source-build.json",
@@ -7419,11 +7419,11 @@
     },
     {
       "path": "README.md",
-      "sha256": "edd261a81eb537b90d3d223b54301dad682a3ebdc25bd675c962b2ee1caf7bb5"
+      "sha256": "705fbe6deda7a17225a1b505b407b7cb41d2c85de84aab3c3896b1dfacf8604c"
     },
     {
       "path": "site/index.html",
-      "sha256": "a3f46072fc2f847d590eb7672623f92ca24b19ecce6d5da3eccc00561ba015c2"
+      "sha256": "c5218605d5e66b719108985d6c6aea42871fe5e72b8e4d47f7aafb2e5fc4ff83"
     },
     {
       "path": ".github/workflows/ci.yml",
@@ -7543,7 +7543,7 @@
     },
     {
       "path": "comparison/runtime-investigation/README.md",
-      "sha256": "4a52f9c56b09b249ff263da793ad153a958e1cb3f09247b3fab0859034f5a629"
+      "sha256": "5522e4c4e01a9d947a69f57d13ac012df9a055c16a4590a55830aa112f067558"
     },
     {
       "path": "comparison/runtime-investigation/cost-audit.json",
@@ -7555,7 +7555,7 @@
     },
     {
       "path": "comparison/runtime-investigation/validation.json",
-      "sha256": "70a0025ec560512fa7c77aa1ae95890d7705c1a5c2f3e2eb762ef06ce6344a34"
+      "sha256": "ba8faba3ea243493e326cbaae34916bcfb639cbb40df027465acf3e455820bbe"
     },
     {
       "path": "test/browser-backends.test.mjs",

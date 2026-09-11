@@ -38,7 +38,7 @@ recorded separately in `validation.json` and the compiler pull request.
 ## Current comparison
 
 The full size and runtime comparisons use identical source-built ESM inputs.
-The default entry has 52 exports; the full port has 326, including all 312
+The default entry has 52 exports; the full port has 327, including all 312
 original names. Low-level layout/rendering adapters remain incomplete.
 Export-name coverage does not establish complete behavior parity.
 
