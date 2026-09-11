@@ -1,5 +1,8 @@
 import { invariant } from "../../errors";
 import { noop } from "../../noop";
+import { anticipate } from "../anticipate";
+import { backIn, backInOut, backOut } from "../back";
+import { circIn, circInOut, circOut } from "../circ";
 import { cubicBezier } from "../cubic-bezier";
 import { easeIn, easeInOut, easeOut } from "../ease";
 
@@ -28,6 +31,13 @@ export func(float)->float easingDefinitionToFunction(
     if (name == "easeOut") {
       return easeOut;
     }
+    if (name == "circIn") { return circIn; }
+    if (name == "circInOut") { return circInOut; }
+    if (name == "circOut") { return circOut; }
+    if (name == "backIn") { return backIn; }
+    if (name == "backInOut") { return backInOut; }
+    if (name == "backOut") { return backOut; }
+    if (name == "anticipate") { return anticipate; }
     invariant(false, `Invalid easing type '${name}'`, "invalid-easing-type");
     return noop;
   }

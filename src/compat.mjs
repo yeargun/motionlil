@@ -385,3 +385,7 @@ export class LayoutAnimationBuilder {
 export function animate(...args) {
   return normalizeControls(core.animate(...args))
 }
+
+export function animateMini(...args) {
+  return normalizeControls(core.animateMini(...args))
+}

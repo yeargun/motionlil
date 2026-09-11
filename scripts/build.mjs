@@ -162,7 +162,7 @@ async function writeFacade(name, compiled) {
     sourceCode = [
       `export * from ${JSON.stringify(compiledName)}`,
       `export * from "./.__compat-full.mjs"`,
-      'export { animate } from "./.__compat-full.mjs"',
+      'export { animate, animateMini } from "./.__compat-full.mjs"',
     ].join("\n")
   } else if (name === "mini") {
     sourceCode = [

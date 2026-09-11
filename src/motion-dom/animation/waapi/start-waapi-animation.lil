@@ -1,4 +1,4 @@
-import { mapEasingToNativeEasing } from "./easing/map-easing";
+import { mapPublicEasingToNative } from "./easing/map-easing";
 import { ValueAnimationTransition } from "../types";
 import { callMethod2 } from "../../dom-host";
 
@@ -13,7 +13,7 @@ export JsValue startWaapiAnimation(
   float duration = 300.0;
   float repeat = 0.0;
   string repeatType = "loop";
-  string easeName = "easeOut";
+  JsValue easeName = "easeOut";
   float[]? times = null;
   if (transition != null) {
     ValueAnimationTransition options = transition;
@@ -36,9 +36,7 @@ export JsValue startWaapiAnimation(
     JsValue? easeVal = options.ease;
     if (easeVal != null) {
       JsValue easeValue = easeVal;
-      if (easeValue is string) {
-        easeName = easeValue;
-      }
+      easeName = easeValue;
     }
     times = options.times;
   }
@@ -47,7 +45,8 @@ export JsValue startWaapiAnimation(
   if (times != null) {
     keyframeOptions["offset"] = times;
   }
-  string? easing = mapEasingToNativeEasing(easeName, duration);
+  JsValue easing = mapPublicEasingToNative(easeName, duration);
+  if (easing.isArray()) { keyframeOptions["easing"] = easing; }
   string direction = "normal";
   if (repeatType == "reverse") {
     direction = "alternate";
@@ -55,7 +54,7 @@ export JsValue startWaapiAnimation(
   Record<JsValue> animationOptions = record{};
   animationOptions["delay"] = delay;
   animationOptions["duration"] = duration;
-  if (easing != null) {
+  if (!easing.isArray()) {
     animationOptions["easing"] = easing;
   } else {
     animationOptions["easing"] = "linear";

@@ -1,9 +1,9 @@
 import { clamp } from "../../motion-utils/clamp";
 import { time } from "../frameloop/sync-time";
 import { setStyle } from "../render/dom/style-set";
-import { JSAnimation, JSAnimationOptions } from "./JSAnimation";
+import { JSAnimation, JSAnimationOptions } from "./JSAnimationFull";
 import { NativeAnimation } from "./NativeAnimation";
-import { replaceTransitionType } from "./utils/replace-transition-type-keyframes";
+import { replaceTransitionType } from "./utils/replace-transition-type";
 import { replaceStringEasing } from "./waapi/utils/unsupported-easing";
 import { callMethod1, callMethod2, setProp } from "../dom-host";
 import { MotionValue } from "../value/index";
@@ -30,7 +30,7 @@ export class NativeAnimationExtended extends NativeAnimation {
         shouldAutoplay = autoplay;
       }
       if (shouldAutoplay) {
-        this.startTime = startTime;
+        this.setStartTime(startTime);
       }
     }
     this.options = options;
@@ -61,7 +61,7 @@ export class NativeAnimationExtended extends NativeAnimation {
     jsOptions.extra = sampleOptions;
     JSAnimation sampleAnimation = new JSAnimation(jsOptions);
     float start = 0.0;
-    float? startTimeOpt = this.startTime;
+    float? startTimeOpt = this.getStartTime();
     if (startTimeOpt != null) {
       start = startTimeOpt;
     }
@@ -85,7 +85,7 @@ export class NativeAnimationExtended extends NativeAnimation {
       prevTime = 0.0;
     }
     JsValue previous = sampleAnimation.sample(prevTime).value;
-    callMethod2(motionValue, "setWithVelocity", previous, current);
+    asMotionValue(motionValue).setWithVelocity(previous, current, delta);
     sampleAnimation.stop();
   }
 }

@@ -1,20 +1,26 @@
 import { FrameData, Step } from "./types";
+import extern { weakSetCreate, weakSetAdd, weakSetHas, weakSetDelete, setForEach } from "../weak-host.ts";
+extern JsValue weakSetCreate();
+extern void weakSetAdd(JsValue set, JsValue value);
+extern bool weakSetHas(JsValue set, JsValue value);
+extern void weakSetDelete(JsValue set, JsValue value);
+extern void setForEach(Set<func(FrameData)->void> set, func(func(FrameData)->void)->void callback);
 
 class StepState {
-  (func(FrameData)->void)[] thisFrame;
-  (func(FrameData)->void)[] nextFrame;
+  Set<func(FrameData)->void> thisFrame;
+  Set<func(FrameData)->void> nextFrame;
   bool isProcessing;
   bool flushNextFrame;
-  Set<func(FrameData)->void> toKeepAlive;
+  JsValue toKeepAlive;
   FrameData latestFrameData;
   Step? stepRef;
 
   init() {
-    this.thisFrame = [];
-    this.nextFrame = [];
+    this.thisFrame = new Set<func(FrameData)->void>();
+    this.nextFrame = new Set<func(FrameData)->void>();
     this.isProcessing = false;
     this.flushNextFrame = false;
-    this.toKeepAlive = new Set<func(FrameData)->void>();
+    this.toKeepAlive = weakSetCreate();
     this.latestFrameData = new FrameData();
     this.stepRef = null;
   }
@@ -24,7 +30,7 @@ export Step createRenderStep(func()->void runNextFrame) {
   StepState state = new StepState();
 
   func(func(FrameData)->void)->void triggerCallback = (func(FrameData)->void callback) => {
-    if (state.toKeepAlive.has(callback)) {
+    if (weakSetHas(state.toKeepAlive, callback)) {
       Step? step = state.stepRef;
       if (step != null) {
         step.schedule(callback, false, false);
@@ -41,15 +47,11 @@ export Step createRenderStep(func()->void runNextFrame) {
       return;
     }
     state.isProcessing = true;
-    (func(FrameData)->void)[] prevFrame = state.thisFrame;
+    Set<func(FrameData)->void> prevFrame = state.thisFrame;
     state.thisFrame = state.nextFrame;
     state.nextFrame = prevFrame;
-    int i = 0;
-    while (i < state.thisFrame.length) {
-      triggerCallback(state.thisFrame[i]);
-      i = i + 1;
-    }
-    state.thisFrame = [];
+    setForEach(state.thisFrame, triggerCallback);
+    state.thisFrame.clear();
     state.isProcessing = false;
     if (state.flushNextFrame) {
       state.flushNextFrame = false;
@@ -63,24 +65,19 @@ export Step createRenderStep(func()->void runNextFrame) {
   Step step = new Step(
     (func(FrameData)->void callback, bool keepAlive = false, bool immediate = false) => {
       bool addToCurrentFrame = immediate && state.isProcessing;
-      (func(FrameData)->void)[] queue = state.nextFrame;
+      Set<func(FrameData)->void> queue = state.nextFrame;
       if (addToCurrentFrame) {
         queue = state.thisFrame;
       }
       if (keepAlive) {
-        state.toKeepAlive.add(callback);
+        weakSetAdd(state.toKeepAlive, callback);
       }
-      if (queue.indexOf(callback) == -1) {
-        queue.push(callback);
-      }
+      queue.add(callback);
       return callback;
     },
     (func(FrameData)->void callback) => {
-      int index = state.nextFrame.indexOf(callback);
-      if (index > -1) {
-        state.nextFrame.splice(index, 1);
-      }
-      state.toKeepAlive.delete(callback);
+      state.nextFrame.delete(callback);
+      weakSetDelete(state.toKeepAlive, callback);
     },
     processFn
   );

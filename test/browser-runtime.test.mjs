@@ -2,17 +2,12 @@ import assert from 'node:assert/strict'
 import { after, before, test } from 'node:test'
 import { readFileSync } from 'node:fs'
 import { createServer } from 'node:http'
-import { build } from 'esbuild'
 import { chromium } from 'playwright'
 
 let server, browser, origin
 before(async () => {
-  const upstream = await build({
-    stdin: { contents: 'export { animate, motionValue, MotionValue, frame, cancelFrame } from "motion"', resolveDir: process.cwd() },
-    bundle: true, format: 'esm', write: false, define: { 'process.env.NODE_ENV': '"production"' },
-  })
   const sources = {
-    '/original.js': upstream.outputFiles[0].text,
+    '/original.js': readFileSync('site/esm-comparison/original.js', 'utf8'),
     '/lilscript.js': readFileSync('dist/index.bundle.js', 'utf8'),
     '/full.js': readFileSync('dist/full.js', 'utf8'),
   }

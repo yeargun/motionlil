@@ -5,15 +5,15 @@ import { visualElementStore } from "../../../motion-dom/render/store";
 import { AnimationScope } from "../../../motion-dom/utils/resolve-elements";
 import { invariant } from "../../../motion-utils/errors";
 import {
+  isEventTarget,
   callFn2,
   callMethod2,
   isFunction,
   windowGet
 } from "../../../motion-dom/dom-host";
 import extern { weakMapGet } from "../../../motion-dom/weak-host.ts";
-import { createDOMVisualElement } from "../utils/create-html-visual-element";
+import { createDOMVisualElement, createObjectVisualElement } from "../utils/create-visual-element";
 import { isDOMKeyframes } from "../utils/is-dom-keyframes";
-import { animateElements } from "../animators/waapi/animate-elements";
 import { resolveSubjects } from "./resolve-subjects";
 
 extern JsValue? weakMapGet(JsValue map, JsValue key);
@@ -37,20 +37,6 @@ bool isSingleValue(JsValue? subject = null, JsValue? keyframes = null) {
   return false;
 }
 
-bool hasOnlyNativeTransform(JsValue? keyframes = null) {
-  if (keyframes == null || !keyframes.isObject()) {
-    return false;
-  }
-  bool foundTransform = false;
-  for (string key in keyframes) {
-    if (key != "transform") {
-      return false;
-    }
-    foundTransform = true;
-  }
-  return foundTransform;
-}
-
 export JsValue[] animateSubject(
   JsValue? subject = null,
   JsValue? keyframes = null,
@@ -58,12 +44,6 @@ export JsValue[] animateSubject(
   AnimationScope? scope = null
 ) {
   JsValue[] animations = [];
-
-  // Motion's hybrid animate() routes an explicit CSS transform through WAAPI.
-  // The JS MotionValue path is retained for transform aliases such as x/y.
-  if (hasOnlyNativeTransform(keyframes)) {
-    return animateElements(subject, keyframes, options, scope);
-  }
 
   if (isSingleValue(subject, keyframes)) {
     JsValue resolvedKeyframes = keyframes;
@@ -102,7 +82,11 @@ export JsValue[] animateSubject(
 
     JsValue? stored = weakMapGet(visualElementStore, thisSubject);
     if (stored == null) {
-      createDOMVisualElement(thisSubject);
+      if (isEventTarget(thisSubject)) {
+        createDOMVisualElement(thisSubject);
+      } else {
+        createObjectVisualElement(thisSubject);
+      }
       stored = weakMapGet(visualElementStore, thisSubject);
     }
 

@@ -16,6 +16,20 @@ import {
   parseFloatValue
 } from "../dom-host";
 import { supportsScrollTimeline } from "../utils/supports/scroll-timeline";
+import { supportsLinearEasing } from "../utils/supports/linear-easing";
+import { isGenerator } from "./generators/utils/is-generator";
+
+JsValue nativeTransition(JsValue options) {
+  JsValue transition = record{};
+  for (string key in options) {
+    if (key != "type") { transition[key] = options[key]; }
+  }
+  JsValue type = options["type"];
+  if (isGenerator(type) && supportsLinearEasing()) {
+    return callMethod1(type, "applyToOptions", transition);
+  }
+  return transition;
+}
 
 void appendNumericItems(float[] target, JsValue source) {
   int len = source.length.toInt();
@@ -81,16 +95,17 @@ export class NativeAnimation extends WithPromise {
           pseudo = pseudoElement;
           this.isPseudoElement = true;
         }
+        JsValue preparedTransition = nativeTransition(optionsValue);
         ValueAnimationTransition transition = new ValueAnimationTransition();
-        JsValue delay = optionsValue["delay"];
+        JsValue delay = preparedTransition["delay"];
         if (delay is float) {
           transition.delay = delay;
         }
-        JsValue durationVal = optionsValue["duration"];
+        JsValue durationVal = preparedTransition["duration"];
         if (durationVal is float) {
           transition.duration = durationVal;
         }
-        JsValue ease = optionsValue["ease"];
+        JsValue ease = preparedTransition["ease"];
         if (ease.truthy()) {
           transition.ease = ease;
         }
@@ -100,6 +115,10 @@ export class NativeAnimation extends WithPromise {
           appendNumericItems(t, times);
           transition.times = t;
         }
+        JsValue repeat = optionsValue["repeat"];
+        if (repeat is float) { transition.repeat = repeat; }
+        JsValue repeatType = optionsValue["repeatType"];
+        if (repeatType is string) { transition.repeatType = repeatType; }
         JsValue autoplay = optionsValue["autoplay"];
         this.animation = startWaapiAnimation(element, nameStr, keyframes, transition, pseudo);
         this.state = "running";
@@ -141,6 +160,10 @@ export class NativeAnimation extends WithPromise {
         self.setPlaybackTime(value);
       }
     });
+    setProp(this, "getFinished", () => { return self.finished(); });
+    setProp(this, "getState", () => { self.syncFromAnimation(); return self.state; });
+    setProp(this, "getStartTime", () => { return self.getStartTime(); });
+    setProp(this, "getIterationDuration", () => { self.syncFromAnimation(); return self.iterationDuration; });
     setProp(this, "getDuration", () => {
       return self.getDuration();
     });
@@ -190,9 +213,8 @@ export class NativeAnimation extends WithPromise {
       return;
     }
     JsValue currentTime = anim["currentTime"];
-    if (currentTime.truthy() || (currentTime is float)) {
-      this.time = millisecondsToSeconds(parseFloatValue(currentTime));
-    }
+    this.time = 0.0;
+    if (currentTime is float) { this.time = millisecondsToSeconds(currentTime); }
     JsValue rate = anim["playbackRate"];
     if (rate.truthy() || (rate is float)) {
       this.speed = parseFloatValue(rate);
@@ -221,6 +243,20 @@ export class NativeAnimation extends WithPromise {
         this.state = playState;
       }
     }
+  }
+
+  void setStartTime(float start) {
+    this.manualStartTime = start;
+    this.startTime = start;
+    if (this.animation.truthy()) { setProp(this.animation, "startTime", start); }
+  }
+
+  float getStartTime() {
+    float? manual = this.manualStartTime;
+    if (manual != null) { return manual; }
+    JsValue start = this.animation["startTime"];
+    if (start is float) { return start; }
+    return 0.0;
   }
 
   float getPlaybackTime() {
@@ -319,7 +355,6 @@ export class NativeAnimation extends WithPromise {
       this.cancel();
     }
     this.state = "idle";
-    this.notifyFinished();
   }
 
   void pause() {

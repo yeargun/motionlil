@@ -1,20 +1,22 @@
+import { NativeAnimationExtended } from "./NativeAnimationExtended";
+import { supportsResolvedBrowserAnimation } from "./waapi/supports/waapi";
 import { readNumberUpdate } from "./timing";
 import { WithPromise } from "./utils/WithPromise";
-import { JSAnimation, JSAnimationOptions } from "./JSAnimation";
-import { NativeAnimationExtended } from "./NativeAnimationExtended";
+import { JSAnimation, JSAnimationOptions } from "./JSAnimationFull";
 import { KeyframeResolver, flushKeyframeResolvers } from "./keyframes/KeyframesResolver";
 import { createDOMKeyframesResolver } from "./keyframes/DOMKeyframesResolver";
 import { getFinalKeyframe } from "./keyframes/get-final";
 import { canAnimate } from "./utils/can-animate";
 import { makeAnimationInstant } from "./utils/make-animation-instant";
-import { supportsBrowserAnimation, BrowserAnimationOptions } from "./waapi/supports/waapi";
 import { time } from "../frameloop/sync-time";
 import { MotionGlobalConfig } from "../../motion-utils/global-config";
+import { isNumericalString } from "../../motion-utils/is-numerical-string";
 import { callFn0, callFn1, isFunction, getProp, callMethod0, callMethod1, setProp } from "../dom-host";
 import { isGenerator } from "./generators/utils/is-generator";
 import extern { identity as asWithPromise } from "../cast-host.ts";
 
 extern WithPromise asWithPromise(JsValue value);
+extern float parseFloat(string value);
 
 float MAX_RESOLVE_DELAY = 40.0;
 
@@ -66,6 +68,19 @@ export class AsyncMotionValueAnimation extends WithPromise {
       if (animation.truthy()) { return callMethod0(animation, "getPlaybackSpeed"); }
       return 1.0;
     });
+    setProp(this, "getFinished", () => { return selfControls.finished(); });
+    setProp(this, "getState", () => {
+      JsValue animation = selfControls.getAnimation();
+      return callMethod0(animation, "getState");
+    });
+    setProp(this, "getStartTime", () => {
+      JsValue animation = selfControls.getAnimation();
+      return callMethod0(animation, "getStartTime");
+    });
+    setProp(this, "getIterationDuration", () => {
+      JsValue animation = selfControls.getAnimation();
+      return callMethod0(animation, "getIterationDuration");
+    });
     setProp(this, "getDuration", () => {
       JsValue animation = selfControls.getAnimation();
       if (animation.truthy()) { return callMethod0(animation, "getDuration"); }
@@ -91,7 +106,7 @@ export class AsyncMotionValueAnimation extends WithPromise {
     }
     JsValue typeOpt = options["type"];
     bool typeIsFalse = typeOpt is bool && typeOpt == false;
-    if (!(typeOpt is string) && !typeIsFalse && !isGenerator(typeOpt)) {
+    if (!(typeOpt is string) && !typeIsFalse && !isFunction(typeOpt)) {
       options["type"] = "keyframes";
     }
     if (!(options["repeat"] is float)) {
@@ -223,44 +238,25 @@ export class AsyncMotionValueAnimation extends WithPromise {
       }
     }
 
-    BrowserAnimationOptions browserOpts = new BrowserAnimationOptions(
-      keyframes,
-      element,
-      name,
-      null,
-      null,
-      null,
-      type,
-      null,
-      options["transformTemplate"]
-    );
-    bool useWaapi = canAnimateValue && !isHandoff && supportsBrowserAnimation(browserOpts);
-
     JsValue animation = null;
     (func()->void)? stopActive = null;
-    if (useWaapi) {
-      NativeAnimationExtended waapi = new NativeAnimationExtended(options);
-      animation = waapi;
-      stopActive = () => {
-        waapi.stop();
-      };
-    } else {
-      float[] floatKeys = [];
-      for (int i = 0; i < keyframes.length; i++) {
-        JsValue k = keyframes[i];
-        if (k is float) {
-          floatKeys.push(k);
-        } else {
-          floatKeys.push(0.0);
-        }
+    if (canAnimateValue && !isHandoff && supportsResolvedBrowserAnimation(options, keyframes)) {
+      try {
+        NativeAnimationExtended native = new NativeAnimationExtended(options);
+        animation = native;
+        stopActive = () => { native.stop(); };
+      } catch {
+        // Motion falls back to its JS driver if native animation construction fails.
       }
+    }
+    if (animation == null) {
       string? typeStr = null;
       if (type is string) {
         typeStr = type;
       }
       (func(float)->void)? onUpdateFn = readNumberUpdate(onUpdate);
       JSAnimationOptions jsOpts = new JSAnimationOptions(
-        floatKeys,
+        [],
         velocity,
         typeStr,
         null,
@@ -296,6 +292,7 @@ export class AsyncMotionValueAnimation extends WithPromise {
 
     this.stopActive = stopActive;
     this.animation = animation;
+    this.finishedHook = () => asWithPromise(animation).finished();
   }
 
   JsValue getAnimation() {

@@ -11,6 +11,7 @@ import {
 } from "./utils/calc-duration";
 import { generateLinearEasing } from "../waapi/utils/linear";
 import { SpringGenerator } from "./generator";
+import { setProp } from "../../dom-host";
 
 export { SpringGenerator };
 
@@ -545,3 +546,14 @@ export SpringGenerator spring(float | JsValue optionsOrVisualDuration, float bou
   return springFromInput(options);
 }
 
+setProp(spring, "applyToOptions", (JsValue options) => {
+  JsValue generatorOptions = record{};
+  for (string key in options) { generatorOptions[key] = options[key]; }
+  generatorOptions["keyframes"] = [0.0, 100.0];
+  SpringGenerator gen = spring(generatorOptions);
+  float duration = calcGeneratorDuration(gen.next).min(maxGeneratorDuration);
+  options["ease"] = (float p) => gen.next(duration * p).value / 100.0;
+  options["duration"] = duration;
+  options["type"] = "keyframes";
+  return options;
+});

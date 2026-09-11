@@ -354,3 +354,8 @@ export function mapValues(map: Map<any, any>): any[] {
 export function setValues(set: Set<any>): any[] {
   return Array.from(set.values())
 }
+
+export function isCurrentRealmElement(value: unknown): boolean {
+  return (typeof HTMLElement !== "undefined" && value instanceof HTMLElement) ||
+    (typeof SVGElement !== "undefined" && value instanceof SVGElement)
+}

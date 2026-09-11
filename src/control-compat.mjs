@@ -15,9 +15,10 @@ const controlProperties = {
     get() { return typeof this.getDuration === "function" ? this.getDuration() : 0 },
   },
   iterationDuration: {
-    get() { return typeof this.getDuration === "function" ? this.getDuration() : 0 },
+    get() { return this.getIterationDuration?.() ?? this.getDuration?.() ?? 0 },
   },
-  state: { get() { return "running" } },
+  state: { get() { return this.getState?.() ?? "idle" } },
+  startTime: { get() { return this.getStartTime?.() ?? null } },
   finished: {
     get() { return typeof this.getFinished === "function" ? this.getFinished() : Promise.resolve() },
   },

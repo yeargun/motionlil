@@ -11,6 +11,7 @@ import extern {
   supportsLinearEasingCheck,
   supportsPartialKeyframesCheck,
   supportsWaapiCheck,
+  isCurrentRealmElement,
   documentCreateElement,
   documentHead,
   documentGetAnimations,
@@ -149,3 +150,5 @@ export extern void deleteProp(JsValue obj, string key);
 export extern JsValue[] mapKeys(JsValue map);
 export extern JsValue[] mapValues(JsValue map);
 export extern JsValue[] setValues(JsValue set);
+
+export extern bool isCurrentRealmElement(JsValue value);

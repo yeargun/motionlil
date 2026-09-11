@@ -48,6 +48,9 @@ export class GroupAnimation {
     setProp(this, "setPlaybackSpeed", (JsValue value) => {
       self.setAll("speed", value);
     });
+    setProp(this, "getState", () => { return self.getAll("state"); });
+    setProp(this, "getStartTime", () => { return self.getAll("startTime"); });
+    setProp(this, "getIterationDuration", () => { return self.getMax("iterationDuration"); });
     setProp(this, "getDuration", () => {
       return self.getMax("duration");
     });
@@ -76,7 +79,7 @@ export class GroupAnimation {
         return callMethod0(first, "getDuration");
       }
     }
-    return getProp(first, propName);
+    return this.readProp(first, propName);
   }
 
   void setAll(string propName, JsValue newValue) {
@@ -132,6 +135,9 @@ export class GroupAnimation {
         return callMethod0(anim, "getDuration");
       }
     }
+    if (propName == "state") { return callMethod0(anim, "getState"); }
+    if (propName == "startTime") { return callMethod0(anim, "getStartTime"); }
+    if (propName == "iterationDuration") { return callMethod0(anim, "getIterationDuration"); }
     return getProp(anim, propName);
   }
 

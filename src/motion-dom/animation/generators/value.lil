@@ -1,0 +1,118 @@
+import { clamp } from "../../../motion-utils/clamp";
+import { progress } from "../../../motion-utils/progress";
+import { easingDefinitionToFunction } from "../../../motion-utils/easing/utils/map";
+import { isFunction } from "../../dom-host";
+import { getMixer } from "../../utils/mix/complex";
+import { SpringGenerator } from "./generator";
+import extern { identity as easingFunction } from "../../cast-host.ts";
+
+extern func(float)->float easingFunction(JsValue value);
+
+export class ValueAnimationState {
+  JsValue value;
+  bool done;
+  init(JsValue value, bool done = false) {
+    this.value = value;
+    this.done = done;
+  }
+}
+
+export class ValueGenerator {
+  float? calculatedDuration;
+  func(float)->ValueAnimationState next;
+  (func(float)->float)? velocity;
+  init(float? duration, func(float)->ValueAnimationState next, (func(float)->float)? velocity = null) {
+    this.calculatedDuration = duration;
+    this.next = next;
+    this.velocity = velocity;
+  }
+}
+
+export func(float)->float readEasing(JsValue definition) {
+  if (isFunction(definition)) { return easingFunction(definition); }
+  if (definition is string) { return easingDefinitionToFunction(definition); }
+  if (definition.isArray()) {
+    float[] points = [];
+    for (int i = 0; i < definition.length.toInt(); i++) {
+      JsValue point = definition[i];
+      if (point is float) { points.push(point); }
+    }
+    return easingDefinitionToFunction(points);
+  }
+  return easingDefinitionToFunction("easeInOut");
+}
+
+// Numeric physics stays typed; only the generated value crosses this boundary.
+export ValueGenerator numericValueGenerator(SpringGenerator gen) {
+  ValueAnimationState state = new ValueAnimationState(0.0);
+  return new ValueGenerator(gen.calculatedDuration, (float t) => {
+    auto numeric = gen.next(t);
+    state.value = numeric.value;
+    state.done = numeric.done;
+    return state;
+  }, gen.velocity);
+}
+
+export float valueGeneratorDuration(ValueGenerator gen) {
+  float duration = 0.0;
+  while (!gen.next(duration).done && duration < 20000.0) {
+    duration = duration + 50.0;
+  }
+  if (duration >= 20000.0) { return 1.0 / 0.0; }
+  return duration;
+}
+
+export ValueGenerator valueKeyframes(JsValue[] values, JsValue options) {
+  float duration = 300.0;
+  JsValue durationOption = options["duration"];
+  if (durationOption is float) { duration = durationOption; }
+  JsValue ease = options["ease"];
+  if (ease == null) { ease = "easeInOut"; }
+  bool segmentEasing = ease.isArray() && !(ease[0] is float);
+  JsValue offsets = options["times"];
+  bool useOffsets = offsets.isArray() && offsets.length.toInt() == values.length;
+  float[] times = [];
+  (func(float)->JsValue)[] mixers = [];
+  (func(float)->float)[] easings = [];
+  for (int i = 0; i < values.length; i++) {
+    float offset = 0.0;
+    if (values.length > 1) { offset = i / (values.length - 1.0); }
+    if (useOffsets) {
+      JsValue supplied = offsets[i];
+      if (supplied is float) { offset = supplied; }
+    }
+    times.push(offset * duration);
+  }
+  // Match interpolate's support for descending input ranges.
+  if (times.length > 1 && times[0] > times[times.length - 1]) {
+    float[] reversedTimes = [];
+    JsValue[] reversedValues = [];
+    for (int i = values.length - 1; i >= 0; i--) {
+      reversedTimes.push(times[i]);
+      reversedValues.push(values[i]);
+    }
+    times = reversedTimes;
+    values = reversedValues;
+  }
+  for (int i = 0; i < values.length - 1; i++) {
+    auto mixer = getMixer(values[i]);
+    mixers.push(mixer(values[i], values[i + 1]));
+    if (segmentEasing) {
+      if (i < ease.length.toInt()) { easings.push(readEasing(ease[i])); }
+      else { easings.push((float p) => p); }
+    } else { easings.push(readEasing(ease)); }
+  }
+  ValueAnimationState state = new ValueAnimationState(values[0]);
+  return new ValueGenerator(duration, (float t) => {
+    float v = clamp(times[0], times[times.length - 1], t);
+    int segment = 0;
+    while (segment < times.length - 2 && v >= times[segment + 1]) { segment = segment + 1; }
+    if (values.length == 1) { state.value = values[0]; }
+    else {
+      float p = progress(times[segment], times[segment + 1], v);
+      state.value = mixers[segment](easings[segment](p));
+    }
+    state.done = t >= duration;
+    return state;
+  });
+}

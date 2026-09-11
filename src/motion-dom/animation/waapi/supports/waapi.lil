@@ -1,7 +1,8 @@
 import { memo } from "../../../../motion-utils/memo";
 import { acceleratedValues } from "../utils/accelerated-values";
 import { hasBrowserOnlyColors } from "../utils/is-browser-color";
-import { supportsWaapiCheck } from "../../../dom-host";
+import { motionValueOf, visualElementOf } from "../../../cast";
+import { supportsWaapiCheck, isCurrentRealmElement } from "../../../dom-host";
 
 Set<string> colorProperties = new Set<string>();
 colorProperties.add("color");
@@ -53,27 +54,12 @@ export class BrowserAnimationOptions {
   }
 }
 
-bool isHtmlOrSvgElement(JsValue subject) {
-  JsValue ctor = subject["constructor"];
-  if (!ctor.truthy()) {
-    return false;
-  }
-  JsValue name = ctor["name"];
-  if (name is string) {
-    return name == "HTMLElement" ||
-      name == "SVGElement" ||
-      name == "HTMLDivElement" ||
-      name.endsWith("Element");
-  }
-  return false;
-}
-
 export bool supportsBrowserAnimation(BrowserAnimationOptions options) {
   JsValue? subject = options.subject;
   if (subject == null) {
     return false;
   }
-  if (!isHtmlOrSvgElement(subject)) {
+  if (!isCurrentRealmElement(subject)) {
     return false;
   }
   if (!supportsWaapi()) {
@@ -116,4 +102,27 @@ export bool supportsBrowserAnimation(BrowserAnimationOptions options) {
     return false;
   }
   return true;
+}
+
+export bool supportsResolvedBrowserAnimation(JsValue options, JsValue[] keyframes) {
+  JsValue value = options["motionValue"];
+  if (!value.truthy()) { return false; }
+  JsValue owner = motionValueOf(value).owner;
+  if (!owner.truthy()) { return false; }
+  JsValue subject = visualElementOf(owner).current;
+  if (!isCurrentRealmElement(subject)) { return false; }
+  JsValue props = visualElementOf(owner).getProps();
+  BrowserAnimationOptions resolved = new BrowserAnimationOptions(keyframes, subject);
+  JsValue name = options["name"];
+  JsValue repeatDelay = options["repeatDelay"];
+  JsValue repeatType = options["repeatType"];
+  JsValue damping = options["damping"];
+  if (name is string) { resolved.name = name; }
+  if (repeatDelay is float) { resolved.repeatDelay = repeatDelay; }
+  if (repeatType is string) { resolved.repeatType = repeatType; }
+  if (damping is float) { resolved.damping = damping; }
+  resolved.type = options["type"];
+  resolved.onUpdate = props["onUpdate"];
+  resolved.transformTemplate = props["transformTemplate"];
+  return supportsBrowserAnimation(resolved);
 }

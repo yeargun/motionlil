@@ -7,9 +7,27 @@ export const workloads = [
  {id:'animate-layout-128',label:'Width + margin layout · 128 elements',api:'animate',kind:'layout',count:128},
  {id:'motion-values-128',label:'MotionValue + DOM writes · 128 values',api:'animate',kind:'values',count:128},
 ];
-const frame=()=>new Promise(resolve=>requestAnimationFrame(resolve));
+const observerRaf=window.requestAnimationFrame.bind(window);
+const frame=()=>new Promise(resolve=>observerRaf(resolve));
+let diagnostics=null;
+function instrument(){
+ const pending=new Set();diagnostics={nativeCalls:[],rafRequested:0,rafExecuted:0,pending};
+ window.requestAnimationFrame=callback=>{
+  diagnostics.rafRequested++;
+  const id=observerRaf(timestamp=>{pending.delete(id);diagnostics.rafExecuted++;callback(timestamp)});
+  pending.add(id);return id;
+ };
+ const cancel=window.cancelAnimationFrame.bind(window);
+ window.cancelAnimationFrame=id=>{pending.delete(id);cancel(id)};
+ const native=Element.prototype.animate;
+ Element.prototype.animate=function(keyframes,options){
+  if(this.isConnected)diagnostics.nativeCalls.push({keyframes,options});
+  return native.call(this,keyframes,options);
+ };
+}
 let runtime,scenario,elements,controls=[],values=[],disposers=[];
-export async function prepare(lane,id){
+export async function prepare(lane,id,inspect=false){
+ if(inspect)instrument();
  runtime=await import('./inputs/'+lane+'.js');scenario=workloads.find(x=>x.id===id);if(!scenario)throw new Error('Unknown workload');
  document.body.innerHTML='<main id="stage"></main>';
  document.head.querySelector('#fixture-style')?.remove();const style=document.createElement('style');style.id='fixture-style';style.textContent='html,body{margin:0;padding:0;background:#151610}#stage{position:relative;width:1024px;min-height:700px;padding:16px;font-size:0}.dot{display:inline-block;width:16px;height:16px;margin:2px;background:#6847f5;opacity:.25;vertical-align:top;border-radius:3px}';document.head.append(style);
@@ -34,11 +52,17 @@ function stop(){for(const c of controls)c?.stop?.();for(const d of disposers)d?.
 export async function validate(){
  launch();for(const c of controls)c.pause();const samples=[];
  for(const p of [.0,.25,.5,.75,1]){for(const c of controls)c.time=.6*p;await frame();await frame();samples.push({progress:p,values:snapshot()});}
- stop();return samples;
+ const activeNativeProperties={};
+ for(const animation of document.getAnimations())for(const key of Object.keys(animation.effect.getKeyframes()[0]??{})){
+  if(!['offset','computedOffset','easing','composite'].includes(key))activeNativeProperties[key]=(activeNativeProperties[key]??0)+1;
+ }
+ const beforeStop={requested:diagnostics?.rafRequested,executed:diagnostics?.rafExecuted,pending:diagnostics?.pending.size};
+ stop();await frame();await frame();await frame();
+ return {samples,backend:{nativeCalls:diagnostics?.nativeCalls??[],activeNativeProperties},libraryRaf:{beforeStop,afterStop:{requested:diagnostics?.rafRequested,executed:diagnostics?.rafExecuted,pending:diagnostics?.pending.size}}};
 }
 export async function measure(){
  const gaps=[];let previous=performance.now(),done=false;const start=performance.now();
- const tick=now=>{gaps.push(now-previous);previous=now;if(!done)requestAnimationFrame(tick)};requestAnimationFrame(tick);
+ const tick=now=>{gaps.push(now-previous);previous=now;if(!done)observerRaf(tick)};observerRaf(tick);
  const t=performance.now();launch();const setupMs=performance.now()-t;
  await new Promise(resolve=>setTimeout(resolve,800));await frame();done=true;
  const final=snapshot();const nativeAnimations=document.getAnimations().length;

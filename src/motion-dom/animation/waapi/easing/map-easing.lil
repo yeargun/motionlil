@@ -3,6 +3,37 @@ import { supportsLinearEasing } from "../../../utils/supports/linear-easing";
 import { generateLinearEasing } from "../utils/linear";
 import { cubicBezierAsString } from "./cubic-bezier";
 import { supportedWaapiEasing } from "./supported";
+import { isFunction } from "../../../dom-host";
+import extern { identity as easingFunction } from "../../../cast-host.ts";
+
+extern func(float)->float easingFunction(JsValue value);
+
+// Read the public easing union without discarding function or segment entries.
+export JsValue mapPublicEasingToNative(JsValue easing, float duration) {
+  if (!easing.truthy()) { return null; }
+  if (isFunction(easing)) {
+    return mapEasingFunctionToNativeEasing(easingFunction(easing), duration);
+  }
+  if (easing.isArray()) {
+    if (easing[0] is float) {
+      float[] points = [];
+      for (int i = 0; i < easing.length.toInt(); i++) {
+        JsValue point = easing[i];
+        if (point is float) { points.push(point); }
+      }
+      return cubicBezierAsString(points);
+    }
+    JsValue[] segments = [];
+    for (int i = 0; i < easing.length.toInt(); i++) {
+      JsValue native = mapPublicEasingToNative(easing[i], duration);
+      if (!native.truthy()) { native = supportedWaapiEasing.easeOut; }
+      segments.push(native);
+    }
+    return segments;
+  }
+  if (easing is string) { return supportedWaapiEasing.get(easing); }
+  return null;
+}
 
 export string mapEasingFunctionToNativeEasing(
   func(float)->float easing,

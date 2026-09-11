@@ -34,3 +34,7 @@ export function weakSetHas(set: WeakSet<any>, value: any): boolean {
 export function weakSetDelete(set: WeakSet<any>, value: any): void {
   set.delete(value)
 }
+
+export function setForEach<T>(set: Set<T>, callback: (value: T) => void): void {
+  set.forEach(callback)
+}

@@ -4,14 +4,22 @@ export class WithPromise {
   Task<bool>? finishedTask;
   (func()->void)? resolveFn;
   bool resolved;
+  (func()->Task<bool>)? finishedHook;
 
   init() {
     this.finishedTask = null;
     this.resolveFn = null;
     this.resolved = false;
+    this.finishedHook = null;
   }
 
   Task<bool> finished() {
+    (func()->Task<bool>)? hook = this.finishedHook;
+    if (hook != null) { return hook(); }
+    return this.baseFinished();
+  }
+
+  Task<bool> baseFinished() {
     if (this.resolved) {
       return Task.resolve(true);
     }

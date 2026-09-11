@@ -102,6 +102,8 @@ export class VisualElement {
   Map<string, SubscriptionManager> events;
   Map<string, (func()->void)> propEventSubscriptions;
   float renderScheduledAt;
+  func(FrameData)->void renderCallback;
+  func(FrameData)->void notifyUpdateCallback;
   bool isMounted;
   (func()->void)? removeFromParent;
   bool isVisible;
@@ -163,6 +165,9 @@ export class VisualElement {
     this.events = new Map<string, SubscriptionManager>();
     this.propEventSubscriptions = new Map<string, (func()->void)>();
     this.renderScheduledAt = 0.0;
+    VisualElement callbackOwner = this;
+    this.renderCallback = (FrameData _d) => { callbackOwner.render(); };
+    this.notifyUpdateCallback = (FrameData _d) => { callbackOwner.notifyUpdate(); };
     this.isMounted = false;
     this.removeFromParent = null;
     this.isVisible = true;
@@ -400,12 +405,8 @@ export class VisualElement {
       callMethod0(projection, "unmount");
     }
     VisualElement self = this;
-    cancelFrame((FrameData _d) => {
-      self.notifyUpdate();
-    });
-    cancelFrame((FrameData _d) => {
-      self.render();
-    });
+    cancelFrame(this.notifyUpdateCallback);
+    cancelFrame(this.renderCallback);
     JsValue[] __keys_2 = mapKeys(this.valueSubscriptions);
     for (int __i_2 = 0; __i_2 < __keys_2.length; __i_2++) {
       string key = `${__keys_2[__i_2]}`;
@@ -482,9 +483,7 @@ export class VisualElement {
       (JsValue? latestValue = null, JsValue? _b = null, JsValue? _c = null) => {
         self.latestValues[boundKey] = latestValue;
         if (self.props["onUpdate"].truthy()) {
-          frame.preRender((FrameData _d) => {
-            self.notifyUpdate();
-          }, false, false);
+          frame.preRender(self.notifyUpdateCallback, false, false);
         }
         JsValue? projection = self.projection;
         if (valueIsTransform && projection != null) {
@@ -570,10 +569,7 @@ export class VisualElement {
     float now = time.now();
     if (this.renderScheduledAt < now) {
       this.renderScheduledAt = now;
-      VisualElement self = this;
-      frame.render((FrameData _d) => {
-        self.render();
-      }, false, false);
+      frame.render(this.renderCallback, false, true);
     }
   }
 

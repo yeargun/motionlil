@@ -1,6 +1,6 @@
 import { MotionGlobalConfig } from "../../../motion-utils/global-config";
 import { secondsToMilliseconds } from "../../../motion-utils/time-conversion";
-import { AsyncMotionValueAnimation } from "../AsyncMotionValueAnimationSpringJs";
+import { AsyncMotionValueAnimation } from "../AsyncMotionValueAnimation";
 import { makeAnimationInstant } from "../utils/make-animation-instant";
 import { getValueTransition } from "../utils/get-value-transition";
 import { getDefaultTransition } from "../utils/default-transitions";
@@ -80,12 +80,12 @@ export func(func()->void)->JsValue? animateMotionValue(
       keyframes: keyframes,
       ease: "easeOut",
       velocity: motion.getVelocity(),
-      delay: 0.0 - elapsed,
+      delay: -elapsed,
       name: name,
       motionValue: value
     };
     assignRecord(options, valueTransition);
-    options["delay"] = 0.0 - elapsed;
+    options["delay"] = -elapsed;
     options["onUpdate"] = (JsValue v) => {
       motion.set(v);
       JsValue onUpdate = valueTransition["onUpdate"];
