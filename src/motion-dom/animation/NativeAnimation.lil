@@ -132,7 +132,6 @@ export class NativeAnimation extends WithPromise {
         setProp(this.animation, "onfinish", () => {
           selfFinish.onAnimationFinish();
         });
-        this.syncFromAnimation();
       } else {
         this.notifyFinished();
       }
@@ -161,9 +160,9 @@ export class NativeAnimation extends WithPromise {
       }
     });
     setProp(this, "getFinished", () => { return self.finished(); });
-    setProp(this, "getState", () => { self.syncFromAnimation(); return self.state; });
+    setProp(this, "getState", () => { return self.getState(); });
     setProp(this, "getStartTime", () => { return self.getStartTime(); });
-    setProp(this, "getIterationDuration", () => { self.syncFromAnimation(); return self.iterationDuration; });
+    setProp(this, "getIterationDuration", () => { return self.getIterationDuration(); });
     setProp(this, "getDuration", () => {
       return self.getDuration();
     });
@@ -207,25 +206,7 @@ export class NativeAnimation extends WithPromise {
     this.notifyFinished();
   }
 
-  void syncFromAnimation() {
-    JsValue anim = this.animation;
-    if (!anim.truthy()) {
-      return;
-    }
-    JsValue currentTime = anim["currentTime"];
-    this.time = 0.0;
-    if (currentTime is float) { this.time = millisecondsToSeconds(currentTime); }
-    JsValue rate = anim["playbackRate"];
-    if (rate.truthy() || (rate is float)) {
-      this.speed = parseFloatValue(rate);
-    }
-    JsValue effect = anim["effect"];
-    if (effect.truthy()) {
-      JsValue timing = callMethod0(effect, "getComputedTiming");
-      if (timing.truthy()) {
-        this.duration = millisecondsToSeconds(parseFloatValue(timing["duration"]));
-      }
-    }
+  float getIterationDuration() {
     JsValue options = this.options;
     float delaySec = 0.0;
     if (options.truthy() && options.isObject()) {
@@ -234,15 +215,16 @@ export class NativeAnimation extends WithPromise {
         delaySec = millisecondsToSeconds(delay);
       }
     }
-    this.iterationDuration = this.duration + delaySec;
+    return this.getDuration() + delaySec;
+  }
+
+  string getState() {
     if (this.finishedTime != null) {
-      this.state = "finished";
-    } else {
-      JsValue playState = anim["playState"];
-      if (playState is string) {
-        this.state = playState;
-      }
+      return "finished";
     }
+    JsValue playState = this.animation["playState"];
+    if (playState is string) { return playState; }
+    return "idle";
   }
 
   void setStartTime(float start) {
@@ -260,8 +242,9 @@ export class NativeAnimation extends WithPromise {
   }
 
   float getPlaybackTime() {
-    this.syncFromAnimation();
-    return this.time;
+    JsValue currentTime = this.animation["currentTime"];
+    if (currentTime is float) { return millisecondsToSeconds(currentTime); }
+    return 0.0;
   }
 
   void setPlaybackTime(float newTime) {
@@ -279,8 +262,9 @@ export class NativeAnimation extends WithPromise {
   }
 
   float getPlaybackSpeed() {
-    this.syncFromAnimation();
-    return this.speed;
+    JsValue rate = this.animation["playbackRate"];
+    if (rate is float) { return rate; }
+    return 1.0;
   }
 
   void setPlaybackSpeed(float newSpeed) {
@@ -295,8 +279,14 @@ export class NativeAnimation extends WithPromise {
   }
 
   float getDuration() {
-    this.syncFromAnimation();
-    return this.duration;
+    JsValue effect = this.animation["effect"];
+    if (effect.truthy()) {
+      JsValue timing = callMethod0(effect, "getComputedTiming");
+      if (timing.truthy()) {
+        return millisecondsToSeconds(parseFloatValue(timing["duration"]));
+      }
+    }
+    return 0.0;
   }
 
   void commitStyles() {
@@ -341,8 +331,8 @@ export class NativeAnimation extends WithPromise {
       return;
     }
     this.isStopped = true;
-    this.syncFromAnimation();
-    if (this.state == "idle" || this.state == "finished") {
+    string state = this.getState();
+    if (state == "idle" || state == "finished") {
       return;
     }
     (func(JsValue?)->void)? hook = this.updateMotionValueHook;
@@ -374,7 +364,7 @@ export class NativeAnimation extends WithPromise {
     if (anim.truthy() && hasFunctionNamed(anim, "play")) {
       callMethod0(anim, "play");
     }
-    if (this.state == "finished") {
+    if (this.getState() == "finished") {
       this.updateFinished();
     }
     this.state = "running";

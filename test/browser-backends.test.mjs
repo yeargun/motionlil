@@ -79,3 +79,30 @@ for(const scenario of cases)test(scenario.name,async()=>{
   }
  }
 })
+
+test('native control access matches Motion without unrelated effect timing reads',async()=>{
+ async function inspectReads(lane){
+  const page=await browser.newPage()
+  try{
+   await page.goto(origin)
+   return await page.evaluate(async lane=>{
+    const m=await import('/'+lane+'.js'),el=document.createElement('div')
+    el.style.opacity='.25';document.body.append(el)
+    let reads=0
+    const native=KeyframeEffect.prototype.getComputedTiming
+    KeyframeEffect.prototype.getComputedTiming=function(){reads++;return native.call(this)}
+    const control=m.animateMini(el,{opacity:[.25,1]},{duration:.6,ease:'linear'})
+    const counts={setup:reads}
+    control.pause();control.time=.2
+    const values={time:control.time,speed:control.speed,state:control.state}
+    counts.playback=reads
+    values.duration=control.duration;counts.duration=reads
+    values.iterationDuration=control.iterationDuration;counts.iterationDuration=reads
+    control.stop();counts.stop=reads
+    return{values,counts}
+   },lane)
+  }finally{await page.close()}
+ }
+ const expected=await inspectReads('original')
+ for(const lane of ['lilscript','full'])assert.deepEqual(await inspectReads(lane),expected,lane)
+})
