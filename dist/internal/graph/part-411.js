@@ -1,16 +1,9 @@
-let Ki = (vk) => {
-  if (null == vk) {
-    var wk, zk, yk, xk = true;
-  } else {
-    wk = !Array.isArray(vk);
-    xk = wk;
-  }
-  if (xk) return false;
-  for (zk = vk.length | 0, yk = 0; yk < zk; yk = yk + 1) {
-    if (Array.isArray(vk[yk])) return true;
-  }
-  return false;
+import { Be } from "./part-509.js";
+import { Ce } from "./part-510.js";
+let Qj = (a) => {
+  if (typeof window == "undefined") return false;
+  return a ? Ce() : Be();
 };
 export {
-  Ki
+  Qj
 };

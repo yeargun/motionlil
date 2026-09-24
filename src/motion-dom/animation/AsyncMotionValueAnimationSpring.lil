@@ -1,2 +1,0 @@
-import { AsyncMotionValueAnimation } from "./AsyncMotionValueAnimation";
-export { AsyncMotionValueAnimation };

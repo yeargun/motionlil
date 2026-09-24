@@ -1,7 +1,14 @@
-import { Qa } from "./part-460.js";
-let Lf = () => {
-  Qa[0] = null;
+import { c } from "./part-16.js";
+let C = function() {
+  D = null;
+};
+let D = null;
+let E = (a) => {
+  D = a;
+  c(C);
 };
 export {
-  Lf
+  C,
+  D,
+  E
 };

@@ -1,71 +1,41 @@
-import { complex } from "./index";
+import { complexTest, createTransformer, parseComplexValue } from "./index";
 import { floatRegex } from "../utils/float-regex";
-import { ValueType, valueTypeRecord } from "../types";
-import {
-  stringMatch,
-  stringReplace,
-  stringSplit,
-  stringSubstring
-} from "../../../string-host";
+import { ValueType, valueType, asStr } from "../types";
+import extern { stringMatch as matchAll, stringReplace as replaceText } from "../../../string-host.ts";
 
-extern float parseFloat(string v);
+extern string[]? matchAll(string s, Regex re);
+extern string replaceText(string s, string pattern, string replacement);
 
-Set<string> maxDefaults = new Set<string>();
-maxDefaults.add("brightness");
-maxDefaults.add("contrast");
-maxDefaults.add("saturate");
-maxDefaults.add("opacity");
-
-Regex functionRegex = new Regex("\\b([a-z-]*)\\(.*?\\)", "gu");
+// Properties that default to 1 or 100%.
+string[] maxDefaults = ["brightness", "contrast", "saturate", "opacity"];
 
 string applyDefaultFilter(string v) {
-  string head = stringSubstring(v, 0, v.length - 1);
-  string[] parts = stringSplit(head, "(");
-  if (parts.length < 2) {
-    return v;
-  }
+  string[] parts = v.slice(0, -1).split("(");
   string name = parts[0];
   string value = parts[1];
   if (name == "drop-shadow") {
     return v;
   }
-  JsValue matched = stringMatch(value, floatRegex);
-  if (!matched.isArray() || matched.length == 0.0) {
+  string[]? numbers = matchAll(value, floatRegex);
+  if (numbers == null) {
     return v;
   }
-  JsValue numberVal = matched[0];
-  string numberValue = `${numberVal}`;
-  string unit = stringReplace(value, floatRegex, "");
-  float defaultValue = 0.0;
-  if (maxDefaults.has(name)) {
-    defaultValue = 1.0;
+  string num = numbers[0];
+  float defaultValue = if (maxDefaults.includes(name)) { 1.0 } else { 0.0 };
+  if (num != value) {
+    defaultValue *= 100.0;
   }
-  if (numberValue != value) {
-    defaultValue = defaultValue * 100.0;
-  }
-  return name + "(" + `${defaultValue}` + unit + ")";
+  return `${name}(${defaultValue}${replaceText(value, num, "")})`;
 }
 
-export ValueType filter = valueTypeRecord(object{test: complex.test, parse: complex.parse, transform: complex.transform, createTransformer: complex.createTransformer, getAnimatableNone: (JsValue v) => {
-    if (!(v is string)) {
-      return v;
-    }
-    JsValue functions = stringMatch(v, functionRegex);
-    if (!functions.isArray()) {
-      return v;
-    }
-    string output = "";
-    int i = 0;
-    int len = functions.length.toInt();
-    while (i < len) {
-      JsValue item = functions[i];
-      string applied = applyDefaultFilter(`${item}`);
-      if (i == 0) {
-        output = applied;
-      } else {
-        output = output + " " + applied;
-      }
-      i = i + 1;
-    }
-    return output;
-  }});
+Regex functionRegex = new Regex("\\b([a-z-]*)\\(.*?\\)", "gu");
+
+export ValueType filter = valueType(object {
+  test: complexTest,
+  parse: parseComplexValue,
+  createTransformer: createTransformer,
+  getAnimatableNone: (JsValue v) => {
+    string[]? functions = matchAll(asStr(v), functionRegex);
+    return if (functions != null) { functions.map(applyDefaultFilter).join(" ") } else { v };
+  }
+});

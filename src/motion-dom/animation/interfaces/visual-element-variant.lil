@@ -1,147 +1,66 @@
 import { resolveVariant } from "../../render/utils/resolve-dynamic-variants";
+import { visualElementOf } from "../../cast";
 import { calcChildStagger } from "../utils/calc-child-stagger";
 import { animateTarget } from "./visual-element-target";
-import { callMethod0, callMethod1, callMethod2, isFunction, setValues } from "../../dom-host";
+import { animAssign3 as assign3, animPromiseAll as promiseAll } from "../anim-host";
 
-Task<JsValue> animateChildren(
-  JsValue visualElement,
-  JsValue variant,
-  float delayAmt,
-  JsValue delayChildren,
-  float staggerChildren,
-  float staggerDirection,
-  JsValue options
-) {
-  Task<JsValue>[] animations = [];
-  JsValue children = visualElement["variantChildren"];
-  if (children.truthy()) {
-    JsValue[] childList = setValues(children);
-    for (int i = 0; i < childList.length; i++) {
-      JsValue child = childList[i];
-      callMethod2(child, "notify", "AnimationStart", variant);
-      float childDelay = delayAmt;
-      if (!(isFunction(delayChildren)) && (delayChildren is float)) {
-        childDelay = childDelay + delayChildren;
-      }
-      childDelay = childDelay + calcChildStagger(
-        children,
-        child,
-        delayChildren,
-        staggerChildren,
-        staggerDirection
-      );
-      JsValue childOptions = record{};
-      for (string key in options) {
-        childOptions[key] = options[key];
-      }
-      childOptions["delay"] = childDelay;
-      animations.push(
-        animateVariant(child, variant, childOptions).then((JsValue _v) => {
-          callMethod2(child, "notify", "AnimationComplete", variant);
-          return true;
-        })
-      );
-    }
-  }
-  return Task.all(animations).then((JsValue[] _v) => true);
+extern class AnimVariantOptions {
+  JsValue type;
+  JsValue transitionOverride;
+  JsValue delay;
 }
 
-export Task<JsValue> animateVariant(
-  JsValue visualElement,
-  JsValue variant,
-  JsValue? options = null
-) {
-  JsValue opts = options;
-  if (opts == null) {
-    opts = record{};
+Task<bool> resolvedTask() {
+  return Task.resolve(true);
+}
+
+export Task<bool> animateVariant(JsValue visualElement, JsValue variant, JsValue optionsValue) {
+  AnimVariantOptions options = JS.assume(JS.or(optionsValue, JS.object()));
+  JsValue presenceContext = visualElement["presenceContext"];
+  JsValue resolved = resolveVariant(
+    visualElement,
+    variant,
+    if (JS.strictEqual(options.type, "exit") && presenceContext.truthy()) { presenceContext["custom"] } else { JS.undefined() }
+  );
+  JsValue? resolvedTransition = if (resolved.truthy()) { resolved["transition"] } else { JS.undefined() };
+  JsValue transition = resolvedTransition ?? JS.or(visualElementOf(visualElement).getDefaultTransition(), JS.object());
+  if (options.transitionOverride.truthy()) {
+    transition = options.transitionOverride;
   }
-  JsValue? custom = null;
-  if (opts["type"] == "exit") {
-    JsValue presence = visualElement["presenceContext"];
-    if (presence.truthy()) {
-      custom = presence["custom"];
-    }
-  }
-  JsValue? resolved = resolveVariant(visualElement, variant, custom);
-  JsValue transition = record{};
-  if (resolved != null && resolved.isObject()) {
-    JsValue t = resolved["transition"];
-    if (t.isObject()) {
-      transition = t;
-    } else {
-      JsValue defaults = null;
-      JsValue visualProps = visualElement["props"];
-      if (visualProps.truthy() && visualProps.isObject()) {
-        defaults = visualProps["transition"];
-      }
-      if (defaults != null && defaults.isObject()) {
-        transition = defaults;
-      }
-    }
-  }
-  if (opts["transitionOverride"].truthy()) {
-    transition = opts["transitionOverride"];
-  }
-  func()->Task<JsValue> getAnimation = () => Task.resolve(true);
-  if (resolved != null) {
-    JsValue resolvedCapture = resolved;
-    JsValue optsCapture = opts;
-    getAnimation = () => {
-      JsValue[] controls = animateTarget(visualElement, resolvedCapture, optsCapture);
-      Task<JsValue>[] tasks = [];
-      for (int i = 0; i < controls.length; i++) {
-        tasks.push(Task.resolve(true));
-      }
-      if (tasks.length == 0) {
-        return Task.resolve(true);
-      }
-      return Task.all(tasks).then((JsValue[] _v) => true);
-    };
-  }
-  func(float)->Task<JsValue> getChildAnimations = (float forwardDelay = 0.0) => Task.resolve(true);
+  func()->Task<bool> getAnimation = () => if (resolved.truthy()) {
+    promiseAll(animateTarget(visualElement, resolved, options))
+  } else {
+    resolvedTask()
+  };
   JsValue variantChildren = visualElement["variantChildren"];
-  if (variantChildren.truthy() && variantChildren["size"].truthy()) {
-    JsValue transitionCapture = transition;
-    JsValue optsCapture = opts;
-    JsValue variantCapture = variant;
-    getChildAnimations = (float forwardDelay = 0.0) => {
-      JsValue delayChildren = transitionCapture["delayChildren"];
-      if (!(delayChildren is float) && !isFunction(delayChildren)) {
-        delayChildren = 0.0;
-      }
-      float staggerChildren = 0.0;
-      JsValue staggerChildrenVal = transitionCapture["staggerChildren"];
-      if (staggerChildrenVal is float) {
-        staggerChildren = staggerChildrenVal;
-      }
-      float staggerDirection = 1.0;
-      JsValue staggerDirectionVal = transitionCapture["staggerDirection"];
-      if (staggerDirectionVal is float) {
-        staggerDirection = staggerDirectionVal;
-      }
-      return animateChildren(
-        visualElement,
-        variantCapture,
-        forwardDelay,
-        delayChildren,
-        staggerChildren,
-        staggerDirection,
-        optsCapture
-      );
-    };
-  }
+  func(JsValue)->Task<bool> getChildAnimations = (JsValue forwardDelay) => {
+    if (!(variantChildren.truthy() && variantChildren["size"].truthy())) {
+      return resolvedTask();
+    }
+    JsValue? delayChildrenOption = transition["delayChildren"];
+    JsValue delayChildren = delayChildrenOption ?? 0.0;
+    JsValue? staggerChildren = transition["staggerChildren"];
+    JsValue? staggerDirection = transition["staggerDirection"];
+    Task<bool>[] animations = [];
+    JS.invoke(variantChildren, "forEach", (JsValue child) => {
+      visualElementOf(child).notify("AnimationStart", variant);
+      float delay = JS.assume(JS.or(forwardDelay, 0.0));
+      float delayChildrenValue = if (JS.typeOf(delayChildren) == "function") { 0.0 } else { JS.assume(delayChildren) };
+      animations.push(animateVariant(child, variant, assign3(JS.object(), options, JS.object(
+        "delay", delay + delayChildrenValue + calcChildStagger(variantChildren, child, delayChildren, JS.assume(staggerChildren ?? 0.0), JS.assume(staggerDirection ?? 1.0))
+      ))).then((bool _v) => {
+        visualElementOf(child).notify("AnimationComplete", variant);
+        return true;
+      }));
+    });
+    return promiseAll(animations);
+  };
   JsValue when = transition["when"];
   if (when.truthy()) {
-    if (when == "beforeChildren") {
-      return getAnimation().then((JsValue _v) => getChildAnimations(0.0));
+    if (JS.strictEqual(when, "beforeChildren")) {
+      return getAnimation().then((bool _v) => getChildAnimations(JS.undefined()));
     }
-    return getChildAnimations(0.0).then((JsValue _v) => getAnimation());
+    return getChildAnimations(JS.undefined()).then((bool _v) => getAnimation());
   }
-  float delayOpt = 0.0;
-  JsValue delayOptVal = opts["delay"];
-  if (delayOptVal is float) {
-    delayOpt = delayOptVal;
-  }
-  Task<JsValue>[] both = [getAnimation(), getChildAnimations(delayOpt)];
-  return Task.all(both).then((JsValue[] _v) => true);
+  return promiseAll(JS.array(getAnimation(), getChildAnimations(options.delay)));
 }

@@ -1,17 +1,25 @@
+extern class AnimRepeatOptions {
+  JsValue repeat;
+  JsValue repeatType;
+}
+
+// Upstream's getFinalKeyframe: `repeatType` defaults to "loop" and
+// `finalKeyframe` is used only when it is not `undefined` (a `null` is a
+// value), as its destructuring default and `=== undefined` test decide.
 export JsValue getFinalKeyframe(
-  JsValue keyframesInput,
+  JsValue keyframes,
   JsValue options,
   JsValue finalKeyframe = JS.undefined(),
   float speed = 1.0
 ) {
-  JsValue[] keyframes = JS.assume(keyframesInput);
-  JsValue[] resolvedKeyframes = keyframes.filter((JsValue value) => !JS.strictEqual(value, null));
-  JsValue repeat = options["repeat"];
-  JsValue repeatType = options["repeatType"];
-  if (JS.isUndefined(repeatType)) { repeatType = "loop"; }
-  bool useFirstKeyframe = speed < 0.0 || (repeat.truthy() && !JS.strictEqual(repeatType, "loop") && JS.strictEqual(JS.mod(repeat, 2), 1));
-  int index = resolvedKeyframes.length - 1;
-  if (useFirstKeyframe) { index = 0; }
-  if (index == 0 || JS.isUndefined(finalKeyframe)) { return resolvedKeyframes[index]; }
-  return finalKeyframe;
+  JsValue resolved = JS.invoke(keyframes, "filter", (JsValue v) => JS.strictNotEqual(v, null));
+  AnimRepeatOptions o = JS.assume(options);
+  JsValue repeatType = o.repeatType;
+  bool useFirstKeyframe = speed < 0.0 || (
+    o.repeat.truthy() &&
+    !JS.isUndefined(repeatType) && JS.strictNotEqual(repeatType, "loop") &&
+    JS.strictEqual(JS.mod(o.repeat, 2.0), 1.0)
+  );
+  float index = if (useFirstKeyframe) { 0.0 } else { resolved.length - 1.0 };
+  return if (index == 0.0 || JS.isUndefined(finalKeyframe)) { resolved[index] } else { finalKeyframe };
 }

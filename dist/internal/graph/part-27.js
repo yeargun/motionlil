@@ -1,7 +1,8 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let e = (vk) => vk * 1e3;
+import "./effect-499.js";
+import "./effect-573.js";
+let containsCSSVariable = function(a) {
+  return typeof a == "string" && (a.split("/*")[0] ?? "").includes("var(--");
+};
 export {
-  e
+  containsCSSVariable
 };

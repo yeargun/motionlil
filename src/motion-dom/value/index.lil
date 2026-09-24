@@ -1,23 +1,20 @@
-import { finishedTask as taskFromCallback } from "../animation/utils/control-abi";
 import { SubscriptionManager } from "../../motion-utils/subscription-manager";
 import { velocityPerSecond } from "../../motion-utils/velocity-per-second";
-import { parseFloatValue, callFn0, callMethod0, isFunction, setProp, getProp } from "../dom-host";
+import { taskFromCallback, callFn0, callMethod0, isFunction, setProp } from "../dom-host";
 import { frame } from "../frameloop/index";
 import { time } from "../frameloop/sync-time";
 import { FrameData } from "../frameloop/types";
+import { asNum, asStr, undefined } from "./types/types";
+import extern { cast as asManager } from "./types/cast.ts";
+import { animAdopt, animArity, animClass } from "../animation/anim-host";
 
+extern SubscriptionManager? asManager(JsValue v);
+
+extern float parseFloat(string v);
+
+// Maximum time between the value of two frames, beyond which the velocity is
+// assumed to have since been 0.
 float MAX_VELOCITY_DELTA = 30.0;
-
-bool isFloat(JsValue value) {
-  if (value is float) {
-    return true;
-  }
-  if (value is string) {
-    float parsed = parseFloatValue(value);
-    return parsed == parsed;
-  }
-  return false;
-}
 
 export class Owner {
   JsValue current;
@@ -72,6 +69,14 @@ export class CollectMotionValues {
 
 export CollectMotionValues collectMotionValues = new CollectMotionValues();
 
+// Upstream's MotionValue.prototype: every value is created on it, so its
+// methods are shared, as upstream's class methods are.
+JsValue motionValuePrototype = JS.object();
+
+MotionValue motionValueOf(JsValue value) {
+  return JS.assume(value);
+}
+
 export class MotionValue {
   JsValue? owner;
   JsValue? current;
@@ -81,55 +86,43 @@ export class MotionValue {
   float? prevUpdatedAt;
   (func(JsValue, func(JsValue)->void)->void)? passiveEffect;
   (func()->void)? stopPassiveEffect;
-  bool? isEffectActive;
   JsValue? animation;
   bool? canTrackVelocity;
   MotionValue[]? dependents;
-  bool? liveStyle;
-  AccelerateConfig? accelerate;
-  Map<string, SubscriptionManager> events;
-  string[] eventKeys;
+  JsValue events;
   bool hasAnimated;
 
-  init(JsValue initValue, MotionValueOptions? options = null) {
-    this.owner = null;
-    this.current = null;
-    this.prev = null;
-    this.prevFrameValue = null;
-    this.updatedAt = 0.0;
-    this.prevUpdatedAt = null;
-    this.passiveEffect = null;
-    this.stopPassiveEffect = null;
-    this.isEffectActive = null;
-    this.animation = null;
+  init(JsValue initValue) {
     this.canTrackVelocity = null;
-    this.dependents = null;
-    this.liveStyle = null;
-    this.accelerate = null;
-    this.events = new Map<string, SubscriptionManager>();
-    this.eventKeys = [];
+    this.events = object {};
     this.hasAnimated = false;
+    animAdopt(this, motionValuePrototype);
     this.setCurrent(initValue);
-    if (options != null) {
-      this.owner = options.owner;
-    }
+    MotionValue self = this;
+    // Upstream binds this one to each value.
+    setProp(this, "updateAndNotify", (JsValue v) => self.updateAndNotify(v));
   }
 
-  void setCurrent(JsValue currentValue) {
-    this.current = currentValue;
+  void setCurrent(JsValue current) {
+    this.current = current;
     this.updatedAt = time.now();
-    if (this.canTrackVelocity == null) {
-      this.canTrackVelocity = isFloat(currentValue);
+    // Upstream tests `current !== undefined`: a null value is still classified.
+    if (this.canTrackVelocity == null && !JS.isUndefined(current)) {
+      float parsed = parseFloat(asStr(current));
+      this.canTrackVelocity = parsed == parsed;
     }
   }
 
-  void setPrevFrameValue(JsValue? prevFrameValue = null) {
-    if (prevFrameValue != null) {
-      this.prevFrameValue = prevFrameValue;
-    } else {
-      this.prevFrameValue = this.current;
-    }
+  void setPrevFrameValue() {
+    this.prevFrameValue = this.current;
     this.prevUpdatedAt = this.updatedAt;
+  }
+
+  void emit(string eventName, JsValue? v = JS.undefined()) {
+    SubscriptionManager? manager = asManager(this.events[eventName]);
+    if (manager != null) {
+      manager.notify(v);
+    }
   }
 
   func()->void onChange(func(JsValue?, JsValue?, JsValue?)->void subscription) {
@@ -137,24 +130,16 @@ export class MotionValue {
   }
 
   func()->void on(string eventName, func(JsValue?, JsValue?, JsValue?)->void callback) {
-    SubscriptionManager? existing = this.events.get(eventName);
-    SubscriptionManager manager = existing ?? new SubscriptionManager();
-    if (existing == null) {
-      this.events.set(eventName, manager);
-      if (this.eventKeys.indexOf(eventName) == -1) {
-        this.eventKeys.push(eventName);
-      }
-    }
+    SubscriptionManager manager = asManager(this.events[eventName]) ?? new SubscriptionManager();
+    this.events[eventName] = manager;
     func()->void unsubscribe = manager.add(callback);
     if (eventName == "change") {
       MotionValue self = this;
       return () => {
         unsubscribe();
+        // With no change listeners left by the next frame, stop animating.
         frame.read((FrameData _data) => {
-          SubscriptionManager? change = self.events.get("change");
-          if (change == null) {
-            self.stop();
-          } else if (change.getSize() == 0) {
+          if (manager.getSize() == 0) {
             self.stop();
           }
         }, false, false);
@@ -164,13 +149,11 @@ export class MotionValue {
   }
 
   void clearListeners() {
-    int i = 0;
-    while (i < this.eventKeys.length) {
-      SubscriptionManager? manager = this.events.get(this.eventKeys[i]);
+    for (string eventName in this.events) {
+      SubscriptionManager? manager = asManager(this.events[eventName]);
       if (manager != null) {
         manager.clear();
       }
-      i = i + 1;
     }
   }
 
@@ -188,16 +171,14 @@ export class MotionValue {
       this.updateAndNotify(v);
     } else {
       MotionValue self = this;
-      effect(v, (JsValue latest) => {
-        self.updateAndNotify(latest);
-      });
+      effect(v, (JsValue latest) => self.updateAndNotify(latest));
     }
   }
 
-  void setWithVelocity(JsValue prevValue, JsValue currentValue, float delta) {
-    this.set(currentValue);
+  void setWithVelocity(JsValue prev, JsValue current, float delta) {
+    this.set(current);
     this.prev = null;
-    this.prevFrameValue = prevValue;
+    this.prevFrameValue = prev;
     this.prevUpdatedAt = this.updatedAt - delta;
   }
 
@@ -216,53 +197,41 @@ export class MotionValue {
   }
 
   void dirty() {
-    SubscriptionManager? change = this.events.get("change");
-    if (change != null) {
-      change.notify(this.current, JS.undefined(), JS.undefined());
-    }
+    this.emit("change", this.current);
   }
 
   void addDependent(MotionValue dependent) {
-    if (this.dependents == null) {
-      MotionValue[] emptyDeps = [];
-      this.dependents = emptyDeps;
-    }
-    MotionValue[]? deps = this.dependents;
-    if (deps != null) {
-      if (deps.indexOf(dependent) == -1) {
-        deps.push(dependent);
-      }
+    MotionValue[] dependents = this.dependents ?? [];
+    this.dependents = dependents;
+    if (!dependents.includes(dependent)) {
+      dependents.push(dependent);
     }
   }
 
   void removeDependent(MotionValue dependent) {
-    MotionValue[]? deps = this.dependents;
-    if (deps != null) {
-      int index = deps.indexOf(dependent);
+    MotionValue[]? dependents = this.dependents;
+    if (dependents != null) {
+      int index = dependents.indexOf(dependent);
       if (index > -1) {
-        deps.splice(index, 1);
+        dependents.splice(index, 1);
       }
     }
   }
 
   void updateAndNotify(JsValue v) {
-    float currentTime = time.now();
-    if (this.updatedAt != currentTime) {
+    // Updating during a later frame or event loop than the previous one:
+    // the previous frame value is the current one.
+    if (this.updatedAt != time.now()) {
       this.setPrevFrameValue();
     }
     this.prev = this.current;
     this.setCurrent(v);
     if (this.current != this.prev) {
-      SubscriptionManager? change = this.events.get("change");
-      if (change != null) {
-        change.notify(this.current, JS.undefined(), JS.undefined());
-      }
-      MotionValue[]? deps = this.dependents;
-      if (deps != null) {
-        int i = 0;
-        while (i < deps.length) {
-          deps[i].dirty();
-          i = i + 1;
+      this.emit("change", this.current);
+      MotionValue[]? dependents = this.dependents;
+      if (dependents != null) {
+        for (MotionValue dependent of dependents) {
+          dependent.dirty();
         }
       }
     }
@@ -281,36 +250,19 @@ export class MotionValue {
   }
 
   float getVelocity() {
+    // Read the synchronous time first, as upstream does: reading it caches it
+    // for the rest of the event-loop turn.
     float currentTime = time.now();
-    bool? canTrack = this.canTrackVelocity;
-    if (canTrack == null) {
-      return 0.0;
-    }
-    if (!canTrack) {
-      return 0.0;
-    }
-    if (this.prevFrameValue == null) {
-      return 0.0;
-    }
-    if (currentTime - this.updatedAt > MAX_VELOCITY_DELTA) {
-      return 0.0;
-    }
-    float? prevUpdated = this.prevUpdatedAt;
-    if (prevUpdated == null) {
-      return 0.0;
-    }
-    float delta = this.updatedAt - prevUpdated;
-    if (delta > MAX_VELOCITY_DELTA) {
-      delta = MAX_VELOCITY_DELTA;
-    }
-    JsValue? currentValue = this.current;
-    JsValue? prevFrame = this.prevFrameValue;
-    if (currentValue == null || prevFrame == null) {
+    if (
+      this.canTrackVelocity != true ||
+      this.prevFrameValue == null ||
+      currentTime - this.updatedAt > MAX_VELOCITY_DELTA
+    ) {
       return 0.0;
     }
     return velocityPerSecond(
-      parseFloatValue(currentValue) - parseFloatValue(prevFrame),
-      delta
+      parseFloat(asStr(this.current)) - parseFloat(asStr(this.prevFrameValue)),
+      (this.updatedAt - asNum(this.prevUpdatedAt)).min(MAX_VELOCITY_DELTA)
     );
   }
 
@@ -319,18 +271,12 @@ export class MotionValue {
     MotionValue self = this;
     return taskFromCallback((func()->void resolve) => {
       self.hasAnimated = true;
-      JsValue? anim = startAnimation(resolve);
-      self.animation = anim;
-      SubscriptionManager? startEvt = self.events.get("animationStart");
-      if (startEvt != null) {
-        startEvt.notify(JS.undefined(), JS.undefined(), JS.undefined());
-      }
-    }).then((JsValue _done) => {
-      SubscriptionManager? complete = self.events.get("animationComplete");
-      if (complete != null) {
-        complete.notify(JS.undefined(), JS.undefined(), JS.undefined());
-      }
+      self.animation = startAnimation(resolve);
+      self.emit("animationStart");
+    }).then((bool _done) => {
+      self.emit("animationComplete");
       self.clearAnimation();
+      // Upstream's promise settles with nothing.
       return JS.undefined();
     });
   }
@@ -338,11 +284,15 @@ export class MotionValue {
   void stop() {
     JsValue? animation = this.animation;
     if (animation != null) {
-      callMethod0(animation, "stop");
-      SubscriptionManager? cancel = this.events.get("animationCancel");
-      if (cancel != null) {
-        cancel.notify(JS.undefined(), JS.undefined(), JS.undefined());
+      if (isFunction(animation["stop"])) {
+        callMethod0(animation, "stop");
+      } else {
+        JsValue stopActive = animation["stopActive"];
+        if (isFunction(stopActive)) {
+          callFn0(stopActive);
+        }
       }
+      this.emit("animationCancel");
     }
     this.clearAnimation();
   }
@@ -356,12 +306,8 @@ export class MotionValue {
   }
 
   void destroy() {
-    MotionValue[] cleared = [];
-    this.dependents = cleared;
-    SubscriptionManager? destroyEvt = this.events.get("destroy");
-    if (destroyEvt != null) {
-      destroyEvt.notify(JS.undefined(), JS.undefined(), JS.undefined());
-    }
+    this.dependents = null;
+    this.emit("destroy");
     this.clearListeners();
     this.stop();
     (func()->void)? stopEffect = this.stopPassiveEffect;
@@ -372,9 +318,77 @@ export class MotionValue {
 }
 
 export MotionValue motionValue(JsValue initValue, JsValue? options = null) {
-  MotionValueOptions? typed = null;
+  MotionValue value = new MotionValue(initValue);
   if (options != null) {
-    typed = new MotionValueOptions(options["owner"]);
+    value.owner = options["owner"];
   }
-  return new MotionValue(initValue, typed);
+  return value;
 }
+
+// Upstream's public `MotionValue` class (`new MotionValue(init, options)`):
+// its prototype methods, with upstream's declared parameter counts.
+export JsValue motionValueConstructor = animClass(
+  (JsValue initial, JsValue options) => motionValue(initial, options),
+  motionValuePrototype,
+  JS.object(
+    "setCurrent", JS.object("value", JS.method1((JsValue self, JsValue current) => {
+      motionValueOf(self).setCurrent(current);
+      return JS.undefined();
+    })),
+    "onChange", JS.object("value", JS.method1((JsValue self, JsValue subscription) =>
+      motionValueOf(self).on("change", JS.assume(subscription)))),
+    "on", JS.object("value", JS.method2((JsValue self, JsValue eventName, JsValue callback) =>
+      motionValueOf(self).on(JS.assume(eventName), JS.assume(callback)))),
+    "clearListeners", JS.object("value", JS.method0((JsValue self) => {
+      motionValueOf(self).clearListeners();
+      return JS.undefined();
+    })),
+    "attach", JS.object("value", JS.method2((JsValue self, JsValue passiveEffect, JsValue stopPassiveEffect) => {
+      motionValueOf(self).attach(JS.assume(passiveEffect), JS.assume(stopPassiveEffect));
+      return JS.undefined();
+    })),
+    "set", JS.object("value", JS.method1((JsValue self, JsValue v) => {
+      motionValueOf(self).set(v);
+      return JS.undefined();
+    })),
+    "setWithVelocity", JS.object("value", JS.method3((JsValue self, JsValue prev, JsValue current, JsValue delta) => {
+      motionValueOf(self).setWithVelocity(prev, current, JS.assume(delta));
+      return JS.undefined();
+    })),
+    "jump", JS.object("value", animArity(JS.methodRest((JsValue self, JsValue args) => {
+      JsValue endAnimation = args[1];
+      motionValueOf(self).jump(args[0], JS.isUndefined(endAnimation) || endAnimation.truthy());
+      return JS.undefined();
+    }), 1.0)),
+    "dirty", JS.object("value", JS.method0((JsValue self) => {
+      motionValueOf(self).dirty();
+      return JS.undefined();
+    })),
+    "addDependent", JS.object("value", JS.method1((JsValue self, JsValue dependent) => {
+      motionValueOf(self).addDependent(JS.assume(dependent));
+      return JS.undefined();
+    })),
+    "removeDependent", JS.object("value", JS.method1((JsValue self, JsValue dependent) => {
+      motionValueOf(self).removeDependent(JS.assume(dependent));
+      return JS.undefined();
+    })),
+    "get", JS.object("value", JS.method0((JsValue self) => motionValueOf(self).get())),
+    "getPrevious", JS.object("value", JS.method0((JsValue self) => motionValueOf(self).prev)),
+    "getVelocity", JS.object("value", JS.method0((JsValue self) => motionValueOf(self).getVelocity())),
+    "start", JS.object("value", JS.method1((JsValue self, JsValue startAnimation) =>
+      motionValueOf(self).start(JS.assume(startAnimation)))),
+    "stop", JS.object("value", JS.method0((JsValue self) => {
+      motionValueOf(self).stop();
+      return JS.undefined();
+    })),
+    "isAnimating", JS.object("value", JS.method0((JsValue self) => motionValueOf(self).animation != null)),
+    "clearAnimation", JS.object("value", JS.method0((JsValue self) => {
+      motionValueOf(self).clearAnimation();
+      return JS.undefined();
+    })),
+    "destroy", JS.object("value", JS.method0((JsValue self) => {
+      motionValueOf(self).destroy();
+      return JS.undefined();
+    }))
+  )
+);

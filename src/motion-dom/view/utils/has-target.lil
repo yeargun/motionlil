@@ -1,18 +1,9 @@
-import { callMethod1 } from "../../dom-host";
-
+// Whether `targets` holds a non-empty definition for `target`.
 export bool hasTarget(JsValue target, JsValue targets) {
-  if (!callMethod1(targets, "has", target).truthy()) {
-    return false;
-  }
-  JsValue value = callMethod1(targets, "get", target);
-  if (!value.truthy()) {
-    return false;
-  }
-  if (!value.isObject()) {
-    return false;
-  }
-  for (string key in value) {
-    return true;
+  if (JS.invoke(targets, "has", target).truthy()) {
+    for (string key in JS.invoke(targets, "get", target)) {
+      return true;
+    }
   }
   return false;
 }

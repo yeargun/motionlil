@@ -1,4 +1,6 @@
-let qk = "stroke-dashoffset";
+let Xl = function(a, b, c) {
+  a.set(b, c);
+};
 export {
-  qk
+  Xl
 };

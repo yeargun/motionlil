@@ -1,11 +1,8 @@
-import { ua } from "./part-294.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Rj = (vk) => {
-  let wk = ua(vk.x);
-  return wk / ua(vk.y);
+import "./effect-499.js";
+import "./effect-573.js";
+let axisEquals = function(a, b) {
+  return a.min == b.min && a.max == b.max;
 };
 export {
-  Rj
+  axisEquals
 };

@@ -1,10 +1,9 @@
-let Cg = (vk) => {
-  if ("reverse" == vk) return 1;
-  else {
-    if ("mirror" == vk) return 2;
-  }
-  return 0;
+let Fd = (a) => {
+  if (a.isVariantNode) return a;
+  let c = a.parent;
+  if (!c) return;
+  return Fd(c);
 };
 export {
-  Cg
+  Fd
 };

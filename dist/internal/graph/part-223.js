@@ -1,15 +1,11 @@
-import { getElementTagName } from "./../motion-dom/dom-host.js";
-import { Va } from "./part-584.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Bj = (vk) => {
-  var yk = getElementTagName(vk), wk = vk.isContentEditable;
-  if (Va.has(yk)) {
-    var xk = true;
-  } else xk = wk;
-  return xk;
+import { resolveTransition } from "./part-222.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let getValueTransition = function(a, b) {
+  if (!a) return a;
+  let c = a[b], d = a.default, e = c ?? d ?? a;
+  return e !== a ? resolveTransition(e, a) : e;
 };
 export {
-  Bj
+  getValueTransition
 };

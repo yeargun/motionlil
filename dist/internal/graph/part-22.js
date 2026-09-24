@@ -1,10 +1,6 @@
-let M = (vk, wk, xk, yk, zk) => {
-  if (!vk[0]) {
-    var Ak = vk[4];
-    if (Ak) Ak();
-  }
-  return wk.schedule(xk, yk, zk);
+let r = (a, b) => {
+  if ("object" == typeof a && a) delete a[b];
 };
 export {
-  M
+  r
 };

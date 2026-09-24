@@ -1,12 +1,9 @@
-import { callMethod1 } from "./../motion-dom/dom-host.js";
-import { _a } from "./part-253.js";
-let Wd = () => {
-  var vk = _a;
-  if (null != vk) {
-    var wk = vk.parentElement;
-    if (wk) callMethod1(wk, "removeChild", vk);
-  }
+import { isSVGElement } from "./part-253.js";
+let pg = (a, b, c, d, e) => {
+  if (e && e[0]) return e[0][a];
+  if (isSVGElement(d) && "getBBox" in d) return d.getBBox()[b];
+  return d[c];
 };
 export {
-  Wd
+  pg
 };

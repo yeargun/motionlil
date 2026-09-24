@@ -1,41 +1,50 @@
-import { installControlProperties, finishedTask, thenFinished } from "./control-abi";
+import { animNewPromise as newPromise } from "../anim-host";
+
+// The promise state lives on the object itself, as upstream's `_finished`
+// and `resolve`; the class declares no fields, so constructing a subclass
+// anywhere does not spell out a field literal.
+export extern class AnimPromiseState {
+  Task<bool> _finished;
+  func()->void _resolve;
+}
+
+export AnimPromiseState promiseStateOf(JsValue value) {
+  return JS.assume(value);
+}
+
+export void updateFinished(JsValue value) {
+  AnimPromiseState state = promiseStateOf(value);
+  state._finished = newPromise((func()->void resolve) => {
+    state._resolve = resolve;
+  });
+}
 
 export class WithPromise {
-  Task<JsValue>? finishedTask;
-  (func()->void)? resolveFn;
-  (func()->Task<JsValue>)? finishedHook;
-
   init() {
-    this.finishedTask = null;
-    this.resolveFn = null;
-    this.finishedHook = null;
-    this.updateFinished();
-    installControlProperties(this);
+    updateFinished(this);
   }
 
-  Task<JsValue> getFinished() {
-    (func()->Task<JsValue>)? hook = this.finishedHook;
-    if (hook != null) { return hook(); }
-    return this.baseFinished();
-  }
-
-  Task<JsValue> baseFinished() {
-    Task<JsValue>? task = this.finishedTask;
-    if (task != null) { return task; }
-    return Task.resolve(null);
+  Task<bool> finished() {
+    return promiseStateOf(this)._finished;
   }
 
   void updateFinished() {
-    WithPromise self = this;
-    this.finishedTask = finishedTask((func()->void resolve) => { self.resolveFn = resolve; });
+    updateFinished(this);
   }
 
   void notifyFinished() {
-    (func()->void)? resolve = this.resolveFn;
-    if (resolve != null) { resolve(); }
+    promiseStateOf(this)._resolve();
   }
 
-  Task<JsValue> then(JsValue onResolve, JsValue? onReject = null) {
-    return thenFinished(this.getFinished(), onResolve, onReject);
+  Task<bool> then(func()->void onResolve, (func()->void)? onReject = null) {
+    return promiseStateOf(this)._finished.then((bool _v) => {
+      onResolve();
+      return true;
+    });
   }
 }
+
+// Upstream's `get finished()` and `then()`, shared by the animation surfaces.
+export JsValue finishedDescriptor = JS.object("get", JS.method0((JsValue self) => promiseStateOf(self)._finished));
+export JsValue thenDescriptor = JS.object("value", JS.method2((JsValue self, JsValue onResolve, JsValue onReject) =>
+  JS.invoke(promiseStateOf(self)._finished, "then", onResolve, onReject)));

@@ -1,16 +1,11 @@
+import { FrameData } from "../../frameloop/types";
 import { camelToDash } from "../../render/dom/utils/camel-to-dash";
 import { MotionValue } from "../../value/index";
+import { asOpt } from "../../value/types/types";
 import { MotionValueState } from "../MotionValueState";
 import { createSelectorEffect } from "../utils/create-dom-effect";
 import { createEffect } from "../utils/create-effect";
-import { hasOwn } from "../../dom-host";
-
-bool canSetAsProperty(JsValue element, string name) {
-  if (!hasOwn(element, name)) {
-    return false;
-  }
-  return true;
-}
+import { DomTarget, asDomTarget, canSetAsProperty } from "../utils/dom";
 
 export func()->void addAttrValue(
   JsValue element,
@@ -19,39 +14,29 @@ export func()->void addAttrValue(
   MotionValue value
 ) {
   bool isProp = canSetAsProperty(element, key);
-  string name = key;
-  if (!isProp) {
-    if (key.startsWith("data") || key.startsWith("aria")) {
-      name = camelToDash(key);
-    }
-  }
-  (func()->void)? render = null;
-  if (isProp) {
-    string propName = name;
-    render = () => {
-      element[propName] = state.latest[key];
-    };
+  string name = if (!isProp && (key.startsWith("data") || key.startsWith("aria"))) {
+    camelToDash(key)
   } else {
-    string attrName = name;
-    render = () => {
+    key
+  };
+  DomTarget target = asDomTarget(element);
+  // Set the attribute directly via its property where one is available.
+  func(FrameData)->void render = if (isProp) {
+    (FrameData _data) => {
+      element[name] = state.latest[key];
+    }
+  } else {
+    (FrameData _data) => {
       JsValue v = state.latest[key];
-      bool missing =
-        !(v is float) &&
-        !(v is string) &&
-        !(v is bool) &&
-        !v.isArray() &&
-        !(v.isObject() && v.truthy());
-      if (missing) {
-        callMethod1(element, "removeAttribute", attrName);
+      if (asOpt(v) == null) {
+        target.removeAttribute(name);
       } else {
-        callMethod2(element, "setAttribute", attrName, `${v}`);
+        target.setAttribute(name, `${v}`);
       }
-    };
-  }
-  return state.set(key, value, render);
+    }
+  };
+  return state.set(key, value, render, null, true);
 }
-
-import { callMethod1, callMethod2 } from "../../dom-host";
 
 export func(JsValue, Record<MotionValue>)->func()->void attrEffect =
   createSelectorEffect(createEffect(addAttrValue));

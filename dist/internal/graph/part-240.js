@@ -1,15 +1,23 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let qh = (vk, wk) => {
-  if ("string" == typeof vk) {
-    if ("first" == vk) return 0;
-    var xk = wk - 1 | 0;
-    if ("last" == vk) return xk;
-    return xk / 2;
+import { isDragActive } from "./part-239.js";
+import { cg } from "./part-528.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let setDragLock = function(a) {
+  if (a === "x" || a === "y") {
+    if (cg[a]) return null;
+    cg[a] = true;
+    return () => {
+      cg[a] = false;
+    };
   }
-  return vk;
+  if (isDragActive()) return null;
+  cg.x = true;
+  cg.y = true;
+  return () => {
+    cg.x = false;
+    cg.y = false;
+  };
 };
 export {
-  qh
+  setDragLock
 };

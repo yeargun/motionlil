@@ -1,8 +1,10 @@
-let nc = (vk) => {
-  if (null == vk) return true;
-  if ("number" == typeof vk) return 1 == vk;
-  return false;
+let Kg = () => {
+  let a = Og;
+  Og = a + 1;
+  return `motion-view-${a}`;
 };
+let Og = 0;
 export {
-  nc
+  Kg,
+  Og
 };

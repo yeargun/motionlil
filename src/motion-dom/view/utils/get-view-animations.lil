@@ -1,23 +1,13 @@
-import { documentGetAnimations, documentElement } from "../../dom-host";
+extern JsValue document;
 
-export JsValue[] getViewAnimations() {
-  JsValue[] animations = documentGetAnimations();
-  JsValue[] filtered = [];
-  for (int i = 0; i < animations.length; i++) {
-    JsValue animation = animations[i];
+// The document's animations that run on a view-transition pseudo-element.
+export JsValue getViewAnimations() {
+  JsValue animations = JS.invoke(document, "getAnimations");
+  return JS.invoke(animations, "filter", (JsValue animation) => {
     JsValue effect = animation["effect"];
-    if (!effect.truthy()) {
-      continue;
-    }
-    JsValue target = effect["target"];
-    JsValue pseudo = effect["pseudoElement"];
-    if (target == documentElement()) {
-      if (pseudo is string) {
-        if (pseudo.startsWith("::view-transition")) {
-          filtered.push(animation);
-        }
-      }
-    }
-  }
-  return filtered;
+    return JS.and(
+      JS.and(JS.and(effect, JS.strictEqual(effect["target"], document["documentElement"])), effect["pseudoElement"]),
+      JS.invoke(effect["pseudoElement"], "startsWith", "::view-transition")
+    );
+  });
 }

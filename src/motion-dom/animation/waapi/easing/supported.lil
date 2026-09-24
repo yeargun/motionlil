@@ -1,40 +1,25 @@
-export class SupportedWaapiEasing {
+import { cubicBezierAsString } from "./cubic-bezier";
+
+export extern class SupportedWaapiEasing {
   string linear;
   string ease;
   string easeIn;
   string easeOut;
   string easeInOut;
-
-  init() {
-    this.linear = "linear";
-    this.ease = "ease";
-    this.easeIn = "ease-in";
-    this.easeOut = "ease-out";
-    this.easeInOut = "ease-in-out";
-  }
-
-  string? get(string name) {
-    if (name == "linear") {
-      return this.linear;
-    }
-    if (name == "ease") {
-      return this.ease;
-    }
-    if (name == "easeIn") {
-      return this.easeIn;
-    }
-    if (name == "easeOut") {
-      return this.easeOut;
-    }
-    if (name == "easeInOut") {
-      return this.easeInOut;
-    }
-    return null;
-  }
-
-  bool has(string name) {
-    return this.get(name) != null;
-  }
+  string circIn;
+  string circOut;
+  string backIn;
+  string backOut;
 }
 
-export SupportedWaapiEasing supportedWaapiEasing = new SupportedWaapiEasing();
+export SupportedWaapiEasing supportedWaapiEasing = JS.assume(JS.object(
+  "linear", "linear",
+  "ease", "ease",
+  "easeIn", "ease-in",
+  "easeOut", "ease-out",
+  "easeInOut", "ease-in-out",
+  "circIn", cubicBezierAsString(JS.array(0.0, 0.65, 0.55, 1.0)),
+  "circOut", cubicBezierAsString(JS.array(0.55, 0.0, 1.0, 0.45)),
+  "backIn", cubicBezierAsString(JS.array(0.31, 0.01, 0.66, -0.59)),
+  "backOut", cubicBezierAsString(JS.array(0.33, 1.53, 0.69, 0.99))
+));

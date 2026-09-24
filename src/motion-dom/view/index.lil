@@ -1,145 +1,94 @@
 import { addToQueue } from "./queue";
-import { taskFromCallback, isFunction } from "../dom-host";
+import { noop } from "../../motion-utils/noop";
 
-export class ViewTransitionBuilder {
+extern JsValue Object;
+extern JsValue Promise;
+
+// The builder `animateView` returns: a plain object whose methods close over
+// its own collections.
+export extern class ViewTransitionBuilder {
   JsValue currentSubject;
-  Map<JsValue, JsValue> targets;
-  JsValue[] targetDefs;
-  Set<JsValue> resolveDefs;
-  Map<JsValue, bool> cropOverride;
-  Map<JsValue, JsValue> pairs;
-  Map<JsValue, string> classNames;
-  Set<JsValue> flatGroups;
-  func()->void update;
-  JsValue options;
-  (func(JsValue)->void)? notifyReady;
-  (func(JsValue)->void)? notifyReject;
-  Task<JsValue> readyPromise;
-
-  init(func()->void update, JsValue? options = null) {
-    this.currentSubject = "root";
-    this.targets = new Map<JsValue, JsValue>();
-    this.targetDefs = ["root"];
-    this.resolveDefs = new Set<JsValue>();
-    this.cropOverride = new Map<JsValue, bool>();
-    this.pairs = new Map<JsValue, JsValue>();
-    this.classNames = new Map<JsValue, string>();
-    this.flatGroups = new Set<JsValue>();
-    this.update = update;
-    this.options = options;
-    if (this.options == null) {
-      this.options = record{};
-    }
-    if (!(this.options["interrupt"] is string)) {
-      this.options["interrupt"] = "wait";
-    }
-    this.notifyReady = null;
-    this.notifyReject = null;
-    ViewTransitionBuilder self = this;
-    this.readyPromise = taskFromCallback((func()->void resolve) => {
-      self.notifyReady = (JsValue animation) => {
-        resolve();
-      };
-      self.notifyReject = (JsValue _error) => {
-        resolve();
-      };
-    }).then((JsValue _v) => null);
-    addToQueue(this);
-  }
-
-  ViewTransitionBuilder add(JsValue subject, JsValue? newSubject = null) {
-    this.currentSubject = subject;
-    this.resolveDefs.add(subject);
-    if (newSubject != null) {
-      this.pairs.set(subject, newSubject);
-    }
-    if (!this.targets.has(subject)) {
-      this.targets.set(subject, record{});
-      this.targetDefs.push(subject);
-    }
-    return this;
-  }
-
-  ViewTransitionBuilder crop(bool enabled = true) {
-    this.cropOverride.set(this.currentSubject, enabled);
-    return this;
-  }
-
-  ViewTransitionBuilder group(bool enabled = true) {
-    if (enabled) {
-      this.flatGroups.delete(this.currentSubject);
-    } else {
-      this.flatGroups.add(this.currentSubject);
-    }
-    return this;
-  }
-
-  ViewTransitionBuilder setClass(string name) {
-    this.classNames.set(this.currentSubject, name);
-    return this;
-  }
-
-  ViewTransitionBuilder layout(JsValue? options = null) {
-    JsValue opts = options;
-    if (opts == null) {
-      opts = record{};
-    }
-    this.updateTarget("layout", record{}, opts);
-    return this;
-  }
-
-  ViewTransitionBuilder enter(JsValue keyframes, JsValue? options = null) {
-    this.updateTarget("enter", keyframes, options);
-    return this;
-  }
-
-  ViewTransitionBuilder exit(JsValue keyframes, JsValue? options = null) {
-    this.updateTarget("exit", keyframes, options);
-    return this;
-  }
-
-  ViewTransitionBuilder newView(JsValue keyframes, JsValue? options = null) {
-    this.updateTarget("new", keyframes, options);
-    return this;
-  }
-
-  ViewTransitionBuilder old(JsValue keyframes, JsValue? options = null) {
-    this.updateTarget("old", keyframes, options);
-    return this;
-  }
-
-  void updateTarget(string target, JsValue keyframes, JsValue? options = null) {
-    JsValue opts = options;
-    if (opts == null) {
-      opts = record{};
-    }
-    JsValue subject = this.currentSubject;
-    if (!this.targets.has(subject)) {
-      this.targets.set(subject, record{});
-    }
-    JsValue? targetDataOpt = this.targets.get(subject);
-    JsValue targetData = record{};
-    if (targetDataOpt != null) {
-      targetData = targetDataOpt;
-    } else {
-      this.targets.set(subject, targetData);
-    }
-    targetData[target] = record{keyframes: keyframes, options: opts};
-  }
-
-  Task<JsValue> then(
-    func(JsValue)->JsValue onResolve,
-    (func(JsValue)->JsValue)? onReject = null
-  ) {
-    return this.readyPromise.then(onResolve);
-  }
+  JsValue targets;
 }
 
-export ViewTransitionBuilder animateView(
-  func()->void update,
-  JsValue? options = null
-) {
-  return new ViewTransitionBuilder(update, options);
+export JsValue animateView(JsValue update, JsValue options) {
+  JsValue targets = new Map<JsValue, JsValue>();
+  // Definitions resolved to elements (and named) rather than pre-named layers.
+  JsValue resolveDefs = new Set<JsValue>();
+  // Per-subject `.crop()` override.
+  JsValue cropOverride = new Map<JsValue, JsValue>();
+  // Subjects paired with a different new-snapshot target.
+  JsValue pairs = new Map<JsValue, JsValue>();
+  JsValue classNames = new Map<JsValue, JsValue>();
+  // Subjects opted out of group nesting with `.group(false)`.
+  JsValue flatGroups = new Set<JsValue>();
+  JsValue notifyReady = null;
+  JsValue notifyReject = null;
+  JsValue readyPromise = JS.construct(Promise, (JsValue resolve, JsValue reject) => {
+    notifyReady = resolve;
+    notifyReject = reject;
+  });
+  // A failed fire-and-forget transition must not surface as unhandled.
+  JS.invoke(readyPromise, "catch", noop);
+
+  JsValue builder = null;
+  auto updateTarget = (string target, JsValue keyframes, JsValue targetOptions) => {
+    JsValue subject = builder["currentSubject"];
+    if (!JS.invoke(targets, "has", subject).truthy()) {
+      JS.invoke(targets, "set", subject, object{});
+    }
+    JS.invoke(targets, "get", subject)[target] = object{
+      keyframes: keyframes,
+      options: if (JS.isUndefined(targetOptions)) { object{} } else { targetOptions }
+    };
+    return builder;
+  };
+  builder = object{
+    currentSubject: "root",
+    targets: targets,
+    resolveDefs: resolveDefs,
+    cropOverride: cropOverride,
+    pairs: pairs,
+    classNames: classNames,
+    flatGroups: flatGroups,
+    notifyReady: notifyReady,
+    notifyReject: notifyReject,
+    readyPromise: readyPromise,
+    update: update,
+    options: JS.invoke(Object, "assign", object{interrupt: "wait"}, options),
+    add: (JsValue subject, JsValue newSubject) => {
+      builder["currentSubject"] = subject;
+      JS.invoke(resolveDefs, "add", subject);
+      if (!JS.isUndefined(newSubject)) {
+        JS.invoke(pairs, "set", subject, newSubject);
+      }
+      if (!JS.invoke(targets, "has", subject).truthy()) {
+        JS.invoke(targets, "set", subject, object{});
+      }
+      return builder;
+    },
+    crop: (JsValue enabled) => {
+      JS.invoke(cropOverride, "set", builder["currentSubject"], JS.or(JS.isUndefined(enabled), enabled));
+      return builder;
+    },
+    group: (JsValue enabled) => {
+      JS.invoke(flatGroups, if (JS.isUndefined(enabled) || enabled.truthy()) { "delete" } else { "add" }, builder["currentSubject"]);
+      return builder;
+    },
+    class: (JsValue name) => {
+      JS.invoke(classNames, "set", builder["currentSubject"], name);
+      return builder;
+    },
+    layout: (JsValue layoutOptions) => updateTarget("layout", object{}, layoutOptions),
+    enter: (JsValue keyframes, JsValue enterOptions) => updateTarget("enter", keyframes, enterOptions),
+    exit: (JsValue keyframes, JsValue exitOptions) => updateTarget("exit", keyframes, exitOptions),
+    new: (JsValue keyframes, JsValue newOptions) => updateTarget("new", keyframes, newOptions),
+    old: (JsValue keyframes, JsValue oldOptions) => updateTarget("old", keyframes, oldOptions),
+    updateTarget: updateTarget,
+    then: (JsValue resolve, JsValue reject) => JS.invoke(readyPromise, "then", resolve, reject)
+  };
+  addToQueue(builder);
+  return builder;
 }
 
 export { addToQueue };

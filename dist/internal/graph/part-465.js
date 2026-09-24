@@ -1,8 +1,6 @@
-import { Mf } from "./part-31.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var va = Mf;
+import "./effect-499.js";
+import "./effect-573.js";
+let velocityPerSecond = (a, b) => b != 0 ? a * (1e3 / b) : 0;
 export {
-  va
+  velocityPerSecond
 };

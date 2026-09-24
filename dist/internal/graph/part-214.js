@@ -1,23 +1,11 @@
-import { lk } from "./part-5.js";
-let eh = (vk) => {
-  if (!vk.startsWith("attr")) {
-    var Ck, xk, yk, zk, Ak, Bk, wk = true;
-  } else wk = vk.length < 5;
-  if (wk) return vk;
-  for (Ak = lk, Bk = 4; Bk < vk.length; ) {
-    Ck = vk.charAt(Bk);
-    if (4 == Bk) {
-      xk = Ck.toLowerCase();
-      zk = xk;
-    } else {
-      yk = Ak + Ck;
-      zk = yk;
-    }
-    Ak = zk;
-    Bk += 1;
+let uf = (a, b) => {
+  let c = a.animations, d = 0;
+  for (let a2 = 0; a2 < c.length; ++a2) {
+    let e = c[a2][b];
+    if (e !== null && e > d) d = e;
   }
-  return Ak;
+  return d;
 };
 export {
-  eh
+  uf
 };

@@ -1,35 +1,30 @@
-import { r } from "./part-591.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Dj = () => {
-  if (r.value) {
-    var vk = null;
-    r.value = vk;
-    r.addProjectionMetrics = vk;
-    throw "Stats are already being measured";
-  }
-  var xk = {
-    layoutProjection: null
-  }, wk = {
-    nodes: [],
-    calculatedTargetDeltas: [],
-    calculatedProjections: []
-  };
-  wk.nodes = [];
-  wk.calculatedTargetDeltas = [];
-  wk.calculatedProjections = [];
-  xk.layoutProjection = wk;
-  r.value = xk;
-  r.addProjectionMetrics = (Mk) => {
-    var Nk = r.value;
-    if (Nk) {
-      Nk.layoutProjection.nodes.push(Mk.nodes);
-      Nk.layoutProjection.calculatedTargetDeltas.push(Mk.calculatedTargetDeltas);
-      Nk.layoutProjection.calculatedProjections.push(Mk.calculatedProjections);
+import { Ab } from "./part-477.js";
+import { Xf } from "./part-524.js";
+let Wf = (a) => {
+  let b = "", c = true;
+  {
+    let d2 = Ab, e = 0;
+    for (; e < d2.length; ++e) {
+      let f = d2[e] ?? "";
+      {
+        let d3 = a.latest[f];
+        if (d3 != null) {
+          let a2 = f.startsWith("scale") ? 1 : 0;
+          if (!(typeof d3 == "number" ? d3 == a2 : parseFloat(d3) == a2)) {
+            c = false;
+            b = b + `${Xf[f] ?? f}(${d3}) `;
+          }
+        }
+      }
     }
-  };
+  }
+  let d = a.latest.pathRotation;
+  if (d) {
+    c = false;
+    b = b + (typeof d == "number" ? `rotate(${d}deg) ` : `rotate(${d}) `);
+  }
+  return c ? "none" : b.trim();
 };
 export {
-  Dj
+  Wf
 };

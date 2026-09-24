@@ -1,10 +1,9 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let md = () => ({
-  min: 0,
-  max: 0
-});
+let fc = (a) => {
+  for (let b in a.events) {
+    let c = a.events[b];
+    if (c) c.subscriptions = [];
+  }
+};
 export {
-  md
+  fc
 };

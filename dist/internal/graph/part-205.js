@@ -1,30 +1,14 @@
-import { arrayFromNullable, documentQuerySelectorAll, isEventTarget, querySelectorAll } from "./../motion-dom/dom-host.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let E = (vk, wk, xk) => {
-  if (null == vk) return [];
-  if (isEventTarget(vk)) return [vk];
-  else {
-    if ("string" == typeof vk) {
-      var yk = null;
-      if (xk) {
-        var Ak, Bk, Dk, zk = xk.entries.get(vk) ?? null, Ck = zk;
-      } else Ck = yk;
-      if (Ck) return Ck;
-      if (wk) {
-        Ak = querySelectorAll(wk.current, vk);
-        Dk = Ak;
-      } else {
-        Bk = documentQuerySelectorAll(vk);
-        Dk = Bk;
-      }
-      if (xk) xk.entries.set(vk, Dk);
-      return Dk;
-    }
-  }
-  return arrayFromNullable(vk);
+import { isGenerator } from "./part-193.js";
+import { af } from "./part-204.js";
+let bf = (a, b, c, d) => {
+  let e = a[0];
+  if (e === null) return false;
+  if (b === "display" || b === "visibility") return true;
+  if (!af(e, b) || !af(a[a.length - 1], b)) return false;
+  if (a.length == 1) return true;
+  for (let b2 = 0; b2 < a.length; ++b2) if (a[b2] !== e) return true;
+  return (c === "spring" || isGenerator(c)) && !!d;
 };
 export {
-  E
+  bf
 };

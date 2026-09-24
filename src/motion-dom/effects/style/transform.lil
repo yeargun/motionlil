@@ -1,93 +1,38 @@
 import { transformPropOrder } from "../../render/utils/keys-transform";
+import { asOpt, asStr } from "../../value/types/types";
+import extern { cast as asStrOpt } from "../../value/types/cast.ts";
 import { MotionValueState } from "../MotionValueState";
 
 extern float parseFloat(string value);
+extern string? asStrOpt(JsValue v);
 
-string transformFunctionName(string key) {
-  if (key == "x") {
-    return "translateX";
-  }
-  if (key == "y") {
-    return "translateY";
-  }
-  if (key == "z") {
-    return "translateZ";
-  }
-  if (key == "transformPerspective") {
-    return "perspective";
-  }
-  return key;
-}
-
-string trimEnd(string s) {
-  int end = s.length;
-  while (end > 0) {
-    int code = s.charCodeAt(end - 1);
-    if (code == 32 || code == 9 || code == 10 || code == 13) {
-      end = end - 1;
-    } else {
-      break;
-    }
-  }
-  string out = "";
-  for (int i = 0; i < end; i++) {
-    out = out + s.charAt(i);
-  }
-  return out;
-}
+JsValue translateAlias = object {
+  x: "translateX",
+  y: "translateY",
+  z: "translateZ",
+  transformPerspective: "perspective"
+};
 
 export string buildTransform(MotionValueState state) {
   string transform = "";
   bool transformIsDefault = true;
-
-  for (int i = 0; i < transformPropOrder.length; i++) {
-    string key = transformPropOrder[i];
-    JsValue? value = state.latest[key];
-    if (value == null) {
-      continue;
-    }
-    JsValue val = value;
-
-    bool valueIsDefault = true;
-    if (val is float) {
-      if (key.startsWith("scale")) {
-        valueIsDefault = val == 1.0;
-      } else {
-        valueIsDefault = val == 0.0;
-      }
-    } else {
-      if (val is string) {
-        float parsed = parseFloat(val);
-        if (key.startsWith("scale")) {
-          valueIsDefault = parsed == 1.0;
-        } else {
-          valueIsDefault = parsed == 0.0;
-        }
-      }
-    }
-
-    if (!valueIsDefault) {
-      transformIsDefault = false;
-      string transformName = transformFunctionName(key);
-      transform = transform + `${transformName}(${val}) `;
-    }
-  }
-
-  JsValue? pathRotation = state.latest["pathRotation"];
-  if (pathRotation != null) {
-    JsValue pr = pathRotation;
-    if (pr.truthy()) {
-      transformIsDefault = false;
-      if (pr is float) {
-        transform = transform + `rotate(${pr}deg) `;
-      } else {
-        transform = transform + `rotate(${pr}) `;
+  // Every possible transform, in order: the present ones are written.
+  for (string key of transformPropOrder) {
+    JsValue value = state.latest[key];
+    if (asOpt(value) != null) {
+      float defaultValue = if (key.startsWith("scale")) { 1.0 } else { 0.0 };
+      bool valueIsDefault = if (value is float) { value == defaultValue } else { parseFloat(asStr(value)) == defaultValue };
+      if (!valueIsDefault) {
+        transformIsDefault = false;
+        transform += `${asStrOpt(translateAlias[key]) ?? key}(${value}) `;
       }
     }
   }
-
-  if (transformIsDefault) {
-    return "none";
+  // An additive `rotate()`, so a user `rotate` is not clobbered.
+  JsValue pathRotation = state.latest["pathRotation"];
+  if (pathRotation.truthy()) {
+    transformIsDefault = false;
+    transform += if (pathRotation is float) { `rotate(${pathRotation}deg) ` } else { `rotate(${pathRotation}) ` };
   }
-  return trimEnd(transform);
+  return if (transformIsDefault) { "none" } else { transform.trim() };
 }

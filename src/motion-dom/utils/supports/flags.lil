@@ -1,1 +1,2 @@
-export Map<string, bool?> supportsFlags = new Map<string, bool?>();
+// Lets test suites set support flags to cover more environments.
+export JsValue supportsFlags = object {};

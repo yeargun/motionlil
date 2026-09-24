@@ -1,19 +1,14 @@
-import { $g } from "./part-206.js";
-import { cl } from "./part-527.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var dj = (Pz, Qz) => {
-  var Uz = $g(Pz), Sz = [];
-  for (var Rz in Qz) {
-    var Tz = Qz[Rz];
-    if (Tz) Sz.push(cl(Pz, Uz, Rz, Tz));
-  }
-  return () => {
-    var hA = 0;
-    for (; hA < Sz.length; hA = hA + 1) Sz[hA]();
+import { Ff } from "./part-218.js";
+import { nj } from "./part-400.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let animateMini = (a, b, c) => {
+  let d = nj(a, b, c, null), e = {
+    animations: []
   };
+  Ff(e, d);
+  return e;
 };
 export {
-  dj
+  animateMini
 };

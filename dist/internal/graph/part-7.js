@@ -1,4 +1,6 @@
-let nk = "(prefers-reduced-motion)";
+let Dl = function(a, b, c) {
+  return a.replace(b, c);
+};
 export {
-  nk
+  Dl
 };

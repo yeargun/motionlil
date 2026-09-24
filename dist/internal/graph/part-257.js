@@ -1,19 +1,28 @@
-import { documentElement, documentGetAnimations } from "./../motion-dom/dom-host.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let vh = () => {
-  var zk, vk, Bk, Ak, xk = documentGetAnimations(), yk = [], wk = 0;
-  for (; wk < xk.length; wk = wk + 1) {
-    zk = xk[wk];
-    vk = zk.effect;
-    if (!vk) continue;
-    Bk = vk.target;
-    Ak = vk.pseudoElement;
-    if (Bk == documentElement() && "string" == typeof Ak && Ak.startsWith("::view-transition")) yk.push(zk);
+import { vg } from "./part-534.js";
+let ug = (a) => {
+  vg.add(a);
+  if (!wg) {
+    wg = () => {
+      let a2 = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
+      vg.forEach((b) => {
+        b(a2);
+      });
+    };
+    window.addEventListener("resize", wg);
   }
-  return yk;
+  return () => {
+    vg.delete(a);
+    if (!vg.size && typeof wg == "function") {
+      window.removeEventListener("resize", wg);
+      wg = void 0;
+    }
+  };
 };
+let wg;
 export {
-  vh
+  ug,
+  wg
 };

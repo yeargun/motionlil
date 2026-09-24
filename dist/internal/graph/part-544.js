@@ -1,7 +1,4 @@
-import { hasViewTimeline } from "./../motion-dom/dom-host.js";
-import { Ha } from "./part-60.js";
-var ll;
-ll = Ha(() => hasViewTimeline());
+let kh = 1 - 1e-4;
 export {
-  ll
+  kh
 };

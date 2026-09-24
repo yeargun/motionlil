@@ -1,17 +1,17 @@
-import { optionalValueType } from "../../../value/types/types";
-import { getAsType } from "../../../value/types/utils/get-as-type";
-import { numberValueTypes } from "../../../value/types/maps/number";
 import { transformProps } from "../../utils/keys-transform";
 import { isCSSVariableName } from "../../../animation/utils/is-css-variable";
-import { buildTransform } from "./build-transform";
+import { buildTransform, valueAsType } from "./build-transform";
+
+JsValue orDefault(JsValue value, JsValue fallback) {
+  return if (JS.isUndefined(value)) { fallback } else { value };
+}
 
 export void buildHTMLStyles(
   JsValue state,
   JsValue latestValues,
-  JsValue? transformTemplate = null
+  JsValue transformTemplate = JS.undefined()
 ) {
   JsValue style = state["style"];
-  JsValue vars = state["vars"];
   JsValue transformOrigin = state["transformOrigin"];
   bool hasTransform = false;
   bool hasTransformOrigin = false;
@@ -19,52 +19,23 @@ export void buildHTMLStyles(
     JsValue value = latestValues[key];
     if (transformProps.has(key)) {
       hasTransform = true;
-      continue;
     } else if (isCSSVariableName(key)) {
-      vars[key] = value;
-      continue;
+      state["vars"][key] = value;
+    } else if (key.startsWith("origin")) {
+      hasTransformOrigin = true;
+      transformOrigin[key] = valueAsType(value, key);
     } else {
-      JsValue valueAsType = getAsType(value, optionalValueType(numberValueTypes[key]));
-      if (key.startsWith("origin")) {
-        hasTransformOrigin = true;
-        transformOrigin[key] = valueAsType;
-      } else {
-        style[key] = valueAsType;
-      }
+      style[key] = valueAsType(value, key);
     }
   }
-  JsValue existingTransform = latestValues["transform"];
-  bool hasExplicitTransform =
-    (existingTransform is float) ||
-    (existingTransform is string) ||
-    (existingTransform is bool) ||
-    existingTransform.isArray() ||
-    (existingTransform.isObject() && existingTransform.truthy());
-  if (!hasExplicitTransform) {
-    if (hasTransform || transformTemplate != null) {
-      JsValue transformBag = state["transform"];
-      if (!(transformBag.isObject())) {
-        transformBag = record{};
-        state["transform"] = transformBag;
-      }
-      style["transform"] = buildTransform(latestValues, transformBag, transformTemplate);
+  if (!latestValues["transform"].truthy()) {
+    if (hasTransform || transformTemplate.truthy()) {
+      style["transform"] = buildTransform(latestValues, state["transform"], transformTemplate);
     } else if (style["transform"].truthy()) {
       style["transform"] = "none";
     }
   }
   if (hasTransformOrigin) {
-    JsValue originX = transformOrigin["originX"];
-    JsValue originY = transformOrigin["originY"];
-    JsValue originZ = transformOrigin["originZ"];
-    if (!(originX is float) && !(originX is string)) {
-      originX = "50%";
-    }
-    if (!(originY is float) && !(originY is string)) {
-      originY = "50%";
-    }
-    if (!(originZ is float) && !(originZ is string)) {
-      originZ = 0.0;
-    }
-    style["transformOrigin"] = `${originX} ${originY} ${originZ}`;
+    style["transformOrigin"] = `${orDefault(transformOrigin["originX"], "50%")} ${orDefault(transformOrigin["originY"], "50%")} ${orDefault(transformOrigin["originZ"], 0.0)}`;
   }
 }

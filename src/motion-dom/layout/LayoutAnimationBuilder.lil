@@ -80,16 +80,16 @@ HTMLProjectionNode? getProjectionParent(JsValue element) {
 }
 
 HTMLVisualElement createVisualElement() {
-  return new HTMLVisualElement(record{
-    props: record{},
+  return new HTMLVisualElement(object{
+    props: object{},
     presenceContext: null,
-    visualState: record{
-      latestValues: record{},
-      renderState: record{
-        transform: record{},
-        transformOrigin: record{},
-        style: record{},
-        vars: record{}
+    visualState: object{
+      latestValues: object{},
+      renderState: object{
+        transform: object{},
+        transformOrigin: object{},
+        style: object{},
+        vars: object{}
       }
     }
   });
@@ -122,7 +122,7 @@ JsValue readNodeOptions(JsValue element, JsValue? transition) {
   if (layoutAttr != null && layoutAttr != "true") {
     animationType = layoutAttr;
   }
-  return record{
+  return object{
     layoutId: layoutId,
     layout: layoutAttr != null,
     animationType: animationType,
@@ -146,7 +146,7 @@ HTMLProjectionNode prepareNode(JsValue element, JsValue? transition) {
       style["transform"] = "";
     }
   }
-  HTMLProjectionNode node = new HTMLProjectionNode(record{
+  HTMLProjectionNode node = new HTMLProjectionNode(object{
     visualElement: visualElement,
     parent: getProjectionParent(element)
   });
@@ -159,7 +159,7 @@ HTMLProjectionNode prepareNode(JsValue element, JsValue? transition) {
 }
 
 void dropNode(JsValue element, HTMLProjectionNode node) {
-  node.setOptions(record{onExitComplete: null});
+  node.setOptions(object{onExitComplete: null});
   node.unmount();
   weakMapDelete(layoutNodes, element);
 }
@@ -245,9 +245,9 @@ void flushPendingBuilders() {
     }
   }
 
-  Task<JsValue>[] updatePromises = [];
+  Task<bool>[] updatePromises = [];
   for (int bi = 0; bi < builders.length; bi++) {
-    Task<JsValue>? result = builders[bi].runUpdate();
+    Task<bool>? result = builders[bi].runUpdate();
     if (result != null) {
       updatePromises.push(result);
     }
@@ -267,7 +267,7 @@ void flushPendingBuilders() {
   };
 
   if (updatePromises.length > 0) {
-    Task.all(updatePromises).then((JsValue[] _v) => {
+    Task.all(updatePromises).then((bool[] _v) => {
       commit();
       return true;
     });
@@ -310,7 +310,7 @@ export class LayoutAnimationBuilder {
       self.rejectReady = (JsValue _error) => {
         resolve();
       };
-    }).then((JsValue _v) => null);
+    }).then((bool _v) => null);
 
     if (pendingBuilders == null) {
       LayoutAnimationBuilder[] emptyPending = [];
@@ -353,7 +353,7 @@ export class LayoutAnimationBuilder {
       this.trackedElements.push(element);
     }
     this.tracked.set(element, node);
-    this.restorePoints.set(element, record{
+    this.restorePoints.set(element, object{
       parent: element["parentElement"],
       next: element["nextSibling"]
     });
@@ -363,7 +363,7 @@ export class LayoutAnimationBuilder {
     return collectLayoutElements(this.scope);
   }
 
-  Task<JsValue>? runUpdate() {
+  Task<bool>? runUpdate() {
     try {
       this.updateDom();
     } catch (JsValue error) {
@@ -434,7 +434,7 @@ export class LayoutAnimationBuilder {
           box.y.min = parseFloatValue(rect["top"]);
           box.y.max = parseFloatValue(rect["bottom"]);
         }
-        this.snapshots.set(element, record{layoutBox: box});
+        this.snapshots.set(element, object{layoutBox: box});
         continue;
       }
     }
@@ -452,7 +452,7 @@ export JsValue parseAnimateLayoutArgs(
 ) {
   JsValue documentRef = windowGet("document");
   if (isFunction(scopeOrUpdateDom)) {
-    return record{
+    return object{
       scope: documentRef,
       updateDom: scopeOrUpdateDom,
       defaultOptions: updateDomOrOptions
@@ -467,7 +467,7 @@ export JsValue parseAnimateLayoutArgs(
       scope = resolved[0];
     }
   }
-  return record{
+  return object{
     scope: scope,
     updateDom: updateDomOrOptions,
     defaultOptions: options

@@ -1,29 +1,26 @@
-import { setProp } from "../dom-host";
-import { GroupAnimation } from "./GroupAnimationMini";
-import { NativeAnimation } from "./NativeAnimationMini";
+import { GroupAnimationMini } from "./GroupAnimationMini";
+import { NativeAnimationMini } from "./NativeAnimationMini";
 
-export class GroupAnimationWithThen extends GroupAnimation {
-  init(NativeAnimation[] input) {
+export class GroupAnimationWithThenMini extends GroupAnimationMini {
+  init(NativeAnimationMini[] input) {
     super(input);
-    GroupAnimationWithThen self = this;
-    setProp(this, "getFinished", () => { return self.getFinished(); });
   }
 
-  Task<JsValue> getFinished() {
-    Task<JsValue>[] tasks = [];
+  Task<bool> finished() {
+    Task<bool>[] tasks = [];
     for (int i = 0; i < this.animations.length; i++) {
-      tasks.push(this.animations[i].getFinished());
+      tasks.push(this.animations[i].finished());
     }
     if (tasks.length == 0) {
       return Task.resolve(true);
     }
-    return Task.all(tasks).then((JsValue[] _values) => {
+    return Task.all(tasks).then((bool[] _values) => {
       return true;
     });
   }
 
-  Task<JsValue> then(func()->void onResolve, (func()->void)? onReject = null) {
-    return this.getFinished().then((JsValue _v) => {
+  Task<bool> then(func()->void onResolve, (func()->void)? onReject = null) {
+    return this.finished().then((bool _v) => {
       onResolve();
       return true;
     });

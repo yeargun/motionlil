@@ -1,36 +1,12 @@
-import { k } from "./part-120.js";
-import { ve } from "./part-338.js";
-import { ei } from "./part-344.js";
-import { p } from "./part-521.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let fi = (vk, wk, Ak) => {
-  var Ck = {
-    __proto__: null
-  };
-  if (null != wk) {
-    var Bk, xk, Ek, Fk, Gk, Hk, yk, zk, Dk = wk;
-  } else Dk = Ck;
-  Bk = ve(vk, Dk, Ak);
-  for (xk in vk) {
-    Ek = vk[xk];
-    Fk = Dk[xk];
-    if (k(Ek)) Hk = true;
-    else {
-      Gk = k(Fk);
-      Hk = Gk;
-    }
-    if (Hk) {
-      if (p.indexOf(xk) != -1) {
-        yk = "attr" + ei(xk);
-        zk = yk;
-      } else zk = xk;
-      Bk[zk] = Ek;
-    }
-  }
-  return Bk;
+import "./effect-499.js";
+import "./effect-573.js";
+let renderHTML = function(a, b, c, d) {
+  let e = a.style, f = b.style;
+  for (let a2 in f) e[a2] = f[a2];
+  if (d != null) d.applyProjectionStyles(e, c);
+  let g = b.vars;
+  for (let a2 in g) e.setProperty(a2, g[a2]);
 };
 export {
-  fi
+  renderHTML
 };

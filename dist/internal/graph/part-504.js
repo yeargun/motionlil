@@ -1,4 +1,4 @@
-var lf = new RegExp("\\b([a-z-]*)\\(.*?\\)", "gu");
+let Sd = /^var\(--(?:([\w-]+)|([\w-]+), ?([a-zA-Z\d ()%#.,-]+))\)/u;
 export {
-  lf
+  Sd
 };

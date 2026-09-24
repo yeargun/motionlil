@@ -8,8 +8,8 @@ export class DraggingAxes {
   }
 }
 
-export DraggingAxes isDragging = new DraggingAxes();
+export JsValue isDragging = object{x: false, y: false};
 
 export bool isDragActive() {
-  return isDragging.x || isDragging.y;
+  return JS.or(isDragging["x"], isDragging["y"]).truthy();
 }

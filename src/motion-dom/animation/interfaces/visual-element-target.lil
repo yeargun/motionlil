@@ -1,240 +1,122 @@
 import { frame } from "../../frameloop/frame";
 import { FrameData } from "../../frameloop/types";
-import { getValueTransition } from "../utils/get-value-transition";
-import { resolveTransition } from "../utils/resolve-transition";
 import { positionalKeys } from "../../render/utils/keys-position";
 import { setTarget } from "../../render/utils/setters";
 import { addValueToWillChange } from "../../value/will-change/add-will-change";
+import { visualElementOf } from "../../cast";
+import { windowGet } from "../../dom-host";
 import { getOptimisedAppearId } from "../optimized-appear/get-appear-id";
+import { getValueTransition } from "../utils/get-value-transition";
+import { resolveTransition } from "../utils/resolve-transition";
 import { animateMotionValue } from "./motion-value";
-import { VisualElement } from "../../render/VisualElement";
-import { MotionValue } from "../../value/index";
-import { visualElementOf, motionValueOf, withPromiseOf } from "../../cast";
-import {
-  callFn3,
-  callFn5,
-  callMethod2,
-  hasOwn,
-  hasFunction,
-  isFunction,
-  windowGet
-} from "../../dom-host";
+import { animAssign2 as assign2, animPromiseAll as promiseAll } from "../anim-host";
 
-bool shouldBlockAnimation(JsValue state, string key) {
-  JsValue protectedKeys = state["protectedKeys"];
-  JsValue needsAnimating = state["needsAnimating"];
-  bool blocked = hasOwn(protectedKeys, key) && needsAnimating[key] != true;
-  needsAnimating[key] = false;
-  return blocked;
-}
-
-void assignObject(JsValue target, JsValue? source) {
-  if (source != null && source.isObject()) {
-    callMethod2(windowGet("Object"), "assign", target, source);
-  }
+extern class AnimTargetOptions {
+  JsValue? delay;
+  JsValue transitionOverride;
+  JsValue type;
 }
 
 export JsValue[] animateTarget(
   JsValue visualElement,
-  JsValue definition,
-  JsValue? options = null
+  JsValue targetAndTransition,
+  JsValue optionsValue
 ) {
-  JsValue opts = options;
-  if (opts == null) {
-    opts = record{};
+  AnimTargetOptions options = JS.assume(JS.or(optionsValue, JS.object()));
+  JsValue delay = options.delay ?? 0.0;
+  JsValue transition = targetAndTransition["transition"];
+  JsValue transitionEnd = targetAndTransition["transitionEnd"];
+  JsValue defaultTransition = visualElementOf(visualElement).getDefaultTransition();
+  transition = if (transition.truthy()) { resolveTransition(transition, defaultTransition) } else { defaultTransition };
+  JsValue reduceMotion = if (transition.truthy()) { transition["reduceMotion"] } else { JS.undefined() };
+  bool skipAnimations = transition.truthy() && transition["skipAnimations"].truthy();
+  if (options.transitionOverride.truthy()) {
+    transition = options.transitionOverride;
   }
-
-  VisualElement element = visualElementOf(visualElement);
-
-  float delayAmt = 0.0;
-  JsValue delayOpt = opts["delay"];
-  if (delayOpt is float) {
-    delayAmt = delayOpt;
-  }
-  JsValue transitionOverride = opts["transitionOverride"];
-  JsValue animationType = opts["type"];
-
-  JsValue transition = definition["transition"];
-  JsValue transitionEnd = definition["transitionEnd"];
-  JsValue target = record{};
-  for (string key in definition) {
-    if (key != "transition" && key != "transitionEnd") {
-      target[key] = definition[key];
-    }
-  }
-
-  JsValue defaultTransition = element.props["transition"];
-  if (transition.truthy()) {
-    transition = resolveTransition(transition, defaultTransition);
-  } else {
-    transition = defaultTransition;
-  }
-
-  bool? reduceMotion = null;
-  if (transition != null && transition.isObject()) {
-    JsValue reduceMotionValue = transition["reduceMotion"];
-    if (reduceMotionValue is bool) {
-      reduceMotion = reduceMotionValue;
-    }
-  }
-  bool skipAnimations = false;
-  if (transition != null && transition.isObject()) {
-    JsValue skipAnimationsValue = transition["skipAnimations"];
-    if (skipAnimationsValue is bool) {
-      skipAnimations = skipAnimationsValue;
-    }
-  }
-
-  if (transitionOverride.truthy()) {
-    transition = transitionOverride;
-  }
-  if (transition == null || !transition.isObject()) {
-    transition = record{};
-  }
-
   JsValue[] animations = [];
-
-  JsValue animationTypeState = null;
-  if (animationType is string) {
-    string typeKey = animationType;
-    JsValue animationState = element.animationState;
-    if (animationState.truthy() && animationState.isObject()) {
-      JsValue stateMap = animationState["state"];
-      if (stateMap.truthy()) {
-        animationTypeState = stateMap[typeKey];
-      }
+  JsValue animationState = visualElement["animationState"];
+  JsValue animationTypeState = if (options.type.truthy() && animationState.truthy()) {
+    JS.invoke(animationState, "getState")[options.type]
+  } else {
+    JS.undefined()
+  };
+  JsValue target = JS.object();
+  for (string key in targetAndTransition) {
+    if (key != "transition" && key != "transitionEnd") {
+      target[key] = targetAndTransition[key];
     }
   }
-
-  JsValue path = transition["path"];
-  if (path.truthy() && hasFunction(path, "animateVisualElement")) {
-    callFn5(path["animateVisualElement"], visualElement, target, transition, delayAmt, animations);
+  JsValue path = if (transition.truthy()) { transition["path"] } else { JS.undefined() };
+  if (path.truthy()) {
+    JS.invoke(path, "animateVisualElement", visualElement, target, transition, delay, animations);
   }
-
   for (string key in target) {
-    JsValue fallback = element.latestValues[key];
-    JsValue? valueRef = element.getValue(key, fallback, true);
-    if (valueRef == null) {
-      continue;
-    }
-    MotionValue value = motionValueOf(valueRef);
+    JsValue value = visualElementOf(visualElement).getValue(key, visualElement["latestValues"][key], true);
     JsValue valueTarget = target[key];
-
-    if (!(
-      (valueTarget is float) ||
-      (valueTarget is string) ||
-      (valueTarget is bool) ||
-      valueTarget.isArray() ||
-      (valueTarget.isObject() && valueTarget.truthy())
-    )) {
+    if (JS.isUndefined(valueTarget)) {
       continue;
     }
-
-    if (animationTypeState.truthy() && shouldBlockAnimation(animationTypeState, key)) {
-      continue;
-    }
-
-    JsValue valueTransition = record{ delay: delayAmt };
-    JsValue keyTransition = getValueTransition(transition, key);
-    assignObject(valueTransition, keyTransition);
-    if (delayOpt is float) {
-      valueTransition["delay"] = delayAmt;
-    } else {
-      JsValue transitionDelay = null;
-      if (transition != null && transition.isObject()) {
-        transitionDelay = transition["delay"];
-      }
-      if (transitionDelay is float) {
-        valueTransition["delay"] = transitionDelay;
-      } else if (!(valueTransition["delay"] is float)) {
-        valueTransition["delay"] = delayAmt;
+    if (animationTypeState.truthy()) {
+      JsValue needsAnimating = animationTypeState["needsAnimating"];
+      bool shouldBlock = JS.in(key, animationTypeState["protectedKeys"]) && JS.strictNotEqual(needsAnimating[key], true);
+      needsAnimating[key] = false;
+      if (shouldBlock) {
+        continue;
       }
     }
+    JsValue valueTransition = assign2(JS.object("delay", delay), getValueTransition(JS.or(transition, JS.object()), key));
     if (skipAnimations) {
       valueTransition["skipAnimations"] = true;
     }
-
-    JsValue? currentValue = value.current;
-    bool isAnimating = value.isAnimating();
+    JsValue currentValue = JS.invoke(value, "get");
     if (
-      currentValue != null &&
-      !isAnimating &&
+      !JS.isNullish(currentValue) &&
+      !JS.invoke(value, "isAnimating").truthy() &&
       !valueTarget.isArray() &&
-      valueTarget == currentValue &&
+      JS.strictEqual(valueTarget, currentValue) &&
       !valueTransition["velocity"].truthy()
     ) {
-      MotionValue capturedValue = value;
-      JsValue capturedTarget = valueTarget;
-      frame.update((FrameData _d) => {
-        capturedValue.set(capturedTarget);
+      frame.update((FrameData _data) => {
+        JS.invoke(value, "set", valueTarget);
       }, false, false);
       continue;
     }
-
     bool isHandoff = false;
     JsValue handoff = windowGet("MotionHandoffAnimation");
-    if (isFunction(handoff)) {
+    if (handoff.truthy()) {
       JsValue appearId = getOptimisedAppearId(visualElement);
       if (appearId.truthy()) {
-        JsValue startTime = callFn3(handoff, appearId, key, frame);
-        if (startTime != null) {
+        JsValue startTime = JS.call(handoff, JS.undefined(), appearId, key, frame);
+        if (JS.strictNotEqual(startTime, null)) {
           valueTransition["startTime"] = startTime;
           isHandoff = true;
         }
       }
     }
-
     addValueToWillChange(visualElement, key);
-
-    bool shouldReduce = false;
-    if (reduceMotion != null) {
-      shouldReduce = reduceMotion;
-    } else {
-      bool? srm = element.shouldReduceMotion;
-      if (srm != null) {
-        shouldReduce = srm;
-      }
-    }
-
-    JsValue motionTransition = valueTransition;
-    if (shouldReduce && positionalKeys.has(key)) {
-      motionTransition = record{};
-      for (string tKey in valueTransition) {
-        motionTransition[tKey] = valueTransition[tKey];
-      }
-      motionTransition["type"] = false;
-    }
-
-    func(func()->void)->JsValue? starter = animateMotionValue(
+    JsValue? explicitReduce = reduceMotion;
+    JsValue shouldReduceMotion = explicitReduce ?? visualElement["shouldReduceMotion"];
+    JS.invoke(value, "start", animateMotionValue(
       key,
-      valueRef,
+      value,
       valueTarget,
-      motionTransition,
+      if (shouldReduceMotion.truthy() && positionalKeys.has(key)) { JS.object("type", false) } else { valueTransition },
       visualElement,
       isHandoff
-    );
-    value.start(starter);
-
-    JsValue? animation = value.animation;
-    if (animation != null) {
+    ));
+    JsValue animation = value["animation"];
+    if (animation.truthy()) {
       animations.push(animation);
     }
   }
-
-  if (transitionEnd.truthy() && transitionEnd.isObject()) {
-    JsValue transitionEndCapture = transitionEnd;
-    JsValue visualCapture = visualElement;
+  if (transitionEnd.truthy()) {
     func()->void applyTransitionEnd = () => {
-      frame.update((FrameData _d) => {
-        setTarget(visualCapture, transitionEndCapture);
+      frame.update((FrameData _data) => {
+        setTarget(visualElement, transitionEnd);
       }, false, false);
     };
     if (animations.length > 0) {
-      Task<JsValue>[] tasks = [];
-      for (int i = 0; i < animations.length; i++) {
-        tasks.push(withPromiseOf(animations[i]).getFinished());
-      }
-      Task.all(tasks).then((JsValue[] _v) => {
+      promiseAll(animations).then((bool _v) => {
         applyTransitionEnd();
         return true;
       });
@@ -242,6 +124,5 @@ export JsValue[] animateTarget(
       applyTransitionEnd();
     }
   }
-
   return animations;
 }

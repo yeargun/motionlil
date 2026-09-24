@@ -1,15 +1,7 @@
-import { callMethod0 } from "./../motion-dom/dom-host.js";
-import { rg } from "./part-128.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let tc = (vk, wk, xk) => {
-  var Ak = callMethod0(vk, "getProps");
-  if (null == xk) {
-    var yk = Ak.custom, zk = yk;
-  } else zk = xk;
-  return rg(Ak, wk, zk, vk);
+let xh = (a, b, c, d) => {
+  let e = 2 * (1 - a) * (c.x - b.x) + 2 * a * (d.x - c.x);
+  return Math.atan2(2 * (1 - a) * (c.y - b.y) + 2 * a * (d.y - c.y), e) * (180 / Math.PI);
 };
 export {
-  tc
+  xh
 };

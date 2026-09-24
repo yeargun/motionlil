@@ -1,34 +1,18 @@
-import { identity as easingFunction } from "./../motion-dom/cast-host.js";
-import { isFunction } from "./../motion-dom/dom-host.js";
-import { ud } from "./part-153.js";
-import { bc } from "./part-154.js";
-import { wd } from "./part-156.js";
-import { Aa } from "./part-559.js";
-let vd = (vk, wk) => {
-  if (!vk) return null;
-  if (isFunction(vk)) return wd(easingFunction(vk), wk);
-  if (Array.isArray(vk)) {
-    if ("number" == typeof vk[0]) {
-      var Ck, Ek, zk, Ak, Dk, Bk, yk = [], xk = 0;
-      for (; xk < (vk.length | 0); xk = xk + 1) {
-        Ck = vk[xk];
-        if ("number" == typeof Ck) yk.push(Ck);
-      }
-      return ud(yk);
-    }
-    for (Ek = [], Dk = 0; Dk < (vk.length | 0); Dk = Dk + 1) {
-      zk = vd(vk[Dk], wk);
-      if (!zk) {
-        Ak = Aa.easeOut;
-        Bk = Ak;
-      } else Bk = zk;
-      Ek.push(Bk);
-    }
-    return Ek;
+import { motionValue } from "./part-14.js";
+import { Hd } from "./part-152.js";
+let Kd = (a, b, c, d) => {
+  if (c === void 0) c = null;
+  let e = a.props.values;
+  if (e && e[b]) return e[b];
+  let f = a.values.get(b) ?? null;
+  if (f == null && d) {
+    f = motionValue(c, {
+      owner: a
+    });
+    Hd(a, b, f);
   }
-  if ("string" == typeof vk) return bc(Aa, vk);
-  return null;
+  return f;
 };
 export {
-  vd
+  Kd
 };

@@ -1,16 +1,12 @@
-let gg = (vk) => {
-  var xk, wk = 0;
-  for (; ; ) {
-    if (!vk.next(wk).done) xk = wk < 2e4;
-    else xk = false;
-    if (!xk) {
-      break;
-    }
-    wk += 50;
-  }
-  if (wk >= 2e4) return 1 / 0;
-  return wk;
+import { transformAxis } from "./part-101.js";
+import { Vb } from "./part-102.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let transformBox = function(a, b, c = null) {
+  let d = c ?? a;
+  transformAxis(a.x, Vb(b.x, d.x), b.scaleX, b.scale, b.originX);
+  transformAxis(a.y, Vb(b.y, d.y), b.scaleY, b.scale, b.originY);
 };
 export {
-  gg
+  transformBox
 };

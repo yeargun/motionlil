@@ -1,12 +1,8 @@
-import { Pb } from "./part-42.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Pf = (vk) => {
-  let wk = [0];
-  Pb(wk, vk.length - 1);
-  return wk;
+import "./effect-499.js";
+import "./effect-573.js";
+let testValueType = function(a) {
+  return (b) => b.test(a);
 };
 export {
-  Pf
+  testValueType
 };

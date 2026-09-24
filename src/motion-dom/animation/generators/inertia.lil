@@ -1,217 +1,85 @@
-import { AnimationState } from "../animation-state";
-import { SpringGenerator, SpringInput, spring } from "./spring";
+import { spring } from "./spring";
+import { SpringGenerator, AnimGeneratorState } from "./generator";
 import { getGeneratorVelocity } from "./utils/velocity";
 
-export class InertiaInput {
-  float[] keyframes;
-  float velocity;
-  float power;
-  float timeConstant;
-  float bounceDamping;
-  float bounceStiffness;
-  (func(float)->float)? modifyTarget;
-  float? min;
-  float? max;
-  float restDelta;
-  float? restSpeed;
-
-  init(
-    float[] keyframes,
-    float velocity = 0.0,
-    float power = 0.8,
-    float timeConstant = 325.0,
-    float bounceDamping = 10.0,
-    float bounceStiffness = 500.0,
-    (func(float)->float)? modifyTarget = null,
-    float? min = null,
-    float? max = null,
-    float restDelta = 0.5,
-    float? restSpeed = null
-  ) {
-    this.keyframes = keyframes;
-    this.velocity = velocity;
-    this.power = power;
-    this.timeConstant = timeConstant;
-    this.bounceDamping = bounceDamping;
-    this.bounceStiffness = bounceStiffness;
-    this.modifyTarget = modifyTarget;
-    this.min = min;
-    this.max = max;
-    this.restDelta = restDelta;
-    this.restSpeed = restSpeed;
-  }
+export extern class InertiaInput {
+  JsValue keyframes;
+  JsValue? velocity;
+  JsValue? power;
+  JsValue? timeConstant;
+  JsValue? bounceDamping;
+  JsValue? bounceStiffness;
+  JsValue modifyTarget;
+  JsValue min;
+  JsValue max;
+  JsValue? restDelta;
+  JsValue restSpeed;
 }
 
-class InertiaCell {
-  float? timeReachedBoundary;
-  SpringGenerator? springGen;
-  bool hasSpring;
-  float amplitude;
-  float target;
-  float origin;
-  float timeConstant;
-  float restDelta;
-  float bounceDamping;
-  float bounceStiffness;
-  float? min;
-  float? max;
-  float? restSpeed;
-  AnimationState state;
-
-  init(
-    float origin,
-    float amplitude,
-    float target,
-    float timeConstant,
-    float restDelta,
-    float bounceDamping,
-    float bounceStiffness,
-    float? min,
-    float? max,
-    float? restSpeed
-  ) {
-    this.origin = origin;
-    this.amplitude = amplitude;
-    this.target = target;
-    this.timeConstant = timeConstant;
-    this.restDelta = restDelta;
-    this.bounceDamping = bounceDamping;
-    this.bounceStiffness = bounceStiffness;
-    this.min = min;
-    this.max = max;
-    this.restSpeed = restSpeed;
-    this.timeReachedBoundary = null;
-    this.springGen = null;
-    this.hasSpring = false;
-    this.state = new AnimationState(origin);
-  }
-}
-
-export SpringGenerator inertia(InertiaInput options) {
-  float origin = options.keyframes[0];
-  float velocity = options.velocity;
-  float power = options.power;
-  float timeConstant = options.timeConstant;
-  float bounceDamping = options.bounceDamping;
-  float bounceStiffness = options.bounceStiffness;
-  float restDelta = options.restDelta;
-  float? min = options.min;
-  float? max = options.max;
-  float? restSpeed = options.restSpeed;
+export SpringGenerator inertia(JsValue optionsValue) {
+  InertiaInput options = JS.assume(optionsValue);
+  float origin = JS.assume(options.keyframes[0]);
+  float velocity = JS.assume(options.velocity ?? 0.0);
+  float power = JS.assume(options.power ?? 0.8);
+  float timeConstant = JS.assume(options.timeConstant ?? 325.0);
+  float restDelta = JS.assume(options.restDelta ?? 0.5);
+  float? min = JS.assume(options.min);
+  float? max = JS.assume(options.max);
+  AnimGeneratorState state = JS.assume(JS.object("done", false, "value", origin));
   float amplitude = power * velocity;
   float ideal = origin + amplitude;
-  float target = ideal;
-  (func(float)->float)? modifyTarget = options.modifyTarget;
-  if (modifyTarget != null) {
-    target = modifyTarget(ideal);
-  }
+  float target = if (JS.isUndefined(options.modifyTarget)) { ideal } else { JS.assume(JS.call(options.modifyTarget, JS.undefined(), ideal)) };
   if (target != ideal) {
     amplitude = target - origin;
   }
-  InertiaCell cell = new InertiaCell(
-    origin,
-    amplitude,
-    target,
-    timeConstant,
-    restDelta,
-    bounceDamping,
-    bounceStiffness,
-    min,
-    max,
-    restSpeed
-  );
-  func(float)->bool isOutOfBounds = (float v) => {
-    float? minBound = cell.min;
-    float? maxBound = cell.max;
-    if (minBound != null) {
-      if (v < minBound) {
-        return true;
-      }
-    }
-    if (maxBound != null) {
-      if (v > maxBound) {
-        return true;
-      }
-    }
-    return false;
-  };
-  func(float)->float nearestBoundary = (float v) => {
-    float? minBound = cell.min;
-    float? maxBound = cell.max;
-    if (minBound == null) {
-      if (maxBound != null) {
-        return maxBound;
-      }
-      return v;
-    }
-    if (maxBound == null) {
-      return minBound;
-    }
-    if ((minBound - v).abs() < (maxBound - v).abs()) {
-      return minBound;
-    }
-    return maxBound;
-  };
-  func(float)->float calcDelta = (float t) => -cell.amplitude * ((-t / cell.timeConstant).exp());
-  func(float)->float calcLatest = (float t) => cell.target + calcDelta(t);
+  func(float)->float calcDelta = (float t) => -amplitude * (-t / timeConstant).exp();
+  func(float)->float calcLatest = (float t) => target + calcDelta(t);
   func(float)->void applyFriction = (float t) => {
     float delta = calcDelta(t);
     float latest = calcLatest(t);
-    cell.state.done = delta.abs() <= cell.restDelta;
-    if (cell.state.done) {
-      cell.state.value = cell.target;
-    } else {
-      cell.state.value = latest;
-    }
+    state.done = delta.abs() <= restDelta;
+    state.value = if (state.done) { target } else { latest };
   };
+  float? timeReachedBoundary = null;
+  SpringGenerator? boundarySpring = null;
   func(float)->void checkCatchBoundary = (float t) => {
-    if (!isOutOfBounds(cell.state.value)) {
-      return;
+    float value = JS.assume(state.value);
+    if ((min != null && value < min) || (max != null && value > max)) {
+      timeReachedBoundary = t;
+      JsValue boundary = if (min == null) {
+        max
+      } else {
+        if (max == null || (min - value).abs() < (max - value).abs()) { min } else { max }
+      };
+      boundarySpring = spring(JS.object(
+        "keyframes", JS.array(value, boundary),
+        "velocity", getGeneratorVelocity(calcLatest, t, value),
+        "damping", options.bounceDamping ?? 10.0,
+        "stiffness", options.bounceStiffness ?? 500.0,
+        "restDelta", restDelta,
+        "restSpeed", options.restSpeed
+      ), JS.undefined());
     }
-    cell.timeReachedBoundary = t;
-    float boundary = nearestBoundary(cell.state.value);
-    SpringInput springOptions = new SpringInput(
-      [cell.state.value, boundary],
-      cell.bounceStiffness,
-      cell.bounceDamping,
-      null,
-      getGeneratorVelocity(calcLatest, t, cell.state.value),
-      null,
-      null,
-      null,
-      cell.restSpeed,
-      cell.restDelta
-    );
-    cell.springGen = spring(springOptions);
-    cell.hasSpring = true;
   };
   checkCatchBoundary(0.0);
-  return new SpringGenerator(
-    null,
-    (float t) => 0.0,
-    (float t) => {
+  return JS.assume(JS.object(
+    "calculatedDuration", null,
+    "next", (float t) => {
       bool hasUpdatedFrame = false;
-      float? boundaryTime = cell.timeReachedBoundary;
-      if (!cell.hasSpring && boundaryTime == null) {
+      if (boundarySpring == null && timeReachedBoundary == null) {
         hasUpdatedFrame = true;
         applyFriction(t);
         checkCatchBoundary(t);
       }
-      boundaryTime = cell.timeReachedBoundary;
-      if (boundaryTime != null) {
-        if (t >= boundaryTime) {
-          SpringGenerator? springGen = cell.springGen;
-          if (springGen != null) {
-            return springGen.next(t - boundaryTime);
-          }
-        }
+      float? boundaryTime = timeReachedBoundary;
+      SpringGenerator? catchSpring = boundarySpring;
+      if (boundaryTime != null && catchSpring != null && t >= boundaryTime) {
+        return catchSpring.next(t - boundaryTime);
       }
       if (!hasUpdatedFrame) {
         applyFriction(t);
       }
-      return cell.state;
-    },
-    () => "",
-    () => {}
-  );
+      return state;
+    }
+  ));
 }

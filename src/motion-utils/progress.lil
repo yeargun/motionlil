@@ -1,7 +1,4 @@
-export pure float progress(float from, float to, float value) {
+export func(float, float, float)->float progress = (float from, float to, float value) => {
   float range = to - from;
-  if (range != 0.0) {
-    return (value - from) / range;
-  }
-  return 1.0;
-}
+  return if (range != 0.0) { (value - from) / range } else { 1.0 };
+};

@@ -1,14 +1,9 @@
-import { Bb } from "./part-553.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let xj = () => {
-  var wk = {
-    __proto__: null
-  }, xk = Bb;
-  for (var vk in xk) wk[vk] = Bb[vk] ?? null;
-  return wk;
+import { isControllingVariants } from "./part-129.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let isVariantNode = function(a) {
+  return isControllingVariants(a) || !!a.variants;
 };
 export {
-  xj
+  isVariantNode
 };

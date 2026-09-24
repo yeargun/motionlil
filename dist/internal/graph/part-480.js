@@ -1,4 +1,7 @@
-var df = new RegExp("^(?:#[\\da-f]{3,8}|(?:rgb|hsl)a?\\((?:-?[\\d.]+%?[,\\s]+){2}-?[\\d.]+%?\\s*(?:[,/]\\s*)?(?:\\b\\d+(?:\\.\\d+)?|\\.\\d+)?%?\\))$", "iu");
+import { Ib } from "./part-479.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let isNumericalString = (a) => Ib.test(a);
 export {
-  df
+  isNumericalString
 };

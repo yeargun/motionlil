@@ -1,16 +1,9 @@
-import { fe } from "./part-280.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ge = (vk) => {
-  if (fe(vk.x)) {
-    var wk, xk = true;
-  } else {
-    wk = fe(vk.y);
-    xk = wk;
-  }
-  return xk;
+import { Mg } from "./part-280.js";
+let Ng = (a, b, c) => {
+  a.forEach((a2) => Mg(a2, "view-transition-name"));
+  b.forEach((a2) => Mg(a2, "view-transition-class"));
+  c.forEach((a2) => Mg(a2, "view-transition-group"));
 };
 export {
-  ge
+  Ng
 };

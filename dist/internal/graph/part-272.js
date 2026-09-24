@@ -1,16 +1,12 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Dh = (vk) => ({
-  x: {
-    min: vk.left,
-    max: vk.right
-  },
-  y: {
-    min: vk.top,
-    max: vk.bottom
-  }
-});
+import { oc } from "./part-118.js";
+import { interpolate } from "./part-261.js";
+import { transformValue } from "./part-271.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let mapValue = function(a, b, c, d = null) {
+  let e = interpolate(b, c, d);
+  return transformValue(() => e(oc(a)));
+};
 export {
-  Dh
+  mapValue
 };

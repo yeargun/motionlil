@@ -1,4 +1,6 @@
-let mk = "no-valid-elements";
+let Cl = function(a, b) {
+  return a.match(b);
+};
 export {
-  mk
+  Cl
 };

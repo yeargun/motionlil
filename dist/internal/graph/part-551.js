@@ -1,8 +1,9 @@
-import { yk } from "./part-524.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var Cc = yk;
+let sh = {
+  type: "spring",
+  stiffness: 500,
+  damping: 25,
+  restSpeed: 10
+};
 export {
-  Cc
+  sh
 };

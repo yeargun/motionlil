@@ -1,16 +1,11 @@
-import { od } from "./part-117.js";
-import { zb } from "./part-517.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let mg = (vk) => {
-  var xk = od(vk), wk = 0;
-  for (; wk < zb.length; ) {
-    if (xk(zb[wk])) return zb[wk];
-    wk += 1;
-  }
-  return null;
+import { F } from "./part-430.js";
+import { velocityPerSecond } from "./part-465.js";
+import { Xb } from "./part-485.js";
+let pc = (a) => {
+  let b = F.now();
+  if (a.canTrackVelocity !== true || a.prevFrameValue == null || b - a.updatedAt > Xb) return 0;
+  return velocityPerSecond(parseFloat(a.current) - parseFloat(a.prevFrameValue), Math.min(a.updatedAt - a.prevUpdatedAt, Xb));
 };
 export {
-  mg
+  pc
 };

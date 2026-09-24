@@ -1,47 +1,26 @@
-import { X } from "./part-483.js";
-import { tb } from "./part-484.js";
-import { ga } from "./part-491.js";
-import { Ia } from "./part-76.js";
-import { Ja } from "./part-77.js";
-import { db } from "./part-79.js";
-import { eb } from "./part-80.js";
-import { fd } from "./part-85.js";
-import { Ub } from "./part-86.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var h = {
-  test: (Oz) => {
-    if (X.test(Oz)) {
-      var Pz, Rz, Sz, Qz = true;
-    } else {
-      Pz = tb.test(Oz);
-      Qz = Pz;
-    }
-    if (Qz) Sz = true;
-    else {
-      Rz = ga.test(Oz);
-      Sz = Rz;
-    }
-    return Sz;
-  },
-  parse: fd,
-  transform: Ub,
-  getAnimatableNone: (Oz) => {
-    var Pz = fd(Oz);
-    if (Ia(Pz)) {
-      var Qz = db(Pz);
-      Qz.alpha = 0;
-      return Ub(Qz);
-    }
-    if (Ja(Pz)) {
-      var Rz = eb(Pz);
-      Rz.alpha = 0;
-      return Ub(Rz);
-    }
-    return Pz;
+import { analyseComplexValue } from "./part-34.js";
+import { da } from "./part-36.js";
+import { ea } from "./part-37.js";
+import { ha } from "./part-39.js";
+let Tc = {
+  test: ha,
+  parse: da,
+  createTransformer: ea,
+  getAnimatableNone: (a) => {
+    let b = analyseComplexValue(a).values;
+    return ea(a)(b.map((a2) => {
+      if (typeof a2 == "number") return 0;
+      if ("object" == typeof a2) {
+        let b2 = {
+          __proto__: null
+        };
+        Object.assign(b2, a2).alpha = 1;
+        return b2;
+      }
+      return a2;
+    }));
   }
 };
 export {
-  h
+  Tc
 };

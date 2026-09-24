@@ -1,7 +1,3 @@
-export float secondsToMilliseconds(float seconds) {
-  return seconds * 1000.0;
-}
+export func(float)->float secondsToMilliseconds = (float seconds) => seconds * 1000.0;
 
-export float millisecondsToSeconds(float milliseconds) {
-  return milliseconds / 1000.0;
-}
+export func(float)->float millisecondsToSeconds = (float milliseconds) => milliseconds / 1000.0;

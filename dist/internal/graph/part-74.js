@@ -1,9 +1,13 @@
-function B(vk, wk, xk, yk, zk) {
-  vk.red = wk;
-  vk.green = xk;
-  vk.blue = yk;
-  vk.alpha = zk;
-}
+let qb = (a) => {
+  a.state = "idle";
+  let b = a.driver;
+  if (b) {
+    b.stop();
+    a.driver = null;
+  }
+  a.startTime = null;
+  a.holdTime = null;
+};
 export {
-  B
+  qb
 };

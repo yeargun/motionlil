@@ -1,10 +1,19 @@
-import { Ea } from "./part-633.js";
-let Oi = () => {
-  if (0 == Ea.size) {
-    Ea.set("start", 0);
-    Ea.set("end", 1);
-  }
+import { Ff } from "./part-218.js";
+import { gj } from "./part-394.js";
+import { nj } from "./part-400.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let animateSequence = function(a, b = null) {
+  let c = [];
+  gj(a, b, null, (a2, b2, d2) => {
+    c = c.concat(nj(a2, b2, d2, null));
+  });
+  let d = c, e = {
+    animations: []
+  };
+  Ff(e, d);
+  return e;
 };
 export {
-  Oi
+  animateSequence
 };

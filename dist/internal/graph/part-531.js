@@ -1,5 +1,4 @@
-var Bk;
-Bk = null;
+let ig = /* @__PURE__ */ new WeakSet();
 export {
-  Bk
+  ig
 };

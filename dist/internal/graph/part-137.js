@@ -1,12 +1,9 @@
-let wg = (vk, wk) => {
-  vk.children.add(wk);
-  var xk = vk.enteringChildren;
-  if (!xk) {
-    var yk = /* @__PURE__ */ new Set();
-    yk.add(wk);
-    vk.enteringChildren = yk;
-  } else xk.add(wk);
+import { jd } from "./part-136.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let getFeatureDefinitions = function() {
+  return jd;
 };
 export {
-  wg
+  getFeatureDefinitions
 };

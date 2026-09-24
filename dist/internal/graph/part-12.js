@@ -1,4 +1,6 @@
-let sk = 0.6666666666666666;
+let im = function(a, b) {
+  a.sort(b);
+};
 export {
-  sk
+  im
 };

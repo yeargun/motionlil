@@ -1,14 +1,15 @@
 import { resolveTransition } from "./resolve-transition";
 
 export JsValue getValueTransition(JsValue transition, string key) {
-  JsValue valueTransition = transition;
-  if (!JS.isNullish(transition)) {
-    valueTransition = transition[key];
-    if (JS.isNullish(valueTransition)) { valueTransition = transition["default"]; }
-    if (JS.isNullish(valueTransition)) { valueTransition = transition; }
+  if (!transition.truthy()) {
+    return transition;
   }
-  if (!JS.strictEqual(valueTransition, transition)) {
-    return resolveTransition(valueTransition, transition);
-  }
-  return valueTransition;
+  JsValue? keyed = transition[key];
+  JsValue? fallback = transition["default"];
+  JsValue valueTransition = keyed ?? fallback ?? transition;
+  return if (JS.strictNotEqual(valueTransition, transition)) {
+    resolveTransition(valueTransition, transition)
+  } else {
+    valueTransition
+  };
 }

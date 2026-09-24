@@ -15,26 +15,11 @@ export JsValue[] resolveSubjects(
   if (subject == null) {
     return [];
   }
-
   if ((subject is string) && isDOMKeyframes(keyframes)) {
     return resolveElements(subject, scope, selectorCache);
   }
-
-  if (isNodeList(subject)) {
+  if (isNodeList(subject) || subject.isArray()) {
     return arrayFromNullable(subject);
   }
-
-  if (subject.isArray()) {
-    JsValue[] filtered = [];
-    int len = subject.length.toInt();
-    for (int i = 0; i < len; i++) {
-      JsValue item = subject[i];
-      if (item.truthy()) {
-        filtered.push(item);
-      }
-    }
-    return filtered;
-  }
-
   return [subject];
 }

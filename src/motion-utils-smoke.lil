@@ -86,7 +86,7 @@ func(JsValue)->JsValue doubled = (JsValue v) => {
   }
   return v;
 };
-func(JsValue)->JsValue composed = pipe(doubled, doubled);
+func(JsValue)->JsValue composed = JS.assume(JS.call(pipe, JS.undefined(), doubled, doubled));
 JsValue piped = composed(3.0);
 if (piped is float) {
   digest = digest + piped;

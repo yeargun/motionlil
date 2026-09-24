@@ -1,9 +1,8 @@
-import { documentScrollingElement } from "./../motion-dom/dom-host.js";
-import { hk } from "./part-1.js";
-let Ve = (vk) => {
-  if (vk == documentScrollingElement()) return hk;
-  return vk;
+import "./effect-499.js";
+import "./effect-573.js";
+let distance = function(a, b) {
+  return Math.abs(a - b);
 };
 export {
-  Ve
+  distance
 };

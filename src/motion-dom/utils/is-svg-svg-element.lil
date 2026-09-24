@@ -1,9 +1,7 @@
-import { getElementTagName } from "../dom-host";
+import { asJs } from "../value/types/types";
 import { isSVGElement } from "./is-svg-element";
 
+// The root SVG element, checked in a way that works across iframes.
 export bool isSVGSVGElement(JsValue? element = null) {
-  if (!isSVGElement(element)) {
-    return false;
-  }
-  return getElementTagName(element).toLowerCase() == "svg";
+  return isSVGElement(element) && asJs(element)["tagName"] == "svg";
 }

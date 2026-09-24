@@ -1,10 +1,11 @@
-import { rk } from "./part-11.js";
-let ke = (vk, wk) => {
-  if (null == vk) return null;
-  if ("string" == typeof vk) return parseFloat(vk) / rk * (wk.max - wk.min);
-  if ("number" == typeof vk) return vk;
-  return null;
+let Xg = (a, b) => {
+  let c = Object.assign({}, a, b);
+  if (b.duration !== void 0) {
+    if (b.visualDuration === void 0) delete c.visualDuration;
+    if (b.type === void 0) delete c.type;
+  }
+  return c;
 };
 export {
-  ke
+  Xg
 };

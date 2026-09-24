@@ -1,10 +1,5 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let pd = (vk) => {
-  if ("string" == typeof vk) return true;
-  return Array.isArray(vk);
-};
+import { Xc } from "./part-495.js";
+let Wc = (a) => Xc[a];
 export {
-  pd
+  Wc
 };

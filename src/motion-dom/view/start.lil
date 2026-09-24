@@ -1,1026 +1,585 @@
-import { assignViewTransitionNames, releaseViewTransitionNames } from "./utils/assign-names";
-import { chooseLayerType } from "./utils/choose-layer-type";
-import { css } from "./utils/css";
-import { getViewAnimationLayerInfo, ViewAnimationLayerInfo } from "./utils/get-layer-info";
-import { getViewAnimations } from "./utils/get-view-animations";
-import { hasTarget } from "./utils/has-target";
 import { GroupAnimation } from "../animation/GroupAnimation";
 import { NativeAnimation } from "../animation/NativeAnimation";
 import { NativeAnimationWrapper } from "../animation/NativeAnimationWrapper";
 import { getValueTransition } from "../animation/utils/get-value-transition";
 import { mapEasingToNativeEasing } from "../animation/waapi/easing/map-easing";
-import { applyGeneratorOptions } from "../animation/waapi/utils/apply-generator";
-import { ValueAnimationTransition } from "../animation/types";
+import { supportsLinearEasing } from "../utils/supports/linear-easing";
 import { cornerRadiusProps } from "../utils/border-radius";
 import { resolveElements } from "../utils/resolve-elements";
 import { secondsToMilliseconds } from "../../motion-utils/time-conversion";
 import { warnOnce } from "../../motion-utils/warn-once";
-import {
-  callMethod0,
-  callMethod1,
-  callMethod2,
-  callFn0,
-  callFn2,
-  isFunction,
-  taskFromCallback,
-  getComputedStyleProperty,
-  documentElement,
-  documentGet,
-  documentStartViewTransition,
-  parseFloatValue,
-  mapKeys,
-  setValues,
-  hasOwn,
-  deleteProp
-} from "../dom-host";
-import { stringSplit } from "../string-host";
+import { generatedName, setStyle, removeStyle, releaseViewTransitionNames } from "./utils/assign-names";
+import { chooseLayerType } from "./utils/choose-layer-type";
+import { cssSet, cssCommit, cssRemove } from "./utils/css";
+import { getViewAnimationLayerInfo, ViewAnimationLayerInfo } from "./utils/get-layer-info";
+import { getViewAnimations } from "./utils/get-view-animations";
+
+extern JsValue document;
+extern JsValue Object;
+extern JsValue Promise;
+extern JsValue getComputedStyle(JsValue element);
+extern float parseFloat(string value);
 
 string[] definitionNames = ["layout", "enter", "exit", "new", "old"];
-float ASPECT_TOLERANCE = 0.2;
 
+// The target buckets that drive each generated layer type, in priority order.
+JsValue typeBuckets = object{group: ["layout"], new: ["new", "enter"], old: ["old", "exit"]};
+
+// Default origin for a single-value keyframe, by pseudo type.
+JsValue originDefaults = object{
+  group: object{},
+  new: object{opacity: 0, scale: 0.85},
+  old: object{opacity: 1, scale: 1}
+};
+
+// Whether a computed border-radius is square (every component zero).
 bool isSquareRadius(string radius) {
-  string[] parts = stringSplit(radius, " ");
-  for (int i = 0; i < parts.length; i++) {
-    if (parseFloatValue(parts[i]) != 0.0) {
-      return false;
-    }
-  }
-  return true;
+  return radius.split(" ").every((string value) => parseFloat(value) == 0.0);
 }
 
-JsValue layerOptions(JsValue? target, string type) {
-  string[] buckets = [];
-  if (type == "group") {
-    buckets = ["layout"];
-  } else if (type == "new") {
-    buckets = ["new", "enter"];
-  } else if (type == "old") {
-    buckets = ["old", "exit"];
-  }
-  if (target == null) {
-    return null;
-  }
-  JsValue t = target;
-  for (int i = 0; i < buckets.length; i++) {
-    JsValue bucket = t[buckets[i]];
-    if (bucket.truthy()) {
-      JsValue opts = bucket["options"];
-      if (opts.truthy()) {
-        return opts;
-      }
-    }
-  }
-  return null;
+// A number the transition options hold (read as JavaScript does).
+float num(JsValue value) {
+  return JS.assume(value);
 }
 
+// Merge a base transition with an override. An explicit override `duration`
+// drops the inherited generator timing unless the override sets its own.
 JsValue mergeTransition(JsValue base, JsValue override) {
-  JsValue merged = record{};
-  if (base.isObject()) {
-    for (string key in base) {
-      merged[key] = base[key];
+  JsValue merged = JS.invoke(Object, "assign", object{}, base, override);
+  if (!JS.isUndefined(override["duration"])) {
+    if (JS.isUndefined(override["visualDuration"])) {
+      JS.delete(merged, "visualDuration");
     }
-  }
-  if (override.isObject()) {
-    for (string key in override) {
-      merged[key] = override[key];
-    }
-    if (hasOwn(override, "duration")) {
-      if (!hasOwn(override, "visualDuration")) {
-        deleteProp(merged, "visualDuration");
-      }
-      if (!hasOwn(override, "type")) {
-        deleteProp(merged, "type");
-      }
+    if (JS.isUndefined(override["type"])) {
+      JS.delete(merged, "type");
     }
   }
   return merged;
 }
 
-ValueAnimationTransition transitionToApplied(JsValue transition) {
-  ValueAnimationTransition applied = new ValueAnimationTransition();
-  JsValue delayVal = transition["delay"];
-  if (delayVal is float) {
-    applied.delay = delayVal;
+// `applyGeneratorOptions` over a transition this module owns.
+JsValue applyGeneratorOptions(JsValue options) {
+  JsValue type = options["type"];
+  JS.delete(options, "type");
+  if (JS.typeOf(type) == "function" && JS.in("applyToOptions", type) && supportsLinearEasing()) {
+    return JS.invoke(type, "applyToOptions", options);
   }
-  JsValue durationVal = transition["duration"];
-  if (durationVal is float) {
-    applied.duration = durationVal;
+  if (JS.isNullish(options["duration"])) {
+    options["duration"] = 300;
   }
-  JsValue easeVal = transition["ease"];
-  if (easeVal != null) {
-    applied.ease = easeVal;
+  if (JS.isNullish(options["ease"])) {
+    options["ease"] = "easeOut";
   }
-  JsValue typeVal = transition["type"];
-  if (typeVal != null) {
-    applied.type = typeVal;
-  }
-  JsValue stiffnessVal = transition["stiffness"];
-  if (stiffnessVal is float) {
-    applied.stiffness = stiffnessVal;
-  }
-  JsValue dampingVal = transition["damping"];
-  if (dampingVal is float) {
-    applied.damping = dampingVal;
-  }
-  JsValue massVal = transition["mass"];
-  if (massVal is float) {
-    applied.mass = massVal;
-  }
-  JsValue restDeltaVal = transition["restDelta"];
-  if (restDeltaVal is float) {
-    applied.restDelta = restDeltaVal;
-  }
-  JsValue restSpeedVal = transition["restSpeed"];
-  if (restSpeedVal is float) {
-    applied.restSpeed = restSpeedVal;
-  }
-  JsValue velocityVal = transition["velocity"];
-  if (velocityVal is float) {
-    applied.velocity = velocityVal;
-  }
-  return applyGeneratorOptions(applied);
+  return options;
 }
 
-string? easeToNative(JsValue? ease, float duration) {
-  if (ease == null) {
-    return null;
+// A NativeAnimation for `options`, or (with no options) a wrapper that adopts
+// a browser-generated animation and finishes with it.
+JsValue nativeAnimation(JsValue options, JsValue generated) {
+  if (generated.truthy()) {
+    return new NativeAnimationWrapper(generated);
   }
-  JsValue e = ease;
-  if (e is string) {
-    string s = e;
-    return mapEasingToNativeEasing(s, duration);
-  }
-  return null;
+  return new NativeAnimation(options);
 }
 
-class StaggerPos {
-  int[]? oldPos;
-  int[]? newPos;
-
-  init() {
-    this.oldPos = null;
-    this.newPos = null;
-  }
+async JsValue runUpdate(JsValue update) {
+  Task<JsValue> done = JS.assume(JS.call(update, JS.undefined()));
+  await done;
+  return new GroupAnimation([]);
 }
 
-class CropBox {
-  float width;
-  float height;
-  Record<string> radii;
+export JsValue startViewAnimation(JsValue builder) {
+  JsValue update = builder["update"];
+  JsValue targets = builder["targets"];
+  JsValue resolveDefs = builder["resolveDefs"];
+  JsValue cropOverride = builder["cropOverride"];
+  JsValue pairs = builder["pairs"];
+  JsValue classNames = builder["classNames"];
+  JsValue flatGroups = builder["flatGroups"];
+  JsValue defaultOptions = builder["options"];
 
-  init(float width, float height, Record<string> radii) {
-    this.width = width;
-    this.height = height;
-    this.radii = radii;
-  }
-}
-
-class CropEntry {
-  CropBox? oldBox;
-  CropBox? newBox;
-
-  init() {
-    this.oldBox = null;
-    this.newBox = null;
-  }
-}
-
-class ViewRuntime {
-  Map<JsValue, string> nameRegistry;
-  JsValue[] assigned;
-  JsValue[] classed;
-  JsValue[] grouped;
-  Set<string> clipChildren;
-  Map<string, JsValue> layerTargets;
-  string[] layerNames;
-  Set<string> croppedNames;
-  Map<string, bool> cropForName;
-  Map<string, StaggerPos> layerStagger;
-  Map<JsValue, string[]> pairNames;
-  Map<JsValue, JsValue[]> pairFrom;
-  Map<string, CropEntry> cropMeasurements;
-  string[] cropKeys;
-  JsValue defaultOptions;
-  JsValue targetsMap;
-  JsValue resolveDefsSet;
-  JsValue cropOverrideMap;
-  JsValue pairsMap;
-  JsValue classNamesMap;
-  JsValue flatGroupsSet;
-  JsValue builder;
-  JsValue update;
-
-  init(JsValue builder, JsValue defaultOptions, JsValue update) {
-    this.builder = builder;
-    this.update = update;
-    this.nameRegistry = new Map<JsValue, string>();
-    this.assigned = [];
-    this.classed = [];
-    this.grouped = [];
-    this.clipChildren = new Set<string>();
-    this.layerTargets = new Map<string, JsValue>();
-    this.layerNames = [];
-    this.croppedNames = new Set<string>();
-    this.cropForName = new Map<string, bool>();
-    this.layerStagger = new Map<string, StaggerPos>();
-    this.pairNames = new Map<JsValue, string[]>();
-    this.pairFrom = new Map<JsValue, JsValue[]>();
-    this.cropMeasurements = new Map<string, CropEntry>();
-    this.cropKeys = [];
-    this.defaultOptions = defaultOptions;
-    this.targetsMap = new Map<JsValue, JsValue>();
-    this.resolveDefsSet = new Set<JsValue>();
-    this.cropOverrideMap = new Map<JsValue, bool>();
-    this.pairsMap = new Map<JsValue, JsValue>();
-    this.classNamesMap = new Map<JsValue, string>();
-    this.flatGroupsSet = new Set<JsValue>();
+  if (!document["startViewTransition"].truthy()) {
+    return runUpdate(update);
   }
 
-  void rememberLayer(string name, JsValue target) {
-    if (!this.layerTargets.has(name)) {
-      this.layerNames.push(name);
-    }
-    this.layerTargets.set(name, target);
-  }
+  JsValue nameRegistry = new Map<JsValue, JsValue>();
+  JsValue[] assigned = [];
+  JsValue[] classed = [];
+  JsValue[] grouped = [];
+  JsValue clipChildren = new Set<JsValue>();
+  JsValue layerTargets = new Map<JsValue, JsValue>();
+  JsValue croppedNames = new Set<JsValue>();
+  JsValue cropForName = new Map<JsValue, JsValue>();
+  JsValue layerStagger = new Map<JsValue, JsValue>();
+  JsValue pairNames = new Map<JsValue, JsValue>();
+  JsValue pairFrom = new Map<JsValue, JsValue>();
+  JsValue cropMeasurements = new Map<JsValue, JsValue>();
 
-  void rememberCrop(string name, CropEntry entry) {
-    if (!this.cropMeasurements.has(name)) {
-      this.cropKeys.push(name);
+  // Name one resolved element: tag its class and group, and record the name
+  // of a clipping nested parent so its children are clipped too.
+  auto nameElement = (JsValue element, JsValue name, JsValue className, JsValue group) => {
+    JS.invoke(nameRegistry, "set", element, name);
+    if (className.truthy()) {
+      setStyle(element, "view-transition-class", className);
+      classed.push(element);
     }
-    this.cropMeasurements.set(name, entry);
-  }
-
-  void loadFromBuilder() {
-    JsValue targets = this.builder["targets"];
-    if (targets.truthy()) {
-      this.targetsMap = targets;
-    }
-    JsValue resolveDefs = this.builder["resolveDefs"];
-    if (resolveDefs.truthy()) {
-      this.resolveDefsSet = resolveDefs;
-    }
-    JsValue cropOverride = this.builder["cropOverride"];
-    if (cropOverride.truthy()) {
-      this.cropOverrideMap = cropOverride;
-    }
-    JsValue pairs = this.builder["pairs"];
-    if (pairs.truthy()) {
-      this.pairsMap = pairs;
-    }
-    JsValue classNames = this.builder["classNames"];
-    if (classNames.truthy()) {
-      this.classNamesMap = classNames;
-    }
-    JsValue flatGroups = this.builder["flatGroups"];
-    if (flatGroups.truthy()) {
-      this.flatGroupsSet = flatGroups;
-    }
-  }
-
-  void resolveLayers(string phase) {
-    JsValue[] defs = mapKeys(this.targetsMap);
-    for (int d = 0; d < defs.length; d++) {
-      JsValue definition = defs[d];
-      JsValue target = callMethod1(this.targetsMap, "get", definition);
-      if (!target.truthy()) {
-        target = record{};
+    if (group.truthy()) {
+      setStyle(element, "view-transition-group", group);
+      grouped.push(element);
+      if (group != "none") {
+        JsValue computed = getComputedStyle(element);
+        if (computed["overflowX"] != "visible" || computed["overflowY"] != "visible") {
+          JS.invoke(clipChildren, "add", name);
+        }
       }
-      string? className = null;
-      JsValue classNameVal = callMethod1(this.classNamesMap, "get", definition);
-      if (classNameVal is string) {
-        className = classNameVal;
+    }
+    return name;
+  };
+
+  // Resolve a selector/Element to elements and make sure each carries a
+  // `view-transition-name`. A paired morph's new end takes the old end's
+  // names by index; otherwise author names are kept and the rest generated.
+  auto assignNames = (JsValue definition, JsValue forcedNames, JsValue className, JsValue group) => {
+    JsValue[] elements = resolveElements(definition);
+    // Unless the names are forced, read every current name before assigning
+    // any, so the writes do not force a style recalc per element.
+    JsValue currentNames = forcedNames;
+    if (!forcedNames.truthy()) {
+      currentNames = JS.invoke(elements, "map", (JsValue element) => {
+        if (JS.invoke(nameRegistry, "has", element).truthy()) {
+          return JS.undefined();
+        }
+        return JS.invoke(getComputedStyle(element), "getPropertyValue", "view-transition-name");
+      });
+    }
+    return JS.invoke(elements, "map", (JsValue element, float i) => {
+      JsValue existing = JS.invoke(nameRegistry, "get", element);
+      if (existing.truthy()) {
+        return existing;
       }
-      string? group = null;
-      bool isRoot = definition == "root";
-      bool needsResolve = callMethod1(this.resolveDefsSet, "has", definition).truthy();
-      if (!isRoot && needsResolve) {
-        if (callMethod1(this.flatGroupsSet, "has", definition).truthy()) {
+      JsValue name = currentNames[i];
+      // A paired morph's new end takes the old end's names by index (a fresh
+      // one past its end); otherwise an author name is kept as-is.
+      if (forcedNames.truthy() ||
+        !name.truthy() ||
+        name == "none" ||
+        name == "auto" ||
+        name == "match-element" ||
+        JS.invoke(name, "startsWith", "motion-view-").truthy()) {
+        if (!forcedNames.truthy() || JS.isNullish(name)) {
+          name = generatedName();
+        }
+        setStyle(element, "view-transition-name", name);
+        assigned.push(element);
+      }
+      return nameElement(element, name, className, group);
+    });
+  };
+
+  auto resolveLayers = (string phase) => {
+    JS.invoke(targets, "forEach", (JsValue target, JsValue definition) => {
+      JsValue className = JS.invoke(classNames, "get", definition);
+      JsValue resolved = JS.and(!JS.strictEqual(definition, "root"), JS.invoke(resolveDefs, "has", definition));
+      JsValue group = JS.undefined();
+      JsValue names = JS.array(definition);
+      if (resolved.truthy()) {
+        group = "contain";
+        if (JS.invoke(flatGroups, "has", definition).truthy()) {
           group = "none";
-        } else {
-          group = "contain";
         }
-      }
-
-      string[] names = [];
-      if (isRoot || !needsResolve) {
-        if (definition is string) {
-          names = [definition];
+        if (!JS.invoke(pairs, "has", definition).truthy()) {
+          names = assignNames(definition, null, className, group);
+        } else if (phase == "old") {
+          JS.invoke(pairFrom, "set", definition, resolveElements(definition));
+          names = assignNames(definition, null, className, group);
+          JS.invoke(pairNames, "set", definition, names);
         } else {
-          names = [`${definition}`];
-        }
-      } else if (callMethod1(this.pairsMap, "has", definition).truthy()) {
-        if (phase == "old") {
-          this.pairFrom.set(definition, resolveElements(definition));
-          names = assignViewTransitionNames(
-            definition,
-            this.nameRegistry,
-            this.assigned,
-            null,
-            className,
-            this.classed,
-            group,
-            this.grouped,
-            this.clipChildren
-          );
-          this.pairNames.set(definition, names);
-        } else {
-          JsValue[]? fromEls = this.pairFrom.get(definition);
-          if (fromEls != null) {
-            for (int f = 0; f < fromEls.length; f++) {
-              JsValue el = fromEls[f];
-              JsValue style = el["style"];
-              if (style.truthy()) {
-                callMethod1(style, "removeProperty", "view-transition-name");
-              }
-              this.nameRegistry.delete(el);
-            }
+          // Transfer the names off the old end before the new end takes
+          // them, so a surviving old element cannot collide.
+          JsValue from = JS.invoke(pairFrom, "get", definition);
+          if (from.truthy()) {
+            JS.invoke(from, "forEach", (JsValue element) => {
+              removeStyle(element, "view-transition-name");
+              JS.invoke(nameRegistry, "delete", element);
+            });
           }
-          names = assignViewTransitionNames(
-            callMethod1(this.pairsMap, "get", definition),
-            this.nameRegistry,
-            this.assigned,
-            this.pairNames.get(definition),
+          names = assignNames(
+            JS.invoke(pairs, "get", definition),
+            JS.invoke(pairNames, "get", definition),
             className,
-            this.classed,
-            group,
-            this.grouped,
-            this.clipChildren
+            group
           );
         }
-      } else {
-        names = assignViewTransitionNames(
-          definition,
-          this.nameRegistry,
-          this.assigned,
-          null,
-          className,
-          this.classed,
-          group,
-          this.grouped,
-          this.clipChildren
-        );
       }
+      JsValue override = JS.invoke(cropOverride, "get", definition);
+      JS.invoke(names, "forEach", (JsValue name, JsValue index) => {
+        // Two subjects resolving to one element merge their definitions.
+        JsValue existing = JS.invoke(layerTargets, "get", name);
+        JsValue merged = target;
+        if (existing.truthy() && !JS.strictEqual(existing, target)) {
+          merged = JS.invoke(Object, "assign", object{}, existing, target);
+        }
+        JS.invoke(layerTargets, "set", name, merged);
+        if (!JS.isUndefined(override)) {
+          JS.invoke(cropForName, "set", name, override);
+        }
+        JsValue stagger = JS.or(JS.invoke(layerStagger, "get", name), object{});
+        stagger[phase] = JS.array(index, names.length);
+        JS.invoke(layerStagger, "set", name, stagger);
+      });
+    });
+  };
 
-      for (int n = 0; n < names.length; n++) {
-        string name = names[n];
-        JsValue? existing = this.layerTargets.get(name);
-        if (existing != null && existing != target) {
-          JsValue merged = record{};
-          for (string key in existing) {
-            merged[key] = existing[key];
-          }
-          for (string key in target) {
-            merged[key] = target[key];
-          }
-          this.rememberLayer(name, merged);
-        } else {
-          this.rememberLayer(name, target);
-        }
-        if (callMethod1(this.cropOverrideMap, "has", definition).truthy()) {
-          JsValue overrideVal = callMethod1(this.cropOverrideMap, "get", definition);
-          if (overrideVal is bool) {
-            this.cropForName.set(name, overrideVal);
-          }
-        }
-        StaggerPos? staggerOpt = this.layerStagger.get(name);
-        StaggerPos stagger = new StaggerPos();
-        if (staggerOpt != null) {
-          stagger = staggerOpt;
-        } else {
-          this.layerStagger.set(name, stagger);
-        }
-        int[] pos = [n, names.length];
-        if (phase == "old") {
-          stagger.oldPos = pos;
-        } else {
-          stagger.newPos = pos;
-        }
-      }
-    }
-  }
-
-  int[] staggerPosition(string name, string type) {
-    StaggerPos? stagger = this.layerStagger.get(name);
-    if (stagger == null) {
-      return [-1, 1];
-    }
+  // A layer's stagger index and total in the snapshot it belongs to; index
+  // -1 when the layer is absent from that snapshot.
+  auto staggerPosition = (JsValue name, JsValue type) => {
+    JsValue stagger = JS.or(JS.invoke(layerStagger, "get", name), object{});
+    JsValue? position = stagger["new"];
     if (type == "old") {
-      int[]? oldPos = stagger.oldPos;
-      if (oldPos != null) {
-        return oldPos;
-      }
-    } else if (type == "new") {
-      int[]? newPos = stagger.newPos;
-      if (newPos != null) {
-        return newPos;
-      }
-    } else {
-      int[]? newPos = stagger.newPos;
-      if (newPos != null) {
-        return newPos;
-      }
-      int[]? oldPos = stagger.oldPos;
-      if (oldPos != null) {
-        return oldPos;
-      }
+      position = stagger["old"];
+    } else if (type != "new") {
+      position = position ?? stagger["old"];
     }
-    return [-1, 1];
-  }
+    return position ?? JS.array(-1, 1);
+  };
 
-  JsValue resolveLayerTransition(
-    JsValue? target,
-    string type,
-    string transitionName,
-    float index,
-    float total
-  ) {
-    JsValue base = getValueTransition(this.defaultOptions, transitionName);
-    JsValue layerOpts = layerOptions(target, type);
-    if (layerOpts == null) {
-      layerOpts = record{};
-    }
-    JsValue overlay = getValueTransition(layerOpts, transitionName);
-    JsValue transition = mergeTransition(base, overlay);
-    JsValue delay = transition["delay"];
-    if (isFunction(delay)) {
-      transition["delay"] = callFn2(delay, index, total);
+  auto resolveLayerTransition = (JsValue target, JsValue type, string transitionName, JsValue index, JsValue total) => {
+    JsValue layer = JS.or(target, object{});
+    JsValue bucketOptions = JS.invoke(JS.or(typeBuckets[type], JS.array()), "map", (JsValue bucket) => JS.or(layer[bucket], object{})["options"]);
+    JsValue options = JS.invoke(bucketOptions, "find", (JsValue value) => value);
+    JsValue transition = mergeTransition(
+      getValueTransition(defaultOptions, transitionName),
+      getValueTransition(JS.or(options, object{}), transitionName)
+    );
+    if (JS.typeOf(transition["delay"]) == "function") {
+      transition["delay"] = JS.invoke(transition, "delay", index, total);
     }
     return transition;
-  }
+  };
 
-  JsValue resolveGroupTiming(string name) {
-    int[] pos = this.staggerPosition(name, "group");
-    float index = 0.0 + pos[0];
-    float total = 0.0 + pos[1];
-    if (index == -1.0) {
-      index = 0.0;
+  // A layer's group (`layout`) timing as WAAPI values, shared by the group
+  // retiming and the crop corner-radius animations.
+  auto resolveGroupTiming = (JsValue name) => {
+    JsValue position = staggerPosition(name, "group");
+    JsValue index = position[0];
+    if (index == -1) {
+      index = 0;
     }
-    JsValue transition = this.resolveLayerTransition(
-      this.layerTargets.get(name),
+    JsValue transition = resolveLayerTransition(
+      JS.invoke(layerTargets, "get", name),
       "group",
       "layout",
       index,
-      total
+      position[1]
     );
-    JsValue durationRaw = transition["duration"];
-    if (durationRaw is float) {
-      transition["duration"] = secondsToMilliseconds(durationRaw);
+    if (transition["duration"].truthy()) {
+      transition["duration"] = secondsToMilliseconds(num(transition["duration"]));
     }
-    ValueAnimationTransition applied = transitionToApplied(transition);
-    float delayMs = 0.0;
-    float? appliedDelay = applied.delay;
-    if (appliedDelay != null) {
-      delayMs = secondsToMilliseconds(appliedDelay);
-    }
-    return record{delay: delayMs, duration: applied.duration, ease: applied.ease};
-  }
+    JsValue applied = applyGeneratorOptions(transition);
+    return object{
+      delay: secondsToMilliseconds(num(JS.or(applied["delay"], 0))),
+      duration: applied["duration"],
+      ease: applied["ease"]
+    };
+  };
 
-  void measureLayers(string phase) {
-    JsValue[] elements = mapKeys(this.nameRegistry);
-    for (int i = 0; i < elements.length; i++) {
-      JsValue element = elements[i];
-      string? nameOpt = this.nameRegistry.get(element);
-      if (nameOpt != null) {
-        string name = nameOpt;
-        if (isFunction(element["getBoundingClientRect"])) {
-          JsValue rect = callMethod0(element, "getBoundingClientRect");
-          JsValue heightVal = rect["height"];
-          if (heightVal is float) {
-            if (heightVal != 0.0) {
-              Record<string> radii = record{};
-              for (int c = 0; c < cornerRadiusProps.length; c++) {
-                string corner = cornerRadiusProps[c];
-                radii[corner] = getComputedStyleProperty(element, corner);
-              }
-              CropEntry? entryOpt = this.cropMeasurements.get(name);
-              CropEntry entry = new CropEntry();
-              if (entryOpt != null) {
-                entry = entryOpt;
-              }
-              JsValue widthVal = rect["width"];
-              float width = 0.0;
-              if (widthVal is float) {
-                width = widthVal;
-              }
-              float height = heightVal;
-              CropBox box = new CropBox(width, height, radii);
-              if (phase == "old") {
-                entry.oldBox = box;
-              } else {
-                entry.newBox = box;
-              }
-              this.rememberCrop(name, entry);
-            }
-          }
-        }
+  // Each layer's box and corner radii per snapshot.
+  auto measureLayers = (string phase) => {
+    JS.invoke(nameRegistry, "forEach", (JsValue name, JsValue element) => {
+      JsValue rect = JS.and(element["getBoundingClientRect"], JS.invoke(element, "getBoundingClientRect"));
+      if (rect.truthy() && rect["height"].truthy()) {
+        JsValue computed = getComputedStyle(element);
+        JsValue radii = object{};
+        cornerRadiusProps.forEach((string corner) => {
+          radii[corner] = computed[corner];
+        });
+        JsValue entry = JS.or(JS.invoke(cropMeasurements, "get", name), object{});
+        entry[phase] = object{width: rect["width"], height: rect["height"], radii: radii};
+        JS.invoke(cropMeasurements, "set", name, entry);
       }
-    }
-  }
+    });
+  };
 
-  bool aspectChanged(string name) {
-    CropEntry? box = this.cropMeasurements.get(name);
-    if (box == null) {
+  // Whether a layer morphs between boxes of a different aspect ratio.
+  auto aspectChanged = (JsValue name) => {
+    JsValue box = JS.invoke(cropMeasurements, "get", name);
+    if (!box.truthy()) {
       return false;
     }
-    CropBox? oldBoxOpt = box.oldBox;
-    CropBox? newBoxOpt = box.newBox;
-    if (oldBoxOpt == null || newBoxOpt == null) {
+    JsValue oldBox = box["old"];
+    JsValue newBox = box["new"];
+    if (!oldBox.truthy() || !newBox.truthy() || !oldBox["height"].truthy() || !newBox["height"].truthy()) {
       return false;
     }
-    CropBox oldBox = oldBoxOpt;
-    CropBox newBox = newBoxOpt;
-    if (oldBox.height == 0.0 || newBox.height == 0.0) {
-      return false;
-    }
-    float delta = (oldBox.width / oldBox.height) - (newBox.width / newBox.height);
-    if (delta < 0.0) {
-      delta = 0.0 - delta;
-    }
-    return delta > ASPECT_TOLERANCE;
-  }
+    float oldAspect = num(oldBox["width"]) / num(oldBox["height"]);
+    float newAspect = num(newBox["width"]) / num(newBox["height"]);
+    return (oldAspect - newAspect).abs() > 0.2;
+  };
 
-  void finalizeCrop() {
-    this.croppedNames.clear();
-    for (int i = 0; i < this.layerNames.length; i++) {
-      string name = this.layerNames[i];
-      if (name == "root") {
-        continue;
-      }
-      bool? forced = this.cropForName.get(name);
-      bool shouldCrop = this.aspectChanged(name);
-      if (forced != null) {
-        shouldCrop = forced;
-      }
-      if (shouldCrop) {
-        this.croppedNames.add(name);
-      }
+  auto commitViewCSS = () => {
+    if (!JS.invoke(Object, "keys", JS.or(JS.invoke(targets, "get", "root"), object{}))["length"].truthy()) {
+      cssSet(":root", object{"view-transition-name": "none"});
     }
-  }
-
-  void commitViewCSS() {
-    if (!hasTarget("root", this.targetsMap)) {
-      css.set(":root", record{"view-transition-name": "none"});
-    }
-    css.set(
+    cssSet(
       "::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*)",
-      record{"animation-timing-function": "linear !important"}
+      object{"animation-timing-function": "linear !important"}
     );
-    for (int i = 0; i < this.layerNames.length; i++) {
-      string name = this.layerNames[i];
-      if (!this.croppedNames.has(name)) {
-        continue;
-      }
-      css.set(`::view-transition-group(${name})`, record{overflow: "clip"});
-      css.set(
+    JS.invoke(croppedNames, "forEach", (JsValue name) => {
+      cssSet(`::view-transition-group(${name})`, object{overflow: "clip"});
+      cssSet(
         `::view-transition-old(${name}), ::view-transition-new(${name})`,
-        record{width: "100%", height: "100%", "object-fit": "cover"}
+        object{width: "100%", height: "100%", "object-fit": "cover"}
       );
-    }
-    JsValue[] clipList = setValues(this.clipChildren);
-    for (int c = 0; c < clipList.length; c++) {
-      string clipName = `${clipList[c]}`;
-      css.set(`::view-transition-group-children(${clipName})`, record{overflow: "clip"});
-    }
-    css.commit();
-  }
+    });
+    JS.invoke(clipChildren, "forEach", (JsValue name) => {
+      cssSet(`::view-transition-group-children(${name})`, object{overflow: "clip"});
+    });
+    cssCommit();
+  };
 
-  void cleanup() {
-    releaseViewTransitionNames(this.assigned, this.classed, this.grouped);
-    css.remove();
-  }
+  auto cleanup = () => {
+    releaseViewTransitionNames(assigned, classed, grouped);
+    cssRemove();
+  };
 
-  JsValue[] buildExplicitAnimations() {
-    JsValue[] animations = [];
-    Set<string> explicitlyAnimated = new Set<string>();
-    Set<string> opacityAnimated = new Set<string>();
-
-    for (int li = 0; li < this.layerNames.length; li++) {
-      string name = this.layerNames[li];
-      JsValue? target = this.layerTargets.get(name);
-      if (target == null) {
-        continue;
-      }
-      JsValue targetVal = target;
-      StaggerPos? stagger = this.layerStagger.get(name);
-      bool enterApplies = stagger != null && stagger.newPos != null && stagger.oldPos == null;
-      bool exitApplies = stagger != null && stagger.oldPos != null && stagger.newPos == null;
-
-      for (int k = 0; k < definitionNames.length; k++) {
-        string key = definitionNames[k];
-        JsValue def = targetVal[key];
-        if (!def.truthy()) {
-          continue;
-        }
-        if (key == "enter" && !enterApplies) {
-          continue;
-        }
-        if (key == "exit" && !exitApplies) {
-          continue;
-        }
-        string type = chooseLayerType(key);
-        int[] pos = this.staggerPosition(name, type);
-        if (pos[0] == -1) {
-          continue;
-        }
-        JsValue keyframes = def["keyframes"];
-        JsValue options = def["options"];
-        if (!options.truthy()) {
-          options = record{};
-        }
-        if (!keyframes.isObject()) {
-          continue;
-        }
-        for (string valueName in keyframes) {
-          JsValue valueKeyframes = keyframes[valueName];
-          if (valueKeyframes == null) {
-            continue;
+  JsValue transition = null;
+  try {
+    resolveLayers("old");
+    measureLayers("old");
+    commitViewCSS();
+    transition = JS.invoke(document, "startViewTransition", () => {
+      JsValue updated = JS.invoke(Promise, "resolve", JS.call(update, JS.undefined()));
+      return JS.invoke(updated, "then", () => {
+        resolveLayers("new");
+        measureLayers("new");
+        // With both snapshots measured, settle which layers crop: an
+        // explicit `.crop()` wins, else a morph whose aspect changed.
+        JS.invoke(croppedNames, "clear");
+        JS.invoke(layerStagger, "forEach", (JsValue _stagger, JsValue name) => {
+          JsValue? forced = JS.invoke(cropForName, "get", name);
+          JsValue crop = forced ?? aspectChanged(name);
+          if (!JS.strictEqual(name, "root") && crop.truthy()) {
+            JS.invoke(croppedNames, "add", name);
           }
-          if (valueName == "x" || valueName == "y") {
-            warnOnce(false, `animateView() does not support "${valueName}" shorthand`);
-            continue;
-          }
+        });
+        commitViewCSS();
+      });
+    });
+  } catch (JsValue error) {
+    cleanup();
+    return JS.invoke(Promise, "reject", error);
+  }
+  JS.invoke(transition["finished"], "finally", cleanup);
 
-          if (key == "new" && enterApplies) {
-            JsValue enterDef = targetVal["enter"];
-            if (enterDef.truthy()) {
-              JsValue enterKf = enterDef["keyframes"];
-              if (enterKf.truthy() && enterKf[valueName] != null) {
-                continue;
+  return JS.construct(Promise, (JsValue resolve, JsValue reject) => {
+    JsValue ready = JS.invoke(transition["ready"], "then", () => {
+      JsValue generatedViewAnimations = getViewAnimations();
+      JsValue[] animations = [];
+      JsValue explicitlyAnimated = new Set<JsValue>();
+      JsValue opacityAnimated = new Set<JsValue>();
+
+      JS.invoke(layerTargets, "forEach", (JsValue target, JsValue name) => {
+        JsValue stagger = JS.invoke(layerStagger, "get", name);
+        // `enter` only fires for a pure newcomer, `exit` for a pure leaver.
+        bool enterApplies = stagger["new"].truthy() && !stagger["old"].truthy();
+        bool exitApplies = stagger["old"].truthy() && !stagger["new"].truthy();
+        JsValue enterKeyframes = JS.or(JS.or(target["enter"], object{})["keyframes"], object{});
+        JsValue exitKeyframes = JS.or(JS.or(target["exit"], object{})["keyframes"], object{});
+        definitionNames.forEach((string key) => {
+          JsValue definition = target[key];
+          if (!definition.truthy() || (key == "enter" && !enterApplies) || (key == "exit" && !exitApplies)) {
+            return;
+          }
+          string type = chooseLayerType(key);
+          JsValue position = staggerPosition(name, type);
+          if (position[0] == -1) {
+            return;
+          }
+          JsValue keyframes = definition["keyframes"];
+          JsValue options = definition["options"];
+          for (string valueName in keyframes) {
+            JsValue valueKeyframes = keyframes[valueName];
+            if (JS.isNullish(valueKeyframes)) {
+              continue;
+            }
+            if (valueName == "x" || valueName == "y") {
+              warnOnce(
+                false,
+                `animateView() animates view-transition layers with CSS properties; the "${valueName}" shorthand has no effect - use transform, e.g. { transform: "translateX(40px)" }.`
+              );
+              continue;
+            }
+            // enter/exit win over new/old on a shared property.
+            if ((key == "new" && enterApplies && !JS.isNullish(enterKeyframes[valueName])) ||
+              (key == "old" && exitApplies && !JS.isNullish(exitKeyframes[valueName]))) {
+              continue;
+            }
+            JsValue valueOptions = mergeTransition(
+              getValueTransition(defaultOptions, valueName),
+              getValueTransition(options, valueName)
+            );
+            // Infer an origin for a single-value keyframe: an `enter` mirrors
+            // the matching `exit` value, else the per-type default.
+            if (!valueKeyframes.isArray()) {
+              JsValue exitValue = if (key == "enter") { exitKeyframes[valueName] } else { JS.undefined() };
+              JsValue from = JS.undefined();
+              if (!JS.isNullish(exitValue)) {
+                from = if (exitValue.isArray()) { exitValue[exitValue.length - 1.0] } else { exitValue };
+              } else if (valueName == "opacity" || (if (type == "new") { enterApplies } else { exitApplies })) {
+                from = originDefaults[type][valueName];
+              }
+              if (!JS.isUndefined(from)) {
+                valueKeyframes = JS.array(from, valueKeyframes);
               }
             }
-          }
-          if (key == "old" && exitApplies) {
-            JsValue exitDef = targetVal["exit"];
-            if (exitDef.truthy()) {
-              JsValue exitKf = exitDef["keyframes"];
-              if (exitKf.truthy() && exitKf[valueName] != null) {
-                continue;
-              }
+            if (JS.typeOf(valueOptions["delay"]) == "function") {
+              valueOptions["delay"] = JS.invoke(valueOptions, "delay", position[0], position[1]);
+            }
+            if (valueOptions["duration"].truthy()) {
+              valueOptions["duration"] = secondsToMilliseconds(num(valueOptions["duration"]));
+            }
+            if (valueOptions["delay"].truthy()) {
+              valueOptions["delay"] = secondsToMilliseconds(num(valueOptions["delay"]));
+            }
+            animations.push(nativeAnimation(JS.invoke(Object, "assign", valueOptions, object{
+              element: document["documentElement"],
+              name: valueName,
+              pseudoElement: `::view-transition-${type}(${name})`,
+              keyframes: valueKeyframes
+            }), null));
+            JS.invoke(explicitlyAnimated, "add", `${name}:${type}`);
+            if (valueName == "opacity") {
+              JS.invoke(opacityAnimated, "add", `${name}:${type}`);
             }
           }
+        });
+      });
 
-          JsValue valueOptions = mergeTransition(
-            getValueTransition(this.defaultOptions, valueName),
-            getValueTransition(options, valueName)
+      // Retime (or drop) the browser-generated animations.
+      JS.invoke(generatedViewAnimations, "forEach", (JsValue animation) => {
+        if (animation["playState"] == "finished") {
+          return;
+        }
+        JsValue effect = animation["effect"];
+        ViewAnimationLayerInfo? info = getViewAnimationLayerInfo(JS.assume(effect["pseudoElement"]));
+        if (info == null) {
+          return;
+        }
+        string layer = info.layer;
+        string type = info.type;
+        // We built our own animation for this layer, so drop the generated
+        // fade. Keep the `plus-lighter` blend only for a true crossfade.
+        if (JS.invoke(explicitlyAnimated, "has", `${layer}:${type}`).truthy()) {
+          JsValue keyframes = JS.and(
+            JS.and(JS.invoke(opacityAnimated, "has", `${layer}:new`), JS.invoke(opacityAnimated, "has", `${layer}:old`)),
+            JS.invoke(effect, "getKeyframes")
           );
-
-          if (!valueKeyframes.isArray()) {
-            JsValue from = null;
-            if (key == "enter") {
-              JsValue exitDef = targetVal["exit"];
-              if (exitDef.truthy()) {
-                JsValue exitKf = exitDef["keyframes"];
-                if (exitKf.truthy()) {
-                  JsValue exitValue = exitKf[valueName];
-                  if (exitValue != null) {
-                    if (exitValue.isArray()) {
-                      from = exitValue[exitValue.length - 1.0];
-                    } else {
-                      from = exitValue;
-                    }
-                  }
-                }
-              }
-            }
-            if (from == null) {
-              bool allowDefault = valueName == "opacity";
-              if (!allowDefault) {
-                if (type == "new") {
-                  allowDefault = enterApplies;
-                } else {
-                  allowDefault = exitApplies;
-                }
-              }
-              if (allowDefault) {
-                if (type == "new" && valueName == "opacity") {
-                  from = 0.0;
-                } else if (type == "new" && valueName == "scale") {
-                  from = 0.85;
-                } else if (type == "old" && valueName == "opacity") {
-                  from = 1.0;
-                } else if (type == "old" && valueName == "scale") {
-                  from = 1.0;
-                }
-              }
-            }
-            if (from != null) {
-              valueKeyframes = [from, valueKeyframes];
-            }
+          if (keyframes.truthy()) {
+            keyframes = JS.invoke(keyframes, "some", (JsValue keyframe) => keyframe["mixBlendMode"]);
           }
-
-          JsValue delayOpt = valueOptions["delay"];
-          if (isFunction(delayOpt)) {
-            valueOptions["delay"] = callFn2(delayOpt, pos[0], pos[1]);
+          if (keyframes.truthy()) {
+            animations.push(nativeAnimation(null, animation));
+          } else {
+            JS.invoke(animation, "cancel");
           }
-          JsValue durationOpt = valueOptions["duration"];
-          if (durationOpt is float) {
-            valueOptions["duration"] = secondsToMilliseconds(durationOpt);
-          }
-          JsValue delayNum = valueOptions["delay"];
-          if (delayNum is float) {
-            valueOptions["delay"] = secondsToMilliseconds(delayNum);
-          }
-
-          JsValue animOpts = record{};
-          for (string optKey in valueOptions) {
-            animOpts[optKey] = valueOptions[optKey];
-          }
-          animOpts["element"] = documentElement();
-          animOpts["name"] = valueName;
-          animOpts["pseudoElement"] = `::view-transition-${type}(${name})`;
-          animOpts["keyframes"] = valueKeyframes;
-          JsValue nativeAnim = new NativeAnimation(animOpts);
-          animations.push(nativeAnim);
-          explicitlyAnimated.add(`${name}:${type}`);
-          if (valueName == "opacity") {
-            opacityAnimated.add(`${name}:${type}`);
-          }
+          return;
         }
-      }
-    }
-
-    JsValue[] generatedViewAnimations = getViewAnimations();
-    for (int a = 0; a < generatedViewAnimations.length; a++) {
-      JsValue animation = generatedViewAnimations[a];
-      if (animation["playState"] == "finished") {
-        continue;
-      }
-      JsValue effect = animation["effect"];
-      if (!effect.truthy()) {
-        continue;
-      }
-      JsValue pseudoElement = effect["pseudoElement"];
-      if (!(pseudoElement is string)) {
-        continue;
-      }
-      string pseudo = `${pseudoElement}`;
-      ViewAnimationLayerInfo? infoOpt = getViewAnimationLayerInfo(pseudo);
-      if (infoOpt != null) {
-      ViewAnimationLayerInfo info = infoOpt;
-      string layerKey = `${info.layer}:${info.type}`;
-      if (explicitlyAnimated.has(layerKey)) {
-        bool isCrossfade =
-          opacityAnimated.has(`${info.layer}:new`) &&
-          opacityAnimated.has(`${info.layer}:old`);
-        bool hasBlend = false;
-        if (isCrossfade && isFunction(effect["getKeyframes"])) {
-          JsValue frames = callMethod0(effect, "getKeyframes");
-          if (frames.isArray()) {
-            for (int fi = 0; fi < frames.length; fi++) {
-              if (frames[fi]["mixBlendMode"].truthy()) {
-                hasBlend = true;
-              }
-            }
-          }
+        // Drop the orphaned half of the default crossfade when its opposite
+        // was overridden with something other than an opacity fade.
+        string opposite = if (type == "old") { "new" } else { if (type == "new") { "old" } else { "" } };
+        if (opposite != "" &&
+          JS.invoke(explicitlyAnimated, "has", `${layer}:${opposite}`).truthy() &&
+          !JS.invoke(opacityAnimated, "has", `${layer}:${opposite}`).truthy()) {
+          JS.invoke(animation, "cancel");
+          return;
         }
-        if (isCrossfade && hasBlend) {
-          JsValue wrapper = new NativeAnimationWrapper(animation);
-          animations.push(wrapper);
+        JsValue stagger = JS.invoke(layerStagger, "get", layer);
+        bool isMorphCrossfade = (type == "old" || type == "new") &&
+          stagger.truthy() &&
+          stagger["old"].truthy() &&
+          stagger["new"].truthy();
+        JsValue timing = null;
+        if (type.startsWith("group")) {
+          JsValue groupTiming = resolveGroupTiming(layer);
+          timing = object{
+            delay: groupTiming["delay"],
+            duration: groupTiming["duration"],
+            easing: mapEasingToNativeEasing(JS.assume(groupTiming["ease"]), JS.assume(groupTiming["duration"]))
+          };
         } else {
-          callMethod0(animation, "cancel");
+          string timingType = if (isMorphCrossfade) { "group" } else { type };
+          JsValue position = staggerPosition(layer, timingType);
+          JsValue index = position[0];
+          if (index == -1) {
+            index = 0;
+          }
+          JsValue animationTransition = resolveLayerTransition(
+            JS.invoke(layerTargets, "get", layer),
+            timingType,
+            if (timingType == "group") { "layout" } else { "" },
+            index,
+            position[1]
+          );
+          // The crossfade resolves at the spring's visual duration.
+          JsValue visualDuration = animationTransition["visualDuration"];
+          if (animationTransition["duration"].truthy()) {
+            animationTransition["duration"] = secondsToMilliseconds(num(animationTransition["duration"]));
+          }
+          animationTransition = applyGeneratorOptions(animationTransition);
+          timing = object{
+            delay: secondsToMilliseconds(num(JS.or(animationTransition["delay"], 0))),
+            duration: if (isMorphCrossfade && !JS.isUndefined(visualDuration)) {
+              secondsToMilliseconds(num(visualDuration))
+            } else {
+              animationTransition["duration"]
+            },
+            easing: if (isMorphCrossfade) {
+              "linear"
+            } else {
+              mapEasingToNativeEasing(JS.assume(animationTransition["ease"]), JS.assume(animationTransition["duration"]))
+            }
+          };
         }
-        continue;
-      }
+        JS.invoke(effect, "updateTiming", timing);
+        animations.push(nativeAnimation(null, animation));
+      });
 
-      string? opposite = null;
-      if (info.type == "old") {
-        opposite = "new";
-      } else if (info.type == "new") {
-        opposite = "old";
-      }
-      if (opposite != null) {
-        string oppositeKey = `${info.layer}:${opposite}`;
-        if (explicitlyAnimated.has(oppositeKey) && !opacityAnimated.has(oppositeKey)) {
-          callMethod0(animation, "cancel");
-          continue;
+      // Round each cropped layer's clip: animate every corner from the old
+      // element's radius to the new one's, timed as the group.
+      JS.invoke(cropMeasurements, "forEach", (JsValue entry, JsValue name) => {
+        if (!JS.invoke(croppedNames, "has", name).truthy()) {
+          return;
         }
-      }
-
-      StaggerPos? staggerGen = this.layerStagger.get(info.layer);
-      bool isMorphCrossfade =
-        (info.type == "old" || info.type == "new") &&
-        staggerGen != null &&
-        staggerGen.oldPos != null &&
-        staggerGen.newPos != null;
-
-      JsValue timing = record{};
-      if (info.type.startsWith("group")) {
-        JsValue groupTiming = this.resolveGroupTiming(info.layer);
-        float duration = 0.0;
-        JsValue gDur = groupTiming["duration"];
-        if (gDur is float) {
-          duration = gDur;
-        }
-        timing = record{
-          delay: groupTiming["delay"],
-          duration: groupTiming["duration"],
-          easing: easeToNative(groupTiming["ease"], duration)
-        };
-      } else {
-        string timingType = info.type;
-        if (isMorphCrossfade) {
-          timingType = "group";
-        }
-        int[] pos = this.staggerPosition(info.layer, timingType);
-        string transitionName = "";
-        if (timingType == "group") {
-          transitionName = "layout";
-        }
-        int index = pos[0];
-        if (index == -1) {
-          index = 0;
-        }
-        JsValue animationTransition = this.resolveLayerTransition(
-          this.layerTargets.get(info.layer),
-          timingType,
-          transitionName,
-          index,
-          pos[1]
-        );
-        JsValue visualDuration = animationTransition["visualDuration"];
-        JsValue atDur = animationTransition["duration"];
-        if (atDur is float) {
-          animationTransition["duration"] = secondsToMilliseconds(atDur);
-        }
-        ValueAnimationTransition applied = transitionToApplied(animationTransition);
-        float delayMs = 0.0;
-        float? appliedDelay = applied.delay;
-        if (appliedDelay != null) {
-          delayMs = secondsToMilliseconds(appliedDelay);
-        }
-        float dur = 0.0;
-        if (isMorphCrossfade && (visualDuration is float)) {
-          dur = secondsToMilliseconds(visualDuration);
-        } else {
-          float? appliedDuration = applied.duration;
-          if (appliedDuration != null) {
-            dur = appliedDuration;
+        JsValue groupTiming = resolveGroupTiming(name);
+        JsValue oldRadii = JS.or(JS.or(entry["old"], object{})["radii"], object{});
+        JsValue newRadii = JS.or(JS.or(entry["new"], object{})["radii"], object{});
+        cornerRadiusProps.forEach((string corner) => {
+          JsValue from = JS.or(JS.or(oldRadii[corner], newRadii[corner]), "0px");
+          JsValue to = JS.or(JS.or(newRadii[corner], oldRadii[corner]), "0px");
+          if (isSquareRadius(JS.assume(from)) && isSquareRadius(JS.assume(to))) {
+            return;
           }
-        }
-        string? easing = "linear";
-        if (!isMorphCrossfade) {
-          easing = easeToNative(applied.ease, dur);
-        }
-        timing = record{delay: delayMs, duration: dur, easing: easing};
-      }
-
-      if (isFunction(effect["updateTiming"])) {
-        callMethod1(effect, "updateTiming", timing);
-      }
-      JsValue wrapperAnim = new NativeAnimationWrapper(animation);
-      animations.push(wrapperAnim);
-      }
-    }
-
-    for (int ci = 0; ci < this.cropKeys.length; ci++) {
-      string name = this.cropKeys[ci];
-      if (this.croppedNames.has(name)) {
-      CropEntry? entryOpt = this.cropMeasurements.get(name);
-      if (entryOpt != null) {
-      CropEntry entry = entryOpt;
-      JsValue groupTiming = this.resolveGroupTiming(name);
-      for (int c = 0; c < cornerRadiusProps.length; c++) {
-        string corner = cornerRadiusProps[c];
-        string from = "0px";
-        string to = "0px";
-        CropBox? oldBox = entry.oldBox;
-        CropBox? newBox = entry.newBox;
-        if (oldBox != null) {
-          string? oldRadius = oldBox.radii[corner];
-          if (oldRadius != null) {
-            if (oldRadius != "") {
-              from = oldRadius;
-            }
-          }
-          if (from == "0px" && newBox != null) {
-            string? fallback = newBox.radii[corner];
-            if (fallback != null) {
-              if (fallback != "") {
-                from = fallback;
-              }
-            }
-          }
-        } else if (newBox != null) {
-          string? fallback = newBox.radii[corner];
-          if (fallback != null) {
-            if (fallback != "") {
-              from = fallback;
-            }
-          }
-        }
-        if (newBox != null) {
-          string? newRadius = newBox.radii[corner];
-          if (newRadius != null) {
-            if (newRadius != "") {
-              to = newRadius;
-            }
-          }
-          if (to == "0px" && oldBox != null) {
-            string? fallback = oldBox.radii[corner];
-            if (fallback != null) {
-              if (fallback != "") {
-                to = fallback;
-              }
-            }
-          }
-        } else if (oldBox != null) {
-          string? fallback = oldBox.radii[corner];
-          if (fallback != null) {
-            if (fallback != "") {
-              to = fallback;
-            }
-          }
-        }
-        if (!(isSquareRadius(from) && isSquareRadius(to))) {
-          JsValue radiusAnim = new NativeAnimation(record{
-            element: documentElement(),
+          animations.push(nativeAnimation(object{
+            element: document["documentElement"],
             name: corner,
             pseudoElement: `::view-transition-group(${name})`,
-            keyframes: [from, to],
+            keyframes: JS.array(from, to),
             delay: groupTiming["delay"],
             duration: groupTiming["duration"],
             ease: groupTiming["ease"]
-          });
-          animations.push(radiusAnim);
-        }
-      }
-      }
-      }
-    }
-
-    return animations;
-  }
-}
-
-export Task<JsValue> startViewAnimation(JsValue builder) {
-  JsValue update = builder["update"];
-  JsValue defaultOptions = builder["options"];
-  if (!defaultOptions.truthy()) {
-    defaultOptions = record{};
-  }
-
-  if (!documentGet("startViewTransition").truthy()) {
-    return taskFromCallback((func()->void resolve) => {
-      if (isFunction(update)) {
-        callFn0(update);
-      }
-      resolve();
-    }).then((JsValue _v) => new GroupAnimation([]));
-  }
-
-  ViewRuntime rt = new ViewRuntime(builder, defaultOptions, update);
-  rt.loadFromBuilder();
-  JsValue resultBox = record{animation: null};
-
-  return taskFromCallback((func()->void resolve) => {
-    try {
-      rt.resolveLayers("old");
-      rt.measureLayers("old");
-      rt.commitViewCSS();
-
-      JsValue vt = documentStartViewTransition(() => {
-        if (isFunction(rt.update)) {
-          callFn0(rt.update);
-        }
-        rt.resolveLayers("new");
-        rt.measureLayers("new");
-        rt.finalizeCrop();
-        rt.commitViewCSS();
-      });
-
-      JsValue finished = vt["finished"];
-      if (finished.truthy()) {
-        callMethod1(finished, "finally", () => {
-          rt.cleanup();
+          }, null));
         });
-      }
-
-      JsValue ready = vt["ready"];
-      if (!ready.truthy()) {
-        resultBox["animation"] = new GroupAnimation([]);
-        resolve();
-        return;
-      }
-
-      JsValue thenResult = callMethod1(ready, "then", () => {
-        JsValue[] animations = rt.buildExplicitAnimations();
-        resultBox["animation"] = new GroupAnimation(animations);
-        resolve();
       });
-      callMethod1(thenResult, "catch", () => {
-        resultBox["animation"] = new GroupAnimation([]);
-        resolve();
-      });
-    } catch {
-      rt.cleanup();
-      resultBox["animation"] = new GroupAnimation([]);
-      resolve();
-    }
-  }).then((JsValue _v) => {
-    JsValue anim = resultBox["animation"];
-    if (anim.truthy()) {
-      return anim;
-    }
-    return new GroupAnimation([]);
+
+      JS.call(resolve, JS.undefined(), new GroupAnimation(animations));
+    });
+    JS.invoke(ready, "catch", () => JS.invoke(
+      // `ready` rejects when the transition is skipped: settle with no
+      // animations, unless the update itself failed.
+      transition["updateCallbackDone"],
+      "then",
+      () => JS.call(resolve, JS.undefined(), new GroupAnimation([])),
+      reject
+    ));
   });
 }

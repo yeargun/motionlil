@@ -1,10 +1,6 @@
-let ib = (vk) => {
-  var wk = vk - Math.floor(vk / 360) * 360;
-  if (wk < 0) {
-    var xk = wk + 360, yk = xk;
-  } else yk = wk;
-  return yk;
-};
+import { L } from "./part-436.js";
+import { wa } from "./part-457.js";
+let ae = (a) => a === L || a === wa;
 export {
-  ib
+  ae
 };

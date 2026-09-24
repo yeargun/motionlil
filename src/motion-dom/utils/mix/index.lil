@@ -1,11 +1,13 @@
-import { mixNumber as mixNumberImmediate } from "./number";
 import { getMixer } from "./complex";
+import { mixNumber } from "./number";
+import { asJs } from "../../value/types/types";
 
-export JsValue mix(JsValue from, JsValue to, JsValue p) {
-  if (from is float && to is float && p is float) {
-    return mixNumberImmediate(from, to, p);
+export JsValue mix(JsValue from, JsValue to, JsValue? p = null) {
+  JsValue progress = asJs(p);
+  if (from is float && to is float && progress is float) {
+    return mixNumber(from, to, progress);
   }
   return getMixer(from)(from, to);
 }
 
-export { mixNumberImmediate as mixNumber };
+export { mixNumber };

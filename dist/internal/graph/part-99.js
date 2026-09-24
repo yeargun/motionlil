@@ -1,18 +1,10 @@
-import { xa } from "./part-497.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let cg = (vk, wk) => {
-  if (xa.has(vk)) return (Ek) => {
-    if (Ek <= 0) return vk;
-    return wk;
-  };
-  else return (Ek) => {
-    if (Ek >= 1) return wk;
-    return vk;
-  };
-  throw Error();
+import { applyAxisDelta } from "./part-98.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let applyBoxDelta = function(a, b) {
+  applyAxisDelta(a.x, b.x.translate, b.x.scale, b.x.originPoint);
+  applyAxisDelta(a.y, b.y.translate, b.y.scale, b.y.originPoint);
 };
 export {
-  cg
+  applyBoxDelta
 };

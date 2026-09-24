@@ -1,2 +1,421 @@
-import { JSAnimation, JSAnimationOptions, SampleResult } from "./JSAnimationFull";
-export { JSAnimation, JSAnimationOptions, SampleResult };
+import { clamp } from "../../motion-utils/clamp";
+import { millisecondsToSeconds, secondsToMilliseconds } from "../../motion-utils/time-conversion";
+import { time } from "../frameloop/sync-time";
+import { getMixer } from "../utils/mix/complex";
+import { frameloopDriver } from "./drivers/frame";
+import { DriverControls } from "./drivers/types";
+import { inertia } from "./generators/inertia";
+import { keyframes as keyframesGenerator } from "./generators/keyframes";
+import { SpringGenerator, AnimGeneratorState } from "./generators/generator";
+import { calcGeneratorDuration } from "./generators/utils/calc-duration";
+import { getGeneratorVelocity } from "./generators/utils/velocity";
+import { getFinalKeyframe } from "./keyframes/get-final";
+import { replaceTransitionType } from "./utils/replace-transition-type-spring";
+import { finishedDescriptor, promiseStateOf, thenDescriptor, updateFinished } from "./utils/WithPromise";
+import { animAssign3 as assign3, animClass, animCreate } from "./anim-host";
+
+// The options bag a JSAnimation runs from, read field by field as upstream does.
+export extern class JSAnimationOptions {
+  JsValue keyframes;
+  JsValue type;
+  JsValue? repeat;
+  JsValue? repeatDelay;
+  JsValue repeatType;
+  JsValue? velocity;
+  JsValue? delay;
+  JsValue finalKeyframe;
+  JsValue driver;
+  JsValue? startTime;
+  JsValue motionValue;
+  JsValue autoplay;
+  JsValue allowFlatten;
+  JsValue ease;
+  JsValue onUpdate;
+  JsValue onPlay;
+  JsValue onStop;
+  JsValue onComplete;
+  JsValue onCancel;
+}
+
+export extern class SampleResult {
+  bool done;
+  JsValue value;
+}
+
+// A JSAnimation's state lives on the object itself, as upstream's fields do.
+export extern class AnimJSAnimationState {
+  JSAnimationOptions options;
+  string state;
+  float? startTime;
+  bool isStopped;
+  float currentTime;
+  float? holdTime;
+  float playbackSpeed;
+  AnimGeneratorState delayState;
+  SpringGenerator generator;
+  SpringGenerator? mirroredGenerator;
+  (func(float)->JsValue)? mixKeyframes;
+  float calculatedDuration;
+  float resolvedDuration;
+  float totalDuration;
+  DriverControls? driver;
+}
+
+// Upstream's JSAnimation.prototype: every instance is created on it.
+JsValue jsAnimationPrototype = JS.object();
+
+AnimJSAnimationState jsStateOf(JsValue value) {
+  return JS.assume(value);
+}
+
+void initAnimation(AnimJSAnimationState a) {
+  JSAnimationOptions options = a.options;
+  replaceTransitionType(options);
+  JsValue generatorFactory = JS.or(options.type, keyframesGenerator);
+  float repeat = JS.assume(options.repeat ?? 0.0);
+  float repeatDelay = JS.assume(options.repeatDelay ?? 0.0);
+  float velocity = JS.assume(options.velocity ?? 0.0);
+  JsValue keyframes = options.keyframes;
+  if (JS.strictNotEqual(generatorFactory, keyframesGenerator) && JS.typeOf(keyframes[0]) != "number") {
+    func(float)->JsValue mixer = getMixer(keyframes[0])(keyframes[0], keyframes[1]);
+    a.mixKeyframes = (float percent) => mixer(percent / 100.0);
+    keyframes = JS.array(0.0, 100.0);
+  }
+  SpringGenerator gen = JS.assume(JS.call(generatorFactory, JS.undefined(),
+    assign3(JS.object(), options, JS.object("keyframes", keyframes))));
+  if (JS.strictEqual(options.repeatType, "mirror")) {
+    a.mirroredGenerator = JS.assume(JS.call(generatorFactory, JS.undefined(), assign3(JS.object(), options,
+      JS.object("keyframes", JS.invoke(JS.invoke(keyframes, "slice"), "reverse"), "velocity", -velocity))));
+  }
+  if (JS.strictEqual(gen.calculatedDuration, null)) {
+    gen.calculatedDuration = calcGeneratorDuration(gen);
+  }
+  float calculatedDuration = JS.assume(gen.calculatedDuration);
+  a.calculatedDuration = calculatedDuration;
+  a.resolvedDuration = calculatedDuration + repeatDelay;
+  a.totalDuration = a.resolvedDuration * (repeat + 1.0) - repeatDelay;
+  a.generator = gen;
+}
+
+void updateTime(AnimJSAnimationState a, float timestamp) {
+  float startTime = JS.assume(a.startTime);
+  float animationTime = (timestamp - startTime).round() * a.playbackSpeed;
+  float? holdTime = a.holdTime;
+  a.currentTime = if (holdTime != null) { holdTime } else { animationTime };
+}
+
+AnimGeneratorState tick(AnimJSAnimationState a, float timestamp, bool sample) {
+  SpringGenerator gen = a.generator;
+  float? startTime = a.startTime;
+  if (startTime == null) {
+    return gen.next(0.0);
+  }
+  JSAnimationOptions options = a.options;
+  float delay = JS.assume(options.delay ?? 0.0);
+  JsValue keyframes = options.keyframes;
+  JsValue repeat = options.repeat ?? 0.0;
+  float totalDuration = a.totalDuration;
+  float resolvedDuration = a.resolvedDuration;
+  if (a.playbackSpeed > 0.0) {
+    a.startTime = startTime.min(timestamp);
+  } else if (a.playbackSpeed < 0.0) {
+    a.startTime = (timestamp - totalDuration / a.playbackSpeed).min(startTime);
+  }
+  if (sample) {
+    a.currentTime = timestamp;
+  } else {
+    updateTime(a, timestamp);
+  }
+  float timeWithoutDelay = a.currentTime - delay * (if (a.playbackSpeed >= 0.0) { 1.0 } else { -1.0 });
+  bool isInDelayPhase = if (a.playbackSpeed >= 0.0) { timeWithoutDelay < 0.0 } else { timeWithoutDelay > totalDuration };
+  a.currentTime = timeWithoutDelay.max(0.0);
+  if (a.state == "finished" && a.holdTime == null) {
+    a.currentTime = totalDuration;
+  }
+  float elapsed = a.currentTime;
+  SpringGenerator frameGenerator = gen;
+  if (repeat.truthy()) {
+    float repeatCount = JS.assume(repeat);
+    float progress = a.currentTime.min(totalDuration) / resolvedDuration;
+    float currentIteration = progress.floor();
+    float iterationProgress = JS.assume(JS.mod(progress, 1.0));
+    if (iterationProgress == 0.0 && progress >= 1.0) {
+      iterationProgress = 1.0;
+    }
+    if (iterationProgress == 1.0) {
+      currentIteration--;
+    }
+    currentIteration = currentIteration.min(repeatCount + 1.0);
+    if (JS.mod(currentIteration, 2.0).truthy()) {
+      if (JS.strictEqual(options.repeatType, "reverse")) {
+        iterationProgress = 1.0 - iterationProgress;
+        float repeatDelay = JS.assume(JS.or(options.repeatDelay, 0.0));
+        iterationProgress -= repeatDelay / resolvedDuration;
+      } else if (JS.strictEqual(options.repeatType, "mirror")) {
+        frameGenerator = JS.assume(a.mirroredGenerator);
+      }
+    }
+    elapsed = clamp(0.0, 1.0, iterationProgress) * resolvedDuration;
+  }
+  AnimGeneratorState state = a.delayState;
+  if (isInDelayPhase) {
+    state.value = keyframes[0];
+  } else {
+    state = frameGenerator.next(elapsed);
+    (func(float)->JsValue)? mixKeyframes = a.mixKeyframes;
+    if (mixKeyframes != null) {
+      state.value = mixKeyframes(JS.assume(state.value));
+    }
+  }
+  bool done = state.done;
+  if (!isInDelayPhase) {
+    done = if (a.playbackSpeed >= 0.0) { a.currentTime >= totalDuration } else { a.currentTime <= 0.0 };
+  }
+  bool isAnimationFinished = a.holdTime == null && (a.state == "finished" || (a.state == "running" && done));
+  if (isAnimationFinished && JS.strictNotEqual(options.type, inertia)) {
+    state.value = getFinalKeyframe(keyframes, options, options.finalKeyframe, a.playbackSpeed);
+  }
+  if (options.onUpdate.truthy()) {
+    JS.invoke(options, "onUpdate", state.value);
+  }
+  if (isAnimationFinished) {
+    promiseStateOf(a)._resolve();
+    teardown(a);
+    a.state = "finished";
+    if (options.onComplete.truthy()) {
+      JS.invoke(options, "onComplete");
+    }
+  }
+  return state;
+}
+
+JsValue setTime(JsValue self, JsValue newTimeSeconds) {
+  AnimJSAnimationState a = jsStateOf(self);
+  float seconds = JS.assume(newTimeSeconds);
+  float newTime = secondsToMilliseconds(seconds);
+  a.currentTime = newTime;
+  DriverControls? driver = a.driver;
+  if (a.startTime == null || a.holdTime != null || a.playbackSpeed == 0.0) {
+    a.holdTime = newTime;
+  } else if (driver != null) {
+    a.startTime = driver.now() - newTime / a.playbackSpeed;
+  }
+  if (driver != null) {
+    JS.invoke(driver, "start", false);
+  } else {
+    a.startTime = 0.0;
+    a.state = "paused";
+    a.holdTime = newTime;
+    tick(a, newTime, false);
+  }
+  return JS.undefined();
+}
+
+JsValue setSpeed(JsValue self, JsValue newSpeedValue) {
+  AnimJSAnimationState a = jsStateOf(self);
+  float newSpeed = JS.assume(newSpeedValue);
+  bool hasChanged = a.playbackSpeed != newSpeed;
+  if (hasChanged && a.driver != null) {
+    updateTime(a, time.now());
+  }
+  a.playbackSpeed = newSpeed;
+  if (hasChanged && a.driver != null) {
+    setTime(a, millisecondsToSeconds(a.currentTime));
+  }
+  return JS.undefined();
+}
+
+JsValue play(JsValue self) {
+  AnimJSAnimationState a = jsStateOf(self);
+  if (a.isStopped) {
+    return JS.undefined();
+  }
+  JSAnimationOptions options = a.options;
+  if (a.driver == null) {
+    func(float)->void update = (float timestamp) => {
+      tick(a, timestamp, false);
+    };
+    JsValue customDriver = options.driver;
+    a.driver = if (customDriver.truthy()) { JS.assume(JS.call(customDriver, JS.undefined(), update)) } else { frameloopDriver(update) };
+  }
+  DriverControls driver = JS.assume(a.driver);
+  if (options.onPlay.truthy()) {
+    JS.invoke(options, "onPlay");
+  }
+  float now = driver.now();
+  float? holdTime = a.holdTime;
+  if (a.state == "finished") {
+    updateFinished(a);
+    a.startTime = now;
+  } else if (holdTime != null) {
+    a.startTime = now - holdTime;
+  } else {
+    JsValue currentStart = a.startTime;
+    if (!currentStart.truthy()) {
+      a.startTime = JS.assume(options.startTime ?? now);
+    }
+  }
+  if (a.state == "finished" && a.playbackSpeed < 0.0) {
+    float shifted = JS.assume(a.startTime);
+    a.startTime = shifted + a.calculatedDuration;
+  }
+  a.holdTime = null;
+  a.state = "running";
+  JS.invoke(driver, "start");
+  return JS.undefined();
+}
+
+JsValue pause(JsValue self) {
+  AnimJSAnimationState a = jsStateOf(self);
+  a.state = "paused";
+  updateTime(a, time.now());
+  a.holdTime = a.currentTime;
+  return JS.undefined();
+}
+
+JsValue complete(JsValue self) {
+  AnimJSAnimationState a = jsStateOf(self);
+  if (a.state != "running") {
+    play(a);
+  }
+  a.state = "finished";
+  a.holdTime = null;
+  return JS.undefined();
+}
+
+JsValue cancel(JsValue self) {
+  AnimJSAnimationState a = jsStateOf(self);
+  a.holdTime = null;
+  a.startTime = 0.0;
+  tick(a, 0.0, false);
+  teardown(a);
+  if (a.options.onCancel.truthy()) {
+    JS.invoke(a.options, "onCancel");
+  }
+  return JS.undefined();
+}
+
+void teardown(AnimJSAnimationState a) {
+  a.state = "idle";
+  DriverControls? driver = a.driver;
+  if (driver != null) {
+    driver.stop();
+    a.driver = null;
+  }
+  a.startTime = null;
+  a.holdTime = null;
+}
+
+export JsValue stopJSAnimation(JsValue self) {
+  AnimJSAnimationState a = jsStateOf(self);
+  JsValue motionValue = a.options.motionValue;
+  if (motionValue.truthy() && JS.strictNotEqual(motionValue["updatedAt"], time.now())) {
+    tick(a, time.now(), false);
+  }
+  a.isStopped = true;
+  if (a.state != "idle") {
+    teardown(a);
+    if (a.options.onStop.truthy()) {
+      JS.invoke(a.options, "onStop");
+    }
+  }
+  return JS.undefined();
+}
+
+JsValue attachTimeline(JsValue self, JsValue timeline) {
+  AnimJSAnimationState a = jsStateOf(self);
+  JSAnimationOptions options = a.options;
+  if (options.allowFlatten.truthy()) {
+    options.type = "keyframes";
+    options.ease = "linear";
+    initAnimation(a);
+  }
+  DriverControls? driver = a.driver;
+  if (driver != null) {
+    driver.stop();
+  }
+  return JS.invoke(timeline, "observe", self);
+}
+
+export AnimGeneratorState sampleJSAnimation(JSAnimation animation, float sampleTime) {
+  AnimJSAnimationState a = jsStateOf(animation);
+  a.startTime = 0.0;
+  return tick(a, sampleTime, true);
+}
+
+export float jsAnimationVelocity(JSAnimation animation) {
+  AnimJSAnimationState a = jsStateOf(animation);
+  float t = a.currentTime;
+  if (t <= 0.0) {
+    return JS.assume(JS.or(a.options.velocity, 0.0));
+  }
+  SpringGenerator gen = a.generator;
+  if (gen.velocity.truthy()) {
+    return JS.assume(JS.invoke(gen, "velocity", t));
+  }
+  float current = JS.assume(gen.next(t).value);
+  return getGeneratorVelocity((float s) => {
+    float value = JS.assume(gen.next(s).value);
+    return value;
+  }, t, current);
+}
+
+// The public surface upstream declares as getters and prototype methods.
+// `stop` is not among them: upstream binds it to each instance.
+JsValue jsAnimationSurface = JS.object(
+  "finished", finishedDescriptor,
+  "then", thenDescriptor,
+  "duration", JS.object("get", JS.method0((JsValue self) => millisecondsToSeconds(jsStateOf(self).calculatedDuration))),
+  "iterationDuration", JS.object("get", JS.method0((JsValue self) => {
+    AnimJSAnimationState animation = jsStateOf(self);
+    float delay = JS.assume(JS.or(animation.options.delay, 0.0));
+    return millisecondsToSeconds(animation.calculatedDuration) + millisecondsToSeconds(delay);
+  })),
+  "time", JS.object(
+    "get", JS.method0((JsValue self) => millisecondsToSeconds(jsStateOf(self).currentTime)),
+    "set", JS.method1(setTime)
+  ),
+  "speed", JS.object(
+    "get", JS.method0((JsValue self) => jsStateOf(self).playbackSpeed),
+    "set", JS.method1(setSpeed)
+  ),
+  "play", JS.object("value", JS.method0(play)),
+  "pause", JS.object("value", JS.method0(pause)),
+  "complete", JS.object("value", JS.method0(complete)),
+  "cancel", JS.object("value", JS.method0(cancel)),
+  "attachTimeline", JS.object("value", JS.method1(attachTimeline)),
+  "sample", JS.object("value", JS.method1((JsValue self, JsValue sampleTime) => sampleJSAnimation(JS.assume(self), JS.assume(sampleTime))))
+);
+
+// A JSAnimation is an ordinary object carrying upstream's fields and surface;
+// this is its only construction site.
+export extern class JSAnimation {
+  Task<bool> then(func()->void onResolve, (func()->void)? onReject);
+}
+
+export JSAnimation createJSAnimation(JsValue options) {
+  AnimJSAnimationState a = jsStateOf(animCreate(jsAnimationPrototype));
+  updateFinished(a);
+  a.state = "idle";
+  a.startTime = null;
+  a.isStopped = false;
+  a.currentTime = 0.0;
+  a.holdTime = null;
+  a.playbackSpeed = 1.0;
+  a.delayState = JS.assume(JS.object("done", false, "value", JS.undefined()));
+  JS.set(a, "stop", () => stopJSAnimation(a));
+  a.options = JS.assume(options);
+  initAnimation(a);
+  play(a);
+  if (JS.strictEqual(a.options.autoplay, false)) {
+    pause(a);
+  }
+  return JS.assume(a);
+}
+
+// Upstream's public `JSAnimation` class (`new JSAnimation(options)`).
+export JsValue jsAnimationConstructor = animClass(
+  (JsValue options, JsValue _unused) => createJSAnimation(options),
+  jsAnimationPrototype,
+  jsAnimationSurface
+);

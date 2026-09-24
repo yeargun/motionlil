@@ -1,10 +1,4 @@
-var Ak;
-Ak = {
-  x: false,
-  y: false
-};
-Ak.x = false;
-Ak.y = false;
+let hg = /* @__PURE__ */ new Set(["INPUT", "SELECT", "TEXTAREA"]);
 export {
-  Ak
+  hg
 };

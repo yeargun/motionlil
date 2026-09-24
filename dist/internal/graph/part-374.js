@@ -1,17 +1,14 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ti = (wk, xk, yk, zk) => {
-  var vk = zk;
-  if (null == vk) vk = {
-    __proto__: null,
+import "./effect-499.js";
+import "./effect-573.js";
+let addDomEvent = function(a, b, c, d) {
+  let e = d === void 0 ? {
     passive: true
-  };
-  wk.addEventListener(xk, yk, vk);
+  } : d;
+  a.addEventListener(b, c, e);
   return () => {
-    wk.removeEventListener(xk, yk, vk);
+    a.removeEventListener(b, c, e);
   };
 };
 export {
-  ti
+  addDomEvent
 };

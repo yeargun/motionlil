@@ -1,18 +1,10 @@
-import { oi } from "./part-356.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Uj = (vk) => {
-  let wk = {
-    visualElement: null,
-    typeStates: /* @__PURE__ */ new Map(),
-    isInitialRender: false,
-    wasReset: false,
-    animateFn: null
-  };
-  oi(wk, vk);
-  return wk;
+let si = (a, b) => {
+  if (!Array.isArray(b)) return false;
+  let c = b.length;
+  if (a.length !== c) return false;
+  for (let d = 0; d < c; ++d) if (b[d] !== a[d]) return false;
+  return true;
 };
 export {
-  Uj
+  si
 };

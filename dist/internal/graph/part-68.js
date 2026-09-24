@@ -1,12 +1,8 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Wf = (vk) => {
-  if (Array.isArray(vk)) {
-    var wk = !("number" == typeof vk[0]), xk = wk;
-  } else xk = false;
-  return xk;
+import { $a } from "./part-471.js";
+let Za = (a) => {
+  let b = a.type;
+  if (typeof b == "string") a.type = $a[b];
 };
 export {
-  Wf
+  Za
 };

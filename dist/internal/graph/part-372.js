@@ -1,96 +1,36 @@
-import { V } from "./part-369.js";
-import { ze } from "./part-370.js";
-import { Ae } from "./part-371.js";
-import { g } from "./part-39.js";
-import { H } from "./part-486.js";
-import { A } from "./part-572.js";
-import { Ff } from "./part-608.js";
-import { Gf } from "./part-609.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Zj = (vk, wk, Ak, Bk, Ck, Uk) => {
-  if (Ck) {
-    var Dk = Ak.opacity ?? null;
-    if (null != Dk) {
-      var Vk, Fk, Gk, Hk, Ik, Jk, Wk, Kk, Lk, kl, hl, Mk, il, Xk, Yk, gl, Nk, Zk, Ok, Pk, _k, Qk, Rk, Sk, xk, Tk, yk, zk, jl, $k, al, bl, cl, dl, el, fl, Ek = Dk;
-    } else Ek = 1;
-    Vk = V(Ek);
-    Fk = wk.opacity ?? null;
-    if (null != Fk) Gk = Fk;
-    else Gk = 1;
-    Hk = V(Gk);
-    vk.opacity = /* @__PURE__ */ g(0, Vk, Ff(Bk));
-    vk.opacityExit = /* @__PURE__ */ g(Hk, 0, Gf(Bk));
-  } else {
-    if (Uk) {
-      Ik = wk.opacity ?? null;
-      if (null != Ik) Jk = Ik;
-      else Jk = 1;
-      Wk = V(Jk);
-      Kk = Ak.opacity ?? null;
-      if (null != Kk) Lk = Kk;
-      else Lk = 1;
-      vk.opacity = /* @__PURE__ */ g(Wk, V(Lk), Bk);
+import { yi } from "./part-368.js";
+import { zi } from "./part-369.js";
+import { Ai } from "./part-370.js";
+import { Di, Ei } from "./part-426.js";
+import { va } from "./part-456.js";
+import { mixNumber } from "./part-47.js";
+import { Hg } from "./part-538.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let mixValues = function(a, b, c, d, e, f) {
+  if (e) {
+    a.opacity = mixNumber(0, c.opacity ?? 1, Di(d));
+    a.opacityExit = mixNumber(b.opacity ?? 1, 0, Ei(d));
+  } else if (f) a.opacity = mixNumber(b.opacity ?? 1, c.opacity ?? 1, d);
+  {
+    let e2 = Hg, f2 = 0;
+    for (; f2 < e2.length; ++f2) {
+      let g2 = e2[f2] ?? "";
+      {
+        let e3 = Ai(b, g2), f3 = Ai(c, g2);
+        if (e3 === void 0 && f3 === void 0) continue;
+        e3 = e3 || 0;
+        f3 = f3 || 0;
+        if (e3 === 0 || f3 === 0 || zi(e3) == zi(f3)) {
+          let b2 = Math.max(mixNumber(yi(e3), yi(f3), d), 0);
+          a[g2] = va.test(f3) || va.test(e3) ? `${b2}%` : b2;
+        } else a[g2] = f3;
+      }
     }
   }
-  for (kl = A.length, jl = 0; jl < kl; jl = jl + 1) {
-    hl = A[jl] || "";
-    Mk = Ae(wk, hl);
-    il = Ae(Ak, hl);
-    if (null == Mk) {
-      Xk = null == il;
-      Yk = Xk;
-    } else Yk = false;
-    if (Yk) continue;
-    if (null != Mk) gl = Mk;
-    else gl = 0;
-    if (null != il) Nk = il;
-    else Nk = 0;
-    if ("number" == typeof gl) {
-      if (0 == gl) cl = true;
-      else cl = false;
-      dl = cl;
-    } else dl = false;
-    if ("number" == typeof Nk) {
-      if (0 == Nk) al = true;
-      else al = dl;
-      bl = al;
-    } else bl = dl;
-    if (ze(gl) == ze(Nk)) $k = true;
-    else $k = bl;
-    if ($k) {
-      Zk = /* @__PURE__ */ g(V(gl), V(Nk), Bk);
-      if (Zk < 0) el = 0;
-      else el = Zk;
-      if (H.test(Nk)) Pk = true;
-      else {
-        Ok = H.test(gl);
-        Pk = Ok;
-      }
-      if (Pk) {
-        _k = `${el}%`;
-        fl = _k;
-      } else fl = el;
-      vk[hl] = fl;
-    } else vk[hl] = Nk;
-  }
-  if (null != (wk.rotate ?? null)) Rk = true;
-  else {
-    Qk = null != (Ak.rotate ?? null);
-    Rk = Qk;
-  }
-  if (Rk) {
-    Sk = wk.rotate ?? null;
-    if (null != Sk) xk = Sk;
-    else xk = 0;
-    Tk = V(xk);
-    yk = Ak.rotate ?? null;
-    if (null != yk) zk = yk;
-    else zk = 0;
-    vk.rotate = /* @__PURE__ */ g(Tk, V(zk), Bk);
-  }
+  let g = b.rotate, h = c.rotate;
+  if (g || h) a.rotate = mixNumber(g || 0, h || 0, d);
 };
 export {
-  Zj
+  mixValues
 };

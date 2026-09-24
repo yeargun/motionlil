@@ -1,5 +1,4 @@
-import { weakMapCreate } from "./../motion-dom/weak-host.js";
-var Wa = weakMapCreate();
+let Nj = /* @__PURE__ */ new WeakMap();
 export {
-  Wa
+  Nj
 };

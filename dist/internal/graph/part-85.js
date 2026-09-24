@@ -1,14 +1,12 @@
-import { X } from "./part-483.js";
-import { tb } from "./part-484.js";
-import { ga } from "./part-491.js";
-let fd = (vk) => {
-  if (X.test(vk)) return X.parse(vk);
-  else {
-    if (ga.test(vk)) return ga.parse(vk);
-    else return tb.parse(vk);
-  }
-  throw Error();
+import { createAxisDelta } from "./part-84.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let createDelta = function() {
+  return {
+    x: createAxisDelta(),
+    y: createAxisDelta()
+  };
 };
 export {
-  fd
+  createDelta
 };

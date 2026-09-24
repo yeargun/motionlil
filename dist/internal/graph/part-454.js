@@ -1,8 +1,7 @@
-import { scheduleAnimationFrame } from "./../motion-dom/dom-host.js";
-import { Tc } from "./part-23.js";
-var wk = /* @__PURE__ */ Tc((Oz) => {
-  scheduleAnimationFrame(Oz);
-}, true);
+let sa = {
+  test: (a) => a == "auto",
+  parse: (a) => a
+};
 export {
-  wk
+  sa
 };

@@ -1,35 +1,24 @@
-import { oa } from "./part-38.js";
-import { cb } from "./part-62.js";
-let Ue = (vk, xk, Ek, Hk) => {
-  var Ik = Ek.x;
-  if ("y" == xk) {
-    var Mk, Nk, yk, zk, Ak, Fk, wk, Ck, Dk, Gk, Jk = Ek.y, Kk = Jk, Lk = "Height", Bk = "Top";
-  } else {
-    Kk = Ik;
-    Lk = "Width";
-    Bk = "Left";
+import { observeTimeline } from "./part-259.js";
+import { Qj } from "./part-411.js";
+import { Vj } from "./part-415.js";
+import { Zj } from "./part-417.js";
+let _j = (a, b) => {
+  let c = Zj(b), d = b.target, e = d ? Vj(b.offset) : void 0, f = d ? Qj(d) && !!e : Qj(), g = {
+    timeline: f ? c : void 0
+  };
+  if (e && f) {
+    g.rangeStart = e.rangeStart;
+    g.rangeEnd = e.rangeEnd;
   }
-  Mk = Kk.current;
-  Nk = Ek.time;
-  yk = vk[`scroll${Bk}`];
-  if ("number" == typeof yk) {
-    zk = Math.abs(yk);
-    Ck = zk;
-  } else Ck = 0;
-  Kk.current = Ck;
-  Ak = vk[`scroll${Lk}`];
-  Fk = vk[`client${Lk}`];
-  if ("number" == typeof Ak) Dk = Ak;
-  else Dk = 0;
-  if ("number" == typeof Fk) Gk = Fk;
-  else Gk = 0;
-  Kk.scrollLength = Dk - Gk;
-  Kk.offset = [0, Kk.scrollLength];
-  Kk.progress = /* @__PURE__ */ oa(0, Kk.scrollLength, Kk.current);
-  wk = Hk - Nk;
-  if (wk > 50) Kk.velocity = 0;
-  else Kk.velocity = cb(Kk.current - Mk, wk);
+  g.observe = (a2) => {
+    a2.pause();
+    return observeTimeline((b2) => {
+      let c2 = a2.iterationDuration;
+      a2.time = c2 * b2;
+    }, c);
+  };
+  return a.attachTimeline(g);
 };
 export {
-  Ue
+  _j
 };

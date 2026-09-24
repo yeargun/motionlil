@@ -1,11 +1,7 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Tb = (vk) => {
-  if (null == vk) return false;
-  if ("string" == typeof vk) return vk.startsWith("--");
-  return false;
+let ib = (a, b) => {
+  let d = Math.round(b - a.startTime) * a.playbackSpeed;
+  a.currentTime = a.holdTime ?? d;
 };
 export {
-  Tb
+  ib
 };

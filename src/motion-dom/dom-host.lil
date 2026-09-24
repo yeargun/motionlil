@@ -1,8 +1,5 @@
 import extern {
-  performanceNow,
   scheduleAnimationFrame,
-  scheduleMicrotask,
-  hasOwn,
   isEventTarget,
   isNodeList,
   querySelectorAll,
@@ -11,72 +8,44 @@ import extern {
   supportsLinearEasingCheck,
   supportsPartialKeyframesCheck,
   supportsWaapiCheck,
-  isCurrentRealmElement,
-  documentCreateElement,
-  documentHead,
   documentGetAnimations,
-  documentStartViewTransition,
   asMap,
   asSet,
   asArray,
   hasScrollTimeline,
   hasViewTimeline,
-  windowInnerWidth,
-  windowInnerHeight,
-  addWindowListener,
-  removeWindowListener,
-  addEventListener,
-  removeEventListener,
   createResizeObserver,
-  observeResize,
-  unobserveResize,
-  readBorderBoxSize,
   readElementSize,
-  getElementTagName,
-  constructConfigured,
-  constructConfigured2,
-  parseFloatValue,
-  hasFunction,
-  callMethod0,
-  callMethod1,
-  callMethod2,
-  createPointerEvent,
-  dispatchEvent,
-  isFunction,
-  invoke1,
-  invoke2,
-  callFn3,
-  callFn5,
-  callFn0,
-  callFn1,
-  callFn2,
-  getComputedStyleValue,
-  getComputedStyleProperty,
-  getComputedStyleField,
-  windowScrollTo,
-  windowPageYOffset,
-  windowGet,
-  windowSelf,
-  documentElement,
   matchMediaQuery,
-  hasWindow,
   addMatchMediaListener,
   matchMediaMatches,
-  documentGet,
-  documentScrollingElement,
-  setProp,
-  getProp,
-  deleteProp,
   mapKeys,
   mapValues,
   setValues,
-  taskFromCallback
+  taskFromCallback,
+  isCurrentRealmElement
 } from "./dom-host.ts";
 
-export extern float performanceNow();
+extern JsValue window;
+extern JsValue document;
+extern JsValue globalThis;
+extern JsValue performance;
+extern JsValue PointerEvent;
+extern void queueMicrotask(func()->void callback);
+extern float parseFloat(string value);
+
+
+export float performanceNow() {
+  float now = JS.assume(JS.invoke(performance, "now"));
+  return now;
+}
 export extern float scheduleAnimationFrame(func()->void callback);
-export extern void scheduleMicrotask(func()->void callback);
-export extern bool hasOwn(JsValue obj, string key);
+export void scheduleMicrotask(func()->void callback) {
+  queueMicrotask(callback);
+}
+export bool hasOwn(JsValue obj, string key) {
+  return JS.in(key, obj);
+}
 export extern bool isEventTarget(JsValue value);
 export extern bool isNodeList(JsValue value);
 export extern JsValue[] querySelectorAll(JsValue root, string selector);
@@ -85,70 +54,176 @@ export extern JsValue[] arrayFromNullable(JsValue? list = null);
 export extern bool supportsLinearEasingCheck();
 export extern bool supportsPartialKeyframesCheck();
 export extern bool supportsWaapiCheck();
-export extern JsValue documentCreateElement(string tag);
-export extern JsValue documentHead();
+// `instanceof HTMLElement || instanceof SVGElement` in this realm, as upstream
+// tests a WAAPI subject: an element from another window (an iframe, a popup)
+// runs on another timeline and animates in JavaScript instead.
+export extern bool isCurrentRealmElement(JsValue value);
+export JsValue documentCreateElement(string tag) {
+  return JS.invoke(document, "createElement", tag);
+}
+export JsValue documentHead() {
+  return document["head"];
+}
 export extern JsValue[] documentGetAnimations();
-export extern JsValue documentStartViewTransition(func()->void callback);
+export JsValue documentStartViewTransition(func()->void callback) {
+  return JS.invoke(document, "startViewTransition", callback);
+}
 export extern (Map<JsValue, JsValue>)? asMap(JsValue value);
 export extern (Set<JsValue>)? asSet(JsValue value);
 export extern (JsValue[])? asArray(JsValue value);
 export extern bool hasScrollTimeline();
 export extern bool hasViewTimeline();
-export extern float windowInnerWidth();
-export extern float windowInnerHeight();
-export extern void addWindowListener(string eventName, func()->void handler);
-export extern void removeWindowListener(string eventName, func()->void handler);
-export extern void addEventListener(JsValue target, string eventName, JsValue handler, JsValue? options = null);
-export extern void removeEventListener(JsValue target, string eventName, JsValue handler, JsValue? options = null);
+export float windowInnerWidth() {
+  float value = JS.assume(window["innerWidth"]);
+  return value;
+}
+export float windowInnerHeight() {
+  float value = JS.assume(window["innerHeight"]);
+  return value;
+}
+export void addWindowListener(string eventName, func()->void handler) {
+  JS.invoke(window, "addEventListener", eventName, handler);
+}
+export void removeWindowListener(string eventName, func()->void handler) {
+  JS.invoke(window, "removeEventListener", eventName, handler);
+}
+export void addEventListener(JsValue target, string eventName, JsValue handler, JsValue? options = null) {
+  JS.invoke(target, "addEventListener", eventName, handler, JS.assume(options));
+}
+export void removeEventListener(JsValue target, string eventName, JsValue handler, JsValue? options = null) {
+  JS.invoke(target, "removeEventListener", eventName, handler, JS.assume(options));
+}
 export extern JsValue? createResizeObserver(func(JsValue)->void callback);
-export extern void observeResize(JsValue observer, JsValue element);
-export extern void unobserveResize(JsValue observer, JsValue element);
-export extern float? readBorderBoxSize(JsValue? borderBoxSize, string axis);
+export void observeResize(JsValue observer, JsValue element) {
+  JS.invoke(observer, "observe", element);
+}
+export void unobserveResize(JsValue observer, JsValue element) {
+  JS.invoke(observer, "unobserve", element);
+}
+export float? readBorderBoxSize(JsValue? borderBoxSize, string axis) {
+  if (borderBoxSize != null) {
+    JsValue first = borderBoxSize[0];
+    if (first.truthy()) {
+      float size = JS.assume(first[axis]);
+      return size;
+    }
+  }
+  return null;
+}
 export extern float readElementSize(JsValue target, string svgAxis, string htmlAxis);
-export extern string getElementTagName(JsValue element);
-export extern JsValue constructConfigured(JsValue Ctor, JsValue arg);
-export extern JsValue constructConfigured2(JsValue Ctor, JsValue arg1, JsValue arg2);
-export extern float parseFloatValue(JsValue v);
-export extern bool hasFunction(JsValue obj, string name);
-export extern JsValue callMethod0(JsValue obj, string name);
-export extern JsValue callMethod1(JsValue obj, string name, JsValue arg);
-export extern JsValue callMethod2(JsValue obj, string name, JsValue a, JsValue b);
-export extern JsValue createPointerEvent(string type, JsValue options);
-export extern bool dispatchEvent(JsValue target, JsValue event);
-export extern bool isFunction(JsValue v);
-export extern void invoke1(JsValue fn, JsValue a);
-export extern void invoke2(JsValue fn, JsValue a, JsValue b);
-export extern JsValue callFn3(JsValue fn, JsValue a, JsValue b, JsValue c);
-export extern JsValue callFn5(JsValue fn, JsValue a, JsValue b, JsValue c, JsValue d, JsValue e);
-export extern JsValue callFn0(JsValue fn);
-export extern JsValue callFn1(JsValue fn, JsValue a);
-export extern JsValue callFn2(JsValue fn, JsValue a, JsValue b);
-export extern Task<JsValue> taskFromCallback(func(func()->void)->void runner);
+export string getElementTagName(JsValue element) {
+  string tag = JS.assume(element["tagName"]);
+  return tag;
+}
+export JsValue constructConfigured(JsValue Ctor, JsValue arg) {
+  return JS.construct(Ctor, arg);
+}
+export JsValue constructConfigured2(JsValue Ctor, JsValue arg1, JsValue arg2) {
+  return JS.construct(Ctor, arg1, arg2);
+}
+export float parseFloatValue(JsValue v) {
+  return parseFloat(JS.assume(v));
+}
+export bool hasFunction(JsValue obj, string name) {
+  return obj.truthy() && JS.typeOf(obj[name]) == "function";
+}
+export JsValue callMethod0(JsValue obj, string name) {
+  return JS.invoke(obj, name);
+}
+export JsValue callMethod1(JsValue obj, string name, JsValue arg) {
+  return JS.invoke(obj, name, arg);
+}
+export JsValue callMethod2(JsValue obj, string name, JsValue a, JsValue b) {
+  return JS.invoke(obj, name, a, b);
+}
+export JsValue createPointerEvent(string type, JsValue options) {
+  return JS.construct(PointerEvent, type, options);
+}
+export bool dispatchEvent(JsValue target, JsValue event) {
+  bool result = JS.assume(JS.invoke(target, "dispatchEvent", event));
+  return result;
+}
+export bool isFunction(JsValue v) {
+  return JS.typeOf(v) == "function";
+}
+export void invoke1(JsValue fn, JsValue a) {
+  JS.call(fn, JS.undefined(), a);
+}
+export void invoke2(JsValue fn, JsValue a, JsValue b) {
+  JS.call(fn, JS.undefined(), a, b);
+}
+export JsValue callFn3(JsValue fn, JsValue a, JsValue b, JsValue c) {
+  return JS.call(fn, JS.undefined(), a, b, c);
+}
+export JsValue callFn5(JsValue fn, JsValue a, JsValue b, JsValue c, JsValue d, JsValue e) {
+  return JS.call(fn, JS.undefined(), a, b, c, d, e);
+}
+export JsValue callFn0(JsValue fn) {
+  return JS.call(fn, JS.undefined());
+}
+export JsValue callFn1(JsValue fn, JsValue a) {
+  return JS.call(fn, JS.undefined(), a);
+}
+export JsValue callFn2(JsValue fn, JsValue a, JsValue b) {
+  return JS.call(fn, JS.undefined(), a, b);
+}
+export extern Task<bool> taskFromCallback(func(func()->void)->void runner);
 
-export extern JsValue getComputedStyleValue(JsValue element);
-export extern string getComputedStyleProperty(JsValue element, string name);
-export extern JsValue getComputedStyleField(JsValue element, string name);
-export extern void windowScrollTo(float x, float y);
-export extern float windowPageYOffset();
-export extern JsValue windowGet(string name);
-export extern JsValue windowSelf();
-export extern JsValue documentElement();
+export JsValue getComputedStyleValue(JsValue element) {
+  return JS.invoke(window, "getComputedStyle", element);
+}
+export string getComputedStyleProperty(JsValue element, string name) {
+  string value = JS.assume(JS.invoke(JS.invoke(window, "getComputedStyle", element), "getPropertyValue", name));
+  return value;
+}
+export JsValue getComputedStyleField(JsValue element, string name) {
+  return JS.invoke(window, "getComputedStyle", element)[name];
+}
+export void windowScrollTo(float x, float y) {
+  JS.invoke(window, "scrollTo", x, y);
+}
+export float windowPageYOffset() {
+  float value = JS.assume(window["pageYOffset"]);
+  return value;
+}
+export JsValue windowGet(string name) {
+  return globalThis[name];
+}
+export JsValue windowSelf() {
+  return window;
+}
+export JsValue documentElement() {
+  return document["documentElement"];
+}
 
 export extern JsValue? matchMediaQuery(string query);
-export extern bool hasWindow();
+export bool hasWindow() {
+  return JS.typeOf(window) != "undefined";
+}
 
 export extern (func()->void)? addMatchMediaListener(string query, func()->void callback);
 export extern bool matchMediaMatches(string query);
 
-export extern JsValue documentGet(string name);
-export extern JsValue? documentScrollingElement();
+export JsValue documentGet(string name) {
+  return document[name];
+}
+export JsValue? documentScrollingElement() {
+  JsValue? element = JS.assume(document["scrollingElement"]);
+  return element;
+}
 
-export extern void setProp(JsValue obj, string key, JsValue value);
-export extern JsValue getProp(JsValue obj, string key);
-export extern void deleteProp(JsValue obj, string key);
+export void setProp(JsValue obj, string key, JsValue value) {
+  obj[key] = value;
+}
+export JsValue getProp(JsValue obj, string key) {
+  return if (JS.isNullish(obj)) { JS.undefined() } else { obj[key] };
+}
+export void deleteProp(JsValue obj, string key) {
+  if (obj.isObject() && obj.truthy()) {
+    JS.delete(obj, key);
+  }
+}
 
 export extern JsValue[] mapKeys(JsValue map);
 export extern JsValue[] mapValues(JsValue map);
 export extern JsValue[] setValues(JsValue set);
-
-export extern bool isCurrentRealmElement(JsValue value);

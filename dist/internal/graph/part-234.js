@@ -1,42 +1,23 @@
-import { addWindowListener, removeWindowListener, windowInnerHeight, windowInnerWidth } from "./../motion-dom/dom-host.js";
-import { Bk } from "./part-531.js";
-import { Y } from "./part-590.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let nh = (vk) => {
-  if (Y.indexOf(vk) == -1) Y.push(vk);
-  if (!Ba) {
-    Ba = () => {
-      var Ok = windowInnerWidth(), Qk = windowInnerHeight(), Nk = {
-        width: 0,
-        height: 0
-      };
-      Nk.width = Ok;
-      Nk.height = Qk;
-      var Pk = 0;
-      while (Pk < Y.length) {
-        Y[Pk](Nk);
-        Pk += 1;
-      }
-    };
-    var wk = Ba;
-    if (wk) addWindowListener("resize", wk);
-  }
-  return () => {
-    var Ok = Y.indexOf(vk);
-    if (Ok > -1) Y.splice(Ok, 1);
-    if (0 == Y.length) {
-      var Pk = Ba;
-      if (Pk) {
-        removeWindowListener("resize", Pk);
-        Ba = null;
-      }
+import { Xl } from "./part-10.js";
+import { Nf } from "./part-228.js";
+import { Rf } from "./part-232.js";
+import { Wl } from "./part-9.js";
+let Tf = (a) => {
+  let b = /* @__PURE__ */ new WeakMap();
+  return (c, d) => {
+    let h, e = Wl(b, c) ?? (h = {
+      latest: null,
+      values: /* @__PURE__ */ new Map()
+    }, Nf(h), h);
+    Xl(b, c, e);
+    let f = [];
+    for (let b2 in d) {
+      let g = d[b2] ?? null;
+      if (g) f.push(a(c, e, b2, g));
     }
+    return Rf(f);
   };
 };
-var Ba = Bk;
 export {
-  Ba,
-  nh
+  Tf
 };

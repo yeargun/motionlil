@@ -1,14 +1,10 @@
-import { td } from "./part-142.js";
-let yg = (vk, xk) => {
-  var yk = td(vk);
-  if (yk) {
-    var wk = yk.variantChildren;
-    if (wk) return wk.add(xk), () => {
-      wk.delete(xk);
-    };
-  }
-  return null;
+import { vd } from "./part-144.js";
+let ud = (a) => {
+  let b = a.current;
+  if (!b) return;
+  a.renderer.build(a);
+  vd(a, b, a.renderState, a.props.style, a.projection);
 };
 export {
-  yg
+  ud
 };

@@ -1,8 +1,11 @@
-import { sb } from "./part-471.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let rj = (vk) => sb.has(vk);
+import { fillOffset } from "./part-63.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let defaultOffset = function(a) {
+  let b = [0];
+  fillOffset(b, a.length - 1);
+  return b;
+};
 export {
-  rj
+  defaultOffset
 };

@@ -1,18 +1,15 @@
-import { SubscriptionManager } from "../../motion-utils/subscription-manager";
-import { JSAnimation, JSAnimationOptions } from "../animation/JSAnimation";
-import {
-  callMethod0,
-  callMethod2,
-  invoke1,
-  isFunction,
-  parseFloatValue
-} from "../dom-host";
+import { JSAnimation, createJSAnimation, jsAnimationVelocity, stopJSAnimation } from "../animation/JSAnimation";
+import { animAssign3 } from "../animation/anim-host";
+import { callMethod0, callMethod2 } from "../dom-host";
 import { frame } from "../frameloop/index";
 import { FrameData } from "../frameloop/types";
-import { stringReplace } from "../string-host";
 import { MotionValue, motionValue } from "./index";
+import { asCallback, asNum, asRec, asStr } from "./types/types";
 import { isMotionValue } from "./utils/is-motion-value";
 
+extern float parseFloat(string v);
+
+// The options object a JavaScript caller passes (`{ type, stiffness, … }`).
 export class FollowValueOptions {
   string? type;
   float? stiffness;
@@ -37,200 +34,94 @@ export class FollowValueOptions {
   }
 }
 
-class FollowCell {
-  JSAnimation? activeAnimation;
-  JsValue latestValue;
-  (func(float)->void)? latestSetter;
-  string? unit;
-  (func()->void)? stopAnimation;
-  (func()->void)? startAnimation;
-
-  init(JsValue initial) {
-    this.activeAnimation = null;
-    this.latestValue = initial;
-    this.latestSetter = null;
-    this.unit = null;
-    this.stopAnimation = null;
-    this.startAnimation = null;
-  }
-}
-
-class SkipCell {
-  bool skipNextAnimation;
-  init(bool skip) {
-    this.skipNextAnimation = skip;
-  }
-}
-
-Regex unitStrip = new Regex("[\\d.-]+", "g");
+Regex unitRegex = new Regex("[\\d.-]", "g");
 
 JsValue parseValue(JsValue v, string? unit) {
-  if (unit != null) {
-    return `${v}${unit}`;
-  }
-  return v;
+  return if (unit != null && unit != "") { `${v}${unit}` } else { v };
 }
 
 float asNumber(JsValue v) {
-  if (v is float) {
-    return v;
-  }
-  return parseFloatValue(v);
+  return if (v is float) { v } else { parseFloat(asStr(v)) };
 }
 
-export MotionValue followValue(JsValue source, FollowValueOptions? options = null) {
-  JsValue initialValue = source;
-  if (isMotionValue(source)) {
-    initialValue = callMethod0(source, "get");
-  }
-  MotionValue value = motionValue(initialValue);
+// A MotionValue that animates to its latest value with any transition type;
+// `source` is an initial value or a MotionValue to track.
+export MotionValue followValue(JsValue source, JsValue? options = null) {
+  MotionValue value = motionValue(if (isMotionValue(source)) { callMethod0(source, "get") } else { source });
   attachFollow(value, source, options);
   return value;
 }
 
-export func()->void attachFollow(
-  MotionValue value,
-  JsValue source,
-  FollowValueOptions? options = null
-) {
-  JsValue initialValue = value.get();
-  FollowCell cell = new FollowCell(initialValue);
-  if (initialValue is string) {
-    cell.unit = stringReplace(initialValue, unitStrip, "");
-  }
+// Animates `value` whenever it is set; returns the cleanup.
+export func()->void attachFollow(MotionValue value, JsValue source, JsValue? options = null) {
+  JsValue? initialValue = value.get();
+  JSAnimation? activeAnimation = null;
+  JsValue? latestValue = initialValue;
+  (func(float)->void)? latestSetter = null;
+  string? unit = if (initialValue is string) { initialValue.replace(unitRegex, "") } else { null };
 
-  cell.stopAnimation = () => {
-    JSAnimation? active = cell.activeAnimation;
+  func()->void stopAnimation = () => {
+    JSAnimation? active = activeAnimation;
     if (active != null) {
-      active.stop();
-      cell.activeAnimation = null;
+      stopJSAnimation(active);
+      activeAnimation = null;
     }
     value.animation = null;
   };
 
-  cell.startAnimation = () => {
+  func()->void startAnimation = () => {
     float currentValue = asNumber(value.get());
-    float targetValue = asNumber(cell.latestValue);
+    float targetValue = asNumber(latestValue);
     if (currentValue == targetValue) {
-      (func()->void)? stop = cell.stopAnimation;
-      if (stop != null) {
-        stop();
-      }
+      stopAnimation();
       return;
     }
-    float velocity = value.getVelocity();
-    JSAnimation? active = cell.activeAnimation;
-    if (active != null) {
-      velocity = active.getGeneratorVelocity();
-    }
-    (func()->void)? stop = cell.stopAnimation;
-    if (stop != null) {
-      stop();
-    }
-    string animType = "spring";
-    float? restDelta = 0.001;
-    float? restSpeed = 0.01;
-    if (options != null) {
-      string? typeOpt = options.type;
-      if (typeOpt != null) {
-        animType = typeOpt;
-      }
-      float? restDeltaOpt = options.restDelta;
-      if (restDeltaOpt != null) {
-        restDelta = restDeltaOpt;
-      }
-      float? restSpeedOpt = options.restSpeed;
-      if (restSpeedOpt != null) {
-        restSpeed = restSpeedOpt;
-      }
-    }
-    cell.activeAnimation = new JSAnimation(record{
-      keyframes: [currentValue, targetValue], velocity: velocity, type: animType,
-      restDelta: restDelta, restSpeed: restSpeed, onUpdate: cell.latestSetter
-    });
+    // The running animation's analytical velocity, else the value's own.
+    JSAnimation? active = activeAnimation;
+    float velocity = if (active != null) { jsAnimationVelocity(active) } else { value.getVelocity() };
+    stopAnimation();
+    activeAnimation = createJSAnimation(animAssign3(
+      JS.object("keyframes", JS.array(currentValue, targetValue), "velocity", velocity, "type", "spring", "restDelta", 0.001, "restSpeed", 0.01),
+      options,
+      JS.object("onUpdate", latestSetter)
+    ));
   };
 
+  // A stable callback so the frame loop deduplicates calls within a frame.
   func(FrameData)->void scheduleAnimation = (FrameData _data) => {
-    (func()->void)? start = cell.startAnimation;
-    if (start != null) {
-      start();
-    }
-    SubscriptionManager? startEvt = value.events.get("animationStart");
-    if (startEvt != null) {
-      startEvt.notify(JS.undefined(), JS.undefined(), JS.undefined());
-    }
-    JSAnimation? active = cell.activeAnimation;
+    startAnimation();
+    JSAnimation? active = activeAnimation;
+    value.animation = active;
+    value.emit("animationStart");
     if (active != null) {
       active.then(() => {
         value.animation = null;
-        SubscriptionManager? complete = value.events.get("animationComplete");
-        if (complete != null) {
-          complete.notify(JS.undefined(), JS.undefined(), JS.undefined());
-        }
-      });
+        value.emit("animationComplete");
+      }, null);
     }
   };
 
   value.attach((JsValue v, func(JsValue)->void set) => {
-    cell.latestValue = v;
-    cell.latestSetter = (float latest) => {
-      set(parseValue(latest, cell.unit));
-    };
+    latestValue = v;
+    latestSetter = (float latest) => set(parseValue(latest, unit));
     frame.postRender(scheduleAnimation, false, false);
-  }, () => {
-    (func()->void)? stop = cell.stopAnimation;
-    if (stop != null) {
-      stop();
-    }
-  });
+  }, stopAnimation);
 
   if (isMotionValue(source)) {
-    bool skip = false;
-    if (options != null) {
-      bool? skipOpt = options.skipInitialAnimation;
-      if (skipOpt != null) {
-        skip = skipOpt;
+    bool skipNextAnimation = options != null && options["skipInitialAnimation"] == true;
+    func()->void removeSourceOnChange = asCallback(callMethod2(source, "on", "change", (JsValue v) => {
+      if (skipNextAnimation) {
+        skipNextAnimation = false;
+        value.jump(parseValue(v, unit), false);
+      } else {
+        value.set(parseValue(v, unit));
       }
-    }
-    SkipCell skipCell = new SkipCell(skip);
-    JsValue unsubscribeJs = callMethod2(
-      source,
-      "on",
-      "change",
-      (JsValue? v = null, JsValue? _b = null, JsValue? _c = null) => {
-        JsValue next = 0.0;
-        if (v != null) {
-          next = v;
-        }
-        if (skipCell.skipNextAnimation) {
-          skipCell.skipNextAnimation = false;
-          value.jump(parseValue(next, cell.unit), false);
-        } else {
-          value.set(parseValue(next, cell.unit));
-        }
-      }
-    );
-    func()->void removeSourceOnChange = () => {
-      if (isFunction(unsubscribeJs)) {
-        invoke1(unsubscribeJs, null);
-      }
-    };
-    func()->void removeValueOnDestroy = value.on(
-      "destroy",
-      (JsValue? _a = null, JsValue? _b = null, JsValue? _c = null) => {
-        removeSourceOnChange();
-      }
-    );
+    }));
+    func()->void removeValueOnDestroy = value.on("destroy", (JsValue? a, JsValue? b, JsValue? c) => removeSourceOnChange());
     return () => {
       removeSourceOnChange();
       removeValueOnDestroy();
     };
   }
-
-  return () => {
-    (func()->void)? stop = cell.stopAnimation;
-    if (stop != null) {
-      stop();
-    }
-  };
+  return stopAnimation;
 }

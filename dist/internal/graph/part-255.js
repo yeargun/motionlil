@@ -1,17 +1,14 @@
-import { lk } from "./part-5.js";
-let lc = (vk, wk, yk) => {
-  var Ak, zk = lk, xk = wk;
-  for (; ; ) {
-    if (xk < yk) Ak = xk < vk.length;
-    else Ak = false;
-    if (!Ak) {
-      break;
-    }
-    zk += vk.charAt(xk);
-    xk = xk + 1 | 0;
-  }
-  return zk;
+import { pg } from "./part-254.js";
+import { sg } from "./part-533.js";
+let qg = function(a) {
+  let b = a.target, c = a.borderBoxSize, d = sg.get(b);
+  if (d) d.forEach((a2) => {
+    a2(b, {
+      width: pg("inlineSize", "width", "offsetWidth", b, c),
+      height: pg("blockSize", "height", "offsetHeight", b, c)
+    });
+  });
 };
 export {
-  lc
+  qg
 };

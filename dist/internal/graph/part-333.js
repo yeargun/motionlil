@@ -1,10 +1,9 @@
-import { callMethod2, windowGet } from "./../motion-dom/dom-host.js";
-let Zh = (vk, wk) => {
-  if (null != wk) {
-    var xk = "object" == typeof wk, yk = xk;
-  } else yk = false;
-  if (yk) callMethod2(windowGet("Object"), "assign", vk, wk);
+import { isMotionValue } from "./part-126.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let isWillChangeMotionValue = function(a = null) {
+  return isMotionValue(a) && !!a.add;
 };
 export {
-  Zh
+  isWillChangeMotionValue
 };

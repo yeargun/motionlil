@@ -1,8 +1,7 @@
-import { a } from "./part-487.js";
-let ze = (vk) => {
-  if ("number" == typeof vk) return true;
-  return a.test(vk);
+let Ai = (a, b) => {
+  let c = a[b];
+  return c === void 0 ? a.borderRadius : c;
 };
 export {
-  ze
+  Ai
 };

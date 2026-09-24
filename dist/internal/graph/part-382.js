@@ -1,13 +1,10 @@
-import { hasWindow, windowGet } from "./../motion-dom/dom-host.js";
-import { lk } from "./part-5.js";
-let Ce = (vk) => {
-  if (!hasWindow()) return false;
-  var wk = windowGet("navigator").userAgent;
-  if ("string" == typeof wk) {
-    var xk = wk.toLowerCase(), yk = xk;
-  } else yk = lk;
-  return yk.includes(vk);
+import "./effect-499.js";
+import "./effect-573.js";
+let cleanDirtyNodes = function(a) {
+  a.isProjectionDirty = false;
+  a.isSharedProjectionDirty = false;
+  a.isTransformDirty = false;
 };
 export {
-  Ce
+  cleanDirtyNodes
 };

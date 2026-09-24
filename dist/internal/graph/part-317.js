@@ -1,14 +1,9 @@
-import { t } from "./part-598.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Nh = (vk) => {
-  if (!("object" == typeof vk)) return false;
-  for (var wk in vk) {
-    if (!t.has(wk)) return true;
-  }
-  return false;
+import { calcLength } from "./part-299.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let aspectRatio = function(a) {
+  return calcLength(a.x) / calcLength(a.y);
 };
 export {
-  Nh
+  aspectRatio
 };

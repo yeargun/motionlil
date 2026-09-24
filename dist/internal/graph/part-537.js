@@ -1,10 +1,4 @@
-var Ck;
-Ck = {
-  hasAnimatedSinceResize: false,
-  hasEverUpdated: false
-};
-Ck.hasAnimatedSinceResize = true;
-Ck.hasEverUpdated = false;
+let Fg = /[\d.-]/g;
 export {
-  Ck
+  Fg
 };

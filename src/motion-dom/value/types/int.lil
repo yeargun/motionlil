@@ -1,9 +1,10 @@
-import { numberType } from "./numbers/index";
-import { ValueType, valueTypeRecord } from "./types";
+import { isNumber } from "./numbers/index";
+import { ValueType, valueType, asNum } from "./types";
 
-export ValueType intType = valueTypeRecord(object{test: numberType.test, parse: numberType.parse, transform: (JsValue v) => {
-    if (v is float) {
-      return v.round();
-    }
-    return 0.0;
-  }});
+extern float parseFloat(string v);
+
+export ValueType intType = valueType(object {
+  test: isNumber,
+  parse: parseFloat,
+  transform: (JsValue v) => asNum(v).round()
+});

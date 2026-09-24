@@ -1,97 +1,95 @@
 import { clamp } from "../../motion-utils/clamp";
+import { MotionGlobalConfig } from "../../motion-utils/global-config";
 import { noop } from "../../motion-utils/noop";
 import { progress } from "../../motion-utils/progress";
-import { mixNumber } from "./mix/number";
+import { callFn2 } from "../dom-host";
+import { asFloatFn, asMixer, floatsAsJs } from "../value/types/types";
+import { getMixer } from "./mix/complex";
 
+// `{ clamp, ease, mixer }`: JavaScript callers pass the same plain object.
 export class InterpolateOptions {
-  bool clampValues;
-  (func(float)->float)[]? ease;
+  bool? clamp;
+  JsValue? ease;
+  JsValue? mixer;
 
-  init(bool clampValues = true, (func(float)->float)[]? ease = null) {
-    this.clampValues = clampValues;
+  init(bool clamp = true, (func(float)->float)[]? ease = null) {
+    this.clamp = clamp;
     this.ease = ease;
+    this.mixer = null;
   }
 }
 
-(func(float)->float)[] createFloatMixers(float[] output, (func(float)->float)[]? ease) {
-  (func(float)->float)[] mixers = [];
-  int numMixers = output.length - 1;
-  for (int i = 0; i < numMixers; i++) {
-    float from = output[i];
-    float to = output[i + 1];
-    func(float)->float mixer = (float p) => mixNumber(from, to, p);
-    if (ease != null) {
-      func(float)->float easingFunction = noop;
-      if (i < ease.length) {
-        easingFunction = ease[i];
-      }
-      func(float)->float inner = mixer;
-      mixer = (float p) => inner(easingFunction(p));
-    }
-    mixers.push(mixer);
-  }
-  return mixers;
-}
-
+// Maps a numerical input range to an output range of numbers, colours or
+// complex strings. Typed for numbers; JavaScript callers pass any outputs.
 export func(float)->float interpolate(
   float[] input,
-  float[] output,
+  float[] outputRange,
   InterpolateOptions? options = null
 ) {
+  JsValue[] output = floatsAsJs(outputRange);
   bool isClamp = true;
-  (func(float)->float)[]? ease = null;
+  JsValue? ease = null;
+  JsValue? mixer = null;
   if (options != null) {
-    isClamp = options.clampValues;
+    isClamp = options.clamp ?? true;
     ease = options.ease;
+    mixer = options.mixer;
   }
   int inputLength = input.length;
   if (inputLength == 1) {
-    float only = output[0];
-    return (float v) => only;
+    return asFloatFn((float v) => output[0]);
   }
   if (inputLength == 2 && output[0] == output[1]) {
-    float only = output[1];
-    return (float v) => only;
+    return asFloatFn((float v) => output[1]);
   }
-  float[] inputCopy = [];
-  float[] outputCopy = [];
-  for (int i = 0; i < input.length; i++) {
-    inputCopy.push(input[i]);
-    outputCopy.push(output[i]);
+  bool isZeroDeltaRange = input[0] == input[1];
+  // An input running highest to lowest reverses both ranges.
+  if (input[0] > input[inputLength - 1]) {
+    input = [...input].reverse();
+    output = [...output].reverse();
   }
-  if (inputCopy[0] > inputCopy[inputLength - 1]) {
-    float[] reversedInput = [];
-    float[] reversedOutput = [];
-    for (int i = inputLength - 1; i >= 0; i--) {
-      reversedInput.push(inputCopy[i]);
-      reversedOutput.push(outputCopy[i]);
+  (func(float)->JsValue)[] mixers = [];
+  JsValue? mixerFactory = mixer ?? MotionGlobalConfig.mix;
+  for (int i = 0; i < output.length - 1; i++) {
+    JsValue from = output[i];
+    JsValue to = output[i + 1];
+    func(float)->JsValue mix = if (mixerFactory != null) {
+      asMixer(callFn2(mixerFactory, from, to))
+    } else {
+      getMixer(from)(from, to)
+    };
+    if (ease != null) {
+      JsValue easing = if (ease.isArray()) {
+        if (ease[i].truthy()) { ease[i] } else { noop }
+      } else {
+        ease
+      };
+      func(float)->JsValue eased = mix;
+      func(float)->float easingFunction = asEasing(easing);
+      mix = (float p) => eased(easingFunction(p));
     }
-    inputCopy = reversedInput;
-    outputCopy = reversedOutput;
+    mixers.push(mix);
   }
-  bool isZeroDeltaRange = inputCopy[0] == inputCopy[1];
-  (func(float)->float)[] mixers = createFloatMixers(outputCopy, ease);
   int numMixers = mixers.length;
-  func(float)->float interpolator = (float v) => {
-    if (isZeroDeltaRange && v < inputCopy[0]) {
-      return outputCopy[0];
+  func(float)->JsValue interpolator = (float v) => {
+    if (isZeroDeltaRange && v < input[0]) {
+      return output[0];
     }
     int i = 0;
     if (numMixers > 1) {
-      while (i < inputCopy.length - 2) {
-        if (v < inputCopy[i + 1]) {
-          break;
-        }
-        i = i + 1;
+      while (i < input.length - 2 && v >= input[i + 1]) {
+        i++;
       }
     }
-    float progressInRange = progress(inputCopy[i], inputCopy[i + 1], v);
-    return mixers[i](progressInRange);
+    return mixers[i](progress(input[i], input[i + 1], v));
   };
   if (isClamp) {
-    float min = inputCopy[0];
-    float max = inputCopy[inputLength - 1];
-    return (float v) => interpolator(clamp(min, max, v));
+    float min = input[0];
+    float max = input[inputLength - 1];
+    return asFloatFn((float v) => interpolator(clamp(min, max, v)));
   }
-  return interpolator;
+  return asFloatFn(interpolator);
 }
+
+import extern { cast as asEasing } from "../value/types/cast.ts";
+extern func(float)->float asEasing(JsValue f);

@@ -1,21 +1,26 @@
-import { l } from "./part-0.js";
-let Ee = (vk) => {
-  if (null == vk) {
-    var wk, yk, xk = true;
-  } else {
-    wk = false == vk;
-    xk = wk;
+import { p } from "./part-21.js";
+import { resolveElements } from "./part-231.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let parseAnimateLayoutArgs = function(a, b = null, c = null) {
+  let d = p("document");
+  if (typeof a == "function") return {
+    scope: d,
+    updateDom: a,
+    defaultOptions: b
+  };
+  let e = d;
+  if (a == d) e = a;
+  else {
+    let b2 = resolveElements(a);
+    if (b2.length > 0) e = b2[0];
   }
-  if (xk) return null;
-  if ("object" == typeof vk) {
-    yk = l(vk.x);
-    return {
-      x: yk,
-      y: l(vk.y)
-    };
-  }
-  return null;
+  return {
+    scope: e,
+    updateDom: b,
+    defaultOptions: c
+  };
 };
 export {
-  Ee
+  parseAnimateLayoutArgs
 };

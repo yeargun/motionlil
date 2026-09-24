@@ -8,9 +8,7 @@ extern Console console;
 
 Set<string> warned = new Set<string>();
 
-export bool hasWarned(string message) {
-  return warned.has(message);
-}
+export func(string)->bool hasWarned = (string message) => warned.has(message);
 
 export void warnOnce(bool condition, string message, string? errorCode = null) {
   if (condition || warned.has(message)) {

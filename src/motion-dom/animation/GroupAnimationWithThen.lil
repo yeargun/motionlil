@@ -1,9 +1,23 @@
-import { GroupAnimation } from "./GroupAnimation";
-import { thenGroup } from "./utils/control-abi";
+import { GroupAnimation, groupAnimationPrototype } from "./GroupAnimation";
+import { animClass, animCreate } from "./anim-host";
+
+// Upstream's GroupAnimationWithThen.prototype, which inherits GroupAnimation's.
+JsValue groupWithThenPrototype = animCreate(groupAnimationPrototype);
+
+JsValue thenSurface = JS.object(
+  "then", JS.object("value", JS.method1((JsValue self, JsValue onResolve) =>
+    JS.invoke(JS.invoke(self["finished"], "finally", onResolve), "then", () => {})))
+);
+
 export class GroupAnimationWithThen extends GroupAnimation {
-  init(JsValue[] input) { super(input); }
-  Task<JsValue> then(JsValue onResolve, JsValue? onReject = null) {
-    return thenGroup(this.getFinished(), onResolve);
+  init(JsValue[] animations) {
+    super(animations, groupWithThenPrototype);
   }
 }
-export constructor GroupAnimationWithThen as GroupAnimationWithThenConstructor;
+
+// Upstream's public `GroupAnimationWithThen` class.
+export JsValue groupAnimationWithThenConstructor = animClass(
+  (JsValue animations, JsValue _unused) => new GroupAnimationWithThen(JS.assume(animations)),
+  groupWithThenPrototype,
+  thenSurface
+);

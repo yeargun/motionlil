@@ -1,7 +1,5 @@
 import * as core from "./.__compiled-index.mjs"
 
-const noop = () => {}
-
 export const number = core.numberType
 export const getValueAsType = core.getAsType
 
@@ -9,14 +7,46 @@ export function defaultEasing(values, easing = core.easeInOut) {
   return values.map(() => easing || core.easeInOut).slice(0, -1)
 }
 
-export { SubscriptionManager } from "./.__compiled-index.mjs"
+export class SubscriptionManager {
+  constructor() {
+    this.subscriptions = []
+  }
 
-export { MotionValue } from "./.__compiled-index.mjs"
+  add(handler) {
+    core.addUniqueItem(this.subscriptions, handler)
+    return () => core.removeItem(this.subscriptions, handler)
+  }
 
-export { GroupAnimation, GroupAnimationWithThen, NativeAnimation, NativeAnimationExtended, NativeAnimationWrapper, AsyncMotionValueAnimation } from "./.__compiled-index.mjs"
+  notify(a, b, c) {
+    const subscriptions = this.subscriptions
+    for (let i = 0, length = subscriptions.length; i < length; i++) subscriptions[i]?.(a, b, c)
+  }
 
-export { JSAnimation } from "./.__compiled-index.mjs"
-export function animateValue(options) { return new core.JSAnimation(options) }
+  getSize() {
+    return this.subscriptions.length
+  }
+
+  clear() {
+    this.subscriptions.length = 0
+  }
+}
+
+// Upstream's public classes. The compiled graph builds their instances on
+// these constructors' prototypes, so every entry shares one of each.
+export {
+  __lilMotionValue as MotionValue,
+  __lilGroupAnimation as GroupAnimation,
+  __lilGroupAnimationWithThen as GroupAnimationWithThen,
+  __lilJSAnimation as JSAnimation,
+  __lilNativeAnimation as NativeAnimation,
+  __lilNativeAnimationExtended as NativeAnimationExtended,
+  __lilNativeAnimationWrapper as NativeAnimationWrapper,
+  __lilAsyncMotionValueAnimation as AsyncMotionValueAnimation,
+} from "./.__compiled-index.mjs"
+
+export function animateValue(options) {
+  return new core.__lilJSAnimation(options)
+}
 
 const resolverQueue = new Set()
 
@@ -36,7 +66,12 @@ export class KeyframeResolver {
     this.state = "scheduled"
     if (this.isAsync) {
       resolverQueue.add(this)
-      queueMicrotask(() => flushCompatResolvers(false))
+      queueMicrotask(() => {
+        for (const resolver of [...resolverQueue]) {
+          resolver.readKeyframes()
+          resolver.complete(false)
+        }
+      })
     } else {
       this.readKeyframes()
       this.complete()
@@ -45,12 +80,13 @@ export class KeyframeResolver {
 
   readKeyframes() {
     const frames = this.unresolvedKeyframes
+    const motionValue = this.motionValue
     if (frames[0] == null) {
-      frames[0] = this.motionValue?.get?.() ?? this.element?.readValue?.(this.name, frames.at(-1)) ?? frames.at(-1)
-      if (this.motionValue?.get?.() === undefined) this.motionValue?.set?.(frames[0])
+      frames[0] = motionValue?.get?.() ?? this.element?.readValue?.(this.name, frames.at(-1)) ?? frames.at(-1)
+      if (motionValue?.get?.() === undefined) motionValue?.set?.(frames[0])
     }
     for (let index = 1; index < frames.length; index++) {
-      if (frames[index] == null) frames[index] = frames[index - 1]
+      frames[index] ??= frames[index - 1]
     }
   }
 
@@ -75,13 +111,6 @@ export class KeyframeResolver {
   }
 }
 
-function flushCompatResolvers(forced) {
-  for (const resolver of [...resolverQueue]) {
-    resolver.readKeyframes()
-    resolver.complete(forced)
-  }
-}
-
 export class DOMKeyframesResolver extends KeyframeResolver {}
 
 export class Feature {
@@ -100,12 +129,11 @@ export class FlatTree {
     this.isDirty = false
   }
   add(child) {
-    if (!this.children.includes(child)) this.children.push(child)
+    core.addUniqueItem(this.children, child)
     this.isDirty = true
   }
   remove(child) {
-    const index = this.children.indexOf(child)
-    if (index !== -1) this.children.splice(index, 1)
+    core.removeItem(this.children, child)
     this.isDirty = true
   }
   forEach(callback) {
@@ -122,12 +150,11 @@ export class NodeStack {
     this.members = []
   }
   add(node) {
-    if (!this.members.includes(node)) this.members.push(node)
+    core.addUniqueItem(this.members, node)
     node.scheduleRender?.()
   }
   remove(node) {
-    const index = this.members.indexOf(node)
-    if (index !== -1) this.members.splice(index, 1)
+    core.removeItem(this.members, node)
     if (node === this.prevLead) this.prevLead = undefined
     if (node === this.lead) this.promote(this.members.at(-1))
   }
@@ -153,6 +180,7 @@ export class NodeStack {
 
 export class VisualElement {
   constructor(options = {}, parent = null) {
+    const visualState = options.visualState
     this.current = null
     this.parent = parent ?? options.parent ?? null
     this.children = new Set()
@@ -161,8 +189,8 @@ export class VisualElement {
     this.features = new Map()
     this.options = options
     this.props = options.props ?? {}
-    this.latestValues = options.visualState?.latestValues ?? {}
-    this.renderState = options.visualState?.renderState ?? {}
+    this.latestValues = visualState?.latestValues ?? {}
+    this.renderState = visualState?.renderState ?? {}
     this.isMounted = false
     this.isVisible = true
   }
@@ -218,7 +246,7 @@ export class LayoutAnimationBuilder {
   }
   start() {
     this.updateDom?.()
-    return new GroupAnimation([])
+    return new core.__lilGroupAnimation([])
   }
 }
 

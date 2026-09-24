@@ -1,8 +1,8 @@
-import { Ik } from "./part-452.js";
-var Nk = {
+import "./effect-499.js";
+import "./effect-573.js";
+let bd = {
   current: null
 };
-Nk.current = Ik;
 export {
-  Nk
+  bd
 };

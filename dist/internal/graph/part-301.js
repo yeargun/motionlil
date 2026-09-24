@@ -1,17 +1,19 @@
-import { ne } from "./part-300.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Jh = (vk, wk, xk, yk) => {
-  if (yk) {
-    var zk = yk.x, Bk = yk.y, Ak = zk, Ck = Bk;
-  } else {
-    Ak = 0;
-    Ck = 0;
-  }
-  ne(vk.x, wk.x, xk.x, Ak);
-  ne(vk.y, wk.y, xk.y, Ck);
+import { calcLength } from "./part-299.js";
+import { mixNumber } from "./part-47.js";
+import { kh } from "./part-544.js";
+import { lh } from "./part-545.js";
+import { nh } from "./part-546.js";
+import { oh } from "./part-547.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let calcAxisDelta = function(a, b, c, d = 0.5) {
+  a.origin = d;
+  a.originPoint = mixNumber(b.min, b.max, a.origin);
+  a.scale = calcLength(c) / calcLength(b);
+  a.translate = mixNumber(c.min, c.max, a.origin) - a.originPoint;
+  if (a.scale >= kh && a.scale <= lh || a.scale != a.scale) a.scale = 1;
+  if (a.translate >= nh && a.translate <= oh || a.translate != a.translate) a.translate = 0;
 };
 export {
-  Jh
+  calcAxisDelta
 };

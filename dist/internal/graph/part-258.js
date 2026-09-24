@@ -1,12 +1,10 @@
-import { callMethod1 } from "./../motion-dom/dom-host.js";
-let wh = (vk) => {
-  if (!callMethod1(vk, "has", "root")) return false;
-  var wk = callMethod1(vk, "get", "root");
-  if (!wk) return false;
-  if (!("object" == typeof wk)) return false;
-  for (var xk in wk) return true;
-  return false;
+import { rg } from "./part-256.js";
+import { ug } from "./part-257.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let resize = function(a, b) {
+  return typeof a == "function" ? ug(a) : rg(a, b);
 };
 export {
-  wh
+  resize
 };

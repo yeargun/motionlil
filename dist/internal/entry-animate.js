@@ -1,5 +1,5 @@
 import { createScopedAnimate, stagger, delay, delayInSeconds, spring, inertia, keyframes, motionValue, mapValue, transformValue, springValue, followValue, mix, interpolate, transform, clamp, wrap, progress, distance, distance2D, frame, cancelFrame, easeIn, easeOut, easeInOut, cubicBezier, backIn, backOut, backInOut, circIn, circOut, circInOut, anticipate, steps, numberType, getAsType, isMotionValue } from "./graph/index.js";
-import { animate, MotionValue, SubscriptionManager, GroupAnimation, GroupAnimationWithThen, number, getValueAsType, defaultEasing } from "./compat-animate.js";
+import { animate, MotionValue, SubscriptionManager, GroupAnimation, GroupAnimationWithThen, number, getValueAsType, defaultEasing } from "./compat.js";
 export {
   GroupAnimation,
   GroupAnimationWithThen,

@@ -1,16 +1,13 @@
-export bool shallowCompare(JsValue next, JsValue? prev = null) {
-  if (prev == null) {
+export bool shallowCompare(JsValue next, JsValue prev) {
+  if (!prev.isArray()) {
     return false;
   }
-  if (!next.isArray() || !prev.isArray()) {
-    return next == prev;
-  }
-  if (next.length != prev.length) {
+  int prevLength = JS.assume(prev["length"]);
+  if (!JS.strictEqual(next["length"], prevLength)) {
     return false;
   }
-  int len = next.length.toInt();
-  for (int i = 0; i < len; i++) {
-    if (next[i] != prev[i]) {
+  for (int i = 0; i < prevLength; i++) {
+    if (!JS.strictEqual(prev[i], next[i])) {
       return false;
     }
   }

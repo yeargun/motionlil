@@ -2,7 +2,7 @@ import { documentGet, documentElement, parseFloatValue } from "../../dom-host";
 import { addDomEvent } from "../../events/add-dom-event";
 import { createProjectionNode, ProjectionNode } from "./create-projection-node";
 
-JsValue documentProjectionConfig = record{
+JsValue documentProjectionConfig = object{
   attachResizeListener: (JsValue ref, func()->void notify) => {
     return addDomEvent(ref, "resize", notify);
   },
@@ -19,19 +19,20 @@ JsValue documentProjectionConfig = record{
         y = parseFloatValue(body["scrollTop"]);
       }
     }
-    return record{x: x, y: y};
+    return object{x: x, y: y};
   },
   checkIsScrollRoot: (JsValue _instance) => true
 };
 
-func(JsValue)->ProjectionNode DocumentProjectionNodeCtor =
-  createProjectionNode(documentProjectionConfig);
+export ProjectionNode DocumentProjectionNodeCtor(JsValue options) {
+  return createProjectionNode(documentProjectionConfig)(options);
+}
 
 export class DocumentProjectionNode {
   ProjectionNode node;
 
   init(JsValue options) {
-    this.node = DocumentProjectionNodeCtor(options);
+    this.node = createProjectionNode(documentProjectionConfig)(options);
   }
 
   void mount(JsValue instance) {

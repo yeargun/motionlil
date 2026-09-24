@@ -3,36 +3,18 @@ import { cancelFrame, frame } from "../frameloop/index";
 import { time } from "../frameloop/sync-time";
 import { FrameData } from "../frameloop/types";
 
-class DelayCell {
-  (func(FrameData)->void)? checkElapsed;
-  init() {
-    this.checkElapsed = null;
-  }
-}
-
+// Timeout defined in ms.
 export func()->void delay(func(float)->void callback, float timeout) {
   float start = time.now();
-  DelayCell cell = new DelayCell();
-  cell.checkElapsed = (FrameData data) => {
+  func(FrameData)->void checkElapsed = (FrameData data) => {
     float elapsed = data.timestamp - start;
     if (elapsed >= timeout) {
-      (func(FrameData)->void)? check = cell.checkElapsed;
-      if (check != null) {
-        cancelFrame(check);
-      }
+      cancelFrame(checkElapsed);
       callback(elapsed - timeout);
     }
   };
-  (func(FrameData)->void)? check = cell.checkElapsed;
-  if (check != null) {
-    frame.setup(check, true, false);
-  }
-  return () => {
-    (func(FrameData)->void)? checkElapsed = cell.checkElapsed;
-    if (checkElapsed != null) {
-      cancelFrame(checkElapsed);
-    }
-  };
+  frame.setup(checkElapsed, true, false);
+  return () => cancelFrame(checkElapsed);
 }
 
 export func()->void delayInSeconds(func(float)->void callback, float timeout) {

@@ -1,35 +1,21 @@
 import { analyseComplexValue } from "../../../value/types/complex/index";
 import { getAnimatableNone } from "../../../value/types/utils/animatable-none";
 
-Set<string> invalidTemplates = new Set<string>();
-invalidTemplates.add("auto");
-invalidTemplates.add("none");
-invalidTemplates.add("0");
-
 export void makeNoneKeyframesAnimatable(
-  JsValue[] unresolvedKeyframes,
+  JsValue unresolvedKeyframes,
   int[] noneKeyframeIndexes,
-  string? name = null
+  JsValue name
 ) {
-  int i = 0;
-  string? animatableTemplate = null;
-  while (i < unresolvedKeyframes.length && animatableTemplate == null) {
+  JsValue animatableTemplate = JS.undefined();
+  for (float i = 0.0; i < unresolvedKeyframes.length && !animatableTemplate.truthy(); i++) {
     JsValue keyframe = unresolvedKeyframes[i];
-    if (keyframe is string) {
-      if (!invalidTemplates.has(keyframe)) {
-        if (analyseComplexValue(keyframe).values.length > 0) {
-          animatableTemplate = keyframe;
-        }
-      }
+    if (keyframe is string && keyframe != "auto" && keyframe != "none" && keyframe != "0" && analyseComplexValue(keyframe).values.length > 0) {
+      animatableTemplate = keyframe;
     }
-    i = i + 1;
   }
-  if (animatableTemplate != null) {
-    if (name != null) {
-      for (int noneIndex = 0; noneIndex < noneKeyframeIndexes.length; noneIndex++) {
-        int idx = noneKeyframeIndexes[noneIndex];
-        unresolvedKeyframes[idx] = getAnimatableNone(name, animatableTemplate);
-      }
-    }
+  if (animatableTemplate.truthy() && name.truthy()) {
+    noneKeyframeIndexes.forEach((int noneIndex) => {
+      unresolvedKeyframes[noneIndex] = getAnimatableNone(JS.assume(name), animatableTemplate);
+    });
   }
 }

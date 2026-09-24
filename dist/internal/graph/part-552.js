@@ -1,4 +1,7 @@
-var Dc = ["AnimationStart", "AnimationComplete", "Update", "BeforeLayoutMeasure", "LayoutMeasure", "LayoutAnimationStart", "LayoutAnimationComplete"];
+let th = {
+  type: "keyframes",
+  duration: 0.8
+};
 export {
-  Dc
+  th
 };

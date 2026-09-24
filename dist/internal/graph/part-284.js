@@ -1,13 +1,25 @@
-import { lb } from "./part-283.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let he = (vk, yk, zk, Ak, Bk) => {
-  if (null != Bk) {
-    var wk = lb(vk, Bk, Ak), xk = wk;
-  } else xk = vk;
-  return lb(xk, zk, Ak) + yk;
+let Rg = () => {
+  if (!Ug) {
+    Ug = document.createElement("style");
+    Ug.id = "motion-view";
+  }
+  let a = "";
+  for (let b in Tg) {
+    let c = Tg[b];
+    a = a + `${b} {
+`;
+    for (let b2 in c) a = a + `  ${b2}: ${c[b2]};
+`;
+    a = a + "}\n";
+  }
+  Ug.textContent = a;
+  document.head.appendChild(Ug);
+  Tg = {};
 };
+let Tg = {};
+let Ug = null;
 export {
-  he
+  Rg,
+  Tg,
+  Ug
 };

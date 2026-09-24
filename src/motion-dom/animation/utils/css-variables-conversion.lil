@@ -1,7 +1,5 @@
-import { invariant } from "../../../motion-utils/errors";
 import { isNumericalString } from "../../../motion-utils/is-numerical-string";
 import { isCSSVariableToken } from "./is-css-variable";
-import { stringMatch, stringTrim } from "../../string-host";
 import { getComputedStyleProperty } from "../../dom-host";
 
 extern float parseFloat(string v);
@@ -11,57 +9,26 @@ Regex splitCSSVariableRegex = new Regex(
   "u"
 );
 
-export JsValue[] parseCSSVariable(string current) {
-  JsValue matched = stringMatch(current, splitCSSVariableRegex);
-  if (!matched.isArray()) {
-    return [null, null];
+export JsValue parseCSSVariable(string current) {
+  JsValue found = JS.regexExec(splitCSSVariableRegex, current);
+  if (!found.truthy()) {
+    return JS.array(JS.undefined());
   }
-  JsValue token1 = matched[1];
-  JsValue token2 = matched[2];
-  JsValue fallback = matched[3];
-  string tokenName = "";
-  if (token1 is string) {
-    if (token1 != "") {
-      tokenName = token1;
-    }
-  }
-  if (tokenName == "") {
-    if (token2 is string) {
-      tokenName = token2;
-    }
-  }
-  return [`--${tokenName}`, fallback];
+  JsValue? token1 = found[1];
+  return JS.array(JS.add("--", token1 ?? found[2]), found[3]);
 }
 
-float maxDepth = 4.0;
-
-export JsValue? getVariableValue(string current, JsValue element, float depth = 1.0) {
-  invariant(
-    depth <= maxDepth,
-    `Max CSS variable fallback depth detected in property "${current}". This may indicate a circular fallback dependency.`,
-    "max-css-var-depth"
-  );
-  JsValue[] parsed = parseCSSVariable(current);
+export JsValue getVariableValue(string current, JsValue element) {
+  JsValue parsed = parseCSSVariable(current);
   JsValue token = parsed[0];
-  JsValue fallback = parsed[1];
-  if (!(token is string)) {
-    return null;
+  if (!token.truthy()) {
+    return JS.undefined();
   }
-  if (token == "") {
-    return null;
-  }
-  string resolved = getComputedStyleProperty(element, token);
+  string resolved = getComputedStyleProperty(element, JS.assume(token));
   if (resolved != "") {
-    string trimmed = stringTrim(resolved);
-    if (isNumericalString(trimmed)) {
-      return parseFloat(trimmed);
-    }
-    return trimmed;
+    string trimmed = resolved.trim();
+    return if (isNumericalString(trimmed)) { parseFloat(trimmed) } else { trimmed };
   }
-  if (fallback is string) {
-    if (isCSSVariableToken(fallback)) {
-      return getVariableValue(fallback, element, depth + 1.0);
-    }
-  }
-  return fallback;
+  JsValue fallback = parsed[1];
+  return if (isCSSVariableToken(fallback)) { getVariableValue(JS.assume(fallback), element) } else { fallback };
 }

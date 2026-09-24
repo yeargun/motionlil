@@ -1,78 +1,45 @@
-import { warning } from "../../../motion-utils/errors";
 import { hex } from "../../value/types/color/hex";
 import { hsla } from "../../value/types/color/hsla";
 import { hslaToRgba } from "../../value/types/color/hsla-to-rgba";
 import { rgba } from "../../value/types/color/rgba";
-import { isHslaShape, isRgbaShape, hslaFromJs, rgbaFromJs } from "../../value/types/color/shape";
-import { HSLA, RGBA, ValueType } from "../../value/types/types";
+import { findType } from "../../value/types/dimensions";
+import { RGBA, ValueType, asHSLA, asRGBA, asRec } from "../../value/types/types";
 import { mixImmediate } from "./immediate";
 import { mixNumber } from "./number";
 
+// Linear colour space blending: https://www.youtube.com/watch?v=LKnqECcg6Gw
 export float mixLinearColor(float from, float to, float v) {
   float fromExpo = from * from;
   float expo = v * (to * to - fromExpo) + fromExpo;
-  if (expo < 0.0) {
-    return 0.0;
-  }
-  return expo.sqrt();
+  return if (expo < 0.0) { 0.0 } else { expo.sqrt() };
 }
 
 ValueType[] colorTypes = [hex, rgba, hsla];
 
-ValueType? getColorType(JsValue v) {
-  int i = 0;
-  while (i < colorTypes.length) {
-    if (colorTypes[i].test(v)) {
-      return colorTypes[i];
-    }
-    i = i + 1;
-  }
-  return null;
-}
-
-RGBA | bool asRGBA(JsValue colorValue) {
-  ValueType? type = getColorType(colorValue);
-  warning(
-    type != null,
-    `'${colorValue}' is not an animatable color. Use the equivalent color code instead.`,
-    "color-not-animatable"
-  );
+RGBA? asRGBAModel(JsValue color) {
+  ValueType? type = findType(colorTypes, color);
   if (type == null) {
-    return false;
+    return null;
   }
-  JsValue model = type.parse(colorValue);
-  if (type == hsla) {
-    if (isHslaShape(model)) {
-      return hslaToRgba(hslaFromJs(model));
-    }
-  }
-  if (isRgbaShape(model)) {
-    return rgbaFromJs(model);
-  }
-  return false;
+  JsValue model = type.parse(color);
+  return if (type == hsla) { hslaToRgba(asHSLA(model)) } else { asRGBA(model) };
 }
 
-export func(float)->string mixColor(JsValue from, JsValue to) {
-  RGBA | bool fromRGBA = asRGBA(from);
-  RGBA | bool toRGBA = asRGBA(to);
-  if (fromRGBA is bool || toRGBA is bool) {
-    return (float p) => {
-      JsValue result = mixImmediate(from, to)(p);
-      return `${result}`;
-    };
+export func(float)->JsValue mixColor(JsValue from, JsValue to) {
+  RGBA? fromModel = asRGBAModel(from);
+  RGBA? toModel = asRGBAModel(to);
+  if (fromModel == null || toModel == null) {
+    return mixImmediate(from, to);
   }
-  RGBA fromColor = fromRGBA;
-  RGBA toColor = toRGBA;
-  RGBA blended = new RGBA(fromColor.red, fromColor.green, fromColor.blue, fromColor.alpha);
+  RGBA a = fromModel;
+  RGBA b = toModel;
+  Record<JsValue> copy = record{};
+  RGBA blended = asRGBA(Object.assign(copy, asRec(a)));
   return (float v) => {
-    blended.red = mixLinearColor(fromColor.red, toColor.red, v);
-    blended.green = mixLinearColor(fromColor.green, toColor.green, v);
-    blended.blue = mixLinearColor(fromColor.blue, toColor.blue, v);
-    blended.alpha = mixNumber(fromColor.alpha, toColor.alpha, v);
-    (func(JsValue)->JsValue)? transform = rgba.transform;
-    if (transform != null) {
-      return `${transform(blended)}`;
-    }
-    return "";
+    blended.red = mixLinearColor(a.red, b.red, v);
+    blended.green = mixLinearColor(a.green, b.green, v);
+    blended.blue = mixLinearColor(a.blue, b.blue, v);
+    blended.alpha = mixNumber(a.alpha ?? 1.0, b.alpha ?? 1.0, v);
+    return rgba.transform(blended);
   };
 }

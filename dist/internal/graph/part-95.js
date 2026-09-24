@@ -1,11 +1,10 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Wb = (vk, yk, zk) => {
-  var wk = vk * vk, xk = zk * (yk * yk - wk) + wk;
-  if (xk < 0) return 0;
-  return Math.sqrt(xk);
+import { hasScale } from "./part-92.js";
+import { has2DTranslate } from "./part-94.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let hasTransform = function(a) {
+  return hasScale(a) || !!(has2DTranslate(a) || (a.z || (a.rotate || (a.rotateX || (a.rotateY || (a.skewX || a.skewY))))));
 };
 export {
-  Wb
+  hasTransform
 };

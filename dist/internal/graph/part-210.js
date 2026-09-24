@@ -1,10 +1,13 @@
-let bh = (vk) => {
-  if ("x" == vk) return "translateX";
-  if ("y" == vk) return "translateY";
-  if ("z" == vk) return "translateZ";
-  if ("transformPerspective" == vk) return "perspective";
-  return vk;
+import { we } from "./part-185.js";
+let kf = (a) => {
+  let c = a._animation;
+  if (c) {
+    c.stop();
+    if (a.stopTimeline) (0, a.stopTimeline)();
+  }
+  let d = a.keyframeResolver;
+  if (d) we(d);
 };
 export {
-  bh
+  kf
 };

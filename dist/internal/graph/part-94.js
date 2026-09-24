@@ -1,10 +1,9 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let fb = (vk, wk) => (Bk) => {
-  if (Bk > 0) return wk;
-  return vk;
+import { Ub } from "./part-93.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let has2DTranslate = function(a) {
+  return Ub(a.x) || Ub(a.y);
 };
 export {
-  fb
+  has2DTranslate
 };

@@ -1,15 +1,9 @@
-import { F } from "./part-456.js";
-import { Nc } from "./part-618.js";
-function Gi(vk) {
-  vk.entries = /* @__PURE__ */ new Map();
-  var wk = 0;
-  for (; wk < Nc.length; ) {
-    vk.entries.set(Nc[wk] || "", (Kk) => {
-      F(Kk);
-    });
-    wk += 1;
-  }
-}
+import { tj } from "./part-402.js";
+let uj = (a, b, c) => {
+  tj(b.x, a.scrollLeft, a.scrollWidth - a.clientWidth, b.time, c);
+  tj(b.y, a.scrollTop, a.scrollHeight - a.clientHeight, b.time, c);
+  b.time = c;
+};
 export {
-  Gi
+  uj
 };

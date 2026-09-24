@@ -1,5 +1,4 @@
-import { weakSetCreate } from "./../motion-dom/weak-host.js";
-var Jc = weakSetCreate();
+let Mj = /* @__PURE__ */ new WeakMap();
 export {
-  Jc
+  Mj
 };

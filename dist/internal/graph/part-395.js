@@ -1,14 +1,7 @@
-import { callMethod0 } from "./../motion-dom/dom-host.js";
-import { wi } from "./part-379.js";
-import { Me } from "./part-397.js";
-let Ke = (vk) => {
-  var wk = vk.options.visualElement;
-  if (wk) callMethod0(wk, "scheduleRender");
-  var xk = Me(vk);
-  if (xk) wi(xk);
-  var yk = vk.resumingFrom;
-  if (null != yk && null == yk.instance) vk.resumingFrom = null;
+let hj = (a) => {
+  let b;
+  return Array.isArray(a) && a.some((b = (a2) => Array.isArray(a2), b));
 };
 export {
-  Ke
+  hj
 };

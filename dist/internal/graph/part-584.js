@@ -1,7 +1,7 @@
-var Va = /* @__PURE__ */ new Set();
-Va.add("INPUT");
-Va.add("SELECT");
-Va.add("TEXTAREA");
+let Gj = {
+  x: 0,
+  y: 0
+};
 export {
-  Va
+  Gj
 };

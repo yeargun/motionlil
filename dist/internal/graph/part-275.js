@@ -1,10 +1,10 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ce = (vk, wk) => {
-  vk.min = wk.min;
-  vk.max = wk.max;
+import { attachFollow } from "./part-270.js";
+import { Gg } from "./part-273.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let attachSpring = function(a, b, c = null) {
+  return attachFollow(a, b, Gg(c));
 };
 export {
-  ce
+  attachSpring
 };

@@ -1,7 +1,8 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var p = ["transformPerspective", "x", "y", "z", "translateX", "translateY", "translateZ", "scale", "scaleX", "scaleY", "rotate", "rotateX", "rotateY", "rotateZ", "skew", "skewX", "skewY"];
+import { memo } from "./part-188.js";
+import { tk } from "./part-3.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let Mf = memo(() => tk());
 export {
-  p
+  Mf
 };

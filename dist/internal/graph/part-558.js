@@ -1,13 +1,19 @@
-import { jl } from "./part-542.js";
-import { of } from "./part-557.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var za = () => {
-  var Pz = of.get("linearEasing");
-  if (Pz !== void 0) return Pz;
-  return jl();
+import { pixelsToPercent } from "./part-346.js";
+import { wa } from "./part-457.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let Lh = {
+  correct: (a, b) => {
+    let c = b.target;
+    if (!c) return a;
+    if (typeof a == "string") {
+      if (!wa.test(a)) return a;
+      a = parseFloat(a);
+    }
+    let e = a;
+    return `${pixelsToPercent(e, c.x)}% ${pixelsToPercent(e, c.y)}%`;
+  }
 };
 export {
-  za
+  Lh
 };

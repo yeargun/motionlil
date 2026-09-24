@@ -1,8 +1,4 @@
-import { bf } from "./part-470.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Tf = (vk) => bf.test(vk);
+let Ka = (a, b) => a * Math.sqrt(1 - b * b);
 export {
-  Tf
+  Ka
 };

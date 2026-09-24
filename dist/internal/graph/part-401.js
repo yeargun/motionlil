@@ -1,15 +1,13 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ak = () => {
-  let vk = {
-    nodes: [],
-    subscriptions: /* @__PURE__ */ new Map()
-  };
-  vk.nodes = [];
-  vk.subscriptions = /* @__PURE__ */ new Map();
-  return vk;
-};
+let oj = () => ({
+  current: 0,
+  offset: [],
+  progress: 0,
+  scrollLength: 0,
+  targetOffset: 0,
+  targetLength: 0,
+  containerLength: 0,
+  velocity: 0
+});
 export {
-  ak
+  oj
 };

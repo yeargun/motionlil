@@ -1,4 +1,9 @@
-var tf = new RegExp("^var\\(--(?:([\\w-]+)|([\\w-]+), ?([a-zA-Z\\d ()%#.,-]+))\\)", "u");
+import "./effect-499.js";
+import "./effect-573.js";
+let Hi = {
+  hasAnimatedSinceResize: true,
+  hasEverUpdated: false
+};
 export {
-  tf
+  Hi
 };

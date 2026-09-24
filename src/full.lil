@@ -380,17 +380,16 @@ import {
   distance,
   distance2D
 } from "./dom";
-export constructor AsyncMotionValueAnimation;
-export constructor NativeAnimationWrapper;
-export constructor NativeAnimationExtended;
-export constructor NativeAnimation;
-export constructor GroupAnimationWithThen;
-export constructor GroupAnimation;
-export constructor MotionValue;
-
 export {
+  AsyncMotionValueAnimation,
+  GroupAnimation,
+  GroupAnimationWithThen,
+  JSAnimation,
   JSAnimationOptions,
   SampleResult,
+  NativeAnimation,
+  NativeAnimationExtended,
+  NativeAnimationWrapper,
   AnimationPlaybackControls,
   AnimationPlaybackControlsWithThen,
   AnimationState,
@@ -414,7 +413,6 @@ export {
   SpringGenerator,
   SpringInput,
   spring,
-  springFromInput,
   calcGeneratorDuration,
   maxGeneratorDuration,
   GeneratorEasingResult,
@@ -424,17 +422,14 @@ export {
   KeyframeResolver,
   flushKeyframeResolvers,
   defaultOffset,
-  defaultOffsetFloats,
   fillOffset,
   convertOffsetToTimes,
   applyPxDefaults,
   fillWildcards,
   cubicBezierAsString,
-  isWaapiSupportedEasing,
-  mapEasingArrayToNativeEasing
+  isWaapiSupportedEasing
 };
 export {
-  mapEasingFunctionToNativeEasing,
   mapEasingToNativeEasing,
   SupportedWaapiEasing,
   supportedWaapiEasing,
@@ -442,7 +437,6 @@ export {
   supportsPartialKeyframes,
   BrowserAnimationOptions,
   supportsBrowserAnimation,
-  supportsWaapi,
   acceleratedValues,
   applyGeneratorOptions,
   generateLinearEasing,
@@ -488,8 +482,6 @@ export {
 export {
   ResizeInfo,
   resize,
-  resizeElement,
-  resizeWindow,
   observeTimeline,
   recordStats,
   StatsBuffer,
@@ -506,7 +498,6 @@ export {
   getMixer,
   mixArray,
   mixComplex,
-  mixComplexExport,
   mixObject,
   mixImmediate,
   invisibleValues,
@@ -523,9 +514,9 @@ export {
   supportsViewTimeline,
   TransformOptions,
   transform,
-  transformRange,
   AccelerateConfig,
   CollectMotionValues,
+  MotionValue,
   MotionValueOptions,
   Owner,
   collectMotionValues,
@@ -548,9 +539,7 @@ export {
   ComplexValueInfo,
   ValueIndexes,
   analyseComplexValue,
-  buildTransformer,
   complex,
-  createComplexTransformer,
   dimensionValueTypes,
   findDimensionValueType,
   defaultValueTypes,
@@ -572,7 +561,6 @@ export {
   getAsType,
   isMotionValue,
   ViewTransitionBuilder,
-  addToQueue,
   animateView,
   ViewAnimationLayerInfo,
   getViewAnimationLayerInfo,
@@ -677,7 +665,7 @@ export {
   addDomEvent,
   compareByDepth,
   FlatTree,
-  delay,
+  delayInSeconds as delay,
   delayInSeconds,
   resolveMotionValue,
   cleanDirtyNodes,
@@ -707,6 +695,7 @@ export {
   cancelSync,
   sync,
   MotionGlobalConfig,
+  SubscriptionManager,
   addUniqueItem,
   anticipate,
   backIn,
@@ -762,11 +751,27 @@ export {
   distance2D
 };
 
-export constructor JSAnimation;
 import { animateSequence as animateSequenceMini } from "./framer-motion/animation/animators/waapi/animate-sequence";
 export { animateSequenceMini };
 
-import { createScopedAnimateWithSettings } from "./framer-motion/animation/animate/index";
-export { createScopedAnimateWithSettings as __lilCreateScopedAnimate };
-
-export constructor SubscriptionManager;
+// Upstream's public classes, as constructors whose prototypes the compiled
+// instances share. `__lil` names are internal: the build publishes each one
+// under its upstream name through src/compat.mjs.
+import { motionValueConstructor } from "./motion-dom/value/index";
+import { groupAnimationConstructor } from "./motion-dom/animation/GroupAnimation";
+import { groupAnimationWithThenConstructor } from "./motion-dom/animation/GroupAnimationWithThen";
+import { jsAnimationConstructor } from "./motion-dom/animation/JSAnimation";
+import { nativeAnimationConstructor } from "./motion-dom/animation/NativeAnimation";
+import { nativeAnimationExtendedConstructor } from "./motion-dom/animation/NativeAnimationExtended";
+import { nativeAnimationWrapperConstructor } from "./motion-dom/animation/NativeAnimationWrapper";
+import { asyncMotionValueAnimationConstructor } from "./motion-dom/animation/AsyncMotionValueAnimation";
+export {
+  motionValueConstructor as __lilMotionValue,
+  groupAnimationConstructor as __lilGroupAnimation,
+  groupAnimationWithThenConstructor as __lilGroupAnimationWithThen,
+  jsAnimationConstructor as __lilJSAnimation,
+  nativeAnimationConstructor as __lilNativeAnimation,
+  nativeAnimationExtendedConstructor as __lilNativeAnimationExtended,
+  nativeAnimationWrapperConstructor as __lilNativeAnimationWrapper,
+  asyncMotionValueAnimationConstructor as __lilAsyncMotionValueAnimation
+};

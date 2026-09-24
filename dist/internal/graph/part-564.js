@@ -1,5 +1,6 @@
-import { lk } from "./part-5.js";
-var rf = new RegExp("^(?:oklch|oklab|lab|lch|color|color-mix|light-dark)\\(", lk);
+import "./effect-499.js";
+import "./effect-573.js";
+let hi = /* @__PURE__ */ new Set(["baseFrequency", "diffuseConstant", "kernelMatrix", "kernelUnitLength", "keySplines", "keyTimes", "limitingConeAngle", "markerHeight", "markerWidth", "numOctaves", "targetX", "targetY", "surfaceScale", "specularConstant", "specularExponent", "stdDeviation", "tableValues", "viewBox", "gradientTransform", "pathLength", "startOffset", "textLength", "lengthAdjust"]);
 export {
-  rf
+  hi
 };

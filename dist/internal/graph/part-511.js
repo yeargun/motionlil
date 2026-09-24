@@ -1,5 +1,6 @@
-import { i } from "./part-495.js";
-var el = i.transform ?? null;
+import "./effect-499.js";
+import "./effect-573.js";
+let isBezierDefinition = (a) => Array.isArray(a) && typeof a[0] == "number";
 export {
-  el
+  isBezierDefinition
 };

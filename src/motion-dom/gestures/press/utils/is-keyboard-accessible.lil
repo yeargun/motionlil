@@ -1,25 +1,12 @@
-import { getElementTagName } from "../../../dom-host";
+import { RHSet, Set } from "../../../render/host-views";
 
-Set<string> keyboardAccessibleElements = new Set<string>();
-keyboardAccessibleElements.add("BUTTON");
-keyboardAccessibleElements.add("INPUT");
-keyboardAccessibleElements.add("SELECT");
-keyboardAccessibleElements.add("TEXTAREA");
-keyboardAccessibleElements.add("A");
-
-Set<string> textInputElements = new Set<string>();
-textInputElements.add("INPUT");
-textInputElements.add("SELECT");
-textInputElements.add("TEXTAREA");
+RHSet keyboardAccessibleElements = JS.assume(JS.construct(Set, JS.array("BUTTON", "INPUT", "SELECT", "TEXTAREA", "A")));
+RHSet textInputElements = JS.assume(JS.construct(Set, JS.array("INPUT", "SELECT", "TEXTAREA")));
 
 export bool isElementKeyboardAccessible(JsValue element) {
-  string tag = getElementTagName(element);
-  JsValue editable = element["isContentEditable"];
-  return keyboardAccessibleElements.has(tag) || editable == true;
+  return keyboardAccessibleElements.has(element["tagName"]) || JS.strictEqual(element["isContentEditable"], true);
 }
 
 export bool isElementTextInput(JsValue element) {
-  string tag = getElementTagName(element);
-  JsValue editable = element["isContentEditable"];
-  return textInputElements.has(tag) || editable == true;
+  return textInputElements.has(element["tagName"]) || JS.strictEqual(element["isContentEditable"], true);
 }

@@ -1,17 +1,15 @@
 import { clamp } from "../../motion-utils/clamp";
 import { time } from "../frameloop/sync-time";
 import { setStyle } from "../render/dom/style-set";
-import { JSAnimation, JSAnimationOptions } from "./JSAnimationFull";
-import { NativeAnimation } from "./NativeAnimation";
-import { replaceTransitionType } from "./utils/replace-transition-type";
+import { NativeAnimation, AnimNativeOptions, AnimNativeState, nativeAnimationPrototype, nativeStateOf, nativeStartTime, setNativeStartTime } from "./NativeAnimation";
+import { JSAnimation, createJSAnimation, sampleJSAnimation, stopJSAnimation } from "./JSAnimation";
+import { replaceTransitionType } from "./utils/replace-transition-type-spring";
 import { replaceStringEasing } from "./waapi/utils/unsupported-easing";
-import { callMethod1, callMethod2, setProp } from "../dom-host";
-import { MotionValue } from "../value/index";
-import extern { identity as asMotionValue } from "../cast-host.ts";
+import { animAssign3 as assign3, animClass, animCreate } from "./anim-host";
 
-extern MotionValue asMotionValue(JsValue value);
-
-float sampleDelta = 10.0;
+// Upstream's NativeAnimationExtended.prototype: NativeAnimation's, plus
+// `updateMotionValue`.
+JsValue nativeExtendedPrototype = animCreate(nativeAnimationPrototype);
 
 JsValue prepareExtendedOptions(JsValue options) {
   replaceStringEasing(options);
@@ -19,69 +17,54 @@ JsValue prepareExtendedOptions(JsValue options) {
   return options;
 }
 
+// Keeps the motion value in step with the browser animation: the final value
+// when it ends, or a velocity-carrying sample when it is stopped midway.
+void updateMotionValue(AnimNativeState animation, JsValue value) {
+  AnimNativeOptions options = animation.options;
+  JsValue motionValue = options.motionValue;
+  if (!motionValue.truthy()) {
+    return;
+  }
+  if (!JS.isUndefined(value)) {
+    JS.invoke(motionValue, "set", value);
+    return;
+  }
+  JSAnimation sampleAnimation = createJSAnimation(assign3(JS.object(), options, JS.object(
+    "motionValue", JS.undefined(),
+    "onUpdate", JS.undefined(),
+    "onComplete", JS.undefined(),
+    "autoplay", false
+  )));
+  float startTime = JS.assume(nativeStartTime(animation));
+  float sampleTime = (10.0).max(time.now() - startTime);
+  float delta = clamp(0.0, 10.0, sampleTime - 10.0);
+  JsValue current = sampleJSAnimation(sampleAnimation, sampleTime).value;
+  JsValue element = options.element;
+  JsValue name = options.name;
+  if (element.truthy() && name.truthy()) {
+    setStyle(element, JS.assume(name), current);
+  }
+  JS.invoke(motionValue, "setWithVelocity", sampleJSAnimation(sampleAnimation, (sampleTime - delta).max(0.0)).value, current, delta);
+  stopJSAnimation(sampleAnimation);
+}
+
 export class NativeAnimationExtended extends NativeAnimation {
   init(JsValue options) {
-    super(prepareExtendedOptions(options));
+    super(prepareExtendedOptions(options), nativeExtendedPrototype);
+    AnimNativeState state = nativeStateOf(this);
     JsValue startTime = options["startTime"];
-    if (startTime is float) {
-      JsValue autoplay = options["autoplay"];
-      bool shouldAutoplay = true;
-      if (autoplay is bool) {
-        shouldAutoplay = autoplay;
-      }
-      if (shouldAutoplay) {
-        this.setStartTime(startTime);
-      }
+    if (!JS.isUndefined(startTime) && JS.strictNotEqual(options["autoplay"], false)) {
+      setNativeStartTime(state, startTime);
     }
-    this.options = options;
-  }
-
-  void updateMotionValue(JsValue? value = null) {
-    JsValue options = this.options;
-    JsValue motionValue = options["motionValue"];
-    if (!motionValue.truthy()) {
-      return;
-    }
-    if (value != null) {
-      asMotionValue(motionValue).set(value);
-      return;
-    }
-    Record<JsValue> sampleOptions = record{};
-    for (string key in options) {
-      if (key != "motionValue" && key != "onUpdate" && key != "onComplete" && key != "element") {
-        sampleOptions[key] = options[key];
-      }
-    }
-    sampleOptions["autoplay"] = false;
-    JSAnimation sampleAnimation = new JSAnimation(sampleOptions);
-    float start = 0.0;
-    float? startTimeOpt = this.getStartTime();
-    if (startTimeOpt != null) {
-      start = startTimeOpt;
-    }
-    float sampleTime = sampleDelta;
-    float elapsed = time.now() - start;
-    if (elapsed > sampleTime) {
-      sampleTime = elapsed;
-    }
-    float delta = clamp(0.0, sampleDelta, sampleTime - sampleDelta);
-    JsValue current = sampleAnimation.sample(sampleTime).value;
-    JsValue name = options["name"];
-    JsValue element = options["element"];
-    if (element.truthy()) {
-      if (name is string) {
-        string nameStr = name;
-        setStyle(element, nameStr, current);
-      }
-    }
-    float prevTime = sampleTime - delta;
-    if (prevTime < 0.0) {
-      prevTime = 0.0;
-    }
-    JsValue previous = sampleAnimation.sample(prevTime).value;
-    asMotionValue(motionValue).setWithVelocity(previous, current, delta);
-    sampleAnimation.stop();
   }
 }
 
-export constructor NativeAnimationExtended as NativeAnimationExtendedConstructor;
+// Upstream's public `NativeAnimationExtended` class.
+export JsValue nativeAnimationExtendedConstructor = animClass(
+  (JsValue options, JsValue _unused) => new NativeAnimationExtended(options),
+  nativeExtendedPrototype,
+  JS.object("updateMotionValue", JS.object("value", JS.method1((JsValue self, JsValue value) => {
+    updateMotionValue(nativeStateOf(self), value);
+    return JS.undefined();
+  })))
+);

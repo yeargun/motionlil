@@ -1,16 +1,8 @@
-import { ua } from "./part-294.js";
-import { g } from "./part-39.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ne = (vk, wk, xk, yk = 0) => {
-  var zk = xk.min;
-  if (0 != yk) {
-    var Ak = /* @__PURE__ */ g(xk.min, xk.max, yk), Bk = Ak;
-  } else Bk = zk;
-  vk.min = wk.min - Bk;
-  vk.max = vk.min + ua(wk);
+import "./effect-499.js";
+import "./effect-573.js";
+let isNear = function(a, b, c) {
+  return Math.abs(a - b) <= c;
 };
 export {
-  ne
+  isNear
 };

@@ -1,6 +1,7 @@
 import { millisecondsToSeconds } from "../../../../motion-utils/time-conversion";
-import { SpringGenerator, SpringInput, springFromInput } from "../spring";
+import { SpringGenerator } from "../generator";
 import { calcGeneratorDuration, maxGeneratorDuration } from "./calc-duration";
+import { animAssign3 as assign3 } from "../../anim-host";
 
 export class GeneratorEasingResult {
   string type;
@@ -14,28 +15,21 @@ export class GeneratorEasingResult {
   }
 }
 
+
 export GeneratorEasingResult createGeneratorEasing(
-  SpringInput options,
+  JsValue options,
   float scale,
-  JsValue? createGenerator = null
+  JsValue createGenerator
 ) {
-  SpringInput scaled = new SpringInput(
-    [0.0, scale],
-    options.stiffness,
-    options.damping,
-    options.mass,
-    options.velocity,
-    options.duration,
-    options.bounce,
-    options.visualDuration,
-    options.restSpeed,
-    options.restDelta
-  );
-  SpringGenerator springGen = springFromInput(scaled);
-  float duration = calcGeneratorDuration(springGen.next).min(maxGeneratorDuration);
+  SpringGenerator gen = JS.assume(JS.call(createGenerator, JS.undefined(),
+    assign3(JS.object(), options, JS.object("keyframes", JS.array(0.0, scale)))));
+  float duration = calcGeneratorDuration(gen).min(maxGeneratorDuration);
   return new GeneratorEasingResult(
     "keyframes",
-    (float progressValue) => springGen.next(duration * progressValue).value / scale,
+    (float progress) => {
+      float value = JS.assume(gen.next(duration * progress).value);
+      return value / scale;
+    },
     millisecondsToSeconds(duration)
   );
 }

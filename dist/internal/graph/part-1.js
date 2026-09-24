@@ -1,4 +1,7 @@
-let hk = typeof window < "u" ? window : globalThis;
+let rk = function(a) {
+  if (a == null) return [];
+  return Array.from(a).filter((a2) => a2 != null);
+};
 export {
-  hk
+  rk
 };

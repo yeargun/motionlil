@@ -1,8 +1,9 @@
-import { l } from "./part-0.js";
-let Ud = (vk) => {
-  if ("number" == typeof vk) return vk;
-  return l(vk);
+import { gg } from "./part-529.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let isElementKeyboardAccessible = function(a) {
+  return gg.has(a.tagName) || a.isContentEditable === true;
 };
 export {
-  Ud
+  isElementKeyboardAccessible
 };

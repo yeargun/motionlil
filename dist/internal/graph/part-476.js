@@ -1,5 +1,8 @@
-import { w } from "./part-473.js";
-var Lk = w.test;
+function fk(a) {
+  return function(b) {
+    return a(this, b);
+  };
+}
 export {
-  Lk
+  fk
 };

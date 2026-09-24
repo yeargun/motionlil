@@ -1,18 +1,18 @@
-import { setProp } from "../../dom-host";
+import { inertia } from "../generators/inertia";
 import { keyframes } from "../generators/keyframes";
 import { spring } from "../generators/spring";
 
-Record<JsValue> transitionTypeMap = record{tween: keyframes, keyframes: keyframes, spring: spring};
+JsValue transitionTypeMap = JS.object(
+  "decay", inertia,
+  "inertia", inertia,
+  "tween", keyframes,
+  "keyframes", keyframes,
+  "spring", spring
+);
 
 export void replaceTransitionType(JsValue transition) {
-  if (!transition.isObject()) {
-    return;
-  }
-  JsValue typeValue = transition["type"];
-  if (typeValue is string) {
-    JsValue? mapped = transitionTypeMap[typeValue];
-    if (mapped != null) {
-      setProp(transition, "type", mapped);
-    }
+  JsValue type = transition["type"];
+  if (type is string) {
+    transition["type"] = transitionTypeMap[type];
   }
 }

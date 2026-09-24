@@ -1,34 +1,10 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ii = () => {
-  d.add("baseFrequency");
-  d.add("diffuseConstant");
-  d.add("kernelMatrix");
-  d.add("kernelUnitLength");
-  d.add("keySplines");
-  d.add("keyTimes");
-  d.add("limitingConeAngle");
-  d.add("markerHeight");
-  d.add("markerWidth");
-  d.add("numOctaves");
-  d.add("targetX");
-  d.add("targetY");
-  d.add("surfaceScale");
-  d.add("specularConstant");
-  d.add("specularExponent");
-  d.add("stdDeviation");
-  d.add("tableValues");
-  d.add("viewBox");
-  d.add("gradientTransform");
-  d.add("pathLength");
-  d.add("startOffset");
-  d.add("textLength");
-  d.add("lengthAdjust");
+import { Bb } from "./part-477.js";
+import { Nh } from "./part-560.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let isForcedMotionValue = function(a, b) {
+  return Bb.has(a) || a.startsWith("origin") || (!!b.layout || b.layoutId !== void 0) && (!!Nh[a] || a == "opacity");
 };
-var d = /* @__PURE__ */ new Set();
-ii();
 export {
-  d,
-  ii
+  isForcedMotionValue
 };

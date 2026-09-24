@@ -1,8 +1,7 @@
-import { wk } from "./part-454.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var F = wk.cancel;
+import { ta } from "./part-42.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let va = ta("%");
 export {
-  F
+  va
 };

@@ -10,35 +10,21 @@ export string[] cssStyleProperties = [
   "offsetAnchor"
 ];
 
+JsValue orDefault(JsValue value, JsValue fallback) {
+  return if (JS.isUndefined(value)) { fallback } else { value };
+}
+
 export void buildSVGAttrs(
   JsValue state,
-  JsValue latestValues,
+  JsValue values,
   bool isSVGTag,
-  JsValue? transformTemplate = null,
-  JsValue? styleProp = null
+  JsValue transformTemplate = JS.undefined(),
+  JsValue styleProp = JS.undefined()
 ) {
-  JsValue latest = record{};
-  JsValue attrX = null;
-  JsValue attrY = null;
-  JsValue attrScale = null;
-  JsValue pathLength = null;
-  JsValue pathSpacing = 1.0;
-  JsValue pathOffset = 0.0;
-  for (string key in latestValues) {
-    if (key == "attrX") {
-      attrX = latestValues[key];
-    } else if (key == "attrY") {
-      attrY = latestValues[key];
-    } else if (key == "attrScale") {
-      attrScale = latestValues[key];
-    } else if (key == "pathLength") {
-      pathLength = latestValues[key];
-    } else if (key == "pathSpacing") {
-      pathSpacing = latestValues[key];
-    } else if (key == "pathOffset") {
-      pathOffset = latestValues[key];
-    } else {
-      latest[key] = latestValues[key];
+  JsValue latest = JS.object();
+  for (string key in values) {
+    if (key != "attrX" && key != "attrY" && key != "attrScale" && key != "pathLength" && key != "pathSpacing" && key != "pathOffset") {
+      latest[key] = values[key];
     }
   }
   buildHTMLStyles(state, latest, transformTemplate);
@@ -48,65 +34,40 @@ export void buildSVGAttrs(
     }
     return;
   }
-  state["attrs"] = state["style"];
-  state["style"] = record{};
-  JsValue attrs = state["attrs"];
-  JsValue style = state["style"];
-  for (int i = 0; i < cssStyleProperties.length; i++) {
-    string key = cssStyleProperties[i];
-    JsValue val = attrs[key];
-    bool defined =
-      (val is float) ||
-      (val is string) ||
-      (val is bool) ||
-      val.isArray() ||
-      (val.isObject() && val.truthy());
-    if (defined) {
-      style[key] = val;
-      attrs[key] = null;
+  JsValue attrs = state["style"];
+  JsValue style = JS.object();
+  state["attrs"] = attrs;
+  state["style"] = style;
+  for (string key of cssStyleProperties) {
+    if (!JS.isUndefined(attrs[key])) {
+      style[key] = attrs[key];
+      JS.delete(attrs, key);
     }
   }
-  if (style["transform"].truthy() || attrs["transformOrigin"].truthy()) {
+  if (JS.or(style["transform"], attrs["transformOrigin"]).truthy()) {
     JsValue origin = attrs["transformOrigin"];
-    if (!(origin is float) && !(origin is string)) {
-      origin = "50% 50%";
-    }
-    style["transformOrigin"] = origin;
-    attrs["transformOrigin"] = null;
+    style["transformOrigin"] = if (JS.isNullish(origin)) { "50% 50%" } else { origin };
+    JS.delete(attrs, "transformOrigin");
   }
   if (style["transform"].truthy()) {
-    JsValue box = "fill-box";
-    if (styleProp != null && styleProp.isObject()) {
-      JsValue tb = styleProp["transformBox"];
-      if (tb is string) {
-        box = tb;
-      }
-    }
-    style["transformBox"] = box;
-    attrs["transformBox"] = null;
+    JsValue box = JS.and(styleProp, styleProp["transformBox"]);
+    style["transformBox"] = if (JS.isNullish(box)) { "fill-box" } else { box };
+    JS.delete(attrs, "transformBox");
   }
-  if ((attrX is float) || (attrX is string)) {
+  JsValue attrX = values["attrX"];
+  JsValue attrY = values["attrY"];
+  JsValue attrScale = values["attrScale"];
+  JsValue pathLength = values["pathLength"];
+  if (!JS.isUndefined(attrX)) {
     attrs["x"] = attrX;
   }
-  if ((attrY is float) || (attrY is string)) {
+  if (!JS.isUndefined(attrY)) {
     attrs["y"] = attrY;
   }
-  if ((attrScale is float) || (attrScale is string)) {
+  if (!JS.isUndefined(attrScale)) {
     attrs["scale"] = attrScale;
   }
-  if ((pathLength is float) || (pathLength is string)) {
-    float length = 0.0;
-    float spacing = 1.0;
-    float offset = 0.0;
-    if (pathLength is float) {
-      length = pathLength;
-    }
-    if (pathSpacing is float) {
-      spacing = pathSpacing;
-    }
-    if (pathOffset is float) {
-      offset = pathOffset;
-    }
-    buildSVGPath(attrs, length, spacing, offset, false);
+  if (!JS.isUndefined(pathLength)) {
+    buildSVGPath(attrs, JS.assume(pathLength), JS.assume(orDefault(values["pathSpacing"], 1.0)), JS.assume(orDefault(values["pathOffset"], 0.0)), false);
   }
 }

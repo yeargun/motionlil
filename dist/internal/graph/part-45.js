@@ -1,11 +1,10 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Qf = (vk, wk) => {
-  var yk = [], xk = 0;
-  for (; xk < vk.length; xk = xk + 1) yk.push(vk[xk] * wk);
-  return yk;
+import { Aa } from "./part-44.js";
+import { Ba } from "./part-461.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let findDimensionValueType = function(a) {
+  return Aa(Ba, a);
 };
 export {
-  Qf
+  findDimensionValueType
 };

@@ -1,39 +1,13 @@
-import { ValueType, valueTypeRecord } from "../types";
+import { ValueType, valueType, asNum } from "../types";
 
 extern float parseFloat(string v);
 
 ValueType createUnitType(string unit) {
-  return valueTypeRecord(object{test: (JsValue v) => {
-      if (!(v is string)) {
-        return false;
-      }
-      if (!v.endsWith(unit)) {
-        return false;
-      }
-      string[] parts = [];
-      // split on space manually
-      string cur = "";
-      int i = 0;
-      int spaces = 0;
-      while (i < v.length) {
-        string ch = v.charAt(i);
-        if (ch == " ") {
-          spaces = spaces + 1;
-        }
-        i = i + 1;
-      }
-      return spaces == 0;
-    }, parse: (JsValue v) => {
-      if (v is string) {
-        return parseFloat(v);
-      }
-      if (v is float) {
-        return v;
-      }
-      return 0.0;
-    }, transform: (JsValue v) => {
-      return `${v}${unit}`;
-    }});
+  return valueType(object {
+    test: (JsValue v) => v is string && v.endsWith(unit) && v.split(" ").length == 1,
+    parse: parseFloat,
+    transform: (JsValue v) => `${v}${unit}`
+  });
 }
 
 export ValueType degrees = createUnitType("deg");
@@ -42,20 +16,8 @@ export ValueType px = createUnitType("px");
 export ValueType vh = createUnitType("vh");
 export ValueType vw = createUnitType("vw");
 
-export ValueType progressPercentage = valueTypeRecord(object{test: percent.test, parse: (JsValue v) => {
-    JsValue parsed = percent.parse(v);
-    if (parsed is float) {
-      return parsed / 100.0;
-    }
-    return 0.0;
-  }, transform: (JsValue v) => {
-    float n = 0.0;
-    if (v is float) {
-      n = v;
-    }
-    (func(JsValue)->JsValue)? transform = percent.transform;
-    if (transform != null) {
-      return transform(n * 100.0);
-    }
-    return `${n * 100.0}%`;
-  }});
+export ValueType progressPercentage = valueType(object {
+  test: percent.test,
+  parse: (JsValue v) => asNum(percent.parse(v)) / 100.0,
+  transform: (JsValue v) => percent.transform(asNum(v) * 100.0)
+});

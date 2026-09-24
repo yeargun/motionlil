@@ -1,24 +1,10 @@
-class MemoCell<T> {
-  bool hasResult;
-  T? stored;
-
-  init() {
-    this.hasResult = false;
-    this.stored = null;
-  }
-}
-
 export func()->T memo<T>(func()->T callback) {
-  MemoCell<T> cell = new MemoCell<T>();
+  T? result = null;
   return () => {
-    if (!cell.hasResult) {
-      cell.stored = callback();
-      cell.hasResult = true;
+    if (result == null) {
+      result = callback();
     }
-    T? value = cell.stored;
-    if (value != null) {
-      return value;
-    }
-    return callback();
+    T value = JS.assume(result);
+    return value;
   };
 }

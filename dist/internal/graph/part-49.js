@@ -1,15 +1,13 @@
-function _(vk, wk, xk, yk, zk, Ak, Bk, Ck, Dk, Ek, Fk) {
-  vk.keyframes = wk;
-  vk.stiffness = xk;
-  vk.damping = yk;
-  vk.mass = zk;
-  vk.velocity = Ak;
-  vk.duration = Bk;
-  vk.bounce = Ck;
-  vk.visualDuration = Dk;
-  vk.restSpeed = Ek;
-  vk.restDelta = Fk;
-}
+import { hslaToRgba } from "./part-41.js";
+import { Aa } from "./part-44.js";
+import { Y } from "./part-444.js";
+import { Da } from "./part-462.js";
+let Ca = (a) => {
+  let b = Aa(Da, a);
+  if (!b) return null;
+  let c = b.parse(a);
+  return b === Y ? hslaToRgba(c) : c;
+};
 export {
-  _
+  Ca
 };

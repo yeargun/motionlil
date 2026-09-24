@@ -2,15 +2,14 @@ import { microtask } from "../frameloop/microtask";
 import { FrameData } from "../frameloop/types";
 import { startViewAnimation } from "./start";
 import { removeItem } from "../../motion-utils/array";
-import { callMethod1, callFn0, isFunction } from "../dom-host";
 
 JsValue[] builders = [];
-JsValue? current = null;
+JsValue current = null;
 
 void next() {
   current = null;
-  if (builders.length > 0) {
-    JsValue nextBuilder = builders[0];
+  JsValue nextBuilder = builders[0];
+  if (nextBuilder.truthy()) {
     start(nextBuilder);
   }
 }
@@ -18,56 +17,34 @@ void next() {
 void start(JsValue builder) {
   removeItem(builders, builder);
   current = builder;
-  Task<JsValue> animationTask = startViewAnimation(builder);
-  animationTask
-    .then((JsValue animation) => {
-      callMethod1(builder, "notifyReady", animation);
-      return animation["finished"];
-    })
-    .catch((JsValue error) => {
-      callMethod1(builder, "notifyReject", error);
-      return null;
-    })
-    .finally(() => {
-      next();
-    });
+  // A failed transition rejects the builder; either way the queue advances.
+  JsValue started = JS.invoke(startViewAnimation(builder), "then", (JsValue animation) => {
+    JS.invoke(builder, "notifyReady", animation);
+    return animation["finished"];
+  });
+  JsValue settled = JS.invoke(started, "catch", (JsValue error) => JS.invoke(builder, "notifyReject", error));
+  JS.invoke(settled, "finally", next);
 }
 
+// An interrupting builder takes over every builder queued before it, batching
+// their updates into its own.
 void processQueue(FrameData _data) {
   for (int i = builders.length - 1; i >= 0; i--) {
     JsValue builder = builders[i];
-    JsValue interrupt = builder["options"]["interrupt"];
-    if (interrupt == "immediate") {
-      (func()->void)[] batchedUpdates = [];
-      for (int j = 0; j <= i; j++) {
-        JsValue update = builders[j]["update"];
-        if (isFunction(update)) {
-          batchedUpdates.push(() => {
-            callFn0(update);
-          });
-        }
-      }
+    if (builder["options"]["interrupt"] == "immediate") {
+      JsValue[] batchedUpdates = builders.slice(0, i + 1).map((JsValue b) => b["update"]);
       JsValue[] remaining = builders.slice(i + 1);
       builder["update"] = () => {
-        for (int k = 0; k < batchedUpdates.length; k++) {
-          batchedUpdates[k]();
-        }
+        batchedUpdates.forEach((JsValue update) => {
+          JS.call(update, JS.undefined());
+        });
       };
-      JsValue[] nextBuilders = [builder];
-      for (int r = 0; r < remaining.length; r++) {
-        nextBuilders.push(remaining[r]);
-      }
-      builders = nextBuilders;
+      builders = [builder, ...remaining];
       break;
     }
   }
-  bool shouldAdvance = current == null;
-  if (!shouldAdvance && builders.length > 0) {
-    if (builders[0]["options"]["interrupt"] == "immediate") {
-      shouldAdvance = true;
-    }
-  }
-  if (shouldAdvance) {
+  JsValue first = builders[0];
+  if (!current.truthy() || (first.truthy() && first["options"]["interrupt"] == "immediate")) {
     next();
   }
 }

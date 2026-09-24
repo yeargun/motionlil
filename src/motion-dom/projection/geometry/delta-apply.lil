@@ -5,9 +5,7 @@ import { hasTransform } from "../utils/has-transform";
 extern float parseFloat(string value);
 
 export float scalePoint(float point, float scale, float originPoint) {
-  float distanceFromOrigin = point - originPoint;
-  float scaled = scale * distanceFromOrigin;
-  return originPoint + scaled;
+  return originPoint + scale * (point - originPoint);
 }
 
 export float applyPointDelta(
@@ -17,11 +15,10 @@ export float applyPointDelta(
   float originPoint,
   float? boxScale = null
 ) {
-  float result = point;
   if (boxScale != null) {
-    result = scalePoint(result, boxScale, originPoint);
+    point = scalePoint(point, boxScale, originPoint);
   }
-  return scalePoint(result, scale, originPoint) + translate;
+  return scalePoint(point, scale, originPoint) + translate;
 }
 
 export void applyAxisDelta(
@@ -40,12 +37,9 @@ export void applyBoxDelta(Box box, Delta delta) {
   applyAxisDelta(box.y, delta.y.translate, delta.y.scale, delta.y.originPoint);
 }
 
-float TREE_SCALE_SNAP_MIN = 0.999999999999;
-float TREE_SCALE_SNAP_MAX = 1.0000000000001;
-
 export void translateAxis(Axis axis, float distance) {
-  axis.min = axis.min + distance;
-  axis.max = axis.max + distance;
+  axis.min += distance;
+  axis.max += distance;
 }
 
 export void transformAxis(
@@ -53,70 +47,25 @@ export void transformAxis(
   float? axisTranslate = null,
   float? axisScale = null,
   float? boxScale = null,
-  float axisOrigin = 0.5
+  float? axisOrigin = null
 ) {
-  float originPoint = mixNumber(axis.min, axis.max, axisOrigin);
-  float translate = 0.0;
-  float scale = 1.0;
-  if (axisTranslate != null) {
-    translate = axisTranslate;
-  }
-  if (axisScale != null) {
-    scale = axisScale;
-  }
-  applyAxisDelta(axis, translate, scale, originPoint, boxScale);
+  applyAxisDelta(axis, axisTranslate ?? 0.0, axisScale ?? 1.0, mixNumber(axis.min, axis.max, axisOrigin ?? 0.5), boxScale);
 }
 
-float? resolveAxisTranslate(JsValue? value, Axis axis) {
-  if (value == null) {
-    return null;
-  }
+float? resolveAxisTranslate(JsValue value, Axis axis) {
   if (value is string) {
     return (parseFloat(value) / 100.0) * (axis.max - axis.min);
   }
-  if (value is float) {
-    return value;
-  }
-  return null;
+  return JS.assume(value);
 }
 
-float? asFloat(JsValue? value) {
-  if (value == null) {
-    return null;
-  }
-  if (value is float) {
-    return value;
-  }
-  return null;
+export void transformBox(Box box, JsValue transform, Box? sourceBox = null) {
+  Box resolveBox = sourceBox ?? box;
+  transformAxis(box.x, resolveAxisTranslate(transform["x"], resolveBox.x), JS.assume(transform["scaleX"]), JS.assume(transform["scale"]), JS.assume(transform["originX"]));
+  transformAxis(box.y, resolveAxisTranslate(transform["y"], resolveBox.y), JS.assume(transform["scaleY"]), JS.assume(transform["scale"]), JS.assume(transform["originY"]));
 }
 
-export void transformBox(
-  Box box,
-  Record<JsValue> transform,
-  Box? sourceBox = null
-) {
-  Box resolveBox = box;
-  if (sourceBox != null) {
-    resolveBox = sourceBox;
-  }
-  float ox = asFloat(transform.originX) ?? 0.5;
-  float oy = asFloat(transform.originY) ?? 0.5;
-  transformAxis(
-    box.x,
-    resolveAxisTranslate(transform.x, resolveBox.x),
-    asFloat(transform.scaleX),
-    asFloat(transform.scale),
-    ox
-  );
-  transformAxis(
-    box.y,
-    resolveAxisTranslate(transform.y, resolveBox.y),
-    asFloat(transform.scaleY),
-    asFloat(transform.scale),
-    oy
-  );
-}
-
+// Kept for callers that still name the tree node type; the tree walk reads nodes as upstream shapes.
 export class ProjectionTreeNode {
   Delta? projectionDelta;
   JsValue? options;
@@ -135,86 +84,51 @@ export class ProjectionTreeNode {
   }
 }
 
-bool isDisplayContents(JsValue? options) {
-  if (options == null) {
-    return false;
-  }
-  JsValue opts = options;
-  JsValue visualElement = opts["visualElement"];
-  if (!visualElement.truthy()) {
-    return false;
-  }
-  JsValue props = visualElement["props"];
-  if (!props.truthy()) {
-    return false;
-  }
-  JsValue style = props["style"];
-  if (!style.truthy()) {
-    return false;
-  }
-  JsValue display = style["display"];
-  if (display is string) {
-    return display == "contents";
-  }
-  return false;
-}
-
 export void applyTreeDeltas(
   Box box,
   Point treeScale,
-  ProjectionTreeNode[] treePath,
+  JsValue treePath,
   bool isSharedTransition = false
 ) {
-  int treeLength = treePath.length;
+  int treeLength = JS.assume(treePath["length"]);
   if (treeLength == 0) {
     return;
   }
-
   treeScale.x = 1.0;
   treeScale.y = 1.0;
-
   for (int i = 0; i < treeLength; i++) {
-    ProjectionTreeNode node = treePath[i];
-    Delta? delta = node.projectionDelta;
-
-    if (isDisplayContents(node.options)) {
-      continue;
-    }
-
-    if (isSharedTransition && node.options != null && node.scroll != null && !node.isRoot) {
-      JsValue optionsVal = node.options;
-      JsValue scrollVal = node.scroll;
-      JsValue layoutScroll = optionsVal["layoutScroll"];
-      if (layoutScroll.truthy()) {
-        JsValue offset = scrollVal["offset"];
-        if (offset.truthy()) {
-          JsValue ox = offset["x"];
-          JsValue oy = offset["y"];
-          if (ox is float) {
-            translateAxis(box.x, 0.0 - ox);
-          }
-          if (oy is float) {
-            translateAxis(box.y, 0.0 - oy);
-          }
-        }
+    JsValue node = treePath[i];
+    JsValue options = node["options"];
+    JsValue visualElement = options["visualElement"];
+    if (visualElement.truthy()) {
+      JsValue style = visualElement["props"]["style"];
+      if (style.truthy() && JS.strictEqual(style["display"], "contents")) {
+        continue;
       }
     }
-
-    if (delta != null) {
-      treeScale.x = treeScale.x * delta.x.scale;
-      treeScale.y = treeScale.y * delta.y.scale;
-      applyBoxDelta(box, delta);
+    JsValue scroll = node["scroll"];
+    if (isSharedTransition && options["layoutScroll"].truthy() && scroll.truthy() && !JS.strictEqual(node, node["root"])) {
+      Point offset = JS.assume(scroll["offset"]);
+      translateAxis(box.x, -offset.x);
+      translateAxis(box.y, -offset.y);
     }
-
-    if (isSharedTransition && hasTransform(node.latestValues)) {
-      transformBox(box, node.latestValues, node.layoutBox);
+    JsValue delta = node["projectionDelta"];
+    if (delta.truthy()) {
+      Delta nodeDelta = JS.assume(delta);
+      treeScale.x *= nodeDelta.x.scale;
+      treeScale.y *= nodeDelta.y.scale;
+      applyBoxDelta(box, nodeDelta);
+    }
+    JsValue latestValues = node["latestValues"];
+    if (isSharedTransition && hasTransform(latestValues)) {
+      JsValue layout = node["layout"];
+      transformBox(box, latestValues, JS.assume(JS.and(layout, layout["layoutBox"])));
     }
   }
-
-  if (treeScale.x < TREE_SCALE_SNAP_MAX && treeScale.x > TREE_SCALE_SNAP_MIN) {
+  if (treeScale.x < 1.0000000000001 && treeScale.x > 0.999999999999) {
     treeScale.x = 1.0;
   }
-  if (treeScale.y < TREE_SCALE_SNAP_MAX && treeScale.y > TREE_SCALE_SNAP_MIN) {
+  if (treeScale.y < 1.0000000000001 && treeScale.y > 0.999999999999) {
     treeScale.y = 1.0;
   }
 }

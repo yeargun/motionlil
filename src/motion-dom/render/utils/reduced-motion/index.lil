@@ -1,15 +1,22 @@
-import { addMatchMediaListener, hasWindow, matchMediaMatches } from "../../../dom-host";
 import { hasReducedMotionListener, prefersReducedMotion } from "./state";
+import { window } from "../../host-views";
 
 export void initPrefersReducedMotion() {
   hasReducedMotionListener.current = true;
-  if (!hasWindow()) {
+  if (JS.typeOf(window) == "undefined") {
     return;
   }
-  prefersReducedMotion.current = matchMediaMatches("(prefers-reduced-motion)");
-  addMatchMediaListener("(prefers-reduced-motion)", () => {
-    prefersReducedMotion.current = matchMediaMatches("(prefers-reduced-motion)");
-  });
+  JsValue matchMedia = window["matchMedia"];
+  if (matchMedia.truthy()) {
+    JsValue motionMediaQuery = JS.invoke(window, "matchMedia", "(prefers-reduced-motion)");
+    func()->void setReducedMotionPreferences = () => {
+      prefersReducedMotion.current = JS.assume(motionMediaQuery["matches"]);
+    };
+    JS.invoke(motionMediaQuery, "addEventListener", "change", setReducedMotionPreferences);
+    setReducedMotionPreferences();
+  } else {
+    prefersReducedMotion.current = false;
+  }
 }
 
 export { prefersReducedMotion, hasReducedMotionListener };

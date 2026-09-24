@@ -1,6 +1,5 @@
-export float wrap(float min, float max, float v) {
+export func(float, float, float)->float wrap = (float min, float max, float v) => {
   float rangeSize = max - min;
-  float offset = v - min;
-  float mod = offset - (offset / rangeSize).floor() * rangeSize;
-  return ((mod + rangeSize) - ((mod + rangeSize) / rangeSize).floor() * rangeSize) + min;
-}
+  float wrapped = JS.assume(JS.mod(JS.add(JS.mod(v - min, rangeSize), rangeSize), rangeSize));
+  return wrapped + min;
+};

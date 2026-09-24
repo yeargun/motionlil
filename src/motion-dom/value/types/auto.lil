@@ -1,8 +1,6 @@
-import { ValueType, valueTypeRecord } from "./types";
+import { ValueType, valueType } from "./types";
 
-export ValueType autoType = valueTypeRecord(object{test: (JsValue v) => {
-    if (v is string) {
-      return v == "auto";
-    }
-    return false;
-  }, parse: (JsValue v) => v});
+export ValueType autoType = valueType(object {
+  test: (JsValue v) => v == "auto",
+  parse: (JsValue v) => v
+});

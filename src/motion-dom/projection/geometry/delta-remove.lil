@@ -12,110 +12,61 @@ export float removePointDelta(
   float originPoint,
   float? boxScale = null
 ) {
-  float result = point - translate;
-  result = scalePoint(result, 1.0 / scale, originPoint);
+  point = scalePoint(point - translate, 1.0 / scale, originPoint);
   if (boxScale != null) {
-    result = scalePoint(result, 1.0 / boxScale, originPoint);
+    point = scalePoint(point, 1.0 / boxScale, originPoint);
   }
-  return result;
+  return point;
 }
 
 export void removeAxisDelta(
   Axis axis,
-  JsValue? translate = 0.0,
-  float scale = 1.0,
-  float origin = 0.5,
+  JsValue translate = 0.0,
+  float? scale = null,
+  float? origin = null,
   float? boxScale = null,
   Axis? originAxis = null,
   Axis? sourceAxis = null
 ) {
-  bool sameOrigin = originAxis == null;
-  Axis originAx = axis;
-  if (originAxis != null) {
-    originAx = originAxis;
+  Axis originAx = originAxis ?? axis;
+  Axis sourceAx = sourceAxis ?? axis;
+  if (JS.isUndefined(translate)) {
+    translate = 0.0;
   }
-  Axis sourceAx = axis;
-  if (sourceAxis != null) {
-    sourceAx = sourceAxis;
+  if (percent.test(translate)) {
+    translate = mixNumber(sourceAx.min, sourceAx.max, parseFloat(JS.assume(translate)) / 100.0) - sourceAx.min;
   }
-
-  float translateNum = 0.0;
-  if (translate != null) {
-    if (percent.test(translate)) {
-      if (translate is string) {
-        float pct = parseFloat(translate);
-        float relativeProgress = mixNumber(sourceAx.min, sourceAx.max, pct / 100.0);
-        translateNum = relativeProgress - sourceAx.min;
-      }
-    } else {
-      if (translate is float) {
-        translateNum = translate;
-      } else {
-        return;
-      }
-    }
+  if (!(translate is float)) {
+    return;
   }
-
-  float originPoint = mixNumber(originAx.min, originAx.max, origin);
-  if (sameOrigin) {
-    originPoint = originPoint - translateNum;
+  float distance = JS.assume(translate);
+  float originPoint = mixNumber(originAx.min, originAx.max, origin ?? 0.5);
+  if (axis == originAx) {
+    originPoint -= distance;
   }
-
-  axis.min = removePointDelta(axis.min, translateNum, scale, originPoint, boxScale);
-  axis.max = removePointDelta(axis.max, translateNum, scale, originPoint, boxScale);
-}
-
-float? asFloat(JsValue? value) {
-  if (value == null) {
-    return null;
-  }
-  if (value is float) {
-    return value;
-  }
-  return null;
+  axis.min = removePointDelta(axis.min, distance, scale ?? 1.0, originPoint, boxScale);
+  axis.max = removePointDelta(axis.max, distance, scale ?? 1.0, originPoint, boxScale);
 }
 
 export void removeAxisTransforms(
   Axis axis,
-  Record<JsValue> transforms,
-  string key,
-  string scaleKey,
-  string originKey,
+  JsValue transforms,
+  string[] keys,
   Axis? origin = null,
   Axis? sourceAxis = null
 ) {
-  float scale = asFloat(transforms[scaleKey]) ?? 1.0;
-  float originVal = asFloat(transforms[originKey]) ?? 0.5;
-  float boxScale = asFloat(transforms.scale) ?? 1.0;
-  removeAxisDelta(
-    axis,
-    transforms[key],
-    scale,
-    originVal,
-    boxScale,
-    origin,
-    sourceAxis
-  );
+  removeAxisDelta(axis, transforms[keys[0]], JS.assume(transforms[keys[1]]), JS.assume(transforms[keys[2]]), JS.assume(transforms["scale"]), origin, sourceAxis);
 }
+
+string[] xKeys = ["x", "scaleX", "originX"];
+string[] yKeys = ["y", "scaleY", "originY"];
 
 export void removeBoxTransforms(
   Box box,
-  Record<JsValue> transforms,
+  JsValue transforms,
   Box? originBox = null,
   Box? sourceBox = null
 ) {
-  Axis? ox = null;
-  Axis? oy = null;
-  Axis? sx = null;
-  Axis? sy = null;
-  if (originBox != null) {
-    ox = originBox.x;
-    oy = originBox.y;
-  }
-  if (sourceBox != null) {
-    sx = sourceBox.x;
-    sy = sourceBox.y;
-  }
-  removeAxisTransforms(box.x, transforms, "x", "scaleX", "originX", ox, sx);
-  removeAxisTransforms(box.y, transforms, "y", "scaleY", "originY", oy, sy);
+  removeAxisTransforms(box.x, transforms, xKeys, if (originBox != null) { originBox.x } else { null }, if (sourceBox != null) { sourceBox.x } else { null });
+  removeAxisTransforms(box.y, transforms, yKeys, if (originBox != null) { originBox.y } else { null }, if (sourceBox != null) { sourceBox.y } else { null });
 }

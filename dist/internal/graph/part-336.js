@@ -1,47 +1,76 @@
-import { identity as asVisualElement, identity as asWithPromise } from "./../motion-dom/cast-host.js";
-import { isFunction } from "./../motion-dom/dom-host.js";
-import { $b } from "./part-149.js";
-import { tc } from "./part-324.js";
-import { mb } from "./part-334.js";
-import { uc } from "./part-335.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let $h = (vk, Ck, Dk) => {
-  if (null == Dk) {
-    var Lk, Nk, wk, xk, Gk, Ek, Hk, yk, zk, Ak, Ik, Jk, Kk, Bk, Mk, Fk = {
-      __proto__: null
-    };
-  } else Fk = Dk;
-  Mk = asVisualElement(vk);
-  $b(Mk, "AnimationStart", Ck);
-  Promise.resolve(true);
-  if (Array.isArray(Ck)) {
-    for (Lk = [], Nk = Ck.length | 0, Ik = 0; Ik < Nk; Ik = Ik + 1) Lk.push(uc(vk, Ck[Ik], Fk));
-    wk = Promise.all(Lk).then((Dl) => true);
-    Ak = wk;
-  } else {
-    if ("string" == typeof Ck) {
-      xk = uc(vk, Ck, Fk);
-      zk = xk;
-    } else {
-      if (isFunction(Ck)) {
-        Gk = tc(vk, Ck, Fk.custom);
-        if (null != Gk) Jk = Gk;
-        else Jk = Ck;
-        Kk = Jk;
-      } else Kk = Ck;
-      for (Ek = mb(vk, Kk, Fk), Hk = [], Bk = 0; Bk < Ek.length; Bk = Bk + 1) Hk.push(asWithPromise(Ek[Bk]).getFinished());
-      yk = Promise.all(Hk).then((Dl) => true);
-      zk = yk;
+import { Kd } from "./part-155.js";
+import { p } from "./part-21.js";
+import { resolveTransition } from "./part-222.js";
+import { getValueTransition } from "./part-223.js";
+import { animateMotionValue } from "./part-322.js";
+import { setTarget } from "./part-332.js";
+import { addValueToWillChange } from "./part-334.js";
+import { getOptimisedAppearId } from "./part-335.js";
+import { y } from "./part-427.js";
+import { Cb } from "./part-478.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let animateTarget = function(a, b, c) {
+  let d = c || {}, e = d.delay ?? 0, f = b.transition, g = b.transitionEnd, h = a.props.transition;
+  f = f ? resolveTransition(f, h) : h;
+  let i = f ? f.reduceMotion : void 0, j = !!f && !!f.skipAnimations;
+  if (d.transitionOverride) f = d.transitionOverride;
+  let k = [], l = a.animationState, m = d.type && l ? l.getState()[d.type] : void 0, n = {};
+  for (let a2 in b) if (a2 != "transition" && a2 != "transitionEnd") n[a2] = b[a2];
+  let o = f ? f.path : void 0;
+  if (o) o.animateVisualElement(a, n, f, e, k);
+  for (let b2 in n) {
+    let u, t = a, c2 = Kd((u = a.latestValues[b2], t), b2, u, true), d2 = n[b2];
+    if (d2 === void 0) continue;
+    if (m) {
+      let a2 = m.needsAnimating, c3 = b2 in m.protectedKeys && a2[b2] !== true;
+      a2[b2] = false;
+      if (c3) continue;
     }
-    Ak = zk;
+    let g2 = Object.assign({
+      delay: e
+    }, getValueTransition(f || {}, b2));
+    if (j) g2.skipAnimations = true;
+    let h2 = c2.get();
+    if (h2 != null && !c2.isAnimating() && !Array.isArray(d2) && d2 === h2 && !g2.velocity) {
+      y.update((a2) => {
+        c2.set(d2);
+      }, false, false);
+      continue;
+    }
+    let l2 = false, o2 = p("MotionHandoffAnimation");
+    if (o2) {
+      let c3 = getOptimisedAppearId(a);
+      if (c3) {
+        let a2 = o2(c3, b2, y);
+        if (a2 !== null) {
+          g2.startTime = a2;
+          l2 = true;
+        }
+      }
+    }
+    addValueToWillChange(a, b2);
+    let r = i ?? a.shouldReduceMotion;
+    c2.start(animateMotionValue(b2, c2, d2, r && Cb.has(b2) ? {
+      type: false
+    } : g2, a, l2));
+    let s = c2.animation;
+    if (s) k.push(s);
   }
-  return Ak.then((Fl) => {
-    $b(Mk, "AnimationComplete", Ck);
-    return true;
-  });
+  if (g) {
+    let b2 = () => {
+      y.update((b3) => {
+        setTarget(a, g);
+      }, false, false);
+    };
+    if (k.length > 0) Promise.all(k).then((a2) => {
+      b2();
+      return true;
+    });
+    else b2();
+  }
+  return k;
 };
 export {
-  $h
+  animateTarget
 };

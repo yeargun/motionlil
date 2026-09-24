@@ -1,4 +1,6 @@
-let tk = 1.0000000000001;
+let jm = function(a, b) {
+  a.forEach(b);
+};
 export {
-  tk
+  jm
 };

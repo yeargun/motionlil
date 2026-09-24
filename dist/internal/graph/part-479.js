@@ -1,4 +1,4 @@
-var wa = new RegExp("-?(?:\\d+(?:\\.\\d+)?|\\.\\d+)", "gu");
+let Ib = /^-?(?:\d+(?:\.\d+)?|\.\d+)$/u;
 export {
-  wa
+  Ib
 };

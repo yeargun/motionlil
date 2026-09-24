@@ -1,6 +1,4 @@
-import { ec } from "./part-208.js";
-var _k;
-_k = ec;
+let ag = /^attr([A-Z])/;
 export {
-  _k
+  ag
 };

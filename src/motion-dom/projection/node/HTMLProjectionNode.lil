@@ -12,15 +12,15 @@ export class RootProjectionNodeRef {
 
 export RootProjectionNodeRef rootProjectionNode = new RootProjectionNodeRef();
 
-JsValue htmlProjectionConfig = record{
+JsValue htmlProjectionConfig = object{
   measureScroll: (JsValue instance) => {
-    return record{x: instance["scrollLeft"], y: instance["scrollTop"]};
+    return object{x: instance["scrollLeft"], y: instance["scrollTop"]};
   },
   defaultParent: () => {
     if (rootProjectionNode.current == null) {
-      DocumentProjectionNode documentNode = new DocumentProjectionNode(record{});
+      DocumentProjectionNode documentNode = new DocumentProjectionNode(object{});
       documentNode.mount(windowGet("self"));
-      documentNode.setOptions(record{layoutScroll: true});
+      documentNode.setOptions(object{layoutScroll: true});
       rootProjectionNode.current = documentNode.node;
     }
     return rootProjectionNode.current;
@@ -37,14 +37,11 @@ JsValue htmlProjectionConfig = record{
   }
 };
 
-func(JsValue)->ProjectionNode HTMLProjectionNodeCtor =
-  createProjectionNode(htmlProjectionConfig);
-
 export class HTMLProjectionNode {
   ProjectionNode node;
 
   init(JsValue options) {
-    this.node = HTMLProjectionNodeCtor(options);
+    this.node = createProjectionNode(htmlProjectionConfig)(options);
   }
 
   void mount(JsValue instance) {

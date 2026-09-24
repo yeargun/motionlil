@@ -1,9 +1,18 @@
-import { zd } from "./part-167.js";
-let Bd = (vk, wk) => {
-  if (!vk.startsWith(wk)) return null;
-  if (!vk.endsWith(")")) return null;
-  return zd(vk, wk.length, vk.length - 1);
+import { Kd } from "./part-155.js";
+import { Ab } from "./part-477.js";
+let be = (a) => {
+  let b = [];
+  Ab.forEach((c) => {
+    if (c != "x" && c != "y" && c != "z") {
+      let d = Kd(a, c, null, false);
+      if (d != null) {
+        b.push([c, d.get()]);
+        d.set(c.startsWith("scale") ? 1 : 0);
+      }
+    }
+  });
+  return b;
 };
 export {
-  Bd
+  be
 };

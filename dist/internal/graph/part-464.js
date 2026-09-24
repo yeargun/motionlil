@@ -1,8 +1,6 @@
-import { Ga } from "./part-30.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var $e = Ga(0.42, 0, 0.58, 1);
+import "./effect-499.js";
+import "./effect-573.js";
+let Ia = 2e4;
 export {
-  $e
+  Ia
 };

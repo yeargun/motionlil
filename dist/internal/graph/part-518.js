@@ -1,8 +1,5 @@
-import { weakMapCreate } from "./../motion-dom/weak-host.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var I = weakMapCreate();
+import { memo } from "./part-188.js";
+let gf = memo(() => typeof Element != "undefined" && "animate" in Element.prototype);
 export {
-  I
+  gf
 };

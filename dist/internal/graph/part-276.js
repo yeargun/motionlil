@@ -1,11 +1,7 @@
-import { ce } from "./part-275.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ra = (vk, wk) => {
-  ce(vk.x, wk.x);
-  ce(vk.y, wk.y);
+let Ig = (a, b = null) => {
+  if (b != null) return `${a}. For more information and steps for solving, visit https://motion.dev/troubleshooting/${b}`;
+  return a;
 };
 export {
-  ra
+  Ig
 };

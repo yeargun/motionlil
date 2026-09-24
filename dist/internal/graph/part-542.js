@@ -1,7 +1,8 @@
-import { supportsLinearEasingCheck } from "./../motion-dom/dom-host.js";
-import { Ha } from "./part-60.js";
-var jl;
-jl = Ha(() => supportsLinearEasingCheck());
+let bh = {
+  group: ["layout"],
+  new: ["new", "enter"],
+  old: ["old", "exit"]
+};
 export {
-  jl
+  bh
 };

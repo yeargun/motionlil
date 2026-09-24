@@ -1,6 +1,3 @@
 export bool isGenerator(JsValue type) {
-  if (!(type is float) && !(type is string) && !(type is bool) && type.truthy()) {
-    return type["applyToOptions"].truthy();
-  }
-  return false;
+  return JS.typeOf(type) == "function" && JS.in("applyToOptions", type);
 }

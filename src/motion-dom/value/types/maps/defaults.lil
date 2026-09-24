@@ -1,106 +1,35 @@
-import { degrees, px, progressPercentage } from "../numbers/units";
-import { alpha, scale } from "../numbers/index";
-import { intType } from "../int";
 import { color } from "../color/index";
 import { filter } from "../complex/filter";
 import { mask } from "../complex/mask";
-import { ValueType } from "../types";
-pure ValueType? valueTypeOf(JsValue value) { return JS.assume(value); }
+import { ValueType, asRec } from "../types";
+import extern { cast as asValueType } from "../cast.ts";
 
-export JsValue defaultValueTypes = object{
-  borderWidth: px,
-  borderTopWidth: px,
-  borderRightWidth: px,
-  borderBottomWidth: px,
-  borderLeftWidth: px,
-  borderRadius: px,
-  borderTopLeftRadius: px,
-  borderTopRightRadius: px,
-  borderBottomRightRadius: px,
-  borderBottomLeftRadius: px,
-  width: px,
-  maxWidth: px,
-  height: px,
-  maxHeight: px,
-  top: px,
-  right: px,
-  bottom: px,
-  left: px,
-  inset: px,
-  insetBlock: px,
-  insetBlockStart: px,
-  insetBlockEnd: px,
-  insetInline: px,
-  insetInlineStart: px,
-  insetInlineEnd: px,
-  padding: px,
-  paddingTop: px,
-  paddingRight: px,
-  paddingBottom: px,
-  paddingLeft: px,
-  paddingBlock: px,
-  paddingBlockStart: px,
-  paddingBlockEnd: px,
-  paddingInline: px,
-  paddingInlineStart: px,
-  paddingInlineEnd: px,
-  margin: px,
-  marginTop: px,
-  marginRight: px,
-  marginBottom: px,
-  marginLeft: px,
-  marginBlock: px,
-  marginBlockStart: px,
-  marginBlockEnd: px,
-  marginInline: px,
-  marginInlineStart: px,
-  marginInlineEnd: px,
-  fontSize: px,
-  backgroundPositionX: px,
-  backgroundPositionY: px,
-  rotate: degrees,
-  pathRotation: degrees,
-  rotateX: degrees,
-  rotateY: degrees,
-  rotateZ: degrees,
-  scale: scale,
-  scaleX: scale,
-  scaleY: scale,
-  scaleZ: scale,
-  skew: degrees,
-  skewX: degrees,
-  skewY: degrees,
-  distance: px,
-  translateX: px,
-  translateY: px,
-  translateZ: px,
-  x: px,
-  y: px,
-  z: px,
-  perspective: px,
-  transformPerspective: px,
-  opacity: alpha,
-  originX: progressPercentage,
-  originY: progressPercentage,
-  originZ: px,
-  zIndex: intType,
-  fillOpacity: alpha,
-  strokeOpacity: alpha,
-  numOctaves: intType,
-  color: color,
-  backgroundColor: color,
-  outlineColor: color,
-  fill: color,
-  stroke: color,
-  borderColor: color,
-  borderTopColor: color,
-  borderRightColor: color,
-  borderBottomColor: color,
-  borderLeftColor: color,
-  filter: filter,
-  WebkitFilter: filter,
-  mask: mask,
-  WebkitMask: mask
-};
+extern ValueType? asValueType(JsValue v);
+import { numberValueTypes } from "./number";
 
-export ValueType? getDefaultValueType(string key) { return valueTypeOf(defaultValueTypes[key]); }
+// Default value types for common values.
+export JsValue defaultValueTypes = Object.assign(
+  Object.assign(asRec(object {}), asRec(numberValueTypes)),
+  asRec(object {
+    // Color props
+    color: color,
+    backgroundColor: color,
+    outlineColor: color,
+    fill: color,
+    stroke: color,
+    // Border props
+    borderColor: color,
+    borderTopColor: color,
+    borderRightColor: color,
+    borderBottomColor: color,
+    borderLeftColor: color,
+    filter: filter,
+    WebkitFilter: filter,
+    mask: mask,
+    WebkitMask: mask
+  })
+);
+
+export ValueType? getDefaultValueType(string key) {
+  return asValueType(defaultValueTypes[key]);
+}

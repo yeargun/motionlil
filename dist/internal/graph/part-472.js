@@ -1,4 +1,8 @@
-var cf = new RegExp("var\\(--(?:[\\w-]+\\s*|[\\w-]+\\s*,(?:\\s*[^)(\\s]|\\s*\\((?:[^)(]|\\([^)(]*\\))*\\))+\\s*)\\)$", "iu");
+function dk(a) {
+  return function() {
+    return a(this);
+  };
+}
 export {
-  cf
+  dk
 };

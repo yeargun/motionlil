@@ -1,99 +1,42 @@
-import { Ma } from "./part-100.js";
-import { kd } from "./part-102.js";
-import { u } from "./part-17.js";
-import { oa } from "./part-38.js";
-let hg = (xk, yk) => {
-  var wk = 300, Kk = yk.duration;
-  if ("number" == typeof Kk) wk = Kk;
-  var Lk = yk.ease;
-  if (null == Lk) {
-    var Uk, Vk, Sk, Wk, Xk, Yk, Ok, zk, Zk, Ak, Bk, Pk, Tk, Ck, Dk, Mk, Qk, Ek, Rk, Fk, Gk, Hk, Ik, Jk, Nk = "easeInOut";
-  } else Nk = Lk;
-  if (Array.isArray(Nk)) {
-    Uk = !("number" == typeof Nk[0]);
-    Vk = Uk;
-  } else Vk = false;
-  Sk = yk.times;
-  if (Array.isArray(Sk)) {
-    Wk = (Sk.length | 0) == xk.length;
-    Xk = Wk;
-  } else Xk = false;
-  var vk = [];
-  for (Yk = [], Ok = [], Rk = 0; Rk < xk.length; Rk = Rk + 1) {
-    if (xk.length > 1) {
-      zk = Rk / (xk.length - 1);
-      Hk = zk;
-    } else Hk = 0;
-    if (Xk) {
-      Zk = Sk[Rk];
-      if ("number" == typeof Zk) Fk = Zk;
-      else Fk = Hk;
-      Gk = Fk;
-    } else Gk = Hk;
-    vk.push(Gk * wk);
-  }
-  if (vk.length > 1) {
-    Ak = vk[0] > vk[vk.length - 1];
-    Bk = Ak;
-  } else Bk = false;
-  if (Bk) {
-    Pk = [];
-    Tk = [];
-    Ck = xk.length - 1;
-    Ik = Ck;
-    while (Ik >= 0) {
-      Pk.push(vk[Ik]);
-      Tk.push(xk[Ik]);
-      Dk = Ik - 1;
-      Ik = Dk;
+import { translateAxis } from "./part-100.js";
+import { transformBox } from "./part-103.js";
+import { hasTransform } from "./part-95.js";
+import { applyBoxDelta } from "./part-99.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let applyTreeDeltas = function(a, b, c, d = false) {
+  let e = c.length;
+  if (e == 0) return;
+  b.x = 1;
+  b.y = 1;
+  for (let f = 0; f < e; ++f) {
+    let e2 = c[f], g = e2.options, h = g.visualElement;
+    if (h) {
+      let a2 = h.props.style;
+      if (a2 && a2.display === "contents") continue;
     }
-    vk = Pk;
-    xk = Tk;
-  }
-  for (Jk = 0; Jk < xk.length - 1; Jk = Jk + 1) {
-    Yk.push(Ma(xk[Jk])(xk[Jk], xk[Jk + 1]));
-    if (Vk) {
-      if (Jk < (Nk.length | 0)) Ok.push(kd(Nk[Jk]));
-      else Ok.push((Nm) => Nm);
-    } else Ok.push(kd(Nk));
-  }
-  var jm = xk[0];
-  Mk = {
-    value: null,
-    done: false
-  };
-  Mk.value = jm;
-  Mk.done = false;
-  Qk = (Um) => {
-    var Xm, Ym, Om, Wm = /* @__PURE__ */ u(vk[0], vk[vk.length - 1], Um), Vm = 0;
-    for (; ; ) {
-      if (Vm < vk.length - 2) {
-        Xm = Wm >= vk[Vm + 1];
-        Ym = Xm;
-      } else Ym = false;
-      if (!Ym) {
-        break;
-      }
-      Vm += 1;
+    let i = e2.scroll;
+    if (d && g.layoutScroll && i && e2 !== e2.root) {
+      let b2 = i.offset;
+      translateAxis(a.x, -b2.x);
+      translateAxis(a.y, -b2.y);
     }
-    if (1 == xk.length) Mk.value = xk[0];
-    else {
-      Om = Yk[Vm];
-      Mk.value = Om(Ok[Vm](/* @__PURE__ */ oa(vk[Vm], vk[Vm + 1], Wm)));
+    let j = e2.projectionDelta;
+    if (j) {
+      let c2 = j;
+      b.x = b.x * c2.x.scale;
+      b.y = b.y * c2.y.scale;
+      applyBoxDelta(a, c2);
     }
-    Mk.done = Um >= wk;
-    return Mk;
-  };
-  Ek = {
-    calculatedDuration: null,
-    next: null,
-    velocity: null
-  };
-  Ek.calculatedDuration = wk;
-  Ek.next = Qk;
-  Ek.velocity = null;
-  return Ek;
+    let k = e2.latestValues;
+    if (d && hasTransform(k)) {
+      let b2 = e2.layout;
+      transformBox(a, k, b2 && b2.layoutBox);
+    }
+  }
+  if (b.x < 1.0000000000001 && b.x > 0.999999999999) b.x = 1;
+  if (b.y < 1.0000000000001 && b.y > 0.999999999999) b.y = 1;
 };
 export {
-  hg
+  applyTreeDeltas
 };

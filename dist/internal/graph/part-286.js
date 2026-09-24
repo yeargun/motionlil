@@ -1,12 +1,13 @@
-import { pc } from "./part-285.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ie = (vk, wk) => {
-  let xk = null;
-  pc(vk.x, wk.x.translate, wk.x.scale, wk.x.originPoint, xk);
-  pc(vk.y, wk.y.translate, wk.y.scale, wk.y.originPoint, xk);
+import "./effect-499.js";
+import "./effect-573.js";
+let getViewAnimationLayerInfo = function(a) {
+  let b = a.match(/::view-transition-(old|new|group-children|group|image-pair)\((.*?)\)/);
+  if (b) return {
+    layer: b[2],
+    type: b[1]
+  };
+  return null;
 };
 export {
-  ie
+  getViewAnimationLayerInfo
 };

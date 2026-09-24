@@ -1,8 +1,6 @@
-var xk;
-xk = {
-  current: null
-};
-xk.current = null;
+import "./effect-499.js";
+import "./effect-573.js";
+let isObject = (a) => "object" == typeof a && a != null;
 export {
-  xk
+  isObject
 };

@@ -1,9 +1,4 @@
-var ia = /* @__PURE__ */ new Set();
-ia.add("BUTTON");
-ia.add("INPUT");
-ia.add("SELECT");
-ia.add("TEXTAREA");
-ia.add("A");
+let Ej = [[0, 0], [1, 1]];
 export {
-  ia
+  Ej
 };

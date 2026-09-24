@@ -1,15 +1,25 @@
-import { NativeAnimation } from "./NativeAnimation";
+import { NativeAnimation, nativeAnimationPrototype, nativeStateOf, nativeTime, AnimNativeState } from "./NativeAnimation";
+import { animClass, animCreate } from "./anim-host";
+
+// Upstream's NativeAnimationWrapper.prototype, which inherits NativeAnimation's.
+JsValue nativeWrapperPrototype = animCreate(nativeAnimationPrototype);
 
 export class NativeAnimationWrapper extends NativeAnimation {
   init(JsValue animation) {
-    super(null);
-    this.animation = animation;
+    super(null, nativeWrapperPrototype);
+    AnimNativeState state = nativeStateOf(this);
+    state.animation = JS.assume(animation);
     NativeAnimationWrapper self = this;
     animation["onfinish"] = () => {
-      self.finishedTime = self.getPlaybackTime();
+      state.finishedTime = nativeTime(state);
       self.notifyFinished();
     };
   }
 }
 
-export constructor NativeAnimationWrapper as NativeAnimationWrapperConstructor;
+// Upstream's public `NativeAnimationWrapper` class.
+export JsValue nativeAnimationWrapperConstructor = animClass(
+  (JsValue animation, JsValue _unused) => new NativeAnimationWrapper(animation),
+  nativeWrapperPrototype,
+  JS.object()
+);

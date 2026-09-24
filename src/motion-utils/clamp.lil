@@ -1,10 +1,2 @@
-export pure float clamp(float min, float max, float v) {
-  float result = v;
-  if (v > max) {
-    result = max;
-  }
-  if (v < min) {
-    result = min;
-  }
-  return result;
-}
+export func(float, float, float)->float clamp = (float min, float max, float v) =>
+  if (v > max) { max } else { if (v < min) { min } else { v } };

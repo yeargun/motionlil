@@ -1,8 +1,9 @@
-import { xk } from "./part-523.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var Ab = xk;
+import "./effect-499.js";
+import "./effect-573.js";
+let wrap = (a, b, c) => {
+  let d = b - a;
+  return ((c - a) % d + d) % d + a;
+};
 export {
-  Ab
+  wrap
 };

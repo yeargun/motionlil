@@ -1,37 +1,20 @@
-import { Sf } from "./part-53.js";
-import { bb } from "./part-54.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-class $m53$SubscriptionManager {
-  subscriptions = [];
-  constructor() {
-    this.subscriptions = [];
-  }
-  add(wk) {
-    Sf(this.subscriptions, wk);
-    return () => {
-      bb(this.subscriptions, wk);
+import { R } from "./part-29.js";
+import { V } from "./part-442.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let X = {
+  test: R("#"),
+  parse: function(a) {
+    let c = (b) => a.length > 5 ? a.slice((2 * b | 0) + 1 | 0, (2 * b | 0) + 3 | 0) : a.slice(b + 1 | 0, b + 2 | 0).repeat(2), d = c(3);
+    return {
+      red: parseInt(c(0), 16),
+      green: parseInt(c(1), 16),
+      blue: parseInt(c(2), 16),
+      alpha: d != "" ? parseInt(d, 16) / 255 : 1
     };
-  }
-  clear() {
-    this.subscriptions.length = 0;
-  }
-  getSize() {
-    return this.subscriptions.length;
-  }
-  notify(wk, xk, yk) {
-    var Ak = this.subscriptions.length;
-    if (0 == Ak) return;
-    if (1 == Ak) this.subscriptions[0](wk, xk, yk);
-    else {
-      var zk = 0;
-      for (; zk < Ak; zk = zk + 1) {
-        if (zk < this.subscriptions.length) this.subscriptions[zk](wk, xk, yk);
-      }
-    }
-  }
-}
+  },
+  transform: V.transform
+};
 export {
-  $m53$SubscriptionManager
+  X
 };

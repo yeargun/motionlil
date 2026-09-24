@@ -2,16 +2,28 @@
 preset = "maximum"
 
 [javascript]
-local_name_coalescing = false
-emit_pure_annotations = true
+# A dynamic member read runs no getter (Terser's pure_getters). Set in 8.79
+# together with the old emitter's member rematerialisation (-202 Brotli as a
+# pair); that key, `function_spelling` and `local_name_reserve` have no effect
+# in the one compiler and were removed with the rebuild of 2026-09-24.
+assume_pure_property_reads = true
 priority = "size-first"
-optimization_level = 0
+# origin/main (2026-09-11) built at level 0 with `local_name_coalescing = false`
+# and `emit_pure_annotations = true` for the old compiler. The one compiler
+# reports those two keys as having no effect, and level 15 is the size
+# objective this release is measured at.
+optimization_level = 15
 cost_model = "brotli"
-function_spelling = "arrow"
-local_name_reserve = 48
+# Motion runs against the platform's own builtins, as every other port here
+# declares: a class construction is then its literal (the store fold).
+assume_pristine_builtins = true
 
 [mangle]
 identifiers = true
 properties = true
-exports = false
 pool_strings = true
+
+[bundle]
+# The compiler lowers these host modules into the program, where
+# pruning, inlining and naming reach them.
+host_modules = "embed"

@@ -1,33 +1,61 @@
-export struct Point {
+export class Point {
   float x;
   float y;
+  init(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
-export struct Axis {
+export class Axis {
   float min;
   float max;
+  init(float min, float max) {
+    this.min = min;
+    this.max = max;
+  }
 }
 
-export struct Box {
+export class Box {
   Axis x;
   Axis y;
+  init(Axis x, Axis y) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
-export struct BoundingBox {
+export class BoundingBox {
   float top;
   float right;
   float bottom;
   float left;
+  init(float top, float right, float bottom, float left) {
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
+  }
 }
 
-export struct AxisDelta {
+export class AxisDelta {
   float translate;
   float scale;
   float origin;
   float originPoint;
+  init(float translate, float scale, float origin, float originPoint) {
+    this.translate = translate;
+    this.scale = scale;
+    this.origin = origin;
+    this.originPoint = originPoint;
+  }
 }
 
-export struct Delta {
+export class Delta {
   AxisDelta x;
   AxisDelta y;
+  init(AxisDelta x, AxisDelta y) {
+    this.x = x;
+    this.y = y;
+  }
 }

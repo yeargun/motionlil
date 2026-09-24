@@ -1,7 +1,7 @@
-import { Id } from "./part-180.js";
-let Qg = (vk) => {
-  if ("pending" == vk.state) Id(vk);
+import { qe } from "./part-178.js";
+let xe = (a) => {
+  if (a.state == "pending") qe(a);
 };
 export {
-  Qg
+  xe
 };

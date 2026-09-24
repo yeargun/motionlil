@@ -1,7 +1,8 @@
-var Ua = /* @__PURE__ */ new Set();
-Ua.add("originX");
-Ua.add("originY");
-Ua.add("originZ");
+let yj = {
+  start: 0,
+  center: 0.5,
+  end: 1
+};
 export {
-  Ua
+  yj
 };

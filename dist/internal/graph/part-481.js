@@ -1,5 +1,4 @@
-import { w } from "./part-473.js";
-var Mk = w.test;
+let Jb = /^0[^.\s]+$/u;
 export {
-  Mk
+  Jb
 };

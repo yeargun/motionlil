@@ -1,29 +1,10 @@
-let yh = (vk, Ck) => {
-  var Dk = vk[12].get(Ck);
-  if (!Dk) return false;
-  var wk = Dk.oldBox, Hk = Dk.newBox;
-  if (!wk) {
-    var Ek, Gk, Ik, xk, yk, zk, Ak, Bk, Fk = true;
-  } else {
-    Ek = !Hk;
-    Fk = Ek;
-  }
-  if (Fk) return false;
-  Gk = wk;
-  Ik = Hk;
-  if (0 == Gk.height) yk = true;
-  else {
-    xk = 0 == Ik.height;
-    yk = xk;
-  }
-  if (yk) return false;
-  zk = Gk.width / Gk.height - Ik.width / Ik.height;
-  if (zk < 0) {
-    Ak = 0 - zk;
-    Bk = Ak;
-  } else Bk = zk;
-  return Bk > 0.2;
+import { interpolate } from "./part-261.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let transform = function(a, b, c = null, d = null) {
+  let e = !Array.isArray(a), f = e ? interpolate(b, c, d) : interpolate(a, b, c);
+  return e ? f(a) : f;
 };
 export {
-  yh
+  transform
 };

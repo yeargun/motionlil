@@ -1,3 +1,1 @@
-export bool isBezierDefinition(JsValue easing) {
-  return easing.isArray() && (easing[0] is float);
-}
+export func(JsValue)->bool isBezierDefinition = (JsValue easing) => easing.isArray() && (easing[0] is float);

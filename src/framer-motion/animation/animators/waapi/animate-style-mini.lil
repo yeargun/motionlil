@@ -1,2 +1,2 @@
-import { createScopedWaapiAnimate, animateMini } from "./animate-style";
-export { createScopedWaapiAnimate, animateMini };
+import { animateMini } from "./animate-style";
+export { animateMini };

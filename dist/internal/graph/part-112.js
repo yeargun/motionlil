@@ -1,12 +1,9 @@
-import { l } from "./part-0.js";
-let jg = (vk) => {
-  if ("number" == typeof vk) return true;
-  if ("string" == typeof vk) {
-    var wk = l(vk);
-    return wk == wk;
-  }
-  return false;
+import { nc } from "./part-117.js";
+let hc = (a, b) => {
+  let c = a.passiveEffect;
+  if (!c) nc(a, b);
+  else c(b, (b2) => nc(a, b2));
 };
 export {
-  jg
+  hc
 };

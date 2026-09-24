@@ -1,35 +1,26 @@
-import { isFunction, documentScrollingElement, documentElement, documentGet } from "../../../../motion-dom/dom-host";
 import { attachToAnimation } from "./attach-animation";
 import { attachToFunction } from "./attach-function";
+import { document } from "./types";
 
-export func()->void scroll(JsValue onScroll, JsValue? options = null) {
-  string axis = "y";
-  JsValue container = documentScrollingElement();
-  JsValue resolved = record{};
-
-  if (options != null && options.isObject()) {
-    for (string k in options) {
-      resolved[k] = options[k];
-    }
-    JsValue axisVal = options["axis"];
-    if (axisVal is string) {
-      axis = axisVal;
-    }
-    JsValue c = options["container"];
-    if (c != null) {
-      container = c;
-    }
+export func()->void scroll(JsValue onScroll, JsValue options = JS.undefined()) {
+  JsValue resolved = JS.or(options, JS.object());
+  JsValue axis = resolved["axis"];
+  JsValue container = resolved["container"];
+  if (JS.isUndefined(container)) {
+    container = document["scrollingElement"];
   }
-
-  if (container == null) {
+  if (!container.truthy()) {
     return () => {};
   }
-
-  resolved["axis"] = axis;
-  resolved["container"] = container;
-
-  if (isFunction(onScroll)) {
-    return attachToFunction(onScroll, resolved);
+  JsValue optionsWithDefaults = object{axis: if (JS.isUndefined(axis)) { "y" } else { axis }, container: container};
+  for (string key in resolved) {
+    if (key != "axis" && key != "container") {
+      optionsWithDefaults[key] = resolved[key];
+    }
   }
-  return attachToAnimation(onScroll, resolved);
+  return if (JS.typeOf(onScroll) == "function") {
+    attachToFunction(onScroll, optionsWithDefaults)
+  } else {
+    attachToAnimation(onScroll, optionsWithDefaults)
+  };
 }

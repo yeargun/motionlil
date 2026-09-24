@@ -1,10 +1,7 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Wj = (vk) => {
-  let wk = vk("x");
-  return [wk, vk("y")];
+let wi = (a, b, c) => {
+  let d = a[b];
+  return d ? `${c}(${d}deg) ` : "";
 };
 export {
-  Wj
+  wi
 };

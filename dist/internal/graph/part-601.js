@@ -1,4 +1,0 @@
-var Lc = [];
-export {
-  Lc
-};

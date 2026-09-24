@@ -9,23 +9,14 @@ export class SubscriptionManager {
 
   func()->void add(func(JsValue?, JsValue?, JsValue?)->void handler) {
     addUniqueItem(this.subscriptions, handler);
-    return () => {
-      removeItem(this.subscriptions, handler);
-    };
+    return () => removeItem(this.subscriptions, handler);
   }
 
-  void notify(JsValue? a, JsValue? b, JsValue? c) {
+  void notify(JsValue? a = JS.undefined(), JsValue? b = JS.undefined(), JsValue? c = JS.undefined()) {
     int numSubscriptions = this.subscriptions.length;
-    if (numSubscriptions == 0) {
-      return;
-    }
-    if (numSubscriptions == 1) {
-      this.subscriptions[0](a, b, c);
-    } else {
-      for (int i = 0; i < numSubscriptions; i++) {
-        if (i < this.subscriptions.length) {
-          this.subscriptions[i](a, b, c);
-        }
+    for (int i = 0; i < numSubscriptions; i++) {
+      if (i < this.subscriptions.length) {
+        this.subscriptions[i](a, b, c);
       }
     }
   }
@@ -35,7 +26,6 @@ export class SubscriptionManager {
   }
 
   void clear() {
-    JsValue subscriptions = this.subscriptions;
-    subscriptions["length"] = 0;
+    this.subscriptions = [];
   }
 }

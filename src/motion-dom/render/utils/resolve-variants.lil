@@ -1,51 +1,35 @@
-import { callFn3, callMethod0, isFunction } from "../../dom-host";
+import { VisualElement } from "../VisualElement";
+import { RHMap } from "../host-views";
 
-JsValue[] getValueState(JsValue? visualElement = null) {
-  JsValue current = record{};
-  JsValue velocity = record{};
-  if (visualElement != null) {
-    JsValue values = visualElement["values"];
-    if (values.isObject()) {
-      for (string key in values) {
-        JsValue value = values[key];
-        current[key] = callMethod0(value, "get");
-        velocity[key] = callMethod0(value, "getVelocity");
-      }
-    }
+JsValue callVariant(JsValue definition, JsValue props, JsValue custom, JsValue visualElement) {
+  JsValue current = JS.object();
+  JsValue velocity = JS.object();
+  if (visualElement.truthy()) {
+    RHMap values = JS.assume(visualElement["values"]);
+    values.forEach((JsValue value, string key) => {
+      current[key] = JS.invoke(value, "get");
+      velocity[key] = JS.invoke(value, "getVelocity");
+    });
   }
-  return [current, velocity];
+  func(JsValue, JsValue, JsValue)->JsValue resolve = JS.assume(definition);
+  return resolve(if (JS.isUndefined(custom)) { props["custom"] } else { custom }, current, velocity);
 }
 
 export JsValue? resolveVariantFromProps(
   JsValue props,
-  JsValue? definition = null,
-  JsValue? custom = null,
-  JsValue? visualElement = null
+  JsValue definition = JS.undefined(),
+  JsValue custom = JS.undefined(),
+  JsValue visualElement = JS.undefined()
 ) {
-  JsValue? resolved = definition;
-  if (resolved != null && isFunction(resolved)) {
-    JsValue[] state = getValueState(visualElement);
-    JsValue customArg = custom;
-    if (customArg == null) {
-      customArg = props["custom"];
-    }
-    resolved = callFn3(resolved, customArg, state[0], state[1]);
+  if (JS.typeOf(definition) == "function") {
+    definition = callVariant(definition, props, custom, visualElement);
   }
-  if (resolved is string) {
+  if (definition is string) {
     JsValue variants = props["variants"];
-    if (variants.isObject()) {
-      resolved = variants[resolved];
-    } else {
-      resolved = null;
-    }
+    definition = JS.and(variants, variants[definition]);
   }
-  if (resolved != null && isFunction(resolved)) {
-    JsValue[] state = getValueState(visualElement);
-    JsValue customArg = custom;
-    if (customArg == null) {
-      customArg = props["custom"];
-    }
-    resolved = callFn3(resolved, customArg, state[0], state[1]);
+  if (JS.typeOf(definition) == "function") {
+    definition = callVariant(definition, props, custom, visualElement);
   }
-  return resolved;
+  return definition;
 }

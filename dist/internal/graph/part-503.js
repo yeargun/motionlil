@@ -1,8 +1,4 @@
-var ya = /* @__PURE__ */ new Set();
-ya.add("brightness");
-ya.add("contrast");
-ya.add("saturate");
-ya.add("opacity");
+let id = ["AnimationStart", "AnimationComplete", "Update", "BeforeLayoutMeasure", "LayoutMeasure", "LayoutAnimationStart", "LayoutAnimationComplete"];
 export {
-  ya
+  id
 };

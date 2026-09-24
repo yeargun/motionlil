@@ -1,10 +1,7 @@
-let Q = (vk, wk, yk) => {
-  if (!("object" == typeof vk)) return yk;
-  var xk = vk[wk];
-  if ("number" == typeof xk) return xk;
-  if ("string" == typeof xk) return parseFloat(xk);
-  return yk;
+let Fb = (a, b, c, d) => {
+  let e = a.subscriptions.length;
+  for (let f = 0; f < e; ++f) if (f < a.subscriptions.length) a.subscriptions[f](b, c, d);
 };
 export {
-  Q
+  Fb
 };

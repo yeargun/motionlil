@@ -1,86 +1,48 @@
 import { FrameData, Step } from "./types";
-import extern { weakSetCreate, weakSetAdd, weakSetHas, weakSetDelete, setForEach } from "../weak-host.ts";
-pure extern JsValue weakSetCreate();
-extern void weakSetAdd(JsValue set, JsValue value);
-extern bool weakSetHas(JsValue set, JsValue value);
-extern void weakSetDelete(JsValue set, JsValue value);
-extern void setForEach(Set<func(FrameData)->void> set, func(func(FrameData)->void)->void callback);
 
-class StepState {
-  Set<func(FrameData)->void> thisFrame;
-  Set<func(FrameData)->void> nextFrame;
-  bool isProcessing;
-  bool flushNextFrame;
-  JsValue toKeepAlive;
-  FrameData latestFrameData;
-  Step? stepRef;
-
-  init() {
-    this.thisFrame = new Set<func(FrameData)->void>();
-    this.nextFrame = new Set<func(FrameData)->void>();
-    this.isProcessing = false;
-    this.flushNextFrame = false;
-    this.toKeepAlive = weakSetCreate();
-    this.latestFrameData = new FrameData();
-    this.stepRef = null;
-  }
-}
-
-export pure Step createRenderStep(func()->void runNextFrame) {
-  StepState state = new StepState();
-
-  func(func(FrameData)->void)->void triggerCallback = (func(FrameData)->void callback) => {
-    if (weakSetHas(state.toKeepAlive, callback)) {
-      Step? step = state.stepRef;
-      if (step != null) {
-        step.schedule(callback, false, false);
-      }
-      runNextFrame();
-    }
-    callback(state.latestFrameData);
-  };
-
-  func(FrameData)->void processFn = (FrameData frameData) => {
-    state.latestFrameData = frameData;
-    if (state.isProcessing) {
-      state.flushNextFrame = true;
+export Step createRenderStep(func()->void runNextFrame) {
+  Set<func(FrameData)->void> thisFrame = new Set<func(FrameData)->void>();
+  Set<func(FrameData)->void> nextFrame = new Set<func(FrameData)->void>();
+  Set<func(FrameData)->void> toKeepAlive = new Set<func(FrameData)->void>();
+  bool isProcessing = false;
+  bool flushNextFrame = false;
+  FrameData latestFrameData = new FrameData();
+  func(FrameData)->void process = (FrameData frameData) => {
+    latestFrameData = frameData;
+    if (isProcessing) {
+      flushNextFrame = true;
       return;
     }
-    state.isProcessing = true;
-    Set<func(FrameData)->void> prevFrame = state.thisFrame;
-    state.thisFrame = state.nextFrame;
-    state.nextFrame = prevFrame;
-    setForEach(state.thisFrame, triggerCallback);
-    state.thisFrame.clear();
-    state.isProcessing = false;
-    if (state.flushNextFrame) {
-      state.flushNextFrame = false;
-      Step? step = state.stepRef;
-      if (step != null) {
-        step.process(frameData);
+    isProcessing = true;
+    Set<func(FrameData)->void> prevFrame = thisFrame;
+    thisFrame = nextFrame;
+    nextFrame = prevFrame;
+    JS.invoke(thisFrame, "forEach", (func(FrameData)->void callback) => {
+      if (toKeepAlive.has(callback)) {
+        nextFrame.add(callback);
+        runNextFrame();
       }
+      callback(latestFrameData);
+    });
+    thisFrame.clear();
+    isProcessing = false;
+    if (flushNextFrame) {
+      flushNextFrame = false;
+      process(frameData);
     }
   };
-
-  Step step = new Step(
-    (func(FrameData)->void callback, bool keepAlive = false, bool immediate = false) => {
-      bool addToCurrentFrame = immediate && state.isProcessing;
-      Set<func(FrameData)->void> queue = state.nextFrame;
-      if (addToCurrentFrame) {
-        queue = state.thisFrame;
-      }
+  return new Step(
+    (func(FrameData)->void callback, bool keepAlive, bool immediate) => {
       if (keepAlive) {
-        weakSetAdd(state.toKeepAlive, callback);
+        toKeepAlive.add(callback);
       }
-      queue.add(callback);
+      (if (immediate && isProcessing) { thisFrame } else { nextFrame }).add(callback);
       return callback;
     },
     (func(FrameData)->void callback) => {
-      state.nextFrame.delete(callback);
-      weakSetDelete(state.toKeepAlive, callback);
+      nextFrame.delete(callback);
+      toKeepAlive.delete(callback);
     },
-    processFn
+    process
   );
-  state.stepRef = step;
-  return step;
 }

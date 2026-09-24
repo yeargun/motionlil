@@ -1,4 +1,4 @@
-var wf = new RegExp("[\\d.-]+", "g");
+let $j = /* @__PURE__ */ new Map();
 export {
-  wf
+  $j
 };

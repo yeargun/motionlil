@@ -1,8 +1,4 @@
-import { Ak } from "./part-530.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-var m = Ak;
+let Dj = [[1, 0], [0, 1]];
 export {
-  m
+  Dj
 };

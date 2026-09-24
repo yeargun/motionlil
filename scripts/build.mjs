@@ -1,5 +1,6 @@
 import { splitSharedGraph } from "./shared-graph.mjs"
 import { spawn, spawnSync } from "node:child_process"
+import { createHash } from "node:crypto"
 import { existsSync } from "node:fs"
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
 import { dirname, join, relative, resolve } from "node:path"
@@ -12,6 +13,7 @@ const source = join(root, "src")
 const dist = join(root, "dist")
 const compilerCandidates = [
   process.env.MOTIONLIL_LILSCRIPT_BIN,
+  process.env.LILSCRIPT_COMPILER,
   resolve(root, "../lilscript/target/release/lilscript"),
   "lilscript",
 ].filter(Boolean)
@@ -98,8 +100,11 @@ const compatPublic = [
   "defaultEasing",
 ]
 
+const compileWallMs = {}
+
 function compile(name, input) {
   const compiled = join(dirname(join(source, input)), `.__compiled-${name}.mjs`)
+  const started = performance.now()
   return new Promise((resolvePromise, reject) => {
     const child = spawn(
       compiler,
@@ -126,6 +131,7 @@ function compile(name, input) {
     child.stderr.on("data", (chunk) => { output += chunk; process.stderr.write(chunk) })
     child.on("error", reject)
     child.on("close", (status) => {
+      compileWallMs[name] = Math.round(performance.now() - started)
       if (status !== 0) reject(new Error(output || `${name} failed`))
       else resolvePromise(compiled)
     })
@@ -137,30 +143,36 @@ const facadeFiles = []
 const graphDirectory = join(source, ".__shared-graph")
 let compiledPublic = []
 
+// One compatibility module serves every entry, so the public constructors it
+// supplies (MotionValue, GroupAnimation, ...) are the same values everywhere.
+let compatModule = null
+async function writeCompat(compiledName) {
+  if (compatModule) return compatModule
+  compatModule = join(source, ".__compat.mjs")
+  const template = await readFile(join(source, "compat.mjs"), "utf8")
+  await writeFile(compatModule, template.replaceAll("./.__compiled-index.mjs", compiledName))
+  facadeFiles.push(compatModule)
+  return compatModule
+}
+
 async function writeFacade(name, compiled) {
   const facade = join(source, `.__entry-${name}.mjs`)
   const compiledName = `./${relative(source, compiled)}`
   let sourceCode
   if (name === "animate") {
-    const compat = join(source, ".__compat-animate.mjs")
-    const template = await readFile(join(source, "compat.mjs"), "utf8")
-    await writeFile(compat, template.replaceAll("./.__compiled-index.mjs", compiledName))
-    facadeFiles.push(compat)
+    await writeCompat(compiledName)
     sourceCode = [
       `export { ${animatePublic.join(", ")} } from ${JSON.stringify(compiledName)}`,
-      `export { ${compatPublic.join(", ")} } from "./.__compat-animate.mjs"`,
+      `export { ${compatPublic.join(", ")} } from "./.__compat.mjs"`,
     ].join("\n")
   } else if (name === "animate-mini") {
     sourceCode = `export { animateMini } from ${JSON.stringify(compiledName)}`
   } else if (name === "full") {
-    const compat = join(source, ".__compat-full.mjs")
-    const template = await readFile(join(source, "compat.mjs"), "utf8")
-    await writeFile(compat, template.replaceAll("./.__compiled-index.mjs", compiledName))
-    facadeFiles.push(compat)
+    await writeCompat(compiledName)
     sourceCode = [
       `export { ${compiledPublic.join(", ")} } from ${JSON.stringify(compiledName)}`,
-      `export * from "./.__compat-full.mjs"`,
-      'export { animate, animateMini } from "./.__compat-full.mjs"',
+      `export * from "./.__compat.mjs"`,
+      'export { animate, animateMini } from "./.__compat.mjs"',
     ].join("\n")
   } else if (name === "mini") {
     sourceCode = `export { animateMini as animate, animateSequenceMini as animateSequence } from ${JSON.stringify(compiledName)}`
@@ -228,12 +240,19 @@ const barrelSource = [
   "",
 ].join("\n")
 
+let compilePhaseWallMs = 0
+let compilerOutput = null
+
 try {
   // One typed module owns shared state (frame queues, MotionValues and caches).
   // ESM splitting happens after LilScript compilation, so feature imports reuse
   // those bindings instead of embedding separately compiled copies.
+  const compileStarted = performance.now()
   const file = await compile("full", "full.lil")
+  compilePhaseWallMs = Math.round(performance.now() - compileStarted)
   compiledFiles.push(file)
+  const compiledText = await readFile(file)
+  compilerOutput = { raw: compiledText.length, sha256: createHash("sha256").update(compiledText).digest("hex") }
   const parsed = await build({entryPoints: [file], bundle: false, write: false, metafile: true, format: "esm", logLevel: "silent"})
   compiledPublic = Object.values(parsed.metafile.outputs)[0].exports.filter(name => !name.startsWith("__lil") && name !== "animate" && name !== "animateMini")
   const graph = await splitSharedGraph(file, graphDirectory)
@@ -252,7 +271,7 @@ try {
     metafile:true, format:"esm", logLevel:"silent", outdir:dist})
   const inputs = Object.keys(linked.metafile.inputs).filter(path => path.startsWith("src/"))
   const outputFor = path => path.replace(/^src\//, "internal/")
-    .replace(".__shared-graph", "graph").replace(/\.__((?:entry|compat)-)/g, "$1").replace(/\.(?:mjs|ts)$/, ".js")
+    .replace(".__shared-graph", "graph").replace(/\.__((?:entry-|compat))/g, "$1").replace(/\.(?:mjs|ts)$/, ".js")
   const modules = await build({entryPoints:Object.fromEntries(inputs.map(path => [outputFor(path).slice(0,-3),path])),
     bundle:false, write:false, format:"esm", target:"es2022", outdir:dist, logLevel:"warning"})
   for (const output of modules.outputFiles) {
@@ -286,6 +305,52 @@ try {
   await Promise.all(cleanup.map((file) => rm(file, { force: true })))
 }
 
+// What wrote each published file. Only the compiler's own module would carry a
+// size claim; every file here is either that module after the shared-graph
+// split and an esbuild reprint, a build-script facade, or esbuild + Terser
+// output (plan M12.2). `.tmp/build-report.json` records which is which.
+const postProcessedBy = "esbuild + Terser"
+const writtenBy = {}
+async function listDist(directory) {
+  const { readdir } = await import("node:fs/promises")
+  const files = []
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const path = join(directory, entry.name)
+    if (entry.isDirectory()) files.push(...await listDist(path))
+    else files.push(relative(root, path))
+  }
+  return files
+}
+for (const file of (await listDist(dist)).sort()) {
+  const name = file.slice("dist/".length)
+  writtenBy[file] =
+    name.startsWith("internal/graph/")
+      ? "compiler (full.lil), split into shared modules by scripts/shared-graph.mjs and reprinted by esbuild"
+      : name.startsWith("internal/")
+        ? "build script facade, reprinted by esbuild"
+        : ["full.bundle.js", "index.bundle.js", "motionlil.global.js", "full.cjs"].includes(name)
+          ? postProcessedBy
+          : name.endsWith(".cjs")
+            ? "build script (CommonJS re-export of full.cjs)"
+            : "build script (re-export of the shared graph)"
+}
+const compilerBinary = spawnSync("sh", ["-c", `command -v ${JSON.stringify(compiler)}`], {
+  encoding: "utf8",
+}).stdout.trim() || compiler
+const report = {
+  date: new Date().toISOString(),
+  mode: buildMode,
+  compiler: compilerBinary,
+  compilerSha256: createHash("sha256").update(await readFile(compilerBinary)).digest("hex"),
+  compilePhaseWallMs,
+  compileWallMs,
+  compilerOutput,
+  writtenBy,
+}
+await mkdir(join(root, ".tmp"), { recursive: true })
+await writeFile(join(root, ".tmp", "build-report.json"), `${JSON.stringify(report, null, 2)}\n`)
+
 console.log(
   `Built ${featureEntries.length} ESM features and ${standaloneEntries.length} standalone ${buildMode} entries with ${compiler}`,
 )
+console.log(`Compiled full.lil in ${compileWallMs.full} ms wall`)

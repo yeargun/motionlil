@@ -1,7 +1,4 @@
-import { h } from "./part-492.js";
-import { i } from "./part-495.js";
-import { yb } from "./part-516.js";
-var zb = [...yb, h, i];
+let ff = ["color", "backgroundColor", "outlineColor", "fill", "stroke", "borderColor", "borderTopColor", "borderRightColor", "borderBottomColor", "borderLeftColor"];
 export {
-  zb
+  ff
 };

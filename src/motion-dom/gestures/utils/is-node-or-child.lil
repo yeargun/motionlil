@@ -1,13 +1,9 @@
-export bool isNodeOrChild(JsValue? parent = null, JsValue? child = null) {
-  if (child == null) {
+export bool isNodeOrChild(JsValue parent, JsValue child) {
+  if (!child.truthy()) {
     return false;
   }
-  if (parent == child) {
+  if (JS.strictEqual(parent, child)) {
     return true;
   }
-  JsValue parentElement = child["parentElement"];
-  if (!parentElement.truthy()) {
-    return false;
-  }
-  return isNodeOrChild(parent, parentElement);
+  return isNodeOrChild(parent, child["parentElement"]);
 }

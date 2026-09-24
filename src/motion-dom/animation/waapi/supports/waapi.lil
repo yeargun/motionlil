@@ -1,128 +1,51 @@
 import { memo } from "../../../../motion-utils/memo";
 import { acceleratedValues } from "../utils/accelerated-values";
 import { hasBrowserOnlyColors } from "../utils/is-browser-color";
-import { motionValueOf, visualElementOf } from "../../../cast";
-import { supportsWaapiCheck, isCurrentRealmElement } from "../../../dom-host";
+import { isCurrentRealmElement, supportsWaapiCheck } from "../../../dom-host";
+import { visualElementOf } from "../../../cast";
 
-Set<string> colorProperties = new Set<string>();
-colorProperties.add("color");
-colorProperties.add("backgroundColor");
-colorProperties.add("outlineColor");
-colorProperties.add("fill");
-colorProperties.add("stroke");
-colorProperties.add("borderColor");
-colorProperties.add("borderTopColor");
-colorProperties.add("borderRightColor");
-colorProperties.add("borderBottomColor");
-colorProperties.add("borderLeftColor");
+string[] colorProperties = [
+  "color",
+  "backgroundColor",
+  "outlineColor",
+  "fill",
+  "stroke",
+  "borderColor",
+  "borderTopColor",
+  "borderRightColor",
+  "borderBottomColor",
+  "borderLeftColor"
+];
 
-export func()->bool supportsWaapi = memo(() => {
-  return supportsWaapiCheck();
-});
+export func()->bool supportsWaapi = memo(() => supportsWaapiCheck());
 
-export class BrowserAnimationOptions {
-  JsValue? subject;
-  string? name;
-  float? repeatDelay;
-  string? repeatType;
-  float? damping;
-  JsValue? type;
-  JsValue[] keyframes;
-  JsValue? onUpdate;
-  JsValue? transformTemplate;
-
-  init(
-    JsValue[] keyframes,
-    JsValue? subject = null,
-    string? name = null,
-    float? repeatDelay = null,
-    string? repeatType = null,
-    float? damping = null,
-    JsValue? type = null,
-    JsValue? onUpdate = null,
-    JsValue? transformTemplate = null
-  ) {
-    this.keyframes = keyframes;
-    this.subject = subject;
-    this.name = name;
-    this.repeatDelay = repeatDelay;
-    this.repeatType = repeatType;
-    this.damping = damping;
-    this.type = type;
-    this.onUpdate = onUpdate;
-    this.transformTemplate = transformTemplate;
-  }
+export extern class BrowserAnimationOptions {
+  JsValue motionValue;
+  JsValue name;
+  JsValue repeatDelay;
+  JsValue repeatType;
+  JsValue damping;
+  JsValue type;
+  JsValue keyframes;
 }
 
-export bool supportsBrowserAnimation(BrowserAnimationOptions options) {
-  JsValue? subject = options.subject;
-  if (subject == null) {
-    return false;
-  }
+export bool supportsBrowserAnimation(JsValue optionsValue) {
+  BrowserAnimationOptions options = JS.assume(optionsValue);
+  JsValue motionValue = options.motionValue;
+  JsValue owner = if (motionValue.truthy()) { motionValue["owner"] } else { JS.undefined() };
+  JsValue subject = if (owner.truthy()) { owner["current"] } else { JS.undefined() };
   if (!isCurrentRealmElement(subject)) {
     return false;
   }
-  if (!supportsWaapi()) {
-    return false;
-  }
-  string? name = options.name;
-  if (name == null) {
-    return false;
-  }
-  bool nameOk =
-    acceleratedValues.has(name) ||
-    (colorProperties.has(name) && hasBrowserOnlyColors(options.keyframes));
-  if (!nameOk) {
-    return false;
-  }
-  if (name == "transform") {
-    JsValue? transformTemplate = options.transformTemplate;
-    if (transformTemplate != null && transformTemplate.truthy()) {
-      return false;
-    }
-  }
-  JsValue? onUpdate = options.onUpdate;
-  if (onUpdate != null && onUpdate.truthy()) {
-    return false;
-  }
-  float? repeatDelay = options.repeatDelay;
-  if (repeatDelay != null && repeatDelay != 0.0) {
-    return false;
-  }
-  string? repeatType = options.repeatType;
-  if (repeatType != null && repeatType == "mirror") {
-    return false;
-  }
-  float? damping = options.damping;
-  if (damping != null && damping == 0.0) {
-    return false;
-  }
-  JsValue? type = options.type;
-  if (type is string && type == "inertia") {
-    return false;
-  }
-  return true;
-}
-
-export bool supportsResolvedBrowserAnimation(JsValue options, JsValue[] keyframes) {
-  JsValue value = options["motionValue"];
-  if (!value.truthy()) { return false; }
-  JsValue owner = motionValueOf(value).owner;
-  if (!owner.truthy()) { return false; }
-  JsValue subject = visualElementOf(owner).current;
-  if (!isCurrentRealmElement(subject)) { return false; }
   JsValue props = visualElementOf(owner).getProps();
-  BrowserAnimationOptions resolved = new BrowserAnimationOptions(keyframes, subject);
-  JsValue name = options["name"];
-  JsValue repeatDelay = options["repeatDelay"];
-  JsValue repeatType = options["repeatType"];
-  JsValue damping = options["damping"];
-  if (name is string) { resolved.name = name; }
-  if (repeatDelay is float) { resolved.repeatDelay = repeatDelay; }
-  if (repeatType is string) { resolved.repeatType = repeatType; }
-  if (damping is float) { resolved.damping = damping; }
-  resolved.type = options["type"];
-  resolved.onUpdate = props["onUpdate"];
-  resolved.transformTemplate = props["transformTemplate"];
-  return supportsBrowserAnimation(resolved);
+  JsValue name = options.name;
+  return supportsWaapi() &&
+    name is string &&
+    (acceleratedValues.has(name) || (colorProperties.includes(name) && hasBrowserOnlyColors(options.keyframes))) &&
+    (name != "transform" || !props["transformTemplate"].truthy()) &&
+    !props["onUpdate"].truthy() &&
+    !options.repeatDelay.truthy() &&
+    JS.strictNotEqual(options.repeatType, "mirror") &&
+    JS.strictNotEqual(options.damping, 0.0) &&
+    JS.strictNotEqual(options.type, "inertia");
 }

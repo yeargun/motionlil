@@ -1,4 +1,6 @@
-let pk = "view-transition-group";
+let Wl = function(a, b) {
+  return a.get(b) ?? null;
+};
 export {
-  pk
+  Wl
 };

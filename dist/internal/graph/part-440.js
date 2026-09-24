@@ -1,8 +1,4 @@
-import { hi } from "./part-347.js";
-function Zi(vk) {
-  let wk = vk.renderState, xk = vk.latestValues, yk = vk.isSVGTagFlag, zk = vk.props.transformTemplate;
-  hi(wk, xk, yk, zk, vk.props.style);
-}
+let Q = /^(?:#[\da-f]{3,8}|(?:rgb|hsl)a?\((?:-?[\d.]+%?[,\s]+){2}-?[\d.]+%?\s*(?:[,\/]\s*)?(?:\b\d+(?:\.\d+)?|\.\d+)?%?\))$/iu;
 export {
-  Zi
+  Q
 };

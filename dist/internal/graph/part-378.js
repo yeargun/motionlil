@@ -1,12 +1,11 @@
-import { callMethod0 } from "./../motion-dom/dom-host.js";
-import { k } from "./part-120.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let $j = (vk) => {
-  if (k(vk)) return callMethod0(vk, "get");
-  return vk;
+import { Pi } from "./part-571.js";
+let Ki = (a) => {
+  if (a == null) return null;
+  if (!a) return null;
+  let b = a.id;
+  if (typeof b == "number") return Pi.get(b | 0) ?? null;
+  return null;
 };
 export {
-  $j
+  Ki
 };

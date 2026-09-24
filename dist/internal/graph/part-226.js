@@ -1,11 +1,8 @@
-import { Od } from "./part-215.js";
-import { gh } from "./part-221.js";
-let ic = (vk) => {
-  if (gh(vk)) {
-    var wk = !Od(), xk = wk;
-  } else xk = false;
-  return xk;
+import "./effect-499.js";
+import "./effect-573.js";
+let camelToDash = function(a) {
+  return a.replace(/([A-Z])/g, (a2) => "-" + a2.toLowerCase());
 };
 export {
-  ic
+  camelToDash
 };

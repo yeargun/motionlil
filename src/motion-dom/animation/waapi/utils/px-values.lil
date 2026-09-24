@@ -1,52 +1,60 @@
-import { cornerRadiusProps } from "../../../utils/border-radius";
+import { Set as SetConstructor } from "../../../render/host-views";
 
-export Set<string> pxValues = new Set<string>();
-pxValues.add("borderWidth");
-pxValues.add("borderTopWidth");
-pxValues.add("borderRightWidth");
-pxValues.add("borderBottomWidth");
-pxValues.add("borderLeftWidth");
-pxValues.add("borderRadius");
-for (int i = 0; i < cornerRadiusProps.length; i++) {
-  pxValues.add(cornerRadiusProps[i]);
-}
-pxValues.add("width");
-pxValues.add("maxWidth");
-pxValues.add("height");
-pxValues.add("maxHeight");
-pxValues.add("top");
-pxValues.add("right");
-pxValues.add("bottom");
-pxValues.add("left");
-pxValues.add("inset");
-pxValues.add("insetBlock");
-pxValues.add("insetBlockStart");
-pxValues.add("insetBlockEnd");
-pxValues.add("insetInline");
-pxValues.add("insetInlineStart");
-pxValues.add("insetInlineEnd");
-pxValues.add("padding");
-pxValues.add("paddingTop");
-pxValues.add("paddingRight");
-pxValues.add("paddingBottom");
-pxValues.add("paddingLeft");
-pxValues.add("paddingBlock");
-pxValues.add("paddingBlockStart");
-pxValues.add("paddingBlockEnd");
-pxValues.add("paddingInline");
-pxValues.add("paddingInlineStart");
-pxValues.add("paddingInlineEnd");
-pxValues.add("margin");
-pxValues.add("marginTop");
-pxValues.add("marginRight");
-pxValues.add("marginBottom");
-pxValues.add("marginLeft");
-pxValues.add("marginBlock");
-pxValues.add("marginBlockStart");
-pxValues.add("marginBlockEnd");
-pxValues.add("marginInline");
-pxValues.add("marginInlineStart");
-pxValues.add("marginInlineEnd");
-pxValues.add("fontSize");
-pxValues.add("backgroundPositionX");
-pxValues.add("backgroundPositionY");
+// Upstream's pxValues: the properties whose unitless numbers are pixels.
+export Set<string> pxValues = JS.assume(JS.construct(SetConstructor, [
+  // Border props
+  "borderWidth",
+  "borderTopWidth",
+  "borderRightWidth",
+  "borderBottomWidth",
+  "borderLeftWidth",
+  "borderRadius",
+  "borderTopLeftRadius",
+  "borderTopRightRadius",
+  "borderBottomRightRadius",
+  "borderBottomLeftRadius",
+  // Positioning props
+  "width",
+  "maxWidth",
+  "height",
+  "maxHeight",
+  "top",
+  "right",
+  "bottom",
+  "left",
+  "inset",
+  "insetBlock",
+  "insetBlockStart",
+  "insetBlockEnd",
+  "insetInline",
+  "insetInlineStart",
+  "insetInlineEnd",
+  // Spacing props
+  "padding",
+  "paddingTop",
+  "paddingRight",
+  "paddingBottom",
+  "paddingLeft",
+  "paddingBlock",
+  "paddingBlockStart",
+  "paddingBlockEnd",
+  "paddingInline",
+  "paddingInlineStart",
+  "paddingInlineEnd",
+  "margin",
+  "marginTop",
+  "marginRight",
+  "marginBottom",
+  "marginLeft",
+  "marginBlock",
+  "marginBlockStart",
+  "marginBlockEnd",
+  "marginInline",
+  "marginInlineStart",
+  "marginInlineEnd",
+  // Typography
+  "fontSize",
+  // Misc
+  "backgroundPositionX",
+  "backgroundPositionY"
+]));

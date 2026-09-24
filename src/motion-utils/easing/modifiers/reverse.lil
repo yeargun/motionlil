@@ -1,3 +1,2 @@
-export func(float)->float reverseEasing(func(float)->float easing) {
-  return (float p) => 1.0 - easing(1.0 - p);
-}
+export func(func(float)->float)->func(float)->float reverseEasing = (func(float)->float easing) =>
+  (float p) => 1.0 - easing(1.0 - p);

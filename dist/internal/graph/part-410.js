@@ -1,44 +1,92 @@
-import { callMethod2, isFunction, mapKeys } from "./../motion-dom/dom-host.js";
-import { D } from "./part-113.js";
-import { Pe } from "./part-408.js";
-import { Hi } from "./part-409.js";
-let Ii = (vk, xk, Ak) => {
-  var Ok = [], Dk = [];
-  if (Array.isArray(vk)) {
-    var Bk, Fk, Gk, Hk, Ik, Pk, Jk, Qk, Rk, Ck, Ek, yk, Kk, Lk, Mk, wk, zk, Sk = vk.length | 0, Nk = 0;
-    for (; Nk < Sk; Nk = Nk + 1) {
-      Bk = vk[Nk];
-      if (Array.isArray(Bk)) {
-        Fk = (Bk.length | 0) > 0;
-        Gk = Fk;
-      } else Gk = false;
-      if (Gk) {
-        Hk = isFunction(Bk[0]);
-        Ik = Hk;
-      } else Ik = false;
-      if (Ik) {
-        Pk = Bk[0];
-        Jk = D(0, null);
-        callMethod2(Jk, "on", "change", Pk);
-        Qk = Bk.length | 0;
-        if (1 == Qk) Dk.push([Jk, [0, 1]]);
-        else {
-          if (2 == Qk) Dk.push([Jk, [0, 1], Bk[1]]);
-          else {
-            Rk = Bk[1];
-            Dk.push([Jk, Rk, Bk[2]]);
-          }
-        }
-      } else Dk.push(Bk);
+import { resize } from "./part-258.js";
+import { oj } from "./part-401.js";
+import { Jj } from "./part-408.js";
+import { Kj } from "./part-409.js";
+import { z } from "./part-426.js";
+import { y } from "./part-427.js";
+import { A } from "./part-428.js";
+import { Lj } from "./part-585.js";
+import { Mj } from "./part-586.js";
+import { Nj } from "./part-587.js";
+import { Oj } from "./part-588.js";
+import { Pj } from "./part-589.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let scrollInfo = function(a, b) {
+  let c = b || {}, d = c.container;
+  if (d === void 0) d = document.scrollingElement;
+  if (!d) return () => {
+  };
+  let e = d, f = Nj.get(e);
+  if (!f) {
+    f = /* @__PURE__ */ new Set();
+    Nj.set(e, f);
+  }
+  let g = f, h = Jj(e, a, {
+    time: 0,
+    x: oj(),
+    y: oj()
+  }, c);
+  g.add(h);
+  if (!Lj.has(e)) {
+    let a2 = (a3) => {
+      g.forEach((a4) => {
+        a4.notify();
+      });
+    }, b2 = (b3) => {
+      g.forEach((a3) => {
+        a3.measure(A.timestamp);
+      });
+      y.preUpdate(a2, false, false);
+    }, c2 = (a3) => {
+      y.read(b2, false, false);
+    };
+    Lj.set(e, c2);
+    let d2 = Kj(e);
+    window.addEventListener("resize", c2);
+    if (e !== document.documentElement) Mj.set(e, resize(e, c2));
+    d2.addEventListener("scroll", c2);
+    c2(A);
+  }
+  if (c.trackContentSize && !Pj.has(e)) {
+    let a2 = Lj.get(e), b2 = {
+      width: e.scrollWidth,
+      height: e.scrollHeight
+    };
+    Oj.set(e, b2);
+    Pj.set(e, y.read((c2) => {
+      let d2 = e.scrollWidth, f2 = e.scrollHeight;
+      if (b2.width !== d2 || b2.height !== f2) {
+        a2(A);
+        b2.width = d2;
+        b2.height = f2;
+      }
+    }, true, false));
+  }
+  let j = Lj.get(e);
+  y.read(j, false, true);
+  return () => {
+    z(j);
+    let a2 = Nj.get(e);
+    if (!a2) return;
+    a2.delete(h);
+    if (a2.size) return;
+    let c2 = Lj.get(e);
+    Lj.delete(e);
+    if (c2) {
+      Kj(e).removeEventListener("scroll", c2);
+      let a3 = Mj.get(e);
+      if (a3) a3();
+      window.removeEventListener("resize", c2);
     }
-  }
-  for (Ck = Pe(Dk, xk, Ak), Ek = mapKeys(Ck), wk = 0; wk < Ek.length; wk = wk + 1) {
-    yk = Ek[wk];
-    Kk = Ck.get(yk);
-    if (Kk) for (Lk = Kk, Mk = Hi(yk, Lk.keyframes, Lk.transition, Ak), zk = 0; zk < Mk.length; zk = zk + 1) Ok.push(Mk[zk]);
-  }
-  return Ok;
+    let d2 = Pj.get(e);
+    if (d2) {
+      z(d2);
+      Pj.delete(e);
+    }
+    Oj.delete(e);
+  };
 };
 export {
-  Ii
+  scrollInfo
 };

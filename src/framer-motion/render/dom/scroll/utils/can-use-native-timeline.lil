@@ -1,12 +1,10 @@
 import { supportsScrollTimeline, supportsViewTimeline } from "../../../../../motion-dom/utils/supports/scroll-timeline";
-import { hasWindow } from "../../../../../motion-dom/dom-host";
 
-export bool canUseNativeTimeline(JsValue? target = null) {
-  if (!hasWindow()) {
+import { window } from "../../../../../motion-dom/render/host-views";
+
+export bool canUseNativeTimeline(JsValue target = JS.undefined()) {
+  if (JS.typeOf(window) == "undefined") {
     return false;
   }
-  if (target != null) {
-    return supportsViewTimeline();
-  }
-  return supportsScrollTimeline();
+  return if (target.truthy()) { supportsViewTimeline() } else { supportsScrollTimeline() };
 }

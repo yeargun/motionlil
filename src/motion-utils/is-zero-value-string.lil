@@ -1,5 +1,3 @@
 Regex zeroValueString = new Regex("^0[^.\\s]+$", "u");
 
-export bool isZeroValueString(string v) {
-  return zeroValueString.test(v);
-}
+export func(string)->bool isZeroValueString = (string v) => zeroValueString.test(v);

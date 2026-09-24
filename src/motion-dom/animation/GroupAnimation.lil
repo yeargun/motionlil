@@ -1,65 +1,100 @@
-import { setProp, getProp, callMethod0, callMethod1, callFn0, isFunction } from "../dom-host";
-import { installControlProperties, groupFinished, getControlProperty, numericControl } from "./utils/control-abi";
+import { animAdopt, animClass, animPromiseAll as promiseAll } from "./anim-host";
+
+// Upstream's GroupAnimation.prototype: every group is created on it.
+export JsValue groupAnimationPrototype = JS.object();
+
+JsValue finishedOf(JsValue group) {
+  return promiseAll(JS.invoke(group["animations"], "map", (JsValue animation) => animation["finished"]));
+}
+
+JsValue getAll(JsValue group, string propName) {
+  return group["animations"][0][propName];
+}
+
+void setAll(JsValue group, string propName, JsValue newValue) {
+  JsValue animations = group["animations"];
+  for (float i = 0.0; i < animations.length; i++) {
+    animations[i][propName] = newValue;
+  }
+}
+
+float getMax(JsValue group, string propName) {
+  JsValue animations = group["animations"];
+  float max = 0.0;
+  for (float i = 0.0; i < animations.length; i++) {
+    JsValue value = animations[i][propName];
+    float numeric = JS.assume(value);
+    if (JS.strictNotEqual(value, null) && numeric > max) {
+      max = numeric;
+    }
+  }
+  return max;
+}
+
+JsValue runAll(JsValue group, string methodName) {
+  JS.invoke(group["animations"], "forEach", (JsValue controls) => JS.invoke(controls, methodName));
+  return JS.undefined();
+}
+
+JsValue groupSurface = JS.object(
+  "finished", JS.object("get", JS.method0((JsValue self) => finishedOf(self))),
+  "time", JS.object(
+    "get", JS.method0((JsValue self) => getAll(self, "time")),
+    "set", JS.method1((JsValue self, JsValue value) => {
+      setAll(self, "time", value);
+      return JS.undefined();
+    })
+  ),
+  "speed", JS.object(
+    "get", JS.method0((JsValue self) => getAll(self, "speed")),
+    "set", JS.method1((JsValue self, JsValue value) => {
+      setAll(self, "speed", value);
+      return JS.undefined();
+    })
+  ),
+  "state", JS.object("get", JS.method0((JsValue self) => getAll(self, "state"))),
+  "startTime", JS.object("get", JS.method0((JsValue self) => getAll(self, "startTime"))),
+  "duration", JS.object("get", JS.method0((JsValue self) => getMax(self, "duration"))),
+  "iterationDuration", JS.object("get", JS.method0((JsValue self) => getMax(self, "iterationDuration"))),
+  "attachTimeline", JS.object("value", JS.method1((JsValue self, JsValue timeline) => {
+    JsValue animations = self["animations"];
+    JsValue subscriptions = JS.invoke(animations, "map", (JsValue animation) => JS.invoke(animation, "attachTimeline", timeline));
+    return () => {
+      for (float i = 0.0; i < subscriptions.length; i++) {
+        JsValue cancel = subscriptions[i];
+        if (cancel.truthy()) {
+          JS.call(cancel, JS.undefined());
+        }
+        JS.invoke(animations[i], "stop");
+      }
+    };
+  })),
+  "play", JS.object("value", JS.method0((JsValue self) => runAll(self, "play"))),
+  "pause", JS.object("value", JS.method0((JsValue self) => runAll(self, "pause"))),
+  "cancel", JS.object("value", JS.method0((JsValue self) => runAll(self, "cancel"))),
+  "complete", JS.object("value", JS.method0((JsValue self) => runAll(self, "complete")))
+);
 
 export class GroupAnimation {
   JsValue[] animations;
 
-  init(JsValue[] input) {
-    this.animations = [];
-    for (int i = 0; i < input.length; i++) {
-      if (input[i].truthy()) { this.animations.push(input[i]); }
-    }
+  init(JsValue[] animations, JsValue prototype = groupAnimationPrototype) {
+    animAdopt(this, prototype);
     GroupAnimation self = this;
-    setProp(this, "stop", () => { self.runAll("stop"); });
-    installControlProperties(this);
+    JS.set(this, "stop", () => {
+      runAll(self, "stop");
+    });
+    this.animations = animations.filter((JsValue animation) => animation.truthy());
   }
 
-  Task<JsValue> getFinished() { return groupFinished(this.animations); }
-  JsValue getPlaybackTime() { return this.getAll("time"); }
-  void setPlaybackTime(float value) { this.setAll("time", value); }
-  JsValue getPlaybackSpeed() { return this.getAll("speed"); }
-  void setPlaybackSpeed(float value) { this.setAll("speed", value); }
-  JsValue getState() { return this.getAll("state"); }
-  JsValue getStartTime() { return this.getAll("startTime"); }
-  float getDuration() { return this.getMax("duration"); }
-  float getIterationDuration() { return this.getMax("iterationDuration"); }
-
-  JsValue getAll(string propName) { return getControlProperty(this.animations[0], propName); }
-  void setAll(string propName, JsValue newValue) {
-    for (int i = 0; i < this.animations.length; i++) {
-      setProp(this.animations[i], propName, newValue);
-    }
+  Task<bool> finished() {
+    return JS.assume(finishedOf(this));
   }
-  float getMax(string propName) {
-    float max = 0.0;
-    for (int i = 0; i < this.animations.length; i++) {
-      float? value = numericControl(this.animations[i])[propName];
-      if (value != null && value > max) { max = value; }
-    }
-    return max;
-  }
-  void runAll(string methodName) {
-    for (int i = 0; i < this.animations.length; i++) {
-      callMethod0(this.animations[i], methodName);
-    }
-  }
-  func()->void attachTimeline(JsValue timeline) {
-    JsValue[] subscriptions = [];
-    for (int i = 0; i < this.animations.length; i++) {
-      subscriptions.push(callMethod1(this.animations[i], "attachTimeline", timeline));
-    }
-    return () => {
-      for (int i = 0; i < subscriptions.length; i++) {
-        JsValue cancel = subscriptions[i];
-        if (isFunction(cancel)) { callFn0(cancel); }
-        callMethod0(this.animations[i], "stop");
-      }
-    };
-  }
-  void play() { this.runAll("play"); }
-  void pause() { this.runAll("pause"); }
-  void stop() { this.runAll("stop"); }
-  void cancel() { this.runAll("cancel"); }
-  void complete() { this.runAll("complete"); }
 }
-export constructor GroupAnimation as GroupAnimationConstructor;
+
+// Upstream's public `GroupAnimation` class (`new GroupAnimation(animations)`).
+export JsValue groupAnimationConstructor = animClass(
+  (JsValue animations, JsValue _unused) => new GroupAnimation(JS.assume(animations)),
+  groupAnimationPrototype,
+  groupSurface
+);

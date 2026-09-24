@@ -1,9 +1,11 @@
+import { arrayFrom } from "../string-host";
 import {
   arrayFromNullable,
   documentQuerySelectorAll,
   isEventTarget,
   querySelectorAll
 } from "../dom-host";
+import { asRec } from "../value/types/types";
 
 export class AnimationScope {
   JsValue current;
@@ -15,12 +17,10 @@ export class AnimationScope {
   }
 }
 
+// A selector → elements lookup consulted before querying; JavaScript callers
+// pass a plain object.
 export class SelectorCache {
-  Map<string, JsValue[]> entries;
-
-  init() {
-    this.entries = new Map<string, JsValue[]>();
-  }
+  init() {}
 }
 
 export JsValue[] resolveElements(
@@ -33,24 +33,17 @@ export JsValue[] resolveElements(
   }
   if (isEventTarget(elementOrSelector)) {
     return [elementOrSelector];
-  } else if (elementOrSelector is string) {
-    JsValue[]? cached = null;
-    if (selectorCache != null) {
-      cached = selectorCache.entries.get(elementOrSelector);
-    }
+  }
+  if (elementOrSelector is string) {
+    JsValue? cached = if (selectorCache != null) { asRec(selectorCache)[elementOrSelector] } else { null };
     if (cached != null) {
-      return cached;
+      return arrayFrom(cached);
     }
-    JsValue[] elements = [];
-    if (scope != null) {
-      elements = querySelectorAll(scope.current, elementOrSelector);
+    return if (scope != null) {
+      querySelectorAll(scope.current, elementOrSelector)
     } else {
-      elements = documentQuerySelectorAll(elementOrSelector);
-    }
-    if (selectorCache != null) {
-      selectorCache.entries.set(elementOrSelector, elements);
-    }
-    return elements;
+      documentQuerySelectorAll(elementOrSelector)
+    };
   }
   return arrayFromNullable(elementOrSelector);
 }

@@ -1,57 +1,31 @@
-import { HSLA, RGBA, ValueType, valueTypeRecord } from "../types";
+import { ValueType, valueType, asRec, asRGBA } from "../types";
 import { hex } from "./hex";
 import { hsla } from "./hsla";
 import { rgba } from "./rgba";
-import { isHslaShape, isRgbaShape, hslaFromJs, rgbaFromJs } from "./shape";
-
-bool colorTest(JsValue v) {
-  return rgba.test(v) || hex.test(v) || hsla.test(v);
-}
 
 JsValue colorParse(JsValue v) {
   if (rgba.test(v)) {
     return rgba.parse(v);
-  } else if (hsla.test(v)) {
-    return hsla.parse(v);
-  } else {
-    return hex.parse(v);
   }
+  return if (hsla.test(v)) { hsla.parse(v) } else { hex.parse(v) };
 }
 
 JsValue colorTransform(JsValue v) {
   if (v is string) {
     return v;
   }
-  if (isRgbaShape(v)) {
-    (func(JsValue)->JsValue)? transform = rgba.transform;
-    if (transform != null) {
-      return transform(v);
-    }
-  }
-  if (isHslaShape(v)) {
-    (func(JsValue)->JsValue)? transform = hsla.transform;
-    if (transform != null) {
-      return transform(v);
-    }
-  }
-  return v;
+  return if (Object.hasOwn(asRec(v), "red")) { rgba.transform(v) } else { hsla.transform(v) };
 }
 
-JsValue colorGetAnimatableNone(JsValue v) {
-  JsValue parsed = colorParse(v);
-  if (isRgbaShape(parsed)) {
-    RGBA color = rgbaFromJs(parsed);
-    color.alpha = 0.0;
-    return colorTransform(color);
+export ValueType color = valueType(object {
+  test: (JsValue v) => rgba.test(v) || hex.test(v) || hsla.test(v),
+  parse: colorParse,
+  transform: colorTransform,
+  getAnimatableNone: (JsValue v) => {
+    JsValue parsed = colorParse(v);
+    asRGBA(parsed).alpha = 0.0;
+    return colorTransform(parsed);
   }
-  if (isHslaShape(parsed)) {
-    HSLA color = hslaFromJs(parsed);
-    color.alpha = 0.0;
-    return colorTransform(color);
-  }
-  return parsed;
-}
-
-export ValueType color = valueTypeRecord(object{test: colorTest, parse: colorParse, transform: colorTransform, getAnimatableNone: colorGetAnimatableNone});
+});
 
 export { hex, hsla, rgba };

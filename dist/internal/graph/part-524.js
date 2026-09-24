@@ -1,8 +1,9 @@
-var yk;
-yk = {
-  current: false
+let Xf = {
+  x: "translateX",
+  y: "translateY",
+  z: "translateZ",
+  transformPerspective: "perspective"
 };
-yk.current = false;
 export {
-  yk
+  Xf
 };

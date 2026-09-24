@@ -17,7 +17,7 @@ import { isSVGSVGElement } from "../../utils/is-svg-svg-element";
 import { MotionValue, motionValue } from "../../value/index";
 import { mixValues } from "../animation/mix-values";
 import { copyAxisDeltaInto, copyAxisInto, copyBoxInto } from "../geometry/copy";
-import { applyBoxDelta, applyTreeDeltas, transformBox, translateAxis, ProjectionTreeNode } from "../geometry/delta-apply";
+import { applyBoxDelta, applyTreeDeltas, transformBox, translateAxis } from "../geometry/delta-apply";
 import { calcBoxDelta, calcLength, calcRelativeBox, calcRelativePosition, isNear } from "../geometry/delta-calc";
 import { removeBoxTransforms } from "../geometry/delta-remove";
 import { createBox, createDelta, createAxisDelta } from "../geometry/models";
@@ -30,10 +30,15 @@ import { has2DTranslate, hasScale, hasTransform } from "../utils/has-transform";
 import { globalProjectionState } from "./state";
 import { buildProjectionTransform } from "../styles/transform";
 import { scaleCorrectors } from "../styles/scale-correction";
-import { ScaleCorrectionNode, ScaleCorrectorDefinition } from "../styles/types";
 import { resolveMotionValue } from "../../value/utils/resolve-motion-value";
 import { callMethod0, callMethod1, callMethod2, hasOwn, isFunction, callFn0, callFn1, callFn2, callFn3, callFn5, windowGet, hasWindow, parseFloatValue, mapKeys } from "../../dom-host";
 import { Axis, AxisDelta, Box, Delta, Point } from "../../../motion-utils/types/geometry";
+import { VisualElement } from "../../render/VisualElement";
+
+// The visual element behind a node is this port's record, whose methods are static calls.
+VisualElement asVisualElement(JsValue value) {
+  return JS.assume(value);
+}
 
 Record<float> metrics = record{nodes: 0.0, calculatedTargetDeltas: 0.0, calculatedProjections: 0.0};
 string[] transformAxes = ["", "X", "Y", "Z"];
@@ -67,7 +72,7 @@ void resetDistortingTransform(string key, JsValue visualElement, Record<JsValue>
   JsValue latestValues = visualElement["latestValues"];
   if (latestValues[key].truthy()) {
     values[key] = latestValues[key];
-    callMethod2(visualElement, "setStaticValue", key, 0.0);
+    asVisualElement(visualElement).setStaticValue(key, 0.0);
     if (sharedAnimationValues != null) {
       sharedAnimationValues[key] = 0.0;
     }
@@ -124,7 +129,7 @@ bool hasOpacityCrossfade(ProjectionNode node) {
   return animValues["opacityExit"] != null;
 }
 
-JsValue defaultLayoutTransition = record{duration: 0.45, ease: [0.4, 0.0, 0.1, 1.0]};
+JsValue defaultLayoutTransition = object{duration: 0.45, ease: [0.4, 0.0, 0.1, 1.0]};
 
 bool userAgentContains(string needle) {
   if (!hasWindow()) {
@@ -139,10 +144,20 @@ bool userAgentContains(string needle) {
   return ua.includes(needle);
 }
 
-bool roundPointEnabled = userAgentContains("applewebkit/") && !userAgentContains("chrome/");
+bool? roundPointCache = null;
+
+bool roundPointEnabled() {
+  bool? cached = roundPointCache;
+  if (cached != null) {
+    return cached;
+  }
+  bool enabled = userAgentContains("applewebkit/") && !userAgentContains("chrome/");
+  roundPointCache = enabled;
+  return enabled;
+}
 
 void roundAxis(Axis axis) {
-  if (roundPointEnabled) {
+  if (roundPointEnabled()) {
     axis.min = axis.min.round();
     axis.max = axis.max.round();
   }
@@ -238,7 +253,7 @@ Point? parseLayoutAnchor(JsValue value) {
     return null;
   }
   if (value.isObject()) {
-    return Point{parseFloatValue(value["x"]), parseFloatValue(value["y"])};
+    return new Point(parseFloatValue(value["x"]), parseFloatValue(value["y"]));
   }
   return null;
 }
@@ -377,7 +392,7 @@ export class ProjectionNode extends WithDepth {
     this.animationProgress = 0.0;
     this.resolvedRelativeTargetAt = 0.0;
     this.linkedParentVersion = 0;
-    this.treeScale = Point{1.0, 1.0};
+    this.treeScale = new Point(1.0, 1.0);
     this.resumeFrom = null;
     this.resumingFrom = null;
     this.animationValues = null;
@@ -426,10 +441,6 @@ export class ProjectionNode extends WithDepth {
       this.path[i].shouldResetTransform = true;
     }
 
-    ProjectionNode self = this;
-    this.updateProjectionCb = (FrameData _data) => {
-      self.updateProjection();
-    };
 
     metrics["nodes"] = metricGet("nodes") + 1.0;
     projectionNodeRegistry.set(this.id, this);
@@ -520,7 +531,7 @@ export class ProjectionNode extends WithDepth {
 
     JsValue visualElement = this.options["visualElement"];
     if (visualElement.truthy() && !visualElement["current"].truthy()) {
-      callMethod1(visualElement, "mount", instance);
+      asVisualElement(visualElement).mount(instance);
     }
 
     ProjectionNode[]? list = this.root.nodeList;
@@ -635,7 +646,7 @@ export class ProjectionNode extends WithDepth {
             }
             JsValue animationOptions = getValueTransition(layoutTransition, "layout");
             if (animationOptions == null) {
-              animationOptions = record{};
+              animationOptions = object{};
             }
             JsValue props = visualElement["props"];
             if (props.truthy()) {
@@ -860,7 +871,14 @@ export class ProjectionNode extends WithDepth {
     if (!this.projectionUpdateScheduled) {
       this.projectionUpdateScheduled = true;
       (func(FrameData)->void)? cb = this.updateProjectionCb;
-      if (cb != null) {
+      if (cb == null) {
+        ProjectionNode self = this;
+        func(FrameData)->void created = (FrameData _data) => {
+          self.updateProjection();
+        };
+        this.updateProjectionCb = created;
+        frame.preRender(created, false, true);
+      } else {
         frame.preRender(cb, false, true);
       }
     }
@@ -986,7 +1004,7 @@ export class ProjectionNode extends WithDepth {
       isRoot = callFn2(checkIsScrollRoot, this.instance, null).truthy();
     }
     JsValue measureScroll = this.config["measureScroll"];
-    JsValue offset = record{x: 0.0, y: 0.0};
+    JsValue offset = object{x: 0.0, y: 0.0};
     if (isFunction(measureScroll)) {
       offset = callFn2(measureScroll, this.instance, null);
     }
@@ -995,7 +1013,7 @@ export class ProjectionNode extends WithDepth {
       JsValue scrollVal = existingScroll;
       wasRoot = scrollVal["wasRoot"].truthy();
     }
-    this.scroll = record{
+    this.scroll = object{
       animationId: this.root.animationId,
       phase: phase,
       isRoot: isRoot,
@@ -1019,7 +1037,7 @@ export class ProjectionNode extends WithDepth {
     if (!visualElement.truthy()) {
       return createBox();
     }
-    JsValue boxValue = callMethod0(visualElement, "measureViewportBox");
+    JsValue boxValue = asVisualElement(visualElement).measureViewportBox();
     Box box = createBox();
     if (boxValue.isObject()) {
       box.x.min = parseFloatValue(boxValue["x"]["min"]);
@@ -1283,7 +1301,7 @@ export class ProjectionNode extends WithDepth {
     if (parentNode == null) {
       return null;
     }
-    if (hasScale(parentNode.latestValues) || has2DTranslate(parentNode.latestValues)) {
+    if (hasScale(parentNode.latestValues) || has2DTranslate(parentNode.latestValues).truthy()) {
       return null;
     }
     if (parentNode.isProjecting()) {
@@ -1318,25 +1336,6 @@ export class ProjectionNode extends WithDepth {
     this.relativeParent = null;
     this.relativeTarget = null;
     this.relativeTargetOrigin = null;
-  }
-
-  ProjectionTreeNode[] buildTreePath() {
-    ProjectionTreeNode[] result = [];
-    for (int i = 0; i < this.path.length; i++) {
-      ProjectionNode node = this.path[i];
-      ProjectionTreeNode entry = new ProjectionTreeNode();
-      entry.projectionDelta = node.projectionDelta;
-      entry.options = node.options;
-      entry.scroll = node.scroll;
-      entry.isRoot = node.root == node;
-      entry.latestValues = node.latestValues;
-      Measurements? layout = node.layout;
-      if (layout != null) {
-        entry.layoutBox = layout.layoutBox;
-      }
-      result.push(entry);
-    }
-    return result;
   }
 
   void calcProjection() {
@@ -1378,7 +1377,7 @@ export class ProjectionNode extends WithDepth {
     copyBoxInto(this.layoutCorrected, currentLayout.layoutBox);
     float prevTreeScaleX = this.treeScale.x;
     float prevTreeScaleY = this.treeScale.y;
-    applyTreeDeltas(this.layoutCorrected, this.treeScale, this.buildTreePath(), isShared);
+    applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, isShared);
     Measurements? leadLayout = lead.layout;
     if (leadLayout != null && lead.target == null && (this.treeScale.x != 1.0 || this.treeScale.y != 1.0)) {
       lead.target = leadLayout.layoutBox;
@@ -1440,7 +1439,7 @@ export class ProjectionNode extends WithDepth {
   void scheduleRender(bool notifyAll = true) {
     JsValue visualElement = this.options["visualElement"];
     if (visualElement.truthy()) {
-      callMethod0(visualElement, "scheduleRender");
+      asVisualElement(visualElement).scheduleRender();
     }
     if (notifyAll) {
       NodeStack? nodeStack = this.getStack();
@@ -1521,7 +1520,7 @@ export class ProjectionNode extends WithDepth {
     }
     stack.add(node);
     JsValue initialPromotion = node.options["initialPromotionConfig"];
-    JsValue promotion = record{};
+    JsValue promotion = object{};
     if (initialPromotion != null && initialPromotion.isObject()) {
       promotion["transition"] = initialPromotion["transition"];
       JsValue preserveFn = initialPromotion["shouldPreserveFollowOpacity"];
@@ -1545,7 +1544,7 @@ export class ProjectionNode extends WithDepth {
       }
       JsValue transition = promotionConfig["transition"];
       if (transition != null) {
-        this.setOptions(record{transition: transition});
+        this.setOptions(object{transition: transition});
       }
     }
     NodeStack? nodeStack = this.getStack();
@@ -1721,7 +1720,7 @@ export class ProjectionNode extends WithDepth {
       }
       JsValue mv = self.motionValueRef;
       callMethod2(mv, "jump", 0.0, false);
-      JsValue animOptions = record{};
+      JsValue animOptions = object{};
       for (string key in options) {
         animOptions[key] = options[key];
       }
@@ -1874,7 +1873,7 @@ export class ProjectionNode extends WithDepth {
       }
       if (this.hasProjected && !hasTransform(this.latestValues)) {
         if (transformTemplate != null && isFunction(transformTemplate)) {
-          targetStyle["transform"] = callFn2(transformTemplate, record{}, "");
+          targetStyle["transform"] = callFn2(transformTemplate, object{}, "");
         } else {
           targetStyle["transform"] = "none";
         }
@@ -1943,43 +1942,23 @@ export class ProjectionNode extends WithDepth {
         }
       }
     }
-    ScaleCorrectionNode correctionNode = new ScaleCorrectionNode();
-    correctionNode.target = lead.target;
-    correctionNode.treeScale = lead.treeScale;
-    correctionNode.projectionDelta = lead.projectionDelta;
     for (string key in scaleCorrectors) {
       JsValue value = valuesToRender[key];
-      if (!(value.truthy() || value == 0.0)) {
+      if (JS.isUndefined(value)) {
         continue;
       }
-      ScaleCorrectorDefinition? correctorOpt = scaleCorrectors[key];
-      if (correctorOpt != null) {
-        ScaleCorrectorDefinition corrector = correctorOpt;
-        JsValue corrected = value;
-        if (transform != "none") {
-          corrected = corrector.correct(value, correctionNode);
+      JsValue corrector = scaleCorrectors[key];
+      JsValue corrected = if (transform == "none") { value } else { JS.invoke(corrector, "correct", value, lead) };
+      JsValue applyTo = corrector["applyTo"];
+      if (applyTo.truthy()) {
+        string[] targets = JS.assume(applyTo);
+        for (string target of targets) {
+          targetStyle[target] = corrected;
         }
-        string[]? applyTo = corrector.applyTo;
-        if (applyTo != null) {
-          for (int i = 0; i < applyTo.length; i++) {
-            targetStyle[applyTo[i]] = corrected;
-          }
-        } else {
-          if (corrector.isCSSVariable) {
-            JsValue visualElement = this.options["visualElement"];
-            if (visualElement.truthy()) {
-              JsValue renderState = visualElement["renderState"];
-              if (renderState.truthy()) {
-                JsValue vars = renderState["vars"];
-                if (vars.truthy()) {
-                  vars[key] = corrected;
-                }
-              }
-            }
-          } else {
-            targetStyle[key] = corrected;
-          }
-        }
+      } else if (corrector["isCSSVariable"].truthy()) {
+        this.options["visualElement"]["renderState"]["vars"][key] = corrected;
+      } else {
+        targetStyle[key] = corrected;
       }
     }
     if (this.options["layoutId"].truthy()) {
@@ -2071,9 +2050,9 @@ export class ProjectionNode extends WithDepth {
       resetDistortingTransform("rotate" + axis, visualElement, resetValues, null);
       resetDistortingTransform("skew" + axis, visualElement, resetValues, null);
     }
-    callMethod0(visualElement, "render");
+    asVisualElement(visualElement).render();
     for (string key in resetValues) {
-      callMethod2(visualElement, "setStaticValue", key, resetValues[key]);
+      asVisualElement(visualElement).setStaticValue(key, resetValues[key]);
     }
     JsValue? animationValues = this.animationValues;
     if (animationValues != null) {
@@ -2082,7 +2061,7 @@ export class ProjectionNode extends WithDepth {
         animValues[key] = resetValues[key];
       }
     }
-    callMethod0(visualElement, "scheduleRender");
+    asVisualElement(visualElement).scheduleRender();
   }
 }
 
@@ -2206,7 +2185,7 @@ void notifyLayoutUpdate(ProjectionNode node) {
         }
       }
     }
-    node.notifyListeners("didUpdate", record{
+    node.notifyListeners("didUpdate", object{
       layout: layout,
       snapshot: snapshotMeasurements,
       delta: visualDelta,
@@ -2252,7 +2231,7 @@ void resetTransformStyle(ProjectionNode node) {
   if (visualElement.truthy()) {
     JsValue props = visualElement["props"];
     if (props.truthy() && isFunction(props["onBeforeLayoutMeasure"])) {
-      callMethod1(visualElement, "notify", "BeforeLayoutMeasure");
+      asVisualElement(visualElement).notify("BeforeLayoutMeasure");
     }
   }
   node.resetTransform();
@@ -2299,7 +2278,7 @@ export void cleanDirtyNodes(ProjectionNode node) {
   node.isTransformDirty = false;
 }
 
-export pure func(JsValue)->ProjectionNode createProjectionNode(JsValue config) {
+export func(JsValue)->ProjectionNode createProjectionNode(JsValue config) {
   return (JsValue options) => {
     return new ProjectionNode(options, config);
   };

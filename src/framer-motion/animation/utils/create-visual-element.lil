@@ -1,56 +1,45 @@
 import { isSVGElement } from "../../../motion-dom/utils/is-svg-element";
 import { isSVGSVGElement } from "../../../motion-dom/utils/is-svg-svg-element";
+import { VisualElement } from "../../../motion-dom/render/VisualElement";
 import { HTMLVisualElement } from "../../../motion-dom/render/html/HTMLVisualElement";
 import { SVGVisualElement } from "../../../motion-dom/render/svg/SVGVisualElement";
 import { ObjectVisualElement } from "../../../motion-dom/render/object/ObjectVisualElement";
 import { visualElementStore } from "../../../motion-dom/render/store";
-import { callMethod1 } from "../../../motion-dom/dom-host";
+import { isEventTarget } from "../../../motion-dom/dom-host";
 import extern { weakMapSet } from "../../../motion-dom/weak-host.ts";
 
 extern void weakMapSet(JsValue map, JsValue key, JsValue value);
 
-JsValue visualOptions() {
-  JsValue options = record{};
-  options["presenceContext"] = null;
-  options["props"] = record{};
-  JsValue visualState = record{};
-  JsValue renderState = record{};
-  renderState["transform"] = record{};
-  renderState["transformOrigin"] = record{};
-  renderState["style"] = record{};
-  renderState["vars"] = record{};
-  renderState["attrs"] = record{};
-  visualState["renderState"] = renderState;
-  visualState["latestValues"] = record{};
-  options["visualState"] = visualState;
-  return options;
-}
-
-export void createDOMVisualElement(JsValue element) {
-  JsValue options = visualOptions();
-  if (isSVGElement(element) && !isSVGSVGElement(element)) {
-    SVGVisualElement node = new SVGVisualElement(options);
-    node.mount(element);
-    weakMapSet(visualElementStore, element, node);
-  } else {
-    HTMLVisualElement node = new HTMLVisualElement(options);
-    node.mount(element);
-    weakMapSet(visualElementStore, element, node);
+VisualElement newVisualElement(JsValue subject) {
+  if (!isEventTarget(subject)) {
+    return new ObjectVisualElement(object{
+      presenceContext: null,
+      props: object{},
+      visualState: object{ renderState: object{ output: object{} }, latestValues: object{} }
+    });
   }
+  JsValue options = object{
+    presenceContext: null,
+    props: object{},
+    visualState: object{
+      renderState: object{
+        transform: object{},
+        transformOrigin: object{},
+        style: object{},
+        vars: object{},
+        attrs: object{}
+      },
+      latestValues: object{}
+    }
+  };
+  if (isSVGElement(subject) && !isSVGSVGElement(subject)) {
+    return new SVGVisualElement(options);
+  }
+  return new HTMLVisualElement(options);
 }
 
-export void createObjectVisualElement(JsValue subject) {
-  JsValue options = record{};
-  options["presenceContext"] = null;
-  options["props"] = record{};
-  JsValue visualState = record{};
-  JsValue renderState = record{};
-  renderState["output"] = record{};
-  visualState["renderState"] = renderState;
-  visualState["latestValues"] = record{};
-  options["visualState"] = visualState;
-
-  ObjectVisualElement node = new ObjectVisualElement(options);
+export void createVisualElement(JsValue subject) {
+  VisualElement node = newVisualElement(subject);
   node.mount(subject);
   weakMapSet(visualElementStore, subject, node);
 }

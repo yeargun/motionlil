@@ -1,48 +1,31 @@
 import { resolveVariant } from "../../render/utils/resolve-dynamic-variants";
 import { animateTarget } from "./visual-element-target";
 import { animateVariant } from "./visual-element-variant";
-import { VisualElement } from "../../render/VisualElement";
-import { visualElementOf, withPromiseOf } from "../../cast";
-import { isFunction } from "../../dom-host";
+import { animPromiseAll as promiseAll } from "../anim-host";
+import { visualElementOf } from "../../cast";
 
-export Task<JsValue> animateVisualElement(
+export Task<bool> animateVisualElement(
   JsValue visualElement,
   JsValue definition,
-  JsValue? options = null
+  JsValue optionsValue
 ) {
-  JsValue opts = options;
-  if (opts == null) {
-    opts = record{};
-  }
-  VisualElement element = visualElementOf(visualElement);
-  element.notify("AnimationStart", definition);
-  Task<JsValue> animation = Task.resolve(true);
-  if (definition.isArray()) {
-    Task<JsValue>[] tasks = [];
-    int len = definition.length.toInt();
-    for (int i = 0; i < len; i++) {
-      tasks.push(animateVariant(visualElement, definition[i], opts));
-    }
-    animation = Task.all(tasks).then((JsValue[] _v) => true);
-  } else if (definition is string) {
-    animation = animateVariant(visualElement, definition, opts);
+  JsValue options = JS.or(optionsValue, JS.object());
+  visualElementOf(visualElement).notify("AnimationStart", definition);
+  Task<bool> animation = if (definition.isArray()) {
+    promiseAll(JS.invoke(definition, "map", (JsValue variant) => animateVariant(visualElement, variant, options)))
   } else {
-    JsValue resolvedDefinition = definition;
-    if (isFunction(definition)) {
-      JsValue? resolved = resolveVariant(visualElement, definition, opts["custom"]);
-      if (resolved != null) {
-        resolvedDefinition = resolved;
-      }
+    if (definition is string) {
+      animateVariant(visualElement, definition, options)
+    } else {
+      promiseAll(animateTarget(
+        visualElement,
+        if (JS.typeOf(definition) == "function") { resolveVariant(visualElement, definition, options["custom"]) } else { definition },
+        options
+      ))
     }
-    JsValue[] controls = animateTarget(visualElement, resolvedDefinition, opts);
-    Task<JsValue>[] targetTasks = [];
-    for (int i = 0; i < controls.length; i++) {
-      targetTasks.push(withPromiseOf(controls[i]).getFinished());
-    }
-    animation = Task.all(targetTasks).then((JsValue[] _v) => true);
-  }
-  return animation.then((JsValue _done) => {
-    element.notify("AnimationComplete", definition);
+  };
+  return animation.then((bool _v) => {
+    visualElementOf(visualElement).notify("AnimationComplete", definition);
     return true;
   });
 }

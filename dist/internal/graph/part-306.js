@@ -1,27 +1,15 @@
-import { pe } from "./part-305.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let Nj = (vk, wk, xk, Ak) => {
-  var Bk = null;
-  if (xk) {
-    var Ck, yk, Dk, zk, Ek = xk.x, Gk = xk.y, Fk = Ek, Hk = Gk;
-  } else {
-    Fk = Bk;
-    Hk = Bk;
+import { calcRelativeAxisPosition } from "./part-305.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let calcRelativePosition = function(a, b, c, d = null) {
+  let e = 0, f = 0;
+  if (d) {
+    e = d.x;
+    f = d.y;
   }
-  if (Ak) {
-    Ck = Ak.x;
-    yk = Ak.y;
-    Dk = Ck;
-    zk = yk;
-  } else {
-    Dk = Bk;
-    zk = Bk;
-  }
-  pe(vk.x, wk, "x", "scaleX", "originX", Fk, Dk);
-  pe(vk.y, wk, "y", "scaleY", "originY", Hk, zk);
+  calcRelativeAxisPosition(a.x, b.x, c.x, e);
+  calcRelativeAxisPosition(a.y, b.y, c.y, f);
 };
 export {
-  Nj
+  calcRelativePosition
 };

@@ -1,97 +1,32 @@
-import { Zb } from "./part-139.js";
-import { $b } from "./part-149.js";
-function Xb(vk) {
-  vk.type = "visual";
-  let wk = null;
-  vk.current = wk;
-  vk.parent = wk;
-  vk.children = /* @__PURE__ */ new Set();
-  vk.enteringChildren = wk;
-  vk.depth = 0;
-  vk.renderState = {
-    __proto__: null,
-    style: {
-      __proto__: null
-    },
-    vars: {
-      __proto__: null
-    },
-    transform: {
-      __proto__: null
-    },
-    transformOrigin: {
-      __proto__: null
-    },
-    attrs: {
-      __proto__: null
-    },
-    output: {
-      __proto__: null
-    }
-  };
-  vk.latestValues = {
-    __proto__: null
-  };
-  vk.isVariantNode = false;
-  vk.isControllingVariants = false;
-  vk.variantChildren = wk;
-  vk.shouldReduceMotion = wk;
-  vk.shouldSkipAnimations = false;
-  vk.manuallyAnimateOnMount = false;
-  vk.blockInitialAnimation = false;
-  vk.projection = wk;
-  vk.values = /* @__PURE__ */ new Map();
-  vk.animationState = wk;
-  vk.KeyframeResolverType = wk;
-  vk.options = {
-    __proto__: null
-  };
-  vk.props = {
-    __proto__: null
-  };
-  vk.prevProps = wk;
-  vk.presenceContext = wk;
-  vk.prevPresenceContext = wk;
-  vk.features = /* @__PURE__ */ new Map();
-  vk.valueSubscriptions = /* @__PURE__ */ new Map();
-  vk.reducedMotionConfig = wk;
-  vk.skipAnimationsConfig = wk;
-  vk.removeFromVariantTree = wk;
-  vk.prevMotionValues = {
-    __proto__: null
-  };
-  vk.baseTarget = {
-    __proto__: null
-  };
-  vk.initialValues = {
-    __proto__: null
-  };
-  vk.hasBeenMounted = false;
-  vk.events = /* @__PURE__ */ new Map();
-  vk.propEventSubscriptions = /* @__PURE__ */ new Map();
-  vk.renderScheduledAt = 0;
-  vk.renderCallback = (Yk) => {
-    Zb(vk);
-  };
-  vk.notifyUpdateCallback = (Yk) => {
-    $b(vk, "Update", vk.latestValues);
-  };
-  vk.isMounted = false;
-  vk.removeFromParent = wk;
-  vk.isVisible = true;
-  vk.valueKeys = [];
-  vk.buildHook = wk;
-  vk.renderInstanceHook = wk;
-  vk.measureViewportBoxHook = wk;
-  vk.readValueFromInstanceHook = wk;
-  vk.sortInstanceNodePositionHook = wk;
-  vk.getBaseTargetFromPropsHook = wk;
-  vk.removeValueFromRenderStateHook = wk;
-  vk.scrapeMotionValuesFromPropsHook = wk;
-  vk.onBindTransformHook = wk;
-  vk.handleChildMotionValueHook = wk;
-  vk.preMountHook = wk;
-}
+import { hc } from "./part-112.js";
+import { jc } from "./part-113.js";
+import { isMotionValue } from "./part-126.js";
+import { motionValue } from "./part-14.js";
+import { Ad } from "./part-147.js";
+import { Hd } from "./part-152.js";
+import { Id } from "./part-153.js";
+import { Jd } from "./part-154.js";
+import { Kd } from "./part-155.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let updateMotionValuesFromProps = function(a, b, c) {
+  for (let d in b) {
+    let e = b[d], f = c[d];
+    if (isMotionValue(e)) Hd(a, d, e);
+    else if (isMotionValue(f)) Hd(a, d, motionValue(e, {
+      owner: a
+    }));
+    else if (f !== e) if (Jd(a, d)) {
+      let b2 = Kd(a, d, null, false);
+      if (b2.liveStyle === true) jc(b2, e, true);
+      else if (!b2.hasAnimated) hc(b2, e);
+    } else Hd(a, d, motionValue(Ad(a, d) ?? e, {
+      owner: a
+    }));
+  }
+  for (let d in c) if (b[d] === void 0) Id(a, d);
+  return b;
+};
 export {
-  Xb
+  updateMotionValuesFromProps
 };

@@ -1,4 +1,9 @@
-var hf = new RegExp("(?:#[\\da-f]{3,8}|(?:rgb|hsl)a?\\((?:-?[\\d.]+%?[,\\s]+){2}-?[\\d.]+%?\\s*(?:[,/]\\s*)?(?:\\b\\d+(?:\\.\\d+)?|\\.\\d+)?%?\\))", "giu");
+import { K } from "./part-435.js";
+let Uc = {
+  test: K,
+  parse: parseFloat,
+  transform: (a) => Math.round(a)
+};
 export {
-  hf
+  Uc
 };

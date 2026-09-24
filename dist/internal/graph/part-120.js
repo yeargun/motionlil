@@ -1,12 +1,16 @@
-import { hasFunction } from "./../motion-dom/dom-host.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let k = (vk) => {
-  if (null == vk) return false;
-  if (!vk) return false;
-  return hasFunction(vk, "getVelocity");
+import { dc } from "./part-108.js";
+let rc = (a) => {
+  let b = a.animation;
+  if (b != null) {
+    if (typeof b.stop == "function") b.stop();
+    else {
+      let a2 = b.stopActive;
+      if (typeof a2 == "function") a2();
+    }
+    dc(a, "animationCancel");
+  }
+  a.animation = null;
 };
 export {
-  k
+  rc
 };

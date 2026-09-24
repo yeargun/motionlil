@@ -1,32 +1,20 @@
-import { zd } from "./part-167.js";
-let Ad = (vk) => {
-  var Bk, Fk, Gk, Ck, zk, Dk, Hk, Ik, Ek, xk, yk, wk = vk.length, Ak = 0;
-  for (; Ak < wk; ) {
-    Bk = vk.charCodeAt(Ak) | 0;
-    if (32 == Bk) Fk = true;
-    else Fk = 9 == Bk;
-    if (Fk) Gk = true;
-    else Gk = 10 == Bk;
-    if (Gk) Ck = true;
-    else Ck = 13 == Bk;
-    if (Ck) zk = Ak + 1;
-    else break;
-    Ak = zk;
+import { defaultTransformValue } from "./part-167.js";
+import { $d } from "./part-505.js";
+import { _d } from "./part-506.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let parseValueFromTransform = function(a, b) {
+  if (a == null || a == "" || a == "none") return defaultTransformValue(b);
+  let d = a.match(/^matrix3d\(([-\d.e\s,]+)\)$/u), e = _d;
+  if (!d) {
+    d = a.match(/^matrix\(([-\d.e\s,]+)\)$/u);
+    e = $d;
   }
-  for (yk = wk; yk > Ak; ) {
-    Dk = vk.charCodeAt(yk - 1) | 0;
-    if (32 == Dk) Hk = true;
-    else Hk = 9 == Dk;
-    if (Hk) Ik = true;
-    else Ik = 10 == Dk;
-    if (Ik) Ek = true;
-    else Ek = 13 == Dk;
-    if (Ek) xk = yk - 1;
-    else break;
-    yk = xk;
-  }
-  return zd(vk, Ak, yk);
+  if (!d) return defaultTransformValue(b);
+  let f = e[b], h = d[1].split(",").map((a2) => parseFloat(a2.trim()));
+  if (typeof f == "function") return f(h);
+  return h[f];
 };
 export {
-  Ad
+  parseValueFromTransform
 };

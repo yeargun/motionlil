@@ -1,22 +1,22 @@
-import { arrayFromNullable, isNodeList } from "./../motion-dom/dom-host.js";
-import { E } from "./part-205.js";
-import { Pa } from "./part-404.js";
-let wc = (vk, wk, Ak, Ck) => {
-  if (null == vk) return [];
-  if ("string" == typeof vk) {
-    var Bk, Ek, Dk, zk, xk = Pa(wk), yk = xk;
-  } else yk = false;
-  if (yk) return E(vk, Ak, Ck);
-  if (isNodeList(vk)) return arrayFromNullable(vk);
-  if (Array.isArray(vk)) {
-    for (Bk = [], Ek = vk.length | 0, zk = 0; zk < Ek; zk = zk + 1) {
-      Dk = vk[zk];
-      if (Dk) Bk.push(Dk);
-    }
-    return Bk;
+import { yj } from "./part-578.js";
+let xj = (a, b, c) => {
+  let d = 0;
+  if (a in yj) a = yj[a];
+  if (typeof a == "string") {
+    let b2 = a, c2 = parseFloat(b2);
+    if (b2.endsWith("px")) d = c2;
+    else if (b2.endsWith("%")) a = c2 / 100;
+    else if (b2.endsWith("vw")) {
+      let a2 = document.documentElement.clientWidth;
+      d = c2 / 100 * a2;
+    } else if (b2.endsWith("vh")) {
+      let a2 = document.documentElement.clientHeight;
+      d = c2 / 100 * a2;
+    } else a = c2;
   }
-  return [vk];
+  if (typeof a == "number") d = b * a;
+  return c + d;
 };
 export {
-  wc
+  xj
 };

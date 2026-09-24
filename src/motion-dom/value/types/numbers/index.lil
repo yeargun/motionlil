@@ -1,24 +1,25 @@
 import { clamp } from "../../../../motion-utils/clamp";
-import { ValueType, valueTypeRecord } from "../types";
+import { ValueType, valueType, asNum } from "../types";
 
 extern float parseFloat(string v);
 
-export ValueType numberType = valueTypeRecord(object{test: (JsValue v) => v is float, parse: (JsValue v) => {
-    if (v is float) {
-      return v;
-    }
-    if (v is string) {
-      return parseFloat(v);
-    }
-    return 0.0;
-  }, transform: (JsValue v) => v});
+export func(JsValue)->bool isNumber = (JsValue v) => v is float;
 
-export ValueType alpha = valueTypeRecord(object{test: numberType.test, parse: numberType.parse, transform: (JsValue v) => {
-    float n = 0.0;
-    if (v is float) {
-      n = v;
-    }
-    return clamp(0.0, 1.0, n);
-  }});
+export ValueType numberType = valueType(object {
+  test: isNumber,
+  parse: parseFloat,
+  transform: (JsValue v) => v
+});
 
-export ValueType scale = valueTypeRecord(object{test: numberType.test, parse: numberType.parse, transform: numberType.transform, default: 1.0});
+export ValueType alpha = valueType(object {
+  test: isNumber,
+  parse: parseFloat,
+  transform: (JsValue v) => clamp(0.0, 1.0, asNum(v))
+});
+
+export ValueType scale = valueType(object {
+  test: isNumber,
+  parse: parseFloat,
+  transform: numberType.transform,
+  default: 1.0
+});

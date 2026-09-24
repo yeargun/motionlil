@@ -1,17 +1,13 @@
-import { AnimationState } from "../../animation-state";
+import { SpringGenerator, AnimGeneratorState } from "../generator";
 
 export float maxGeneratorDuration = 20000.0;
 
-export float calcGeneratorDuration(func(float)->AnimationState next) {
+export float calcGeneratorDuration(SpringGenerator gen) {
   float duration = 0.0;
-  float timeStep = 50.0;
-  AnimationState state = next(duration);
+  AnimGeneratorState state = gen.next(duration);
   while (!state.done && duration < maxGeneratorDuration) {
-    duration = duration + timeStep;
-    state = next(duration);
+    duration += 50.0;
+    state = gen.next(duration);
   }
-  if (duration >= maxGeneratorDuration) {
-    return maxGeneratorDuration;
-  }
-  return duration;
+  return if (duration >= maxGeneratorDuration) { 1.0 / 0.0 } else { duration };
 }

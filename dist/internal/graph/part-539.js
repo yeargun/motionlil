@@ -1,9 +1,4 @@
-import { Gi } from "./part-403.js";
-var Vk;
-Vk = {
-  entries: /* @__PURE__ */ new Map()
-};
-Gi(Vk);
+let Jg = /* @__PURE__ */ new Set();
 export {
-  Vk
+  Jg
 };

@@ -1,12 +1,23 @@
+import { cancelFrame, frame } from "../frameloop/index";
+import { FrameData } from "../frameloop/types";
 import { MotionValue, collectMotionValues, motionValue } from "./index";
-import { subscribeValue } from "./subscribe-value";
 
+// A MotionValue re-evaluating `transform` whenever a MotionValue it reads
+// changes.
 export MotionValue transformValue(func()->JsValue transform) {
+  // Every MotionValue read inside `transform` is collected.
   MotionValue[] collectedValues = [];
   collectMotionValues.current = collectedValues;
   JsValue initialValue = transform();
   collectMotionValues.current = null;
   MotionValue value = motionValue(initialValue);
-  subscribeValue(collectedValues, value, transform);
+  func(FrameData)->void update = (FrameData _data) => value.set(transform());
+  (func()->void)[] subscriptions = collectedValues.map((MotionValue v) => v.on("change", (JsValue? a, JsValue? b, JsValue? c) => {
+    frame.preRender(update, false, true);
+  }));
+  value.on("destroy", (JsValue? a, JsValue? b, JsValue? c) => {
+    subscriptions.forEach((func()->void unsubscribe) => unsubscribe());
+    cancelFrame(update);
+  });
   return value;
 }

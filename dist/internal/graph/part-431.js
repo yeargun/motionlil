@@ -1,10 +1,6 @@
-import { ab } from "./part-635.js";
-let Ui = () => {
-  if (0 == ab.size) {
-    ab.set("some", 0);
-    ab.set("all", 1);
-  }
-};
+import "./effect-499.js";
+import "./effect-573.js";
+let clamp = (a, b, c) => c > b ? b : c < a ? a : c;
 export {
-  Ui
+  clamp
 };

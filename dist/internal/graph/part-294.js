@@ -1,7 +1,9 @@
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let ua = (vk) => vk.max - vk.min;
+import { fh, hh } from "./part-293.js";
+import { Lb } from "./part-483.js";
+let gh = (a) => {
+  hh.push(a);
+  Lb.render(fh, false, false);
+};
 export {
-  ua
+  gh
 };

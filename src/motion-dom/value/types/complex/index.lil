@@ -2,16 +2,13 @@ import { color } from "../color/index";
 import { colorRegex } from "../utils/color-regex";
 import { floatRegex } from "../utils/float-regex";
 import { sanitize } from "../utils/sanitize";
-import { ValueType, valueTypeRecord } from "../types";
-import {
-  isNaNNumber,
-  stringMatch,
-  stringReplace,
-  stringSplit,
-  stringTrim
-} from "../../../string-host";
+import { ValueType, valueType, asNum, asOpt } from "../types";
+import extern { stringMatch as matchAll } from "../../../string-host.ts";
+import { stringReplace } from "../../../string-host";
 
 extern float parseFloat(string v);
+extern bool isNaN(JsValue v);
+extern string[]? matchAll(string s, Regex re);
 
 string NUMBER_TOKEN = "number";
 string COLOR_TOKEN = "color";
@@ -19,6 +16,7 @@ string VAR_TOKEN = "var";
 string VAR_FUNCTION_TOKEN = "var(";
 string SPLIT_TOKEN = "${}";
 
+// singleCssVariableRegex | rgbHSLValueRegex | digitRegex
 Regex complexRegex = new Regex(
   "var\\s*\\(\\s*--(?:[\\w-]+\\s*|[\\w-]+\\s*,(?:\\s*[^)(\\s]|\\s*\\((?:[^)(]|\\([^)(]*\\))*\\))+\\s*)\\)|#[\\da-f]{3,8}|(?:rgb|hsl)a?\\((?:-?[\\d.]+%?[,\\s]+){2}-?[\\d.]+%?\\s*(?:[,/]\\s*)?(?:\\b\\d+(?:\\.\\d+)?|\\.\\d+)?%?\\)|-?(?:\\d+(?:\\.\\d+)?|\\.\\d+)",
   "giu"
@@ -27,12 +25,12 @@ Regex complexRegex = new Regex(
 export class ValueIndexes {
   int[] color;
   int[] number;
-  int[] varIndexes;
+  int[] var;
 
   init() {
     this.color = [];
     this.number = [];
-    this.varIndexes = [];
+    this.var = [];
   }
 }
 
@@ -50,42 +48,29 @@ export class ComplexValueInfo {
   }
 }
 
-class AnalyseCell {
-  int i;
-  JsValue[] values;
-  ValueIndexes indexes;
-  string[] types;
-
-  init() {
-    this.i = 0;
-    this.values = [];
-    this.indexes = new ValueIndexes();
-    this.types = [];
-  }
-}
-
 export ComplexValueInfo analyseComplexValue(JsValue value) {
-  string originalValue = `${value}`;
-  AnalyseCell cell = new AnalyseCell();
-  string tokenised = stringReplace(originalValue, complexRegex, (string parsedValue) => {
+  JsValue[] values = [];
+  ValueIndexes indexes = new ValueIndexes();
+  string[] types = [];
+  int i = 0;
+  string tokenised = stringReplace(`${value}`, complexRegex, (string parsedValue) => {
     if (color.test(parsedValue)) {
-      cell.indexes.color.push(cell.i);
-      cell.types.push(COLOR_TOKEN);
-      cell.values.push(color.parse(parsedValue));
+      indexes.color.push(i);
+      types.push(COLOR_TOKEN);
+      values.push(color.parse(parsedValue));
     } else if (parsedValue.startsWith(VAR_FUNCTION_TOKEN)) {
-      cell.indexes.varIndexes.push(cell.i);
-      cell.types.push(VAR_TOKEN);
-      cell.values.push(parsedValue);
+      indexes.var.push(i);
+      types.push(VAR_TOKEN);
+      values.push(parsedValue);
     } else {
-      cell.indexes.number.push(cell.i);
-      cell.types.push(NUMBER_TOKEN);
-      cell.values.push(parseFloat(parsedValue));
+      indexes.number.push(i);
+      types.push(NUMBER_TOKEN);
+      values.push(parseFloat(parsedValue));
     }
-    cell.i = cell.i + 1;
+    i++;
     return SPLIT_TOKEN;
   });
-  string[] split = stringSplit(tokenised, SPLIT_TOKEN);
-  return new ComplexValueInfo(cell.values, split, cell.indexes, cell.types);
+  return new ComplexValueInfo(values, tokenised.split(SPLIT_TOKEN), indexes, types);
 }
 
 export func(JsValue)->string buildTransformer(ComplexValueInfo info) {
@@ -94,113 +79,58 @@ export func(JsValue)->string buildTransformer(ComplexValueInfo info) {
   int numSections = split.length;
   return (JsValue v) => {
     string output = "";
-    int i = 0;
-    while (i < numSections) {
-      output = output + split[i];
-      bool hasValue = false;
-      JsValue current = null;
-      if (v.isArray()) {
-        if (i < v.length.toInt()) {
-          current = v[i];
-          hasValue = true;
-        }
-      }
-      if (hasValue) {
+    for (int i = 0; i < numSections; i++) {
+      output += split[i];
+      JsValue current = v[i];
+      if (asOpt(current) != null) {
         string type = types[i];
         if (type == NUMBER_TOKEN) {
-          float num = 0.0;
-          if (current is float) {
-            num = current;
-          } else {
-            num = parseFloat(`${current}`);
-          }
-          output = output + `${sanitize(num)}`;
+          output += `${sanitize(asNum(current))}`;
         } else if (type == COLOR_TOKEN) {
-          (func(JsValue)->JsValue)? transform = color.transform;
-          if (transform != null) {
-            output = output + `${transform(current)}`;
-          } else {
-            output = output + `${current}`;
-          }
+          output += `${color.transform(current)}`;
         } else {
-          output = output + `${current}`;
+          output += `${current}`;
         }
       }
-      i = i + 1;
     }
     return output;
   };
 }
 
-JsValue[] parseComplexValue(JsValue v) {
+export JsValue[] parseComplexValue(JsValue v) {
   return analyseComplexValue(v).values;
 }
 
-func(JsValue)->string createTransformer(string source) {
+export func(JsValue)->JsValue createTransformer(string source) {
   return buildTransformer(analyseComplexValue(source));
-}
-
-JsValue convertNumbersToZero(JsValue v) {
-  if (v is float) {
-    return 0.0;
-  }
-  if (v is string) {
-    if (color.test(v)) {
-      (func(JsValue)->JsValue)? getNone = color.getAnimatableNone;
-      if (getNone != null) {
-        return getNone(v);
-      }
-    }
-  }
-  return v;
 }
 
 JsValue convertToZero(JsValue value, string splitBefore) {
   if (value is float) {
-    string trimmed = stringTrim(splitBefore);
-    if (trimmed.endsWith("/")) {
-      return value;
-    }
-    return 0.0;
+    return if (splitBefore.trim().endsWith("/")) { value } else { 0.0 };
   }
-  return convertNumbersToZero(value);
+  return if (color.test(value)) { color.getAnimatableNone(value) } else { value };
 }
 
 JsValue getAnimatableNone(JsValue v) {
   ComplexValueInfo info = analyseComplexValue(v);
-  func(JsValue)->string transformer = buildTransformer(info);
   JsValue[] zeroed = [];
-  int i = 0;
-  while (i < info.values.length) {
-    string splitBefore = "";
-    if (i < info.split.length) {
-      splitBefore = info.split[i];
-    }
-    zeroed.push(convertToZero(info.values[i], splitBefore));
-    i = i + 1;
+  for (int i = 0; i < info.values.length; i++) {
+    zeroed.push(convertToZero(info.values[i], info.split[i]));
   }
-  return transformer(zeroed);
+  return buildTransformer(info)(zeroed);
 }
 
-bool complexTest(JsValue v) {
-  if (isNaNNumber(v)) {
-    if (v is string) {
-      JsValue floats = stringMatch(v, floatRegex);
-      JsValue colors = stringMatch(v, colorRegex);
-      float floatCount = 0.0;
-      float colorCount = 0.0;
-      if (floats.isArray()) {
-        floatCount = floats.length;
-      }
-      if (colors.isArray()) {
-        colorCount = colors.length;
-      }
-      return floatCount + colorCount > 0.0;
-    }
-  }
-  return false;
+export bool complexTest(JsValue v) {
+  return isNaN(v) && v is string &&
+    (matchAll(v, floatRegex) != null || matchAll(v, colorRegex) != null);
 }
 
-export ValueType complex = valueTypeRecord(object{test: complexTest, parse: parseComplexValue, createTransformer: createTransformer, getAnimatableNone: getAnimatableNone});
+export ValueType complex = valueType(object {
+  test: complexTest,
+  parse: parseComplexValue,
+  createTransformer: createTransformer,
+  getAnimatableNone: getAnimatableNone
+});
 
 export { createTransformer as createComplexTransformer };

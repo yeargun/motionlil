@@ -1,17 +1,23 @@
 import extern {
-  stringMatch,
-  stringReplace,
-  stringSplit,
-  stringSubstring,
-  stringTrim,
   isNaNNumber,
   arrayFrom
 } from "./string-host.ts";
 
-export extern JsValue stringMatch(string s, Regex re);
-export extern string stringReplace(string s, Regex re, string | func(string)->string replacement);
-export extern string[] stringSplit(string s, string sep);
-export extern string stringSubstring(string s, int start, int end = 2147483647);
-export extern string stringTrim(string s);
+export JsValue stringMatch(string s, Regex re) {
+  return JS.stringMatch(s, re);
+}
+export string stringReplace(string s, Regex re, string | func(string)->string replacement) {
+  return JS.stringReplace(s, re, replacement);
+}
+export string[] stringSplit(string s, string sep) {
+  return JS.stringSplit(s, sep);
+}
+export string stringSubstring(string s, int start, int end = 2147483647) {
+  string part = JS.assume(JS.invoke(s, "substring", start, end));
+  return part;
+}
+export string stringTrim(string s) {
+  return s.trim();
+}
 export extern bool isNaNNumber(JsValue v);
 export extern JsValue[] arrayFrom(JsValue list);

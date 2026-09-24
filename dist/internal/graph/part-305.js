@@ -1,21 +1,13 @@
-import { Kh } from "./part-303.js";
-import { rc } from "./part-304.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let pe = (vk, wk, xk, yk, Dk, Fk, Gk) => {
-  var zk = rc(wk[yk] ?? null);
-  if (null != zk) {
-    var Ak, Ek, Bk, Ck, Hk = zk;
-  } else Hk = 1;
-  Ak = rc(wk[Dk] ?? null);
-  if (null != Ak) Ek = Ak;
-  else Ek = 0.5;
-  Bk = rc(wk.scale ?? null);
-  if (null != Bk) Ck = Bk;
-  else Ck = 1;
-  Kh(vk, wk[xk] ?? null, Hk, Ek, Ck, Fk, Gk);
+import { calcLength } from "./part-299.js";
+import { mixNumber } from "./part-47.js";
+import "./effect-499.js";
+import "./effect-573.js";
+let calcRelativeAxisPosition = function(a, b, c, d = 0) {
+  let e = c.min;
+  if (d != 0) e = mixNumber(c.min, c.max, d);
+  a.min = b.min - e;
+  a.max = a.min + calcLength(b);
 };
 export {
-  pe
+  calcRelativeAxisPosition
 };

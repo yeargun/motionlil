@@ -1,11 +1,8 @@
-let Ia = (vk) => {
-  if (!("object" == typeof vk)) return false;
-  if (Array.isArray(vk)) return false;
-  for (var wk in vk) {
-    if ("red" == wk) return true;
-  }
-  return false;
+import { jb } from "./part-72.js";
+let tb = (a, b) => {
+  a.startTime = 0;
+  return jb(a, b, true);
 };
 export {
-  Ia
+  tb
 };

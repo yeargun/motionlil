@@ -1,12 +1,8 @@
-import { ub } from "./part-496.js";
-let bg = (vk) => {
-  var wk = 0;
-  for (; wk < ub.length; ) {
-    if (ub[wk].test(vk)) return ub[wk];
-    wk += 1;
-  }
-  return null;
+import "./effect-499.js";
+import "./effect-573.js";
+let scalePoint = function(a, b, c) {
+  return c + b * (a - c);
 };
 export {
-  bg
+  scalePoint
 };

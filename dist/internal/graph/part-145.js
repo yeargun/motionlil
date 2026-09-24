@@ -1,16 +1,12 @@
-import { vg } from "./part-135.js";
-let zg = (vk, wk) => {
-  vk.values.delete(wk);
-  var xk = vk.valueSubscriptions.get(wk);
-  if (xk) {
-    xk();
-    vk.valueSubscriptions.delete(wk);
+import { y } from "./part-427.js";
+import { F } from "./part-430.js";
+let wd = (a) => {
+  let c = F.now();
+  if (a.renderScheduledAt < c) {
+    a.renderScheduledAt = c;
+    y.render(a.render, false, true);
   }
-  vk.latestValues[wk] = null;
-  var yk = vk.valueKeys.indexOf(wk);
-  if (yk >= 0) vk.valueKeys.splice(yk, 1);
-  vg(vk, wk, vk.renderState);
 };
 export {
-  zg
+  wd
 };

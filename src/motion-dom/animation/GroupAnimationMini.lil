@@ -1,15 +1,15 @@
-import { setProp, callMethod0, callMethod1 } from "../dom-host";
-import { NativeAnimation } from "./NativeAnimationMini";
+import { setProp } from "../dom-host";
+import { NativeAnimationMini } from "./NativeAnimationMini";
 
-export class GroupAnimation {
-  NativeAnimation[] animations;
+export class GroupAnimationMini {
+  NativeAnimationMini[] animations;
 
-  init(NativeAnimation[] input) {
+  init(NativeAnimationMini[] input) {
     this.animations = [];
     for (int i = 0; i < input.length; i++) {
       this.animations.push(input[i]);
     }
-    GroupAnimation self = this;
+    GroupAnimationMini self = this;
     setProp(this, "attachTimeline", (JsValue timeline) => {
       return self.attachTimeline(timeline);
     });
@@ -21,34 +21,6 @@ export class GroupAnimation {
     });
     setProp(this, "stop", () => {
       self.stop();
-    });
-    setProp(this, "cancel", () => {
-      for (int i = 0; i < self.animations.length; i++) { callMethod0(self.animations[i], "cancel"); }
-    });
-    setProp(this, "complete", () => {
-      for (int i = 0; i < self.animations.length; i++) { callMethod0(self.animations[i], "complete"); }
-    });
-    setProp(this, "getPlaybackTime", () => {
-      if (self.animations.length == 0) { return 0.0; }
-      return callMethod0(self.animations[0], "getPlaybackTime");
-    });
-    setProp(this, "getPlaybackSpeed", () => {
-      if (self.animations.length == 0) { return 1.0; }
-      return callMethod0(self.animations[0], "getPlaybackSpeed");
-    });
-    setProp(this, "setPlaybackTime", (JsValue value) => {
-      for (int i = 0; i < self.animations.length; i++) { callMethod1(self.animations[i], "setPlaybackTime", value); }
-    });
-    setProp(this, "setPlaybackSpeed", (JsValue value) => {
-      for (int i = 0; i < self.animations.length; i++) { callMethod1(self.animations[i], "setPlaybackSpeed", value); }
-    });
-    setProp(this, "getDuration", () => {
-      float maximum = 0.0;
-      for (int i = 0; i < self.animations.length; i++) {
-        JsValue duration = callMethod0(self.animations[i], "getDuration");
-        if (duration is float && duration > maximum) { maximum = duration; }
-      }
-      return maximum;
     });
   }
 

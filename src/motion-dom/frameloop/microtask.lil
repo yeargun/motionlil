@@ -1,8 +1,9 @@
-import { scheduleMicrotask } from "../dom-host";
 import { createRenderBatcher, RenderBatcher } from "./batcher";
 import { Batcher, FrameData } from "./types";
 
-RenderBatcher batcher = createRenderBatcher(scheduleMicrotask, false);
+extern void queueMicrotask(func()->void callback);
+
+RenderBatcher batcher = createRenderBatcher(queueMicrotask, false);
 
 export Batcher microtask = batcher.schedule;
 export func(func(FrameData)->void)->void cancelMicrotask = batcher.cancel;

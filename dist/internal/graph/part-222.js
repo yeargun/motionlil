@@ -1,15 +1,14 @@
-import { getElementTagName } from "./../motion-dom/dom-host.js";
-import { ia } from "./part-583.js";
-import "./effect-580.js";
-import "./effect-614.js";
-import "./effect-617.js";
-let hh = (vk) => {
-  var yk = getElementTagName(vk), wk = vk.isContentEditable;
-  if (ia.has(yk)) {
-    var xk = true;
-  } else xk = wk;
-  return xk;
+import "./effect-499.js";
+import "./effect-573.js";
+let resolveTransition = function(a, b) {
+  if (a && a.inherit && b) {
+    let c = {};
+    for (let a2 in b) c[a2] = b[a2];
+    for (let b2 in a) if (b2 != "inherit") c[b2] = a[b2];
+    return c;
+  }
+  return a;
 };
 export {
-  hh
+  resolveTransition
 };

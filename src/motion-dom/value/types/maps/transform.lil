@@ -1,9 +1,8 @@
-import { degrees, px, progressPercentage } from "../numbers/units";
 import { alpha, scale } from "../numbers/index";
-import { intType } from "../int";
-
-export JsValue transformValueTypes = object{
+import { degrees, progressPercentage, px } from "../numbers/units";
+export JsValue transformValueTypes = object {
   rotate: degrees,
+  // Internal channel for `transition.path` orientToPath.
   pathRotation: degrees,
   rotateX: degrees,
   rotateY: degrees,

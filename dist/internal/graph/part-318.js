@@ -1,7 +1,8 @@
-import { callMethod2, windowGet } from "./../motion-dom/dom-host.js";
-let Oh = (vk, wk) => {
-  if ("object" == typeof wk) callMethod2(windowGet("Object"), "assign", vk, wk);
+import "./effect-499.js";
+import "./effect-573.js";
+let axisDeltaEquals = function(a, b) {
+  return a.translate == b.translate && a.scale == b.scale && a.originPoint == b.originPoint;
 };
 export {
-  Oh
+  axisDeltaEquals
 };

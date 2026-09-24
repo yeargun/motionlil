@@ -2,42 +2,31 @@ import { MotionGlobalConfig } from "../../motion-utils/global-config";
 import { performanceNow, scheduleMicrotask } from "../dom-host";
 import { frameData } from "./frame";
 
-class TimeState {
-  float? now;
-  init() {
-    this.now = null;
-  }
-}
-
-TimeState timeState = new TimeState();
+float? current = null;
 
 void clearTime() {
-  timeState.now = null;
+  current = null;
 }
 
 export class TimeApi {
-  float now() {
-    if (timeState.now == null) {
-      bool useManual = MotionGlobalConfig.useManualTiming == true;
-      float value = frameData.timestamp;
-      if (!frameData.isProcessing) {
-        if (!useManual) {
-          value = performanceNow();
-        }
-      }
-      this.set(value);
-    }
-    float? current = timeState.now;
-    if (current != null) {
-      return current;
-    }
-    return 0.0;
-  }
+  func()->float now;
+  func(float)->void set;
 
-  void set(float newTime) {
-    timeState.now = newTime;
-    scheduleMicrotask(clearTime);
+  init(func()->float now, func(float)->void set) {
+    this.now = now;
+    this.set = set;
   }
 }
 
-export TimeApi time = new TimeApi();
+func(float)->void setTime = (float newTime) => {
+  current = newTime;
+  scheduleMicrotask(clearTime);
+};
+
+export TimeApi time = new TimeApi(() => {
+  if (current == null) {
+    setTime(if (frameData.isProcessing || MotionGlobalConfig.useManualTiming == true) { frameData.timestamp } else { performanceNow() });
+  }
+  float value = JS.assume(current);
+  return value;
+}, setTime);

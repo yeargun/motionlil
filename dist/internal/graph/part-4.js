@@ -1,4 +1,8 @@
-let kk = "No valid elements provided.";
+let fl = function(a) {
+  return new Promise((b) => {
+    a(() => b(true));
+  });
+};
 export {
-  kk
+  fl
 };
