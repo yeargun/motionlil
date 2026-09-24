@@ -1,5 +1,5 @@
 import { isHTMLElement } from "../../../../../motion-dom/utils/is-html-element";
-import { getElementTagName, callMethod0 } from "../../../../../motion-dom/dom-host";
+import { RHElement } from "../types";
 
 export class InsetPoint {
   float x;
@@ -11,80 +11,40 @@ export class InsetPoint {
   }
 }
 
-export InsetPoint calcInset(JsValue element, JsValue container) {
+export InsetPoint calcInset(RHElement element, RHElement container) {
   InsetPoint inset = new InsetPoint();
-  JsValue? current = element;
-
-  while (current != null && current != container) {
-    JsValue node = current;
-    if (isHTMLElement(node)) {
-      JsValue offsetLeft = node["offsetLeft"];
-      JsValue offsetTop = node["offsetTop"];
-      if (offsetLeft is float) {
-        inset.x = inset.x + offsetLeft;
+  JsValue node = element;
+  while (node.truthy() && !JS.strictEqual(node, container)) {
+    RHElement current = JS.assume(node);
+    if (isHTMLElement(current)) {
+      inset.x += current.offsetLeft;
+      inset.y += current.offsetTop;
+      node = current.offsetParent;
+    } else if (current.tagName == "svg") {
+      JsValue svgBoundingBox = current.getBoundingClientRect();
+      RHElement parent = JS.assume(current.parentElement);
+      node = parent;
+      JsValue parentBoundingBox = parent.getBoundingClientRect();
+      float left = JS.assume(svgBoundingBox["left"]);
+      float parentLeft = JS.assume(parentBoundingBox["left"]);
+      float top = JS.assume(svgBoundingBox["top"]);
+      float parentTop = JS.assume(parentBoundingBox["top"]);
+      inset.x += left - parentLeft;
+      inset.y += top - parentTop;
+    } else if (JS.in("getBBox", current)) {
+      JsValue box = current.getBBox();
+      float x = JS.assume(box["x"]);
+      float y = JS.assume(box["y"]);
+      inset.x += x;
+      inset.y += y;
+      JsValue parentNode = current.parentNode;
+      while (parentNode.truthy() && !JS.strictEqual(parentNode["tagName"], "svg")) {
+        parentNode = parentNode["parentNode"];
       }
-      if (offsetTop is float) {
-        inset.y = inset.y + offsetTop;
-      }
-      current = node["offsetParent"];
+      node = parentNode;
     } else {
-      string tag = getElementTagName(node);
-      if (tag == "svg" || tag == "SVG") {
-        JsValue svgBox = callMethod0(node, "getBoundingClientRect");
-        current = node["parentElement"];
-        if (current == null) {
-          break;
-        }
-        JsValue parentNode = current;
-        JsValue parentBox = callMethod0(parentNode, "getBoundingClientRect");
-        if (svgBox.truthy() && parentBox.truthy()) {
-          JsValue left = svgBox["left"];
-          JsValue parentLeft = parentBox["left"];
-          JsValue top = svgBox["top"];
-          JsValue parentTop = parentBox["top"];
-          if (left is float) {
-            if (parentLeft is float) {
-              inset.x = inset.x + (left - parentLeft);
-            }
-          }
-          if (top is float) {
-            if (parentTop is float) {
-              inset.y = inset.y + (top - parentTop);
-            }
-          }
-        }
-      } else {
-        JsValue getBBox = node["getBBox"];
-        if (getBBox.truthy()) {
-          JsValue box = callMethod0(node, "getBBox");
-          if (box.truthy()) {
-            JsValue x = box["x"];
-            JsValue y = box["y"];
-            if (x is float) {
-              inset.x = inset.x + x;
-            }
-            if (y is float) {
-              inset.y = inset.y + y;
-            }
-          }
-          JsValue? svg = null;
-          JsValue? parent = node["parentNode"];
-          while (svg == null && parent != null) {
-            JsValue parentNode = parent;
-            string parentTag = getElementTagName(parentNode);
-            if (parentTag == "svg" || parentTag == "SVG") {
-              svg = parentNode;
-            } else {
-              parent = parentNode["parentNode"];
-            }
-          }
-          current = svg;
-        } else {
-          break;
-        }
-      }
+      break;
     }
   }
-
   return inset;
 }

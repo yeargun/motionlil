@@ -1,0 +1,22 @@
+import extern { canSetAsProperty } from "./dom.ts";
+import extern { cast as asDomTarget, cast as asStyleTarget } from "../../value/types/cast.ts";
+
+export extern bool canSetAsProperty(JsValue element, string name);
+
+// The DOM members the effects call.
+export extern class DomTarget {
+  void setAttribute(string name, string value);
+  void removeAttribute(string name);
+}
+
+export extern class StyleTarget {
+  void setProperty(string name, JsValue value);
+}
+
+export extern DomTarget asDomTarget(JsValue element);
+export extern StyleTarget asStyleTarget(JsValue style);
+
+// Calls every callback in `callbacks`.
+export func()->void callAll((func()->void)[] callbacks) {
+  return () => callbacks.forEach((func()->void callback) => callback());
+}

@@ -1,41 +1,84 @@
 import { intType } from "../int";
 import { alpha } from "../numbers/index";
 import { px } from "../numbers/units";
-import { ValueType } from "../types";
-import { transformValueTypes } from "./transform";
-import { ValueTypeMap } from "./types";
+import { ValueType, asRec } from "../types";
+import extern { cast as asValueType } from "../cast.ts";
 
-export ValueTypeMap numberValueTypes = new ValueTypeMap();
-string[] pxKeys = [
-  "borderWidth", "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth",
-  "borderRadius", "borderTopLeftRadius", "borderTopRightRadius", "borderBottomRightRadius", "borderBottomLeftRadius",
-  "width", "maxWidth", "height", "maxHeight", "top", "right", "bottom", "left", "inset",
-  "insetBlock", "insetBlockStart", "insetBlockEnd", "insetInline", "insetInlineStart", "insetInlineEnd",
-  "padding", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft",
-  "paddingBlock", "paddingBlockStart", "paddingBlockEnd", "paddingInline", "paddingInlineStart", "paddingInlineEnd",
-  "margin", "marginTop", "marginRight", "marginBottom", "marginLeft",
-  "marginBlock", "marginBlockStart", "marginBlockEnd", "marginInline", "marginInlineStart", "marginInlineEnd",
-  "fontSize", "backgroundPositionX", "backgroundPositionY"
-];
-int i = 0;
-while (i < pxKeys.length) {
-  numberValueTypes.set(pxKeys[i], px);
-  i = i + 1;
+extern ValueType? asValueType(JsValue v);
+import { transformValueTypes } from "./transform";
+
+// Upstream's numberValueTypes: a plain object of value types by key.
+export JsValue numberValueTypes = Object.assign(
+  Object.assign(
+    asRec(object {
+      // Border props
+      borderWidth: px,
+      borderTopWidth: px,
+      borderRightWidth: px,
+      borderBottomWidth: px,
+      borderLeftWidth: px,
+      borderRadius: px,
+      borderTopLeftRadius: px,
+      borderTopRightRadius: px,
+      borderBottomRightRadius: px,
+      borderBottomLeftRadius: px,
+      // Positioning props
+      width: px,
+      maxWidth: px,
+      height: px,
+      maxHeight: px,
+      top: px,
+      right: px,
+      bottom: px,
+      left: px,
+      inset: px,
+      insetBlock: px,
+      insetBlockStart: px,
+      insetBlockEnd: px,
+      insetInline: px,
+      insetInlineStart: px,
+      insetInlineEnd: px,
+      // Spacing props
+      padding: px,
+      paddingTop: px,
+      paddingRight: px,
+      paddingBottom: px,
+      paddingLeft: px,
+      paddingBlock: px,
+      paddingBlockStart: px,
+      paddingBlockEnd: px,
+      paddingInline: px,
+      paddingInlineStart: px,
+      paddingInlineEnd: px,
+      margin: px,
+      marginTop: px,
+      marginRight: px,
+      marginBottom: px,
+      marginLeft: px,
+      marginBlock: px,
+      marginBlockStart: px,
+      marginBlockEnd: px,
+      marginInline: px,
+      marginInlineStart: px,
+      marginInlineEnd: px,
+      // Typography
+      fontSize: px,
+      // Misc
+      backgroundPositionX: px,
+      backgroundPositionY: px
+    }),
+    asRec(transformValueTypes)
+  ),
+  asRec(object {
+    zIndex: intType,
+    // SVG
+    fillOpacity: alpha,
+    strokeOpacity: alpha,
+    numOctaves: intType
+  })
+);
+
+// The value type for `key`, if it has one.
+export ValueType? numberValueType(string key) {
+  return asValueType(numberValueTypes[key]);
 }
-string[] transformKeys = [
-  "rotate", "pathRotation", "rotateX", "rotateY", "rotateZ", "scale", "scaleX", "scaleY", "scaleZ",
-  "skew", "skewX", "skewY", "distance", "translateX", "translateY", "translateZ", "x", "y", "z",
-  "perspective", "transformPerspective", "opacity", "originX", "originY", "originZ"
-];
-i = 0;
-while (i < transformKeys.length) {
-  ValueType? t = transformValueTypes.get(transformKeys[i]);
-  if (t != null) {
-    numberValueTypes.set(transformKeys[i], t);
-  }
-  i = i + 1;
-}
-numberValueTypes.set("zIndex", intType);
-numberValueTypes.set("fillOpacity", alpha);
-numberValueTypes.set("strokeOpacity", alpha);
-numberValueTypes.set("numOctaves", intType);

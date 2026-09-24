@@ -1,81 +1,78 @@
-import { easeInOut } from "../../../motion-utils/easing/ease";
 import { easingDefinitionToFunction } from "../../../motion-utils/easing/utils/map";
-import { interpolate, InterpolateOptions } from "../../utils/interpolate";
-import { defaultOffsetFloats } from "../keyframes/offsets/default";
+import { isEasingArray } from "../../../motion-utils/easing/utils/is-easing-array";
+import { easeInOut } from "../../../motion-utils/easing/ease";
+import { clamp } from "../../../motion-utils/clamp";
+import { noop } from "../../../motion-utils/noop";
+import { progress } from "../../../motion-utils/progress";
+import { getMixer } from "../../utils/mix/complex";
+import { defaultOffset } from "../keyframes/offsets/default";
 import { convertOffsetToTimes } from "../keyframes/offsets/time";
-import { AnimationState } from "../animation-state";
-import { SpringGenerator } from "./generator";
+import { SpringGenerator, AnimGeneratorState } from "./generator";
 
-export (func(float)->float)[] defaultEasing(
-  float[] values,
-  (func(float)->float)? easing = null
-) {
-  (func(float)->float)[] result = [];
-  func(float)->float chosen = easeInOut;
-  if (easing != null) {
-    chosen = easing;
-  }
-  for (int i = 0; i < values.length; i++) {
-    result.push(chosen);
-  }
-  return result.splice(0, values.length - 1);
+export extern class KeyframesInput {
+  JsValue? duration;
+  JsValue keyframes;
+  JsValue times;
+  JsValue? ease;
 }
 
-export class KeyframesInput {
-  float duration;
-  float[] keyframes;
-  float[]? times;
-  string | float[] | func(float)->float ease;
-
-  init(
-    float[] keyframes,
-    float duration = 300.0,
-    float[]? times = null,
-    string | float[] | func(float)->float ease = "easeInOut"
-  ) {
-    this.keyframes = keyframes;
-    this.duration = duration;
-    this.times = times;
-    this.ease = ease;
+// interpolate() over any animatable values, with one easing per segment.
+func(float)->JsValue interpolateKeyframes(float[] input, JsValue output, JsValue ease) {
+  float inputLength = input.length;
+  if (inputLength == 1.0) {
+    return (float v) => output[0];
   }
-}
-
-export SpringGenerator keyframes(KeyframesInput options) {
-  float duration = options.duration;
-  float[] keyframeValues = options.keyframes;
-  func(float)->float singleEase = easeInOut;
-  string | float[] | func(float)->float easeOpt = options.ease;
-  if (easeOpt is string) {
-    singleEase = easingDefinitionToFunction(easeOpt);
-  } else if (easeOpt is float[]) {
-    singleEase = easingDefinitionToFunction(easeOpt);
-  } else if (easeOpt is (func(float)->float)) {
-    singleEase = easeOpt;
+  if (inputLength == 2.0 && JS.strictEqual(output[0], output[1])) {
+    return (float v) => output[1];
   }
-  AnimationState state = new AnimationState(keyframeValues[0]);
-  float[] offsetTimes = defaultOffsetFloats(keyframeValues);
-  float[]? timesOpt = options.times;
-  if (timesOpt != null) {
-    if (timesOpt.length == keyframeValues.length) {
-      offsetTimes = timesOpt;
+  (func(float)->JsValue)[] mixers = [];
+  for (float i = 0.0; i < inputLength - 1.0; i++) {
+    func(float)->JsValue mixer = getMixer(output[i])(output[i], output[i + 1.0]);
+    func(float)->float easing = JS.assume(JS.or(ease[i], noop));
+    mixers.push((float p) => mixer(easing(p)));
+  }
+  return (float v) => {
+    v = clamp(input[0], input[input.length - 1], v);
+    int i = 0;
+    if (mixers.length > 1) {
+      while (i < input.length - 2 && v >= input[i + 1]) {
+        i++;
+      }
     }
-  }
-  float[] absoluteTimes = convertOffsetToTimes(offsetTimes, duration);
-  (func(float)->float)[] easeForMix = defaultEasing(keyframeValues, singleEase);
-  func(float)->float mapTimeToKeyframe = interpolate(
-    absoluteTimes,
+    return mixers[i](progress(input[i], input[i + 1], v));
+  };
+}
+
+JsValue fillEasing(JsValue values, func(float)->float easing) {
+  return JS.invoke(values, "map", (JsValue v) => easing);
+}
+
+export SpringGenerator keyframes(JsValue optionsValue) {
+  KeyframesInput options = JS.assume(optionsValue);
+  float duration = JS.assume(options.duration ?? 300.0);
+  JsValue keyframeValues = options.keyframes;
+  JsValue times = options.times;
+  JsValue ease = options.ease ?? "easeInOut";
+  AnimGeneratorState state = JS.assume(JS.object("done", false, "value", keyframeValues[0]));
+  JsValue easingFunctions = if (isEasingArray(ease)) {
+    JS.invoke(ease, "map", (JsValue e) => easingDefinitionToFunction(JS.assume(e)))
+  } else {
+    fillEasing(keyframeValues, easingDefinitionToFunction(JS.assume(ease)))
+  };
+  func(float)->JsValue mapTimeToKeyframe = interpolateKeyframes(
+    convertOffsetToTimes(
+      if (times.truthy() && times.length == keyframeValues.length) { JS.assume(times) } else { defaultOffset(keyframeValues) },
+      duration
+    ),
     keyframeValues,
-    new InterpolateOptions(true, easeForMix)
+    easingFunctions
   );
-  return new SpringGenerator(
-    duration,
-    (float t) => 0.0,
-    (float t) => {
+  return JS.assume(JS.object(
+    "calculatedDuration", duration,
+    "next", (float t) => {
       state.value = mapTimeToKeyframe(t);
       state.done = t >= duration;
       return state;
-    },
-    () => "",
-    () => {}
-  );
+    }
+  ));
 }

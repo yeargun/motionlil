@@ -1,3 +1,5 @@
+import { renderRelease } from "./release.js"
+
 const data = await fetch("./results.json").then((response) => {
   if (!response.ok) throw new Error(`Unable to load results: ${response.status}`)
   return response.json()
@@ -56,6 +58,7 @@ function renderResults() {
   `).join("")
 }
 
+renderRelease(data)
 renderDemos()
 renderResults()
 

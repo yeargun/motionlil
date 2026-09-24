@@ -16,15 +16,13 @@ export class SubscriptionManager {
   }
 
   add(handler) {
-    if (!this.subscriptions.includes(handler)) this.subscriptions.push(handler)
-    return () => {
-      const index = this.subscriptions.indexOf(handler)
-      if (index !== -1) this.subscriptions.splice(index, 1)
-    }
+    core.addUniqueItem(this.subscriptions, handler)
+    return () => core.removeItem(this.subscriptions, handler)
   }
 
   notify(a, b, c) {
-    for (const subscription of [...this.subscriptions]) subscription(a, b, c)
+    const subscriptions = this.subscriptions
+    for (let i = 0, length = subscriptions.length; i < length; i++) subscriptions[i]?.(a, b, c)
   }
 
   getSize() {
@@ -74,10 +72,12 @@ export class GroupAnimation {
   get iterationDuration() { return this.getMax("iterationDuration") }
 
   getMax(name) {
-    return this.animations.reduce((maximum, animation) => {
+    let maximum = 0
+    for (const animation of this.animations) {
       const value = animation[name]
-      return typeof value === "number" && value > maximum ? value : maximum
-    }, 0)
+      if (typeof value == "number" && value > maximum) maximum = value
+    }
+    return maximum
   }
 
   attachTimeline(timeline) {
@@ -104,19 +104,14 @@ export class GroupAnimationWithThen extends GroupAnimation {
   }
 }
 
-function animationFromOptions(options = {}) {
-  const keyframes = options.keyframes ?? [0, 1]
-  const first = Array.isArray(keyframes) ? keyframes[0] : keyframes
-  return normalizeControls(core.animateSingleValue(first, keyframes, options))
-}
-
 export class JSAnimation {
-  constructor(options) {
-    return animationFromOptions(options)
+  constructor(options = {}) {
+    const keyframes = options.keyframes ?? [0, 1]
+    return normalizeControls(core.animateSingleValue(Array.isArray(keyframes) ? keyframes[0] : keyframes, keyframes, options))
   }
 
   static [Symbol.hasInstance](value) {
-    return Boolean(value && typeof value.play === "function" && typeof value.stop === "function")
+    return !!value && typeof value.play == "function" && typeof value.stop == "function"
   }
 }
 
@@ -143,7 +138,7 @@ export class NativeAnimationWrapper {
 
   get finished() { return this._finished }
   then(resolve, reject) { return this.finished.then(resolve, reject) }
-  play() { if (!this.isStopped) this.animation?.play?.() }
+  play() { this.isStopped || this.animation?.play?.() }
   pause() { this.animation?.pause?.() }
   complete() { this.animation?.finish?.() }
   cancel() { try { this.animation?.cancel?.() } catch {} }
@@ -161,10 +156,11 @@ export class NativeAnimationWrapper {
     if (this.animation) this.animation.startTime = value
   }
   attachTimeline({ timeline, rangeStart, rangeEnd, observe } = {}) {
-    if (timeline && this.animation) {
-      this.animation.timeline = timeline
-      if (rangeStart) this.animation.rangeStart = rangeStart
-      if (rangeEnd) this.animation.rangeEnd = rangeEnd
+    const animation = this.animation
+    if (timeline && animation) {
+      animation.timeline = timeline
+      if (rangeStart) animation.rangeStart = rangeStart
+      if (rangeEnd) animation.rangeEnd = rangeEnd
       return noop
     }
     return observe?.(this) ?? noop
@@ -178,8 +174,7 @@ export class NativeAnimation extends NativeAnimationWrapper {
       return
     }
     const { element, name, keyframes, pseudoElement, ...transition } = options
-    const animation = core.startWaapiAnimation(element, name, keyframes, transition, pseudoElement)
-    super(animation)
+    super(core.startWaapiAnimation(element, name, keyframes, transition, pseudoElement))
     this.options = options
   }
 }
@@ -204,7 +199,12 @@ export class KeyframeResolver {
     this.state = "scheduled"
     if (this.isAsync) {
       resolverQueue.add(this)
-      queueMicrotask(() => flushCompatResolvers(false))
+      queueMicrotask(() => {
+        for (const resolver of [...resolverQueue]) {
+          resolver.readKeyframes()
+          resolver.complete(false)
+        }
+      })
     } else {
       this.readKeyframes()
       this.complete()
@@ -213,12 +213,13 @@ export class KeyframeResolver {
 
   readKeyframes() {
     const frames = this.unresolvedKeyframes
+    const motionValue = this.motionValue
     if (frames[0] == null) {
-      frames[0] = this.motionValue?.get?.() ?? this.element?.readValue?.(this.name, frames.at(-1)) ?? frames.at(-1)
-      if (this.motionValue?.get?.() === undefined) this.motionValue?.set?.(frames[0])
+      frames[0] = motionValue?.get?.() ?? this.element?.readValue?.(this.name, frames.at(-1)) ?? frames.at(-1)
+      if (motionValue?.get?.() === undefined) motionValue?.set?.(frames[0])
     }
     for (let index = 1; index < frames.length; index++) {
-      if (frames[index] == null) frames[index] = frames[index - 1]
+      frames[index] ??= frames[index - 1]
     }
   }
 
@@ -243,13 +244,6 @@ export class KeyframeResolver {
   }
 }
 
-function flushCompatResolvers(forced) {
-  for (const resolver of [...resolverQueue]) {
-    resolver.readKeyframes()
-    resolver.complete(forced)
-  }
-}
-
 export class DOMKeyframesResolver extends KeyframeResolver {}
 
 export class Feature {
@@ -268,12 +262,11 @@ export class FlatTree {
     this.isDirty = false
   }
   add(child) {
-    if (!this.children.includes(child)) this.children.push(child)
+    core.addUniqueItem(this.children, child)
     this.isDirty = true
   }
   remove(child) {
-    const index = this.children.indexOf(child)
-    if (index !== -1) this.children.splice(index, 1)
+    core.removeItem(this.children, child)
     this.isDirty = true
   }
   forEach(callback) {
@@ -290,12 +283,11 @@ export class NodeStack {
     this.members = []
   }
   add(node) {
-    if (!this.members.includes(node)) this.members.push(node)
+    core.addUniqueItem(this.members, node)
     node.scheduleRender?.()
   }
   remove(node) {
-    const index = this.members.indexOf(node)
-    if (index !== -1) this.members.splice(index, 1)
+    core.removeItem(this.members, node)
     if (node === this.prevLead) this.prevLead = undefined
     if (node === this.lead) this.promote(this.members.at(-1))
   }
@@ -321,6 +313,7 @@ export class NodeStack {
 
 export class VisualElement {
   constructor(options = {}, parent = null) {
+    const visualState = options.visualState
     this.current = null
     this.parent = parent ?? options.parent ?? null
     this.children = new Set()
@@ -329,8 +322,8 @@ export class VisualElement {
     this.features = new Map()
     this.options = options
     this.props = options.props ?? {}
-    this.latestValues = options.visualState?.latestValues ?? {}
-    this.renderState = options.visualState?.renderState ?? {}
+    this.latestValues = visualState?.latestValues ?? {}
+    this.renderState = visualState?.renderState ?? {}
     this.isMounted = false
     this.isVisible = true
   }

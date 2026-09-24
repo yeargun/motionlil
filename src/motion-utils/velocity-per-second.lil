@@ -1,6 +1,2 @@
-export float velocityPerSecond(float velocity, float frameDuration) {
-  if (frameDuration != 0.0) {
-    return velocity * (1000.0 / frameDuration);
-  }
-  return 0.0;
-}
+export func(float, float)->float velocityPerSecond = (float velocity, float frameDuration) =>
+  if (frameDuration != 0.0) { velocity * (1000.0 / frameDuration) } else { 0.0 };

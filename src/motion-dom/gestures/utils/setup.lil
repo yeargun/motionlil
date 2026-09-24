@@ -1,5 +1,5 @@
 import { resolveElements } from "../../utils/resolve-elements";
-import { constructConfigured, callMethod0, windowGet } from "../../dom-host";
+import { AbortController } from "../../render/host-views";
 
 export class GestureSetup {
   JsValue[] elements;
@@ -13,22 +13,14 @@ export class GestureSetup {
   }
 }
 
-export GestureSetup setupGesture(JsValue? elementOrSelector, JsValue options) {
-  JsValue[] elements = resolveElements(elementOrSelector);
-  JsValue AbortController = windowGet("AbortController");
-  JsValue gestureAbortController = constructConfigured(AbortController, record{});
-
-  JsValue eventOptions = record{};
-  eventOptions["passive"] = true;
+export GestureSetup setupGesture(JsValue elementOrSelector, JsValue options) {
+  JsValue gestureAbortController = JS.construct(AbortController);
+  JsValue eventOptions = object{passive: true};
   for (string key in options) {
     eventOptions[key] = options[key];
   }
-  if (!(options["passive"] is bool)) {
-    eventOptions["passive"] = true;
-  }
   eventOptions["signal"] = gestureAbortController["signal"];
-
-  return new GestureSetup(elements, eventOptions, () => {
-    callMethod0(gestureAbortController, "abort");
+  return new GestureSetup(resolveElements(elementOrSelector), eventOptions, () => {
+    JS.invoke(gestureAbortController, "abort");
   });
 }

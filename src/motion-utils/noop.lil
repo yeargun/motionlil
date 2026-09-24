@@ -1,3 +1,1 @@
-export float noop(float any = 0.0) {
-  return any;
-}
+export func(float)->float noop = (float any) => any;

@@ -17,9 +17,9 @@ export class HTMLRenderState {
   Record<JsValue> vars;
 
   init() {
-    this.transform = record{};
+    this.transform = object{};
     this.transformOrigin = new TransformOrigin();
-    this.style = record{};
-    this.vars = record{};
+    this.style = object{};
+    this.vars = object{};
   }
 }

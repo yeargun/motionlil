@@ -1,34 +1,23 @@
-import { isDragging } from "./is-active";
+import { isDragActive, isDragging } from "./is-active";
 
-export (func()->void)? setDragLock(bool | string axis) {
-  if (axis is string) {
-    if (axis == "x" || axis == "y") {
-      if (axis == "x") {
-        if (isDragging.x) {
-          return null;
-        }
-        isDragging.x = true;
-        return () => {
-          isDragging.x = false;
-        };
-      }
-      if (isDragging.y) {
-        return null;
-      }
-      isDragging.y = true;
-      return () => {
-        isDragging.y = false;
-      };
+export (func()->void)? setDragLock(JsValue axis) {
+  if (JS.strictEqual(axis, "x") || JS.strictEqual(axis, "y")) {
+    string name = JS.assume(axis);
+    if (isDragging[name].truthy()) {
+      return null;
     }
+    isDragging[name] = true;
+    return () => {
+      isDragging[name] = false;
+    };
   }
-
-  if (isDragging.x || isDragging.y) {
+  if (isDragActive()) {
     return null;
   }
-  isDragging.x = true;
-  isDragging.y = true;
+  isDragging["x"] = true;
+  isDragging["y"] = true;
   return () => {
-    isDragging.x = false;
-    isDragging.y = false;
+    isDragging["x"] = false;
+    isDragging["y"] = false;
   };
 }

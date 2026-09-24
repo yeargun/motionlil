@@ -1,20 +1,18 @@
-import { transformRange, TransformOptions } from "../utils/transform";
+import { interpolate, InterpolateOptions } from "../utils/interpolate";
 import { MotionValue } from "./index";
 import { transformValue } from "./transform-value";
+import { asFloats, asMixer, asNum } from "./types/types";
+import extern { cast as asInterpolateOptions } from "./types/cast.ts";
 
+extern InterpolateOptions? asInterpolateOptions(JsValue? options);
+
+// A MotionValue mapping another from one range of values into another.
 export MotionValue mapValue(
   MotionValue inputValue,
   float[] inputRange,
-  float[] outputRange,
-  TransformOptions? options = null
+  JsValue outputRange,
+  JsValue? options = null
 ) {
-  func(float)->float map = transformRange(inputRange, outputRange, options);
-  return transformValue(() => {
-    JsValue latest = inputValue.get();
-    float n = 0.0;
-    if (latest is float) {
-      n = latest;
-    }
-    return map(n);
-  });
+  func(float)->JsValue map = asMixer(interpolate(inputRange, asFloats(outputRange), asInterpolateOptions(options)));
+  return transformValue(() => map(asNum(inputValue.get())));
 }

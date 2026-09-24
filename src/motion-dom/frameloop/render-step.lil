@@ -1,89 +1,48 @@
 import { FrameData, Step } from "./types";
 
-class StepState {
-  (func(FrameData)->void)[] thisFrame;
-  (func(FrameData)->void)[] nextFrame;
-  bool isProcessing;
-  bool flushNextFrame;
-  Set<func(FrameData)->void> toKeepAlive;
-  FrameData latestFrameData;
-  Step? stepRef;
-
-  init() {
-    this.thisFrame = [];
-    this.nextFrame = [];
-    this.isProcessing = false;
-    this.flushNextFrame = false;
-    this.toKeepAlive = new Set<func(FrameData)->void>();
-    this.latestFrameData = new FrameData();
-    this.stepRef = null;
-  }
-}
-
 export Step createRenderStep(func()->void runNextFrame) {
-  StepState state = new StepState();
-
-  func(func(FrameData)->void)->void triggerCallback = (func(FrameData)->void callback) => {
-    if (state.toKeepAlive.has(callback)) {
-      Step? step = state.stepRef;
-      if (step != null) {
-        step.schedule(callback, false, false);
-      }
-      runNextFrame();
-    }
-    callback(state.latestFrameData);
-  };
-
-  func(FrameData)->void processFn = (FrameData frameData) => {
-    state.latestFrameData = frameData;
-    if (state.isProcessing) {
-      state.flushNextFrame = true;
+  Set<func(FrameData)->void> thisFrame = new Set<func(FrameData)->void>();
+  Set<func(FrameData)->void> nextFrame = new Set<func(FrameData)->void>();
+  Set<func(FrameData)->void> toKeepAlive = new Set<func(FrameData)->void>();
+  bool isProcessing = false;
+  bool flushNextFrame = false;
+  FrameData latestFrameData = new FrameData();
+  func(FrameData)->void process = (FrameData frameData) => {
+    latestFrameData = frameData;
+    if (isProcessing) {
+      flushNextFrame = true;
       return;
     }
-    state.isProcessing = true;
-    (func(FrameData)->void)[] prevFrame = state.thisFrame;
-    state.thisFrame = state.nextFrame;
-    state.nextFrame = prevFrame;
-    int i = 0;
-    while (i < state.thisFrame.length) {
-      triggerCallback(state.thisFrame[i]);
-      i = i + 1;
-    }
-    state.thisFrame = [];
-    state.isProcessing = false;
-    if (state.flushNextFrame) {
-      state.flushNextFrame = false;
-      Step? step = state.stepRef;
-      if (step != null) {
-        step.process(frameData);
+    isProcessing = true;
+    Set<func(FrameData)->void> prevFrame = thisFrame;
+    thisFrame = nextFrame;
+    nextFrame = prevFrame;
+    JS.invoke(thisFrame, "forEach", (func(FrameData)->void callback) => {
+      if (toKeepAlive.has(callback)) {
+        nextFrame.add(callback);
+        runNextFrame();
       }
+      callback(latestFrameData);
+    });
+    thisFrame.clear();
+    isProcessing = false;
+    if (flushNextFrame) {
+      flushNextFrame = false;
+      process(frameData);
     }
   };
-
-  Step step = new Step(
-    (func(FrameData)->void callback, bool keepAlive = false, bool immediate = false) => {
-      bool addToCurrentFrame = immediate && state.isProcessing;
-      (func(FrameData)->void)[] queue = state.nextFrame;
-      if (addToCurrentFrame) {
-        queue = state.thisFrame;
-      }
+  return new Step(
+    (func(FrameData)->void callback, bool keepAlive, bool immediate) => {
       if (keepAlive) {
-        state.toKeepAlive.add(callback);
+        toKeepAlive.add(callback);
       }
-      if (queue.indexOf(callback) == -1) {
-        queue.push(callback);
-      }
+      (if (immediate && isProcessing) { thisFrame } else { nextFrame }).add(callback);
       return callback;
     },
     (func(FrameData)->void callback) => {
-      int index = state.nextFrame.indexOf(callback);
-      if (index > -1) {
-        state.nextFrame.splice(index, 1);
-      }
-      state.toKeepAlive.delete(callback);
+      nextFrame.delete(callback);
+      toKeepAlive.delete(callback);
     },
-    processFn
+    process
   );
-  state.stepRef = step;
-  return step;
 }

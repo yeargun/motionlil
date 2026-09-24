@@ -17,6 +17,7 @@
         <span>motionlil</span>
       </a>
       <nav aria-label="Main navigation">
+        <a href="#release">this release</a>
         <a href="#lab">16 demos</a>
         <a href="#evidence">evidence</a>
         <a href="https://github.com/yeargun/motionlil">GitHub ↗</a>
@@ -49,14 +50,25 @@
             <div><strong>12.4%</strong><span>total reduction</span></div>
             <div><strong>13.2%</strong><span>median reduction</span></div>
             <div><strong>23.1%</strong><span>best case</span></div>
-            <div><strong>91.0%</strong><span>install reduction</span></div>
+            <div><strong data-release="install-reduction">—</strong><span>install reduction</span></div>
           </div>
-          <p class="score-note">Matching artifacts. Brotli 11. No cross-entry-point tricks.</p>
+          <p class="score-note">Matching artifacts. Brotli 11. No cross-entry-point tricks. Demo lab measured with the compiler at 9fc14a8.</p>
         </div>
       </section>
 
       <section class="ticker" aria-label="Supported APIs">
         <div>animate <span>✦</span> spring <span>✦</span> stagger <span>✦</span> scroll <span>✦</span> inView <span>✦</span> motionValue <span>✦</span> hover <span>✦</span> press <span>✦</span> resize <span>✦</span> sequences</div>
+      </section>
+
+      <section class="release shell" id="release">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">This release · LilScript <span data-release="revision">—</span></p>
+            <h2>The whole<br />package.</h2>
+          </div>
+          <p><code>motionlil/full</code> carries all 312 of Motion’s exports. Here it is against <code>export * from "motion"</code> minified by each competitor, next to the previous release, with every delivered file, what wrote it, and how long the compiler took.</p>
+        </div>
+        <div id="release-body" aria-live="polite"></div>
       </section>
 
       <section class="lab shell" id="lab">
@@ -101,7 +113,7 @@
             </table>
           </div>
           <div class="method-note">
-            <p><strong>Important distinction.</strong> These are closed-world application builds, where LilScript can optimize the concrete program. The reusable full-package ESM is 50,509 B Brotli versus Motion’s 39,871 B. The package’s other headline is its dependency-free 824,992 B install versus Motion’s 9,141,537 B dependency tree.</p>
+            <p><strong>Important distinction.</strong> These are closed-world application builds, where LilScript can optimize the concrete program, measured with the compiler at 9fc14a8 and not re-measured for this release. The reusable full-package ESM of this release is <strong data-release="full-brotli">—</strong> Brotli versus Motion’s <strong data-release="bar-brotli">—</strong> (<span data-release="bar-tool">—</span>); see <a href="#release">this release</a>. The package’s other headline is its dependency-free <span data-release="install">—</span> install versus Motion’s <span data-release="install-motion">—</span> dependency tree.</p>
             <a href="https://github.com/yeargun/motionlil#what-smaller-means">Read the methodology ↗</a>
           </div>
         </div>

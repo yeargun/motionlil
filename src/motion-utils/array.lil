@@ -13,20 +13,10 @@ export void removeItem<T>(T[] arr, T item) {
 
 export T[] moveItem<T>(T[] input, int fromIndex, int toIndex) {
   T[] arr = [...input];
-  int startIndex = fromIndex;
-  if (fromIndex < 0) {
-    startIndex = arr.length + fromIndex;
-  }
-  if (startIndex >= 0 && startIndex < arr.length) {
-    int endIndex = toIndex;
-    if (toIndex < 0) {
-      endIndex = arr.length + toIndex;
-    }
-    T[] removed = arr.splice(fromIndex, 1);
-    T item = removed[0];
-    T[] before = arr.slice(0, endIndex);
-    T[] after = arr.slice(endIndex);
-    return [...before, item, ...after];
+  int length = arr.length;
+  int startIndex = if (fromIndex < 0) { length + fromIndex } else { fromIndex };
+  if (startIndex >= 0 && startIndex < length) {
+    JS.splice(arr, if (toIndex < 0) { length + toIndex } else { toIndex }, 0.0, arr.splice(fromIndex, 1)[0]);
   }
   return arr;
 }

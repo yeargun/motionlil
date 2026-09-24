@@ -1,11 +1,5 @@
 import { wrap } from "../../wrap";
 import { isEasingArray } from "./is-easing-array";
 
-export JsValue getEasingForSegment(JsValue easing, int i) {
-  if (isEasingArray(easing)) {
-    float length = easing.length;
-    int index = wrap(0.0, length, i).toInt();
-    return easing[index];
-  }
-  return easing;
-}
+export func(JsValue, int)->JsValue getEasingForSegment = (JsValue easing, int i) =>
+  if (isEasingArray(easing)) { easing[wrap(0.0, easing.length, i)] } else { easing };

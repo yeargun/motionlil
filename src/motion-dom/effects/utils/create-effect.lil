@@ -1,5 +1,6 @@
 import { MotionValue } from "../../value/index";
 import { MotionValueState } from "../MotionValueState";
+import { callAll } from "./dom";
 import extern {
   weakMapCreate,
   weakMapSet,
@@ -10,36 +11,21 @@ extern JsValue weakMapCreate();
 extern void weakMapSet(JsValue map, JsValue key, JsValue value);
 extern MotionValueState? weakMapGetState(JsValue map, JsValue key);
 
-JsValue stateCache = weakMapCreate();
-
-MotionValueState stateFor(JsValue subject) {
-  MotionValueState? cached = weakMapGetState(stateCache, subject);
-  if (cached != null) {
-    return cached;
-  }
-  MotionValueState created = new MotionValueState();
-  weakMapSet(stateCache, subject, created);
-  return created;
-}
-
 export func(JsValue, Record<MotionValue>)->func()->void createEffect(
   func(JsValue, MotionValueState, string, MotionValue)->func()->void addValue
 ) {
+  JsValue stateCache = weakMapCreate();
   return (JsValue subject, Record<MotionValue> values) => {
-    MotionValueState state = stateFor(subject);
+    MotionValueState state = weakMapGetState(stateCache, subject) ?? new MotionValueState();
+    weakMapSet(stateCache, subject, state);
     (func()->void)[] subscriptions = [];
-    for (string key in values) {
-      MotionValue? valueOpt = values[key];
-      if (valueOpt != null) {
-        MotionValue value = valueOpt;
-        func()->void remove = addValue(subject, state, key, value);
-        subscriptions.push(remove);
+    JsValue keys = values;
+    for (string key in keys) {
+      MotionValue? value = values[key];
+      if (value != null) {
+        subscriptions.push(addValue(subject, state, key, value));
       }
     }
-    return () => {
-      for (int i = 0; i < subscriptions.length; i++) {
-        subscriptions[i]();
-      }
-    };
+    return callAll(subscriptions);
   };
 }

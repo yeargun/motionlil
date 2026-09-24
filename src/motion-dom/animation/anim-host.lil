@@ -1,0 +1,19 @@
+import extern {
+  animAssign2,
+  animAssign3,
+  animDefineProperties,
+  animSinh,
+  animCosh,
+  animNewPromise,
+  animPromiseAll,
+  animArrayFrom
+} from "./anim-host.ts";
+
+export extern JsValue animAssign2(JsValue target, JsValue source);
+export extern JsValue animAssign3(JsValue target, JsValue a, JsValue b);
+export extern JsValue animDefineProperties(JsValue target, JsValue props);
+export extern float animSinh(float x);
+export extern float animCosh(float x);
+export extern Task<bool> animNewPromise(func(func()->void)->void executor);
+export extern Task<bool> animPromiseAll(JsValue values);
+export extern JsValue animArrayFrom(JsValue values);

@@ -1,14 +1,7 @@
-export void fillWildcards(JsValue[] keyframes) {
-  for (int i = 1; i < keyframes.length; i++) {
-    JsValue current = keyframes[i];
-    bool defined =
-      (current is float) ||
-      (current is string) ||
-      (current is bool) ||
-      current.isArray() ||
-      (current.isObject() && current.truthy());
-    if (!defined) {
-      keyframes[i] = keyframes[i - 1];
+export void fillWildcards(JsValue keyframes) {
+  for (float i = 1.0; i < keyframes.length; i++) {
+    if (JS.isNullish(keyframes[i])) {
+      keyframes[i] = keyframes[i - 1.0];
     }
   }
 }

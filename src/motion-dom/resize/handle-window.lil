@@ -1,43 +1,25 @@
-import {
-  addWindowListener,
-  removeWindowListener,
-  windowInnerHeight,
-  windowInnerWidth
-} from "../dom-host";
-import { ResizeInfo } from "./types";
+import { RHSet, window, Set } from "../render/host-views";
 
-(func(ResizeInfo)->void)[] windowCallbacks = [];
-(func()->void)? windowResizeHandler = null;
+RHSet windowCallbacks = JS.assume(JS.construct(Set));
+JsValue windowResizeHandler = JS.undefined();
 
-export func()->void resizeWindow(func(ResizeInfo)->void callback) {
-  if (windowCallbacks.indexOf(callback) == -1) {
-    windowCallbacks.push(callback);
-  }
-  if (windowResizeHandler == null) {
+export func()->void resizeWindow(JsValue callback) {
+  windowCallbacks.add(callback);
+  if (!windowResizeHandler.truthy()) {
     windowResizeHandler = () => {
-      ResizeInfo info = new ResizeInfo(windowInnerWidth(), windowInnerHeight());
-      int i = 0;
-      while (i < windowCallbacks.length) {
-        windowCallbacks[i](info);
-        i = i + 1;
-      }
+      JsValue info = object{width: window["innerWidth"], height: window["innerHeight"]};
+      windowCallbacks.forEach((JsValue handler) => {
+        func(JsValue)->void notify = JS.assume(handler);
+        notify(info);
+      });
     };
-    (func()->void)? handler = windowResizeHandler;
-    if (handler != null) {
-      addWindowListener("resize", handler);
-    }
+    JS.invoke(window, "addEventListener", "resize", windowResizeHandler);
   }
   return () => {
-    int index = windowCallbacks.indexOf(callback);
-    if (index > -1) {
-      windowCallbacks.splice(index, 1);
-    }
-    if (windowCallbacks.length == 0) {
-      (func()->void)? handler = windowResizeHandler;
-      if (handler != null) {
-        removeWindowListener("resize", handler);
-        windowResizeHandler = null;
-      }
+    windowCallbacks.delete(callback);
+    if (!windowCallbacks.size.truthy() && JS.typeOf(windowResizeHandler) == "function") {
+      JS.invoke(window, "removeEventListener", "resize", windowResizeHandler);
+      windowResizeHandler = JS.undefined();
     }
   };
 }

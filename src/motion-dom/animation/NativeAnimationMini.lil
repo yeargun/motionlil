@@ -10,7 +10,7 @@ import {
   callMethod1
 } from "../dom-host";
 
-export class NativeAnimation extends WithPromise {
+export class NativeAnimationMini extends WithPromise {
   JsValue options;
   JsValue animation;
   bool isStopped;
@@ -63,7 +63,7 @@ export class NativeAnimation extends WithPromise {
       if (autoplay is bool && autoplay == false) {
         this.pause();
       }
-      NativeAnimation selfFinish = this;
+      NativeAnimationMini selfFinish = this;
       setProp(this.animation, "onfinish", () => {
         selfFinish.onAnimationFinish();
       });
@@ -164,7 +164,7 @@ export class NativeAnimation extends WithPromise {
     if (this.allowFlatten && anim.truthy()) {
       JsValue effect = anim["effect"];
       if (effect.truthy() && isFunction(getProp(effect, "updateTiming"))) {
-        callMethod1(effect, "updateTiming", record{ easing: "linear" });
+        callMethod1(effect, "updateTiming", object{ easing: "linear" });
       }
     }
     if (anim.truthy()) {
@@ -191,8 +191,8 @@ export class NativeAnimation extends WithPromise {
           iterationDuration = iterationDuration + delay / 1000.0;
         }
       }
-      NativeAnimation selfTimeline = this;
-      JsValue valueAnimation = record{ iterationDuration: iterationDuration };
+      NativeAnimationMini selfTimeline = this;
+      JsValue valueAnimation = object{ iterationDuration: iterationDuration };
       setProp(valueAnimation, "pause", () => {
         selfTimeline.pause();
       });

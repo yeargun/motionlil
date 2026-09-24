@@ -1,11 +1,5 @@
-import { hasFunction } from "../../dom-host";
+import { asJs } from "../types/types";
 
 export bool isMotionValue(JsValue? value = null) {
-  if (value == null) {
-    return false;
-  }
-  if (!value.truthy()) {
-    return false;
-  }
-  return hasFunction(value, "getVelocity");
+  return asJs(value).truthy() && asJs(value)["getVelocity"].truthy();
 }

@@ -1,6 +1,3 @@
-export bool isElementTracking(JsValue? options = null) {
-  if (options == null || !options.isObject()) {
-    return false;
-  }
-  return options["target"] != null || options["offset"] != null;
+export bool isElementTracking(JsValue options) {
+  return JS.and(options, JS.or(options["target"], options["offset"])).truthy();
 }

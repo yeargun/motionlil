@@ -1,7 +1,3 @@
 export float[] convertOffsetToTimes(float[] offset, float duration) {
-  float[] times = [];
-  for (int i = 0; i < offset.length; i++) {
-    times.push(offset[i] * duration);
-  }
-  return times;
+  return offset.map((float o) => o * duration);
 }

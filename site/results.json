@@ -18,21 +18,514 @@
     "maximumReduction": 23.100936524453697
   },
   "examples": [
-    { "id": "animate-play", "title": "Playback controls", "group": "animation", "motion": 20293, "lilscript": 17948, "reduction": 11.555708865125903 },
-    { "id": "animate-css-vars", "title": "CSS variables", "group": "animation", "motion": 19692, "lilscript": 16928, "reduction": 14.036156814950228 },
-    { "id": "animate-stagger", "title": "Stagger", "group": "animation", "motion": 19814, "lilscript": 17005, "reduction": 14.176844655294241 },
-    { "id": "animate-spring", "title": "Spring animation", "group": "animation", "motion": 19708, "lilscript": 16654, "reduction": 15.496245179622491 },
-    { "id": "animate-scroll", "title": "Scroll timeline", "group": "observers", "motion": 22611, "lilscript": 21390, "reduction": 5.40002653575693 },
-    { "id": "gesture-press", "title": "Press gesture", "group": "gestures", "motion": 20375, "lilscript": 18007, "reduction": 11.622085889570554 },
-    { "id": "gesture-hover", "title": "Hover gesture", "group": "gestures", "motion": 19983, "lilscript": 17413, "reduction": 12.860931792023223 },
-    { "id": "in-view", "title": "In view", "group": "observers", "motion": 19926, "lilscript": 17289, "reduction": 13.233965672990067 },
-    { "id": "resize-box", "title": "Resize observer", "group": "observers", "motion": 904, "lilscript": 807, "reduction": 10.730088495575218 },
-    { "id": "motion-value", "title": "Motion value", "group": "values", "motion": 19766, "lilscript": 16987, "reduction": 14.059496104421731 },
-    { "id": "perf-stagger", "title": "192-node stagger", "group": "performance", "motion": 3844, "lilscript": 2956, "reduction": 23.100936524453697 },
-    { "id": "showcase-wave", "title": "Center wave", "group": "showcase", "motion": 19832, "lilscript": 17229, "reduction": 13.125252117789433 },
-    { "id": "showcase-spring", "title": "Perpetual spring", "group": "showcase", "motion": 19746, "lilscript": 16647, "reduction": 15.694317836523853 },
-    { "id": "showcase-sequence", "title": "Choreographed sequence", "group": "showcase", "motion": 19769, "lilscript": 18773, "reduction": 5.038191107289192 },
-    { "id": "showcase-gestures", "title": "Gesture cards", "group": "showcase", "motion": 20545, "lilscript": 18155, "reduction": 11.633000730104648 },
-    { "id": "showcase-carousel", "title": "Spring carousel", "group": "showcase", "motion": 20596, "lilscript": 17515, "reduction": 14.9592153816275 }
-  ]
+    {
+      "id": "animate-play",
+      "title": "Playback controls",
+      "group": "animation",
+      "motion": 20293,
+      "lilscript": 17948,
+      "reduction": 11.555708865125903
+    },
+    {
+      "id": "animate-css-vars",
+      "title": "CSS variables",
+      "group": "animation",
+      "motion": 19692,
+      "lilscript": 16928,
+      "reduction": 14.036156814950228
+    },
+    {
+      "id": "animate-stagger",
+      "title": "Stagger",
+      "group": "animation",
+      "motion": 19814,
+      "lilscript": 17005,
+      "reduction": 14.176844655294241
+    },
+    {
+      "id": "animate-spring",
+      "title": "Spring animation",
+      "group": "animation",
+      "motion": 19708,
+      "lilscript": 16654,
+      "reduction": 15.496245179622491
+    },
+    {
+      "id": "animate-scroll",
+      "title": "Scroll timeline",
+      "group": "observers",
+      "motion": 22611,
+      "lilscript": 21390,
+      "reduction": 5.40002653575693
+    },
+    {
+      "id": "gesture-press",
+      "title": "Press gesture",
+      "group": "gestures",
+      "motion": 20375,
+      "lilscript": 18007,
+      "reduction": 11.622085889570554
+    },
+    {
+      "id": "gesture-hover",
+      "title": "Hover gesture",
+      "group": "gestures",
+      "motion": 19983,
+      "lilscript": 17413,
+      "reduction": 12.860931792023223
+    },
+    {
+      "id": "in-view",
+      "title": "In view",
+      "group": "observers",
+      "motion": 19926,
+      "lilscript": 17289,
+      "reduction": 13.233965672990067
+    },
+    {
+      "id": "resize-box",
+      "title": "Resize observer",
+      "group": "observers",
+      "motion": 904,
+      "lilscript": 807,
+      "reduction": 10.730088495575218
+    },
+    {
+      "id": "motion-value",
+      "title": "Motion value",
+      "group": "values",
+      "motion": 19766,
+      "lilscript": 16987,
+      "reduction": 14.059496104421731
+    },
+    {
+      "id": "perf-stagger",
+      "title": "192-node stagger",
+      "group": "performance",
+      "motion": 3844,
+      "lilscript": 2956,
+      "reduction": 23.100936524453697
+    },
+    {
+      "id": "showcase-wave",
+      "title": "Center wave",
+      "group": "showcase",
+      "motion": 19832,
+      "lilscript": 17229,
+      "reduction": 13.125252117789433
+    },
+    {
+      "id": "showcase-spring",
+      "title": "Perpetual spring",
+      "group": "showcase",
+      "motion": 19746,
+      "lilscript": 16647,
+      "reduction": 15.694317836523853
+    },
+    {
+      "id": "showcase-sequence",
+      "title": "Choreographed sequence",
+      "group": "showcase",
+      "motion": 19769,
+      "lilscript": 18773,
+      "reduction": 5.038191107289192
+    },
+    {
+      "id": "showcase-gestures",
+      "title": "Gesture cards",
+      "group": "showcase",
+      "motion": 20545,
+      "lilscript": 18155,
+      "reduction": 11.633000730104648
+    },
+    {
+      "id": "showcase-carousel",
+      "title": "Spring carousel",
+      "group": "showcase",
+      "motion": 20596,
+      "lilscript": 17515,
+      "reduction": 14.9592153816275
+    }
+  ],
+  "compiler": {
+    "revision": "aa2052f0",
+    "binarySha256": "13cb49a93fb3e376a5978484835322c84adea692b69ae4720775291377cf18f9",
+    "compileWallMs": [
+      103569,
+      156153,
+      17724
+    ],
+    "fullEntryWallMs": [
+      103519,
+      155943,
+      17644
+    ],
+    "date": "2026-09-24",
+    "measures": "wall time of the build's compile phase: 9 entries compiled in parallel, full.lil the longest",
+    "host": "Azure B8als_v2 (8 burstable vCPUs), shared with other jobs",
+    "hostLoad1m": [
+      14.6,
+      18.6,
+      15.7
+    ]
+  },
+  "install": {
+    "motionlilUnpacked": 928855,
+    "motionDependencyTree": 9141537,
+    "reduction": 0.8983918131053892
+  },
+  "package": {
+    "date": "2026-09-24",
+    "codec": "lilscript-codec: Brotli quality 11 (window 22), gzip level 9",
+    "objective": "Brotli (cost_model = \"brotli\")",
+    "artifacts": [
+      {
+        "file": "dist/animate-mini.js",
+        "raw": 6239,
+        "gzip": 2487,
+        "brotli": 2270,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/animate.js",
+        "raw": 60402,
+        "gzip": 21933,
+        "brotli": 20033,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/debug.js",
+        "raw": 526,
+        "gzip": 245,
+        "brotli": 208,
+        "writtenBy": "compiler",
+        "label": "compiler-written"
+      },
+      {
+        "file": "dist/full.js",
+        "raw": 109932,
+        "gzip": 39282,
+        "brotli": 35167,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/gestures.js",
+        "raw": 2908,
+        "gzip": 1215,
+        "brotli": 1067,
+        "writtenBy": "compiler",
+        "label": "compiler-written"
+      },
+      {
+        "file": "dist/index.bundle.js",
+        "raw": 85494,
+        "gzip": 29964,
+        "brotli": 25568,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/index.js",
+        "raw": 764,
+        "gzip": 372,
+        "brotli": 319,
+        "writtenBy": "build script (re-export barrel)",
+        "label": "re-export barrel written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/mini.js",
+        "raw": 15729,
+        "gzip": 5710,
+        "brotli": 5194,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/motionlil.global.js",
+        "raw": 85988,
+        "gzip": 30148,
+        "brotli": 25616,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/resize.js",
+        "raw": 1373,
+        "gzip": 666,
+        "brotli": 578,
+        "writtenBy": "compiler",
+        "label": "compiler-written"
+      },
+      {
+        "file": "dist/scroll.js",
+        "raw": 15305,
+        "gzip": 6047,
+        "brotli": 5535,
+        "writtenBy": "compiler",
+        "label": "compiler-written"
+      },
+      {
+        "file": "dist/viewport.js",
+        "raw": 866,
+        "gzip": 481,
+        "brotli": 415,
+        "writtenBy": "compiler",
+        "label": "compiler-written"
+      },
+      {
+        "file": "dist/animate-mini.cjs",
+        "raw": 6851,
+        "gzip": 2747,
+        "brotli": 2504,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/animate.cjs",
+        "raw": 61422,
+        "gzip": 22488,
+        "brotli": 20424,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/debug.cjs",
+        "raw": 913,
+        "gzip": 454,
+        "brotli": 396,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/full.cjs",
+        "raw": 110840,
+        "gzip": 39656,
+        "brotli": 35356,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/gestures.cjs",
+        "raw": 3146,
+        "gzip": 1391,
+        "brotli": 1227,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/index.cjs",
+        "raw": 86220,
+        "gzip": 30167,
+        "brotli": 25711,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/mini.cjs",
+        "raw": 16378,
+        "gzip": 5858,
+        "brotli": 5330,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/resize.cjs",
+        "raw": 1716,
+        "gzip": 869,
+        "brotli": 764,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/scroll.cjs",
+        "raw": 14494,
+        "gzip": 5940,
+        "brotli": 5449,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/viewport.cjs",
+        "raw": 1233,
+        "gzip": 676,
+        "brotli": 597,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      }
+    ],
+    "bars": {
+      "artifact": "dist/full.js",
+      "upstream": "motion 13.1.0, export * (312 names; dist/full.js exports all of them plus numberType and getAsType)",
+      "competitors": [
+        {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "source": "this repository: scripts/measure-size.mjs, export * from motion",
+          "raw": 135753,
+          "gzip": 44702,
+          "brotli": 39871
+        },
+        {
+          "name": "Terser",
+          "tool": "Terser 5.51.2 -m --module over an esbuild bundle",
+          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
+          "raw": 139742,
+          "gzip": 46145,
+          "brotli": 41032
+        },
+        {
+          "name": "Oxc",
+          "tool": "Oxc minifier, Rolldown 1.2.5",
+          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
+          "raw": 137455,
+          "gzip": 46191,
+          "brotli": 41246
+        },
+        {
+          "name": "esbuild",
+          "tool": "esbuild 0.28.1 minify",
+          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
+          "raw": 140304,
+          "gzip": 48015,
+          "brotli": 42840
+        }
+      ],
+      "strongest": {
+        "raw": {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "bytes": 135753
+        },
+        "gzip": {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "bytes": 44702
+        },
+        "brotli": {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "bytes": 39871
+        }
+      }
+    },
+    "previous": {
+      "commit": "69cd2cf",
+      "date": "2026-09-10",
+      "sizes": {
+        "dist/animate-mini.js": {
+          "raw": 7142,
+          "gzip": 2791,
+          "brotli": 2562
+        },
+        "dist/animate.js": {
+          "raw": 91203,
+          "gzip": 29084,
+          "brotli": 25747
+        },
+        "dist/debug.js": {
+          "raw": 510,
+          "gzip": 264,
+          "brotli": 217
+        },
+        "dist/full.js": {
+          "raw": 188438,
+          "gzip": 59307,
+          "brotli": 50526
+        },
+        "dist/gestures.js": {
+          "raw": 4190,
+          "gzip": 1765,
+          "brotli": 1568
+        },
+        "dist/index.bundle.js": {
+          "raw": 122467,
+          "gzip": 39451,
+          "brotli": 33419
+        },
+        "dist/index.js": {
+          "raw": 764,
+          "gzip": 372,
+          "brotli": 319
+        },
+        "dist/mini.js": {
+          "raw": 37296,
+          "gzip": 12021,
+          "brotli": 10731
+        },
+        "dist/motionlil.global.js": {
+          "raw": 122617,
+          "gzip": 39523,
+          "brotli": 33596
+        },
+        "dist/resize.js": {
+          "raw": 1917,
+          "gzip": 929,
+          "brotli": 807
+        },
+        "dist/scroll.js": {
+          "raw": 16672,
+          "gzip": 6172,
+          "brotli": 5500
+        },
+        "dist/viewport.js": {
+          "raw": 1333,
+          "gzip": 720,
+          "brotli": 639
+        },
+        "dist/animate-mini.cjs": {
+          "raw": 7734,
+          "gzip": 3000,
+          "brotli": 2759
+        },
+        "dist/animate.cjs": {
+          "raw": 92112,
+          "gzip": 29372,
+          "brotli": 26008
+        },
+        "dist/debug.cjs": {
+          "raw": 927,
+          "gzip": 483,
+          "brotli": 422
+        },
+        "dist/full.cjs": {
+          "raw": 189111,
+          "gzip": 59804,
+          "brotli": 50818
+        },
+        "dist/gestures.cjs": {
+          "raw": 4838,
+          "gzip": 2006,
+          "brotli": 1771
+        },
+        "dist/index.cjs": {
+          "raw": 122620,
+          "gzip": 39536,
+          "brotli": 33564
+        },
+        "dist/mini.cjs": {
+          "raw": 38142,
+          "gzip": 12151,
+          "brotli": 10926
+        },
+        "dist/resize.cjs": {
+          "raw": 2535,
+          "gzip": 1179,
+          "brotli": 1060
+        },
+        "dist/scroll.cjs": {
+          "raw": 17533,
+          "gzip": 6440,
+          "brotli": 5736
+        },
+        "dist/viewport.cjs": {
+          "raw": 1926,
+          "gzip": 956,
+          "brotli": 874
+        }
+      }
+    }
+  }
 }

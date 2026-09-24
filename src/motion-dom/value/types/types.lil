@@ -1,52 +1,65 @@
-export class RGBA {
+import extern {
+  cast as valueType,
+  cast as asNum,
+  cast as asRGBA,
+  cast as asHSLA,
+  cast as asRec,
+  cast as asStr,
+  cast as asJs,
+  cast as asArr,
+  cast as asOpt,
+  cast as asFloats,
+  cast as floatsAsJs,
+  cast as asFloatFn,
+  cast as asMixer,
+  cast as asCallback,
+  cast as asValueTypeList
+} from "./cast.ts";
+
+// A value type is a plain object: `{ test, parse, transform }`, plus
+// `createTransformer`/`getAnimatableNone` on the complex types and `default`
+// on scale. Members a type does not carry are absent, as upstream.
+export extern class ValueType {
+  func(JsValue)->bool test;
+  func(JsValue)->JsValue parse;
+  func(JsValue)->JsValue transform;
+  func(string)->func(JsValue)->JsValue createTransformer;
+  func(JsValue)->JsValue getAnimatableNone;
+}
+
+export extern class RGBA {
   float red;
   float green;
   float blue;
-  float alpha;
-
-  init(float red = 0.0, float green = 0.0, float blue = 0.0, float alpha = 1.0) {
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
-    this.alpha = alpha;
-  }
+  float? alpha;
 }
 
-export class HSLA {
+export extern class HSLA {
   float hue;
   float saturation;
   float lightness;
-  float alpha;
-
-  init(float hue = 0.0, float saturation = 0.0, float lightness = 0.0, float alpha = 1.0) {
-    this.hue = hue;
-    this.saturation = saturation;
-    this.lightness = lightness;
-    this.alpha = alpha;
-  }
+  float? alpha;
 }
 
-export class ValueType {
-  func(JsValue)->bool test;
-  func(JsValue)->JsValue parse;
-  (func(JsValue)->JsValue)? transform;
-  (func(string)->func(JsValue)->JsValue)? createTransformer;
-  JsValue? defaultValue;
-  (func(JsValue)->JsValue)? getAnimatableNone;
+export extern ValueType valueType(JsValue members);
+export extern float asNum(JsValue? v);
+export extern RGBA asRGBA(JsValue v);
+export extern HSLA asHSLA(JsValue v);
+export extern Record<JsValue> asRec(JsValue? v);
+export extern string asStr(JsValue? v);
+export extern JsValue asJs(JsValue? v);
+export extern JsValue[] asArr(JsValue? v);
+export extern JsValue? asOpt(JsValue v);
+export extern float[] asFloats(JsValue v);
+export extern JsValue[] floatsAsJs(float[] v);
+export extern func(float)->float asFloatFn(func(float)->JsValue f);
+export extern func(float)->JsValue asMixer(JsValue f);
+export extern func()->void asCallback(JsValue f);
 
-  init(
-    func(JsValue)->bool test,
-    func(JsValue)->JsValue parse,
-    (func(JsValue)->JsValue)? transform = null,
-    (func(string)->func(JsValue)->JsValue)? createTransformer = null,
-    JsValue? defaultValue = null,
-    (func(JsValue)->JsValue)? getAnimatableNone = null
-  ) {
-    this.test = test;
-    this.parse = parse;
-    this.transform = transform;
-    this.createTransformer = createTransformer;
-    this.defaultValue = defaultValue;
-    this.getAnimatableNone = getAnimatableNone;
-  }
+export extern class ValueTypeList {
+  ValueType? find(func(ValueType)->bool predicate);
 }
+export extern ValueTypeList asValueTypeList(ValueType[] types);
+
+// The JavaScript `undefined` value.
+export extern JsValue undefined;

@@ -2,21 +2,24 @@
 preset = "maximum"
 
 [javascript]
-# 8.79: re-emit a twice-read member instead of naming it. Measured on this
-# port's own artifact against the same binary with the switch off: -202 Brotli.
-# The pair is inseparable -- rematerialisation only reaches host member reads
-# when property reads are assumed getter-free, and alone it finds no sites in a
-# JsValue-typed port. Off for the fleet: it costs seven of the twenty-two.
-rematerialize_member_reads = true
+# A dynamic member read runs no getter (Terser's pure_getters). Set in 8.79
+# together with the old emitter's member rematerialisation (-202 Brotli as a
+# pair); that key, `function_spelling` and `local_name_reserve` have no effect
+# in the one compiler and were removed with the rebuild of 2026-09-24.
 assume_pure_property_reads = true
 priority = "size-first"
 optimization_level = 15
 cost_model = "brotli"
-function_spelling = "arrow"
-local_name_reserve = 48
+# Motion runs against the platform's own builtins, as every other port here
+# declares: a class construction is then its literal (the store fold).
+assume_pristine_builtins = true
 
 [mangle]
 identifiers = true
 properties = true
-exports = false
 pool_strings = true
+
+[bundle]
+# The compiler lowers these host modules into the program, where
+# pruning, inlining and naming reach them.
+host_modules = "embed"

@@ -1,12 +1,13 @@
-import { NativeAnimation } from "./NativeAnimation";
+import { NativeAnimation, nativeStateOf, nativeTime, AnimNativeState } from "./NativeAnimation";
 
 export class NativeAnimationWrapper extends NativeAnimation {
   init(JsValue animation) {
     super(null);
-    this.animation = animation;
+    AnimNativeState state = nativeStateOf(this);
+    state.animation = JS.assume(animation);
     NativeAnimationWrapper self = this;
     animation["onfinish"] = () => {
-      self.finishedTime = self.time;
+      state.finishedTime = nativeTime(state);
       self.notifyFinished();
     };
   }

@@ -1,9 +1,7 @@
 import { callMethod0 } from "../../dom-host";
 import { isMotionValue } from "./is-motion-value";
 
+// A MotionValue's current value, any other value as it is.
 export JsValue? resolveMotionValue(JsValue? value = null) {
-  if (isMotionValue(value)) {
-    return callMethod0(value, "get");
-  }
-  return value;
+  return if (isMotionValue(value)) { callMethod0(value, "get") } else { value };
 }

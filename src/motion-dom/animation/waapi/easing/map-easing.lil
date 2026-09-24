@@ -4,48 +4,27 @@ import { generateLinearEasing } from "../utils/linear";
 import { cubicBezierAsString } from "./cubic-bezier";
 import { supportedWaapiEasing } from "./supported";
 
-export string mapEasingFunctionToNativeEasing(
-  func(float)->float easing,
-  float duration
-) {
-  if (supportsLinearEasing()) {
-    return generateLinearEasing(easing, duration);
-  }
-  return "ease-out";
+export string mapEasingFunctionToNativeEasing(func(float)->float easing, float duration) {
+  return if (supportsLinearEasing()) { generateLinearEasing(easing, duration, 10.0) } else { "ease-out" };
 }
 
-export string? mapEasingToNativeEasing(
-  (string | float[] | func(float)->float)? easing,
-  float duration
-) {
-  if (easing == null) {
-    return null;
+// Returns the native easing: a string, or an array of strings for an easing array.
+export string? mapEasingToNativeEasing(JsValue easing, float duration) {
+  if (!easing.truthy()) {
+    return JS.assume(JS.undefined());
   }
-  if (easing is (func(float)->float)) {
-    return mapEasingFunctionToNativeEasing(easing, duration);
+  if (JS.typeOf(easing) == "function") {
+    return mapEasingFunctionToNativeEasing(JS.assume(easing), duration);
   }
-  if (easing is float[]) {
+  if (isBezierDefinition(easing)) {
     return cubicBezierAsString(easing);
   }
-  if (easing is string) {
-    return supportedWaapiEasing.get(easing);
+  if (easing.isArray()) {
+    return JS.assume(JS.invoke(easing, "map", (JsValue segment) =>
+      JS.or(mapEasingToNativeEasing(segment, duration), supportedWaapiEasing.easeOut)
+    ));
   }
-  return null;
+  return JS.assume(JS.get(supportedWaapiEasing, JS.assume(easing)));
 }
 
-export string[] mapEasingArrayToNativeEasing(
-  (string | float[] | func(float)->float)[] easing,
-  float duration
-) {
-  string[] mapped = [];
-  for (int i = 0; i < easing.length; i++) {
-    string | float[] | func(float)->float segment = easing[i];
-    string? native = mapEasingToNativeEasing(segment, duration);
-    if (native != null) {
-      mapped.push(native);
-    } else {
-      mapped.push(supportedWaapiEasing.easeOut);
-    }
-  }
-  return mapped;
-}
+export { mapEasingToNativeEasing as mapEasingArrayToNativeEasing };

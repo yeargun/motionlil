@@ -1,17 +1,12 @@
-import { addEventListener, removeEventListener } from "../dom-host";
-
 export func()->void addDomEvent(
   JsValue target,
   string eventName,
   JsValue handler,
-  JsValue? options = null
+  JsValue options = JS.undefined()
 ) {
-  JsValue opts = options;
-  if (opts == null) {
-    opts = record{passive: true};
-  }
-  addEventListener(target, eventName, handler, opts);
+  JsValue opts = if (JS.isUndefined(options)) { JS.object("passive", true) } else { options };
+  JS.invoke(target, "addEventListener", eventName, handler, opts);
   return () => {
-    removeEventListener(target, eventName, handler, opts);
+    JS.invoke(target, "removeEventListener", eventName, handler, opts);
   };
 }

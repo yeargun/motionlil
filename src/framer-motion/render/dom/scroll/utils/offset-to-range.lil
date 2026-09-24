@@ -4,101 +4,73 @@ import {
   scrollOffsetAny,
   scrollOffsetAll
 } from "../offsets/presets";
-import { stringTrim, stringSplit } from "../../../../../motion-dom/string-host";
 
-export class ViewTimelineRange {
-  string rangeStart;
-  string rangeEnd;
+JsValue presets = [[scrollOffsetEnter, "entry"], [scrollOffsetExit, "exit"], [scrollOffsetAny, "cover"], [scrollOffsetAll, "contain"]];
+JsValue stringToProgress = object{start: 0.0, end: 1.0};
 
-  init(string rangeStart, string rangeEnd) {
-    this.rangeStart = rangeStart;
-    this.rangeEnd = rangeEnd;
+JsValue parseStringOffset(string s) {
+  JsValue parts = JS.invoke(s.trim(), "split", new Regex("\\s+"));
+  if (!JS.strictEqual(parts["length"], 2.0)) {
+    return JS.undefined();
   }
-}
-
-Map<string, float> stringToProgress = new Map<string, float>();
-
-void initStringToProgress() {
-  if (stringToProgress.size == 0) {
-    stringToProgress.set("start", 0.0);
-    stringToProgress.set("end", 1.0);
-  }
-}
-
-float[]? parseStringOffset(string s) {
-  initStringToProgress();
-  string[] parts = stringSplit(stringTrim(s), " ");
-  if (parts.length != 2) {
-    return null;
-  }
-  float? a = stringToProgress.get(parts[0]);
-  float? b = stringToProgress.get(parts[1]);
-  if (a == null || b == null) {
-    return null;
+  JsValue a = JS.get(stringToProgress, JS.assume(parts[0]));
+  JsValue b = JS.get(stringToProgress, JS.assume(parts[1]));
+  if (JS.isUndefined(a) || JS.isUndefined(b)) {
+    return JS.undefined();
   }
   return [a, b];
 }
 
-float[][]? normaliseOffset(JsValue offset) {
-  if (!offset.isArray() || offset.length.toInt() != 2) {
-    return null;
+JsValue normaliseOffset(JsValue offset) {
+  if (!JS.strictEqual(offset["length"], 2.0)) {
+    return JS.undefined();
   }
-  float[][] result = [];
+  JsValue[] result = [];
   for (int i = 0; i < 2; i++) {
     JsValue item = offset[i];
     if (item.isArray()) {
-      JsValue a = item[0];
-      JsValue b = item[1];
-      if ((a is float) && (b is float)) {
-        result.push([a, b]);
-      } else {
-        return null;
-      }
+      result.push(item);
     } else if (item is string) {
-      float[]? parsed = parseStringOffset(item);
-      if (parsed == null) {
-        return null;
+      JsValue parsed = parseStringOffset(item);
+      if (!parsed.truthy()) {
+        return JS.undefined();
       }
       result.push(parsed);
     } else {
-      return null;
+      return JS.undefined();
     }
   }
   return result;
 }
 
-bool matchesPreset(JsValue offset, float[][] preset) {
-  float[][]? normalised = normaliseOffset(offset);
-  if (normalised == null) {
+bool matchesPreset(JsValue offset, JsValue preset) {
+  JsValue normalised = normaliseOffset(offset);
+  if (!normalised.truthy()) {
     return false;
   }
   for (int i = 0; i < 2; i++) {
-    float[] o = normalised[i];
-    float[] p = preset[i];
-    if (o[0] != p[0] || o[1] != p[1]) {
+    JsValue o = normalised[i];
+    JsValue p = preset[i];
+    if (!JS.strictEqual(o[0], p[0]) || !JS.strictEqual(o[1], p[1])) {
       return false;
     }
   }
   return true;
 }
 
-export ViewTimelineRange? offsetToViewTimelineRange(JsValue? offset = null) {
-  if (offset == null) {
-    return new ViewTimelineRange("contain 0%", "contain 100%");
-  }
+JsValue range(string name) {
+  return object{rangeStart: `${name} 0%`, rangeEnd: `${name} 100%`};
+}
 
-  if (matchesPreset(offset, scrollOffsetEnter)) {
-    return new ViewTimelineRange("entry 0%", "entry 100%");
+export JsValue offsetToViewTimelineRange(JsValue offset) {
+  if (!offset.truthy()) {
+    return range("contain");
   }
-  if (matchesPreset(offset, scrollOffsetExit)) {
-    return new ViewTimelineRange("exit 0%", "exit 100%");
+  for (int i = 0; i < 4; i++) {
+    JsValue preset = presets[i];
+    if (matchesPreset(offset, preset[0])) {
+      return range(JS.assume(preset[1]));
+    }
   }
-  if (matchesPreset(offset, scrollOffsetAny)) {
-    return new ViewTimelineRange("cover 0%", "cover 100%");
-  }
-  if (matchesPreset(offset, scrollOffsetAll)) {
-    return new ViewTimelineRange("contain 0%", "contain 100%");
-  }
-
-  return null;
+  return JS.undefined();
 }

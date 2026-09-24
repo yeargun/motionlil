@@ -1,0 +1,69 @@
+// Typed views of the host objects the render/projection/gesture/scroll modules touch.
+// Reads and calls through these print as plain property accesses and method calls.
+export extern class RHElement {
+  float scrollLeft;
+  float scrollTop;
+  float scrollWidth;
+  float scrollHeight;
+  float clientWidth;
+  float clientHeight;
+  float offsetLeft;
+  float offsetTop;
+  float offsetWidth;
+  float offsetHeight;
+  JsValue offsetParent;
+  JsValue parentElement;
+  JsValue parentNode;
+  string tagName;
+  JsValue style;
+  JsValue getBBox();
+  JsValue getBoundingClientRect();
+  float tabIndex;
+  void addEventListener(string type, JsValue listener, JsValue options);
+  void removeEventListener(string type, JsValue listener, JsValue options);
+  bool dispatchEvent(JsValue event);
+  JsValue getAttribute(string name);
+  bool hasAttribute(string name);
+  void setAttribute(string name, JsValue value);
+}
+
+export extern class RHWeakMap {
+  JsValue get(JsValue key);
+  void set(JsValue key, JsValue value);
+  bool has(JsValue key);
+  bool delete(JsValue key);
+}
+
+export extern class RHMap {
+  JsValue get(JsValue key);
+  void set(JsValue key, JsValue value);
+  bool has(JsValue key);
+  bool delete(JsValue key);
+  void forEach(JsValue callback);
+}
+
+export extern class RHSet {
+  JsValue size;
+  void add(JsValue value);
+  bool has(JsValue value);
+  bool delete(JsValue value);
+  void forEach(JsValue callback);
+}
+
+export extern class RHObserver {
+  void observe(JsValue target);
+  void unobserve(JsValue target);
+  void disconnect();
+}
+
+// Host globals are declared as plain JsValue so every module can share one contract.
+export extern JsValue document;
+export extern JsValue window;
+export extern JsValue WeakMap;
+export extern JsValue Map;
+export extern JsValue Set;
+export extern JsValue ResizeObserver;
+export extern JsValue IntersectionObserver;
+export extern JsValue WeakSet;
+export extern JsValue AbortController;
+export extern JsValue PointerEvent;

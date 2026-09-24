@@ -48,7 +48,7 @@ export {
   animate,
   createScopedAnimate,
   stagger,
-  delay,
+  delayInSeconds as delay,
   delayInSeconds,
   spring,
   inertia,

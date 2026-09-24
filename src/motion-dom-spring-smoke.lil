@@ -4,10 +4,14 @@ import {
   spring
 } from "./motion-dom/animation/generators/spring";
 
-SpringInput springOptions = new SpringInput([0.0, 100.0], 170.0, 26.0, 1.0);
-SpringGenerator springGen = spring(springOptions);
+SpringInput springOptions = new SpringInput([0.0, 100.0]);
+springOptions.stiffness = 170.0;
+springOptions.damping = 26.0;
+springOptions.mass = 1.0;
+SpringGenerator springGen = spring(springOptions, JS.undefined());
 float springDigest = 0.0;
 for (int time = 0; time <= 1024; time = time + 16) {
-  springDigest = springDigest + (springGen.next(time).value * 1000.0).round();
+  float sample = JS.assume(springGen.next(time).value);
+  springDigest = springDigest + (sample * 1000.0).round();
 }
 print(`${springDigest}`);

@@ -1,6 +1,7 @@
 import { spawn, spawnSync } from "node:child_process"
+import { createHash } from "node:crypto"
 import { existsSync } from "node:fs"
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises"
 import { dirname, join, relative, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import { build } from "esbuild"
@@ -11,6 +12,7 @@ const source = join(root, "src")
 const dist = join(root, "dist")
 const compilerCandidates = [
   process.env.MOTIONLIL_LILSCRIPT_BIN,
+  process.env.LILSCRIPT_COMPILER,
   resolve(root, "../lilscript/target/release/lilscript"),
   "lilscript",
 ].filter(Boolean)
@@ -46,6 +48,15 @@ const standaloneEntries = [
   ["mini", "mini.lil"],
   ["debug", "debug.lil"],
 ]
+// Entries whose public ESM module is exactly the compiler's module: their
+// `.lil` entry exports the public names and nothing else, so `dist/<name>.js`
+// is the file the compiler wrote, byte for byte. Every other file is
+// post-processed: the compiled core behind a hand-written JavaScript facade
+// (src/compat*.mjs, src/control-compat.mjs), bundled by esbuild and minified by
+// Terser, and every CommonJS or global build is esbuild's reprint minified by
+// Terser. `.tmp/build-report.json` records which is which.
+const compilerWrittenEntries = new Set(["scroll", "gestures", "viewport", "resize", "debug"])
+const postProcessedBy = "esbuild + Terser"
 
 const animatePublic = [
   "createScopedAnimate",
@@ -97,8 +108,11 @@ const compatPublic = [
   "defaultEasing",
 ]
 
+const compileWallMs = {}
+
 function compile(name, input) {
   const compiled = join(dirname(join(source, input)), `.__compiled-${name}.mjs`)
+  const started = performance.now()
   return new Promise((resolvePromise, reject) => {
     const child = spawn(
       compiler,
@@ -125,6 +139,7 @@ function compile(name, input) {
     child.stderr.on("data", (chunk) => { output += chunk; process.stderr.write(chunk) })
     child.on("error", reject)
     child.on("close", (status) => {
+      compileWallMs[name] = Math.round(performance.now() - started)
       if (status !== 0) reject(new Error(output || `${name} failed`))
       else resolvePromise(compiled)
     })
@@ -229,8 +244,12 @@ const barrelSource = [
   "",
 ].join("\n")
 
+const writtenBy = {}
+let compilePhaseWallMs = 0
+
 try {
   const allEntries = [...featureEntries, ...standaloneEntries]
+  const compileStarted = performance.now()
   const compiled = await Promise.all(
     allEntries.map(async ([name, input]) => {
       const file = await compile(name, input)
@@ -238,22 +257,53 @@ try {
       return [name, file]
     }),
   )
+  compilePhaseWallMs = Math.round(performance.now() - compileStarted)
 
   for (const [name, file] of compiled) {
-    const entry = await writeFacade(name, file)
-    await emitBundled(entry, join(dist, `${name}.js`), "esm")
+    const direct = compilerWrittenEntries.has(name)
+    const entry = direct ? file : await writeFacade(name, file)
+    if (direct) {
+      await copyFile(file, join(dist, `${name}.js`))
+      writtenBy[`dist/${name}.js`] = "compiler"
+    } else {
+      await emitBundled(entry, join(dist, `${name}.js`), "esm")
+      writtenBy[`dist/${name}.js`] = postProcessedBy
+    }
     await emitBundled(entry, join(dist, `${name}.cjs`), "cjs", "neutral")
+    writtenBy[`dist/${name}.cjs`] = postProcessedBy
   }
 
   await writeFile(join(dist, "index.js"), barrelSource)
+  writtenBy["dist/index.js"] = "build script (re-export barrel)"
   await emitBundled(join(dist, "index.js"), join(dist, "index.cjs"), "cjs", "neutral")
   await emitBundled(join(dist, "index.js"), join(dist, "index.bundle.js"), "esm")
   await emitBundled(join(dist, "index.js"), join(dist, "motionlil.global.js"), "iife")
+  for (const file of ["index.cjs", "index.bundle.js", "motionlil.global.js"]) {
+    writtenBy[`dist/${file}`] = postProcessedBy
+  }
 } finally {
   const cleanup = keepCompilerOutput ? facadeFiles : [...compiledFiles, ...facadeFiles]
   await Promise.all(cleanup.map((file) => rm(file, { force: true })))
 }
 
+const compilerBinary = spawnSync("sh", ["-c", `command -v ${JSON.stringify(compiler)}`], {
+  encoding: "utf8",
+}).stdout.trim() || compiler
+const report = {
+  date: new Date().toISOString(),
+  mode: buildMode,
+  compiler: compilerBinary,
+  compilerSha256: createHash("sha256").update(await readFile(compilerBinary)).digest("hex"),
+  compilePhaseWallMs,
+  compileWallMs,
+  writtenBy,
+}
+await mkdir(join(root, ".tmp"), { recursive: true })
+await writeFile(join(root, ".tmp", "build-report.json"), `${JSON.stringify(report, null, 2)}\n`)
+
 console.log(
   `Built ${featureEntries.length} ESM features and ${standaloneEntries.length} standalone ${buildMode} entries with ${compiler}`,
+)
+console.log(
+  `Compiled ${Object.keys(compileWallMs).length} entries in ${compilePhaseWallMs} ms wall (in parallel; full.lil ${compileWallMs.full} ms)`,
 )

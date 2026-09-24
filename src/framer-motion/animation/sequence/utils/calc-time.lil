@@ -1,6 +1,7 @@
-import { stringSubstring } from "../../../../motion-dom/string-host";
+import extern { view as asString } from "../../utils/anim-host.ts";
 
 extern float parseFloat(string value);
+extern string asString(JsValue value);
 
 export float calcNextTime(
   float current,
@@ -11,30 +12,15 @@ export float calcNextTime(
   if (next is float) {
     return next;
   }
-  if (!(next is string)) {
-    return current;
+  string label = asString(next);
+  if (label.startsWith("-") || label.startsWith("+")) {
+    return (current + parseFloat(label)).max(0.0);
   }
-  string nextStr = next;
-  if (nextStr.startsWith("-") || nextStr.startsWith("+")) {
-    float result = current + parseFloat(nextStr);
-    if (result < 0.0) {
-      return 0.0;
-    }
-    return result;
-  }
-  if (nextStr == "<") {
+  if (label == "<") {
     return prev;
   }
-  if (nextStr.startsWith("<")) {
-    float result = prev + parseFloat(stringSubstring(nextStr, 1));
-    if (result < 0.0) {
-      return 0.0;
-    }
-    return result;
+  if (label.startsWith("<")) {
+    return (prev + parseFloat(label.slice(1))).max(0.0);
   }
-  float? labeled = labels.get(nextStr);
-  if (labeled != null) {
-    return labeled;
-  }
-  return current;
+  return labels.get(label) ?? current;
 }

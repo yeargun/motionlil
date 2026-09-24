@@ -1,3 +1,5 @@
+import { Set as SetConstructor } from "../host-views";
+
 export string[] transformPropOrder = [
   "transformPerspective",
   "x",
@@ -18,13 +20,4 @@ export string[] transformPropOrder = [
   "skewY"
 ];
 
-export Set<string> transformProps = new Set<string>();
-
-void initTransformProps() {
-  for (int i = 0; i < transformPropOrder.length; i++) {
-    transformProps.add(transformPropOrder[i]);
-  }
-  transformProps.add("pathRotation");
-}
-
-initTransformProps();
+export Set<string> transformProps = JS.assume(JS.construct(SetConstructor, JS.invoke(transformPropOrder, "concat", "pathRotation")));

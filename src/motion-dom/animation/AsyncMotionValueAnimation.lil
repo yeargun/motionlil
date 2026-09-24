@@ -1,373 +1,199 @@
-import { WithPromise } from "./utils/WithPromise";
-import { JSAnimation, JSAnimationOptions } from "./JSAnimation";
-import { NativeAnimationExtended } from "./NativeAnimationExtended";
-import { KeyframeResolver, flushKeyframeResolvers } from "./keyframes/KeyframesResolver";
-import { createDOMKeyframesResolver } from "./keyframes/DOMKeyframesResolver";
+import { MotionGlobalConfig } from "../../motion-utils/global-config";
+import { time } from "../frameloop/sync-time";
+import { createJSAnimation } from "./JSAnimation";
 import { getFinalKeyframe } from "./keyframes/get-final";
+import { KeyframeResolver, flushKeyframeResolvers } from "./keyframes/KeyframesResolver";
+import { NativeAnimationExtended } from "./NativeAnimationExtended";
 import { canAnimate } from "./utils/can-animate";
 import { makeAnimationInstant } from "./utils/make-animation-instant";
-import { supportsBrowserAnimation, BrowserAnimationOptions } from "./waapi/supports/waapi";
-import { time } from "../frameloop/sync-time";
-import { MotionGlobalConfig } from "../../motion-utils/global-config";
-import { callFn0, callFn1, isFunction, getProp, callMethod0, callMethod1, setProp } from "../dom-host";
-import { isGenerator } from "./generators/utils/is-generator";
-import extern { identity as asWithPromise } from "../cast-host.ts";
+import { promiseStateOf, updateFinished } from "./utils/WithPromise";
+import { supportsBrowserAnimation } from "./waapi/supports/waapi";
+import { animAssign2 as assign2, animDefineProperties as defineProperties } from "./anim-host";
 
-extern WithPromise asWithPromise(JsValue value);
+extern class AnimAsyncOptions {
+  JsValue? autoplay;
+  JsValue? delay;
+  JsValue? type;
+  JsValue? repeat;
+  JsValue? repeatDelay;
+  JsValue? repeatType;
+  JsValue keyframes;
+  JsValue name;
+  JsValue motionValue;
+  JsValue element;
+  JsValue velocity;
+  JsValue isHandoff;
+  JsValue onUpdate;
+}
 
-float MAX_RESOLVE_DELAY = 40.0;
-
-export class AsyncMotionValueAnimation extends WithPromise {
-  JsValue options;
-  JsValue? animation;
-  KeyframeResolver? resolver;
+// An AsyncMotionValueAnimation is an ordinary object carrying upstream's
+// fields and surface.
+export extern class AsyncMotionValueAnimation {
+  JsValue _animation;
+  KeyframeResolver? keyframeResolver;
   float createdAt;
-  float? resolvedAt;
-  JsValue? pendingTimeline;
-  (func()->void)? stopTimeline;
-  (func()->void)? stopActive;
-  bool isStopped;
+  float resolvedAt;
+  JsValue pendingTimeline;
+  JsValue stopTimeline;
+}
 
-  init(JsValue options) {
-    super();
-    this.options = options;
-    this.animation = null;
-    this.resolver = null;
-    this.createdAt = time.now();
-    this.resolvedAt = null;
-    this.pendingTimeline = null;
-    this.stopTimeline = null;
-    this.stopActive = null;
-    this.isStopped = false;
-    this.createAnimation();
-    AsyncMotionValueAnimation selfControls = this;
-    setProp(this, "attachTimeline", (JsValue timeline) => {
-      return selfControls.attachTimeline(timeline);
-    });
-    setProp(this, "pause", () => {
-      selfControls.pause();
-    });
-    setProp(this, "play", () => {
-      selfControls.play();
-    });
-    setProp(this, "stop", () => {
-      selfControls.stop();
-    });
+AsyncMotionValueAnimation asyncOf(JsValue value) {
+  return JS.assume(value);
+}
+
+JsValue getAnimation(JsValue self) {
+  AsyncMotionValueAnimation a = asyncOf(self);
+  if (!a._animation.truthy()) {
+    KeyframeResolver? resolver = a.keyframeResolver;
+    if (resolver != null) {
+      resolver.resume();
+    }
+    flushKeyframeResolvers();
   }
+  return a._animation;
+}
 
-  void createAnimation() {
-    JsValue options = this.options;
-    if (!(options["autoplay"] is bool)) {
-      options["autoplay"] = true;
+JsValue stopAsync(JsValue self) {
+  AsyncMotionValueAnimation a = asyncOf(self);
+  JsValue animation = a._animation;
+  if (animation.truthy()) {
+    JS.invoke(animation, "stop");
+    if (a.stopTimeline.truthy()) {
+      JS.call(a.stopTimeline, JS.undefined());
     }
-    if (!(options["delay"] is float)) {
-      options["delay"] = 0.0;
-    }
-    JsValue typeOpt = options["type"];
-    bool typeIsFalse = typeOpt is bool && typeOpt == false;
-    if (!(typeOpt is string) && !typeIsFalse && !isGenerator(typeOpt)) {
-      options["type"] = "keyframes";
-    }
-    if (!(options["repeat"] is float)) {
-      options["repeat"] = 0.0;
-    }
-    if (!(options["repeatDelay"] is float)) {
-      options["repeatDelay"] = 0.0;
-    }
-    if (!(options["repeatType"] is string)) {
-      options["repeatType"] = "loop";
-    }
-
-    JsValue keyframes = options["keyframes"];
-    JsValue[] unresolved = [];
-    if (keyframes.isArray()) {
-      int len = keyframes.length.toInt();
-      for (int i = 0; i < len; i++) {
-        unresolved.push(keyframes[i]);
-      }
-    }
-    string? name = null;
-    JsValue nameVal = options["name"];
-    if (nameVal is string) {
-      name = nameVal;
-    }
-    JsValue motionValue = options["motionValue"];
-    JsValue element = options["element"];
-    AsyncMotionValueAnimation self = this;
-
-    func(JsValue[], JsValue?, bool)->void onKeyframesResolved = (
-      JsValue[] resolvedKeyframes,
-      JsValue? finalKeyframe,
-      bool forced
-    ) => {
-      self.onKeyframesResolved(resolvedKeyframes, finalKeyframe, !forced);
-    };
-
-    KeyframeResolver resolver = new KeyframeResolver(
-      unresolved,
-      onKeyframesResolved,
-      name,
-      motionValue,
-      element,
-      false
-    );
-    if (element.truthy()) {
-      resolver = createDOMKeyframesResolver(
-        unresolved,
-        onKeyframesResolved,
-        name,
-        motionValue,
-        element
-      );
-    }
-    this.resolver = resolver;
-    resolver.scheduleResolve();
   }
+  KeyframeResolver? resolver = a.keyframeResolver;
+  if (resolver != null) {
+    resolver.cancel();
+  }
+  return JS.undefined();
+}
 
-  void onKeyframesResolved(
-    JsValue[] keyframes,
-    JsValue? finalKeyframe,
-    bool sync
-  ) {
-    this.resolver = null;
-    JsValue options = this.options;
-    this.resolvedAt = time.now();
-
-    string? name = null;
-    JsValue nameVal = options["name"];
-    if (nameVal is string) {
-      name = nameVal;
+void onKeyframesResolved(AsyncMotionValueAnimation a, JsValue keyframes, JsValue finalKeyframe, AnimAsyncOptions options, bool sync) {
+  a.keyframeResolver = null;
+  a.resolvedAt = time.now();
+  bool canAnimateValue = true;
+  if (!canAnimate(keyframes, options.name, options.type, options.velocity)) {
+    canAnimateValue = false;
+    if ((MotionGlobalConfig.instantAnimations == true || !JS.or(options.delay ?? 0.0, false).truthy()) && options.onUpdate.truthy()) {
+      JS.invoke(options, "onUpdate", getFinalKeyframe(keyframes, options, finalKeyframe, 1.0));
     }
-    JsValue type = options["type"];
-    float velocity = 0.0;
-    JsValue velocityVal = options["velocity"];
-    if (velocityVal is float) {
-      velocity = velocityVal;
-    }
-    float delay = 0.0;
-    JsValue delayVal = options["delay"];
-    if (delayVal is float) {
-      delay = delayVal;
-    }
-    bool isHandoff = options["isHandoff"].truthy();
-    JsValue onUpdate = options["onUpdate"];
-
-    bool canAnimateValue = true;
-    if (!canAnimate(keyframes, name, type, velocity)) {
-      canAnimateValue = false;
-      if (MotionGlobalConfig.instantAnimations == true || delay == 0.0) {
-        if (isFunction(onUpdate)) {
-          callFn1(onUpdate, getFinalKeyframe(keyframes, options, finalKeyframe));
-        }
-      }
-      if (keyframes.length > 0) {
-        keyframes[0] = keyframes[keyframes.length - 1];
-      }
-      makeAnimationInstant(options);
-      options["repeat"] = 0.0;
-    }
-
-    float? startTime = null;
-    if (sync) {
-      float? resolved = this.resolvedAt;
-      if (resolved == null) {
-        startTime = this.createdAt;
-      } else if (resolved - this.createdAt > MAX_RESOLVE_DELAY) {
-        startTime = resolved;
+    keyframes[0] = keyframes[keyframes.length - 1.0];
+    makeAnimationInstant(options);
+    options.repeat = 0.0;
+  }
+  JsValue resolvedOptions = assign2(
+    JS.object(
+      "startTime", if (sync) {
+        if (a.resolvedAt - a.createdAt > 40.0) { a.resolvedAt } else { a.createdAt }
       } else {
-        startTime = this.createdAt;
-      }
+        JS.undefined()
+      },
+      "finalKeyframe", finalKeyframe
+    ),
+    options
+  );
+  resolvedOptions["keyframes"] = keyframes;
+  JsValue animation = JS.undefined();
+  if (canAnimateValue && !options.isHandoff.truthy() && supportsBrowserAnimation(resolvedOptions)) {
+    JsValue motionValue = resolvedOptions["motionValue"];
+    JsValue owner = if (motionValue.truthy()) { motionValue["owner"] } else { JS.undefined() };
+    JsValue nativeOptions = assign2(JS.object(), resolvedOptions);
+    nativeOptions["element"] = if (owner.truthy()) { owner["current"] } else { JS.undefined() };
+    try {
+      animation = new NativeAnimationExtended(nativeOptions);
+    } catch {
+      animation = createJSAnimation(resolvedOptions);
     }
-
-    options["keyframes"] = keyframes;
-    if (finalKeyframe != null) {
-      options["finalKeyframe"] = finalKeyframe;
-    }
-    if (startTime != null) {
-      options["startTime"] = startTime;
-    }
-
-    JsValue motionValue = options["motionValue"];
-    JsValue element = options["element"];
-    if (motionValue.truthy()) {
-      JsValue owner = motionValue["owner"];
-      if (owner.truthy() && owner["current"].truthy()) {
-        element = owner["current"];
-        options["element"] = element;
-      }
-    }
-
-    BrowserAnimationOptions browserOpts = new BrowserAnimationOptions(
-      keyframes,
-      element,
-      name,
-      null,
-      null,
-      null,
-      type,
-      null,
-      options["transformTemplate"]
-    );
-    bool useWaapi = canAnimateValue && !isHandoff && supportsBrowserAnimation(browserOpts);
-
-    JsValue animation = null;
-    (func()->void)? stopActive = null;
-    if (useWaapi) {
-      NativeAnimationExtended waapi = new NativeAnimationExtended(options);
-      animation = waapi;
-      stopActive = () => {
-        waapi.stop();
-      };
-    } else {
-      float[] floatKeys = [];
-      for (int i = 0; i < keyframes.length; i++) {
-        JsValue k = keyframes[i];
-        if (k is float) {
-          floatKeys.push(k);
-        } else {
-          floatKeys.push(0.0);
-        }
-      }
-      string? typeStr = null;
-      if (type is string) {
-        typeStr = type;
-      }
-      (func(float)->void)? onUpdateFn = null;
-      if (isFunction(onUpdate)) {
-        onUpdateFn = (float v) => {
-          callFn1(onUpdate, v);
-        };
-      }
-      JSAnimationOptions jsOpts = new JSAnimationOptions(
-        floatKeys,
-        velocity,
-        typeStr,
-        null,
-        null,
-        onUpdateFn
-      );
-      jsOpts.extra = options;
-      JSAnimation jsAnim = new JSAnimation(jsOpts);
-      animation = jsAnim;
-      stopActive = () => {
-        jsAnim.stop();
-      };
-    }
-
-    AsyncMotionValueAnimation self = this;
-    asWithPromise(animation).finished().then((bool _v) => {
-      self.notifyFinished();
-      return true;
-    });
-
-    if (this.pendingTimeline != null) {
-      JsValue attach = getProp(animation, "attachTimeline");
-      if (isFunction(attach)) {
-        JsValue cancel = callMethod1(animation, "attachTimeline", this.pendingTimeline);
-        if (isFunction(cancel)) {
-          this.stopTimeline = () => {
-            callFn0(cancel);
-          };
-        }
-      }
-      this.pendingTimeline = null;
-    }
-
-    this.stopActive = stopActive;
-    this.animation = animation;
+  } else {
+    animation = createJSAnimation(resolvedOptions);
   }
-
-  JsValue getAnimation() {
-    if (this.animation == null) {
-      KeyframeResolver? resolver = this.resolver;
-      if (resolver != null) {
-        resolver.resume();
-      }
-      flushKeyframeResolvers();
-    }
-    return this.animation;
+  JS.invoke(JS.invoke(animation["finished"], "then", () => {
+    promiseStateOf(a)._resolve();
+  }), "catch", () => {});
+  if (a.pendingTimeline.truthy()) {
+    a.stopTimeline = JS.invoke(animation, "attachTimeline", a.pendingTimeline);
+    a.pendingTimeline = JS.undefined();
   }
+  a._animation = animation;
+}
 
-  func()->void attachTimeline(JsValue timeline) {
-    JsValue? animation = this.animation;
-    if (animation != null) {
-      JsValue attach = getProp(animation, "attachTimeline");
-      if (isFunction(attach)) {
-        JsValue cancel = callMethod1(animation, "attachTimeline", timeline);
-        if (isFunction(cancel)) {
-          this.stopTimeline = () => {
-            callFn0(cancel);
-          };
-        }
-      }
+JsValue asyncSurface = JS.object(
+  "finished", JS.object("get", JS.method0((JsValue self) =>
+    if (asyncOf(self)._animation.truthy()) { getAnimation(self)["finished"] } else { promiseStateOf(self)._finished })),
+  "then", JS.object("value", JS.method1((JsValue self, JsValue onResolve) =>
+    JS.invoke(JS.invoke(self["finished"], "finally", onResolve), "then", () => {}))),
+  "duration", JS.object("get", JS.method0((JsValue self) => getAnimation(self)["duration"])),
+  "iterationDuration", JS.object("get", JS.method0((JsValue self) => getAnimation(self)["iterationDuration"])),
+  "time", JS.object(
+    "get", JS.method0((JsValue self) => getAnimation(self)["time"]),
+    "set", JS.method1((JsValue self, JsValue newTime) => {
+      getAnimation(self)["time"] = newTime;
+      return JS.undefined();
+    })
+  ),
+  "speed", JS.object(
+    "get", JS.method0((JsValue self) => getAnimation(self)["speed"]),
+    "set", JS.method1((JsValue self, JsValue newSpeed) => {
+      getAnimation(self)["speed"] = newSpeed;
+      return JS.undefined();
+    })
+  ),
+  "state", JS.object("get", JS.method0((JsValue self) => getAnimation(self)["state"])),
+  "startTime", JS.object("get", JS.method0((JsValue self) => getAnimation(self)["startTime"])),
+  "animation", JS.object("get", JS.method0(getAnimation)),
+  "attachTimeline", JS.object("value", JS.method1((JsValue self, JsValue timeline) => {
+    AsyncMotionValueAnimation a = asyncOf(self);
+    if (a._animation.truthy()) {
+      a.stopTimeline = JS.invoke(getAnimation(self), "attachTimeline", timeline);
     } else {
-      this.pendingTimeline = timeline;
+      a.pendingTimeline = timeline;
     }
-    AsyncMotionValueAnimation self = this;
     return () => {
-      self.stop();
+      stopAsync(self);
     };
-  }
-
-  void play() {
-    JsValue animation = this.getAnimation();
-    if (animation.truthy()) {
-      callMethod0(animation, "play");
+  })),
+  "play", JS.object("value", JS.method0((JsValue self) => JS.invoke(getAnimation(self), "play"))),
+  "pause", JS.object("value", JS.method0((JsValue self) => JS.invoke(getAnimation(self), "pause"))),
+  "complete", JS.object("value", JS.method0((JsValue self) => JS.invoke(getAnimation(self), "complete"))),
+  "cancel", JS.object("value", JS.method0((JsValue self) => {
+    AsyncMotionValueAnimation a = asyncOf(self);
+    if (a._animation.truthy()) {
+      JS.invoke(getAnimation(self), "cancel");
     }
-  }
-
-  void pause() {
-    JsValue animation = this.getAnimation();
-    if (animation.truthy()) {
-      callMethod0(animation, "pause");
-    }
-  }
-
-  void complete() {
-    JsValue animation = this.getAnimation();
-    if (animation.truthy()) {
-      callMethod0(animation, "complete");
-    }
-  }
-
-  void cancel() {
-    JsValue? animation = this.animation;
-    if (animation != null) {
-      callMethod0(animation, "cancel");
-    }
-    KeyframeResolver? resolver = this.resolver;
+    KeyframeResolver? resolver = a.keyframeResolver;
     if (resolver != null) {
       resolver.cancel();
     }
-  }
+    return JS.undefined();
+  })),
+  "stop", JS.object("value", JS.method0(stopAsync))
+);
 
-  void stop() {
-    this.isStopped = true;
-    (func()->void)? stopActive = this.stopActive;
-    if (stopActive != null) {
-      stopActive();
-    }
-    (func()->void)? stopTimeline = this.stopTimeline;
-    if (stopTimeline != null) {
-      stopTimeline();
-    }
-    KeyframeResolver? resolver = this.resolver;
-    if (resolver != null) {
-      resolver.cancel();
-    }
-  }
-
-  float sample(float sampleTime) {
-    JsValue animation = this.getAnimation();
-    if (animation.truthy()) {
-      JsValue result = callMethod1(animation, "sample", sampleTime);
-      if (result.isObject()) {
-        JsValue value = result["value"];
-        if (value is float) {
-          return value;
-        }
-      }
-    }
-    return 0.0;
-  }
+export AsyncMotionValueAnimation createAsyncMotionValueAnimation(JsValue optionsValue) {
+  AsyncMotionValueAnimation a = asyncOf(JS.object());
+  updateFinished(a);
+  defineProperties(a, asyncSurface);
+  a.createdAt = time.now();
+  AnimAsyncOptions options = JS.assume(assign2(JS.object(), optionsValue));
+  options.autoplay = options.autoplay ?? true;
+  options.delay = options.delay ?? 0.0;
+  options.type = options.type ?? "keyframes";
+  options.repeat = options.repeat ?? 0.0;
+  options.repeatDelay = options.repeatDelay ?? 0.0;
+  options.repeatType = options.repeatType ?? "loop";
+  JsValue element = options.element;
+  KeyframeResolver resolver = new KeyframeResolver(
+    options.keyframes,
+    (JsValue resolvedKeyframes, JsValue finalKeyframe, bool forced) => {
+      onKeyframesResolved(a, resolvedKeyframes, finalKeyframe, options, !forced);
+    },
+    options.name,
+    options.motionValue,
+    element,
+    element.truthy() && JS.strictNotEqual(element["type"], "object")
+  );
+  a.keyframeResolver = resolver;
+  resolver.scheduleResolve();
+  return a;
 }

@@ -1,3 +1,1 @@
-export bool isObject(JsValue value) {
-  return value.isObject() && value.truthy();
-}
+export func(JsValue)->bool isObject = (JsValue value) => value.isObject() && !JS.isNullish(value);

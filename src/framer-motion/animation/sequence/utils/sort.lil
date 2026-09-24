@@ -1,30 +1,27 @@
-export class AbsoluteKeyframe {
+import extern { sortBy } from "../../utils/anim-host.ts";
+
+// A keyframe placed on the sequence timeline: `{ value, at, easing }`.
+export extern class AbsoluteKeyframe {
   JsValue value;
   float at;
-  JsValue? easing;
-
-  init(JsValue value, float at, JsValue? easing = null) {
-    this.value = value;
-    this.at = at;
-    this.easing = easing;
-  }
+  JsValue easing;
 }
 
-export int compareByTime(AbsoluteKeyframe a, AbsoluteKeyframe b) {
+extern void sortBy(AbsoluteKeyframe[] list, func(AbsoluteKeyframe, AbsoluteKeyframe)->float compare);
+
+export float compareByTime(AbsoluteKeyframe a, AbsoluteKeyframe b) {
   if (a.at == b.at) {
-    if (!a.value.truthy()) {
-      return 1;
+    if (a.value == null) {
+      return 1.0;
     }
-    if (!b.value.truthy()) {
-      return -1;
+    if (b.value == null) {
+      return -1.0;
     }
-    return 0;
+    return 0.0;
   }
-  if (a.at < b.at) {
-    return -1;
-  }
-  if (a.at > b.at) {
-    return 1;
-  }
-  return 0;
+  return a.at - b.at;
+}
+
+export void sortByTime(AbsoluteKeyframe[] frames) {
+  sortBy(frames, compareByTime);
 }

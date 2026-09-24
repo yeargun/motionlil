@@ -14,15 +14,17 @@ export class SubscriptionManager {
   }
 
   add(handler) {
-    if (!this.subscriptions.includes(handler)) this.subscriptions.push(handler)
+    const subscriptions = this.subscriptions
+    subscriptions.includes(handler) || subscriptions.push(handler)
     return () => {
-      const index = this.subscriptions.indexOf(handler)
-      if (index !== -1) this.subscriptions.splice(index, 1)
+      const index = subscriptions.indexOf(handler)
+      if (index > -1) subscriptions.splice(index, 1)
     }
   }
 
   notify(a, b, c) {
-    for (const subscription of [...this.subscriptions]) subscription(a, b, c)
+    const subscriptions = this.subscriptions
+    for (let i = 0, length = subscriptions.length; i < length; i++) subscriptions[i]?.(a, b, c)
   }
 
   getSize() {
@@ -72,10 +74,12 @@ export class GroupAnimation {
   get iterationDuration() { return this.getMax("iterationDuration") }
 
   getMax(name) {
-    return this.animations.reduce((maximum, animation) => {
+    let maximum = 0
+    for (const animation of this.animations) {
       const value = animation[name]
-      return typeof value === "number" && value > maximum ? value : maximum
-    }, 0)
+      if (typeof value == "number" && value > maximum) maximum = value
+    }
+    return maximum
   }
 
   attachTimeline(timeline) {

@@ -1,28 +1,14 @@
 import { GroupAnimation } from "./GroupAnimation";
-import { withPromiseOf } from "../cast";
+import { animDefineProperties as defineProperties } from "./anim-host";
+
+JsValue thenSurface = JS.object(
+  "then", JS.object("value", JS.method1((JsValue self, JsValue onResolve) =>
+    JS.invoke(JS.invoke(self["finished"], "finally", onResolve), "then", () => {})))
+);
 
 export class GroupAnimationWithThen extends GroupAnimation {
-  init(JsValue[] input) {
-    super(input);
-  }
-
-  Task<bool> finished() {
-    Task<bool>[] tasks = [];
-    for (int i = 0; i < this.animations.length; i++) {
-      tasks.push(withPromiseOf(this.animations[i]).finished());
-    }
-    if (tasks.length == 0) {
-      return Task.resolve(true);
-    }
-    return Task.all(tasks).then((bool[] _values) => {
-      return true;
-    });
-  }
-
-  Task<bool> then(func()->void onResolve, (func()->void)? onReject = null) {
-    return this.finished().then((bool _v) => {
-      onResolve();
-      return true;
-    });
+  init(JsValue[] animations) {
+    super(animations);
+    defineProperties(this, thenSurface);
   }
 }

@@ -1,8 +1,9 @@
 import { supportedWaapiEasing } from "./supported";
 
+// Named easings only: the mini animate passes strings.
 export string? mapEasingToNativeEasing(string? easing, float _duration) {
   if (easing == null) {
     return null;
   }
-  return supportedWaapiEasing.get(easing);
+  return JS.assume(JS.get(supportedWaapiEasing, easing));
 }

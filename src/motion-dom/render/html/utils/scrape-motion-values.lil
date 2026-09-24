@@ -1,43 +1,30 @@
 import { isMotionValue } from "../../../value/utils/is-motion-value";
 import { isForcedMotionValue } from "../../utils/is-forced-motion-value";
+import { VisualElement } from "../../VisualElement";
 
 export JsValue scrapeMotionValuesFromProps(
   JsValue props,
-  JsValue? prevProps = null,
-  JsValue? visualElement = null
+  JsValue prevProps = JS.undefined(),
+  JsValue visualElement = JS.undefined()
 ) {
-  JsValue newValues = record{};
-  JsValue styleCandidate = props["style"];
-  if (!styleCandidate.isObject()) {
+  JsValue style = props["style"];
+  JsValue prevStyle = JS.and(prevProps, prevProps["style"]);
+  JsValue newValues = JS.object();
+  if (!style.truthy()) {
     return newValues;
   }
-  JsValue styleVal = styleCandidate;
-
-  JsValue? prevStyle = null;
-  if (prevProps != null) {
-    prevStyle = prevProps["style"];
-  }
-
-  for (string key in styleVal) {
-    JsValue next = styleVal[key];
-    bool include = isMotionValue(next);
-    if (!include && prevStyle != null && prevStyle.isObject()) {
-      include = isMotionValue(prevStyle[key]);
-    }
-    if (!include) {
-      include = isForcedMotionValue(key, props);
-    }
-    if (!include && visualElement != null) {
-      JsValue getValue = visualElement["getValue"];
-      // liveStyle check requires calling getValue - use optional dynamic path
-      if (getValue.truthy()) {
-        include = true;
-      }
+  for (string key in style) {
+    bool include = isMotionValue(style[key]) ||
+      (prevStyle.truthy() && isMotionValue(prevStyle[key])) ||
+      isForcedMotionValue(key, props);
+    if (!include && visualElement.truthy()) {
+      VisualElement element = JS.assume(visualElement);
+      JsValue? value = element.getValue(key);
+      include = value != null && !JS.isNullish(value["liveStyle"]);
     }
     if (include) {
-      newValues[key] = next;
+      newValues[key] = style[key];
     }
   }
-
   return newValues;
 }

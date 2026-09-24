@@ -1,11 +1,6 @@
-import { ValueType } from "./types";
+import { ValueType, valueType } from "./types";
 
-export ValueType autoType = new ValueType(
-  (JsValue v) => {
-    if (v is string) {
-      return v == "auto";
-    }
-    return false;
-  },
-  (JsValue v) => v
-);
+export ValueType autoType = valueType(object {
+  test: (JsValue v) => v == "auto",
+  parse: (JsValue v) => v
+});

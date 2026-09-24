@@ -1,32 +1,29 @@
+import { asArr, asFloats, asMixer, asNum } from "../value/types/types";
 import { interpolate, InterpolateOptions } from "./interpolate";
+import extern { cast as asInterpolateOptions } from "../value/types/cast.ts";
+
+extern InterpolateOptions? asInterpolateOptions(JsValue? options);
 
 export class TransformOptions {
-  bool clampValues;
+  bool clamp;
   (func(float)->float)[]? ease;
 
-  init(bool clampValues = true, (func(float)->float)[]? ease = null) {
-    this.clampValues = clampValues;
+  init(bool clamp = true, (func(float)->float)[]? ease = null) {
+    this.clamp = clamp;
     this.ease = ease;
   }
 }
 
-export func(float)->float transformRange(
-  float[] inputRange,
-  float[] outputRange,
-  TransformOptions? options = null
-) {
-  InterpolateOptions? interpolateOptions = null;
-  if (options != null) {
-    interpolateOptions = new InterpolateOptions(options.clampValues, options.ease);
-  }
-  return interpolate(inputRange, outputRange, interpolateOptions);
-}
+export { interpolate as transformRange };
 
-export float transform(
-  float inputValue,
-  float[] inputRange,
-  float[] outputRange,
-  TransformOptions? options = null
-) {
-  return transformRange(inputRange, outputRange, options)(inputValue);
+// transform(value, inputRange, outputRange, options) maps at once;
+// transform(inputRange, outputRange, options) returns the mapping.
+export JsValue transform(JsValue a, JsValue b, JsValue? c = null, JsValue? d = null) {
+  bool useImmediate = !a.isArray();
+  func(float)->JsValue interpolator = asMixer(if (useImmediate) {
+    interpolate(asFloats(b), asFloats(c), asInterpolateOptions(d))
+  } else {
+    interpolate(asFloats(a), asFloats(b), asInterpolateOptions(c))
+  });
+  return if (useImmediate) { interpolator(asNum(a)) } else { interpolator };
 }

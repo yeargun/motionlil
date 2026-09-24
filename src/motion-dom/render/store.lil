@@ -1,5 +1,3 @@
-import extern { weakMapCreate } from "../weak-host.ts";
+import { RHWeakMap, WeakMap } from "./host-views";
 
-extern JsValue weakMapCreate();
-
-export JsValue visualElementStore = weakMapCreate();
+export RHWeakMap visualElementStore = JS.assume(JS.construct(WeakMap));

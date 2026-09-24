@@ -1,17 +1,7 @@
 import { transformPropOrder } from "./keys-transform";
+import { Set as SetConstructor } from "../host-views";
 
-export Set<string> positionalKeys = new Set<string>();
-
-void initPositionalKeys() {
-  positionalKeys.add("width");
-  positionalKeys.add("height");
-  positionalKeys.add("top");
-  positionalKeys.add("left");
-  positionalKeys.add("right");
-  positionalKeys.add("bottom");
-  for (int i = 0; i < transformPropOrder.length; i++) {
-    positionalKeys.add(transformPropOrder[i]);
-  }
-}
-
-initPositionalKeys();
+export Set<string> positionalKeys = JS.assume(JS.construct(
+  SetConstructor,
+  JS.invoke(JS.array("width", "height", "top", "left", "right", "bottom"), "concat", transformPropOrder)
+));

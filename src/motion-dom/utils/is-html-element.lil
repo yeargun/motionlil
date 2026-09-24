@@ -1,9 +1,8 @@
 import { isObject } from "../../motion-utils/is-object";
 import { hasOwn } from "../dom-host";
+import { asJs } from "../value/types/types";
 
+// An HTML element, checked in a way that works across iframes.
 export bool isHTMLElement(JsValue? element = null) {
-  if (element == null) {
-    return false;
-  }
-  return isObject(element) && hasOwn(element, "offsetHeight") && !hasOwn(element, "ownerSVGElement");
+  return isObject(asJs(element)) && hasOwn(asJs(element), "offsetHeight") && !hasOwn(asJs(element), "ownerSVGElement");
 }

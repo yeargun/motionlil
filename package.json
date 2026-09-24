@@ -82,6 +82,7 @@
     "check:pack": "node scripts/check-pack.mjs",
     "test": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs",
     "test:size": "node scripts/measure-size.mjs",
+    "record:release": "node scripts/record-release.mjs",
     "prepublishOnly": "npm run check"
   },
   "devDependencies": {

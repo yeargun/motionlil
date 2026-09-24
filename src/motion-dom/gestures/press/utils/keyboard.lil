@@ -1,31 +1,17 @@
-import { isPressingHas } from "./state";
-import {
-  addEventListener,
-  removeEventListener,
-  createPointerEvent,
-  dispatchEvent
-} from "../../../dom-host";
+import { isPressing } from "./state";
+import { RHElement, PointerEvent } from "../../../render/host-views";
 
 func(JsValue)->void filterEvents(func(JsValue)->void callback) {
   return (JsValue event) => {
-    JsValue key = event["key"];
-    if (key is string) {
-      if (key != "Enter") {
-        return;
-      }
-    } else {
+    if (!JS.strictEqual(event["key"], "Enter")) {
       return;
     }
     callback(event);
   };
 }
 
-void firePointerEvent(JsValue target, string type) {
-  JsValue options = record{};
-  options["isPrimary"] = true;
-  options["bubbles"] = true;
-  JsValue event = createPointerEvent("pointer" + type, options);
-  dispatchEvent(target, event);
+void firePointerEvent(RHElement target, string type) {
+  target.dispatchEvent(JS.construct(PointerEvent, "pointer" + type, object{isPrimary: true, bubbles: true}));
 }
 
 export void enableKeyboardPress(JsValue focusEvent, JsValue eventOptions) {
@@ -33,34 +19,21 @@ export void enableKeyboardPress(JsValue focusEvent, JsValue eventOptions) {
   if (!currentTarget.truthy()) {
     return;
   }
-  JsValue element = currentTarget;
-
+  RHElement element = JS.assume(currentTarget);
   func(JsValue)->void handleKeydown = filterEvents((JsValue _event) => {
-    if (isPressingHas(element)) {
+    if (isPressing.has(element)) {
       return;
     }
     firePointerEvent(element, "down");
-
-    func(JsValue)->void handleKeyup = filterEvents((JsValue _up) => {
+    element.addEventListener("keyup", filterEvents((JsValue _up) => {
       firePointerEvent(element, "up");
-    });
-
-    func()->void handleBlur = () => {
+    }), eventOptions);
+    element.addEventListener("blur", () => {
       firePointerEvent(element, "cancel");
-    };
-
-    addEventListener(element, "keyup", handleKeyup, eventOptions);
-    addEventListener(element, "blur", handleBlur, eventOptions);
+    }, eventOptions);
   });
-
-  addEventListener(element, "keydown", handleKeydown, eventOptions);
-
-  addEventListener(
-    element,
-    "blur",
-    () => {
-      removeEventListener(element, "keydown", handleKeydown, null);
-    },
-    eventOptions
-  );
+  element.addEventListener("keydown", handleKeydown, eventOptions);
+  element.addEventListener("blur", () => {
+    JS.invoke(element, "removeEventListener", "keydown", handleKeydown);
+  }, eventOptions);
 }

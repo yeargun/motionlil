@@ -5,528 +5,282 @@ import { AnimationScope, SelectorCache } from "../../../motion-dom/utils/resolve
 import { getEasingForSegment } from "../../../motion-utils/easing/utils/get-easing-for-segment";
 import { progress } from "../../../motion-utils/progress";
 import { reverseEasing } from "../../../motion-utils/easing/modifiers/reverse";
-import { warning } from "../../../motion-utils/errors";
+import { callFn2, deleteProp, isFunction } from "../../../motion-dom/dom-host";
+import extern {
+  copy,
+  spread,
+  spread3,
+  view as asTransition,
+  view as asNumber,
+  view as asOptionalNumber,
+  view as asNumbers,
+  view as asEasing,
+  view as asString,
+  view as asList,
+  forEachEntry
+} from "../utils/anim-host.ts";
 import { resolveSubjects } from "../animate/resolve-subjects";
-import { ResolvedAnimationDefinition, SequenceMap } from "./types";
-import { AbsoluteKeyframe, compareByTime } from "./utils/sort";
-import { calculateRepeatDuration } from "./utils/calc-repeat-duration";
+import { AbsoluteKeyframe, sortByTime } from "./utils/sort";
 import { calcNextTime } from "./utils/calc-time";
 import { addKeyframes } from "./utils/edit";
 import { normalizeTimes } from "./utils/normalize-times";
-import { setProp, callFn2, isFunction } from "../../../motion-dom/dom-host";
 
-
-string defaultSegmentEasing = "easeInOut";
-float MAX_REPEAT = 20.0;
-
-void sortAbsoluteKeyframes(AbsoluteKeyframe[] frames) {
-  for (int i = 1; i < frames.length; i++) {
-    AbsoluteKeyframe current = frames[i];
-    int j = i - 1;
-    while (j >= 0 && compareByTime(frames[j], current) > 0) {
-      frames[j + 1] = frames[j];
-      j = j - 1;
-    }
-    frames[j + 1] = current;
-  }
+// The fields a segment transition is read through; the host object is used as is.
+extern class SegmentTransition {
+  JsValue? at;
+  JsValue delay;
+  JsValue? times;
+  float? repeat;
+  string? repeatType;
+  float? repeatDelay;
+  JsValue? ease;
+  float? duration;
 }
 
-class DurationAccum {
-  float maxDuration;
-  float totalDuration;
-
-  init() {
-    this.maxDuration = 0.0;
-    this.totalDuration = 0.0;
-  }
-
-  void note(float calculatedDelay, float duration, float targetTime) {
-    if (calculatedDelay + duration > this.maxDuration) {
-      this.maxDuration = calculatedDelay + duration;
-    }
-    if (targetTime > this.totalDuration) {
-      this.totalDuration = targetTime;
-    }
-  }
-}
+extern JsValue copy(JsValue? a);
+extern JsValue spread(JsValue? a, JsValue? b);
+extern JsValue spread3(JsValue? a, JsValue? b, JsValue? c);
+extern SegmentTransition asTransition(JsValue value);
+extern float asNumber(JsValue value);
+extern float? asOptionalNumber(JsValue value);
+extern float[]? asNumbers(JsValue value);
+extern func(float)->float asEasing(JsValue value);
+extern string asString(JsValue value);
+extern JsValue[] asList(JsValue value);
+extern void forEachEntry(
+  Map<JsValue, Record<AbsoluteKeyframe[]> > map,
+  func(Record<AbsoluteKeyframe[]>, JsValue)->void callback
+);
 
 export JsValue[] keyframesAsList(JsValue keyframes) {
-  if (keyframes.isArray()) {
-    JsValue[] list = [];
-    int len = keyframes.length.toInt();
-    for (int i = 0; i < len; i++) {
-      list.push(keyframes[i]);
-    }
-    return list;
-  }
-  return [keyframes];
+  return if (keyframes.isArray()) { asList(keyframes) } else { [keyframes] };
 }
 
-SequenceMap getSubjectSequence(
-  JsValue subject,
-  Map<JsValue, SequenceMap> sequences,
-  JsValue[] sequencedSubjects
-) {
-  SequenceMap? existing = sequences.get(subject);
+AbsoluteKeyframe[] getValueSequence(string name, Record<AbsoluteKeyframe[]> sequences) {
+  AbsoluteKeyframe[]? existing = sequences[name];
   if (existing != null) {
     return existing;
   }
-  SequenceMap created = new SequenceMap();
-  sequences.set(subject, created);
-  sequencedSubjects.push(subject);
+  AbsoluteKeyframe[] created = [];
+  sequences[name] = created;
   return created;
 }
 
-AbsoluteKeyframe[] getValueSequence(string name, SequenceMap sequences) {
-  return sequences.getOrCreate(name);
-}
-
-export JsValue getValueTransition(JsValue? transition, string key) {
-  Record<JsValue> result = record{};
-  if (transition == null) {
-    return result;
-  }
-  JsValue transitionValue = transition;
-  if (transitionValue.isObject()) {
-    for (string k in transitionValue) {
-      result[k] = transitionValue[k];
-    }
-    JsValue keyed = transitionValue[key];
-    if (keyed.truthy() && keyed.isObject()) {
-      for (string k in keyed) {
-        result[k] = keyed[k];
-      }
-    }
-  }
-  return result;
-}
-
-export Map<JsValue, ResolvedAnimationDefinition> createAnimationsFromSequence(
-  JsValue sequence,
-  JsValue? sequenceOptions = null,
-  AnimationScope? scope = null,
-  JsValue? factories = null
+// Walks the sequence and reports, per subject in first-seen order, the
+// keyframes and transition of every value it animates.
+export void createAnimationsFromSequence(
+  JsValue[] sequence,
+  JsValue? sequenceOptions,
+  AnimationScope? scope,
+  func(JsValue, JsValue, JsValue)->void onDefinition
 ) {
-  Record<JsValue> defaultTransition = record{};
-  Record<JsValue> sequenceTransition = record{};
-  if (sequenceOptions != null) {
-    JsValue optionsValue = sequenceOptions;
-    if (optionsValue.isObject()) {
-      for (string k in optionsValue) {
-        if (k == "defaultTransition") {
-          JsValue dt = optionsValue[k];
-          if (dt.truthy() && dt.isObject()) {
-            for (string dk in dt) {
-              defaultTransition[dk] = dt[dk];
-            }
-          }
-        } else {
-          sequenceTransition[k] = optionsValue[k];
-        }
-      }
-    }
+  JsValue sequenceTransition = copy(sequenceOptions);
+  JsValue? defaultTransitionOption = sequenceTransition["defaultTransition"];
+  deleteProp(sequenceTransition, "defaultTransition");
+  JsValue defaultTransition = defaultTransitionOption ?? object{};
+  JsValue defaultDurationValue = defaultTransition["duration"];
+  float defaultDuration = asNumber(if (defaultDurationValue.truthy()) { defaultDurationValue } else { 0.3 });
+  JsValue defaultEase = defaultTransition["ease"];
+  if (!defaultEase.truthy()) {
+    defaultEase = "easeOut";
   }
 
-  float defaultDuration = 0.3;
-  JsValue durationOpt = defaultTransition["duration"];
-  if (durationOpt is float) {
-    defaultDuration = durationOpt;
-  }
-
-  Map<JsValue, ResolvedAnimationDefinition> animationDefinitions =
-    new Map<JsValue, ResolvedAnimationDefinition>();
-  Map<JsValue, SequenceMap> sequences =
-    new Map<JsValue, SequenceMap>();
-  JsValue[] sequencedSubjects = [];
+  Map<JsValue, Record<AbsoluteKeyframe[]> > sequences = new Map<JsValue, Record<AbsoluteKeyframe[]> >();
   SelectorCache elementCache = new SelectorCache();
   Map<string, float> timeLabels = new Map<string, float>();
-
   float prevTime = 0.0;
   float currentTime = 0.0;
-  DurationAccum accum = new DurationAccum();
+  float totalDuration = 0.0;
 
-  int sequenceLen = 0;
-  if (sequence.isArray()) {
-    sequenceLen = sequence.length.toInt();
-  }
+  auto getSubjectSequence = (JsValue subject) => {
+    Record<AbsoluteKeyframe[]>? existing = sequences.get(subject);
+    if (existing != null) {
+      return existing;
+    }
+    Record<AbsoluteKeyframe[]> created = record{};
+    sequences.set(subject, created);
+    return created;
+  };
 
-  for (int i = 0; i < sequenceLen; i++) {
+  for (int i = 0; i < sequence.length; i++) {
     JsValue segment = sequence[i];
 
     if (segment is string) {
       timeLabels.set(segment, currentTime);
       continue;
     }
-
     if (!segment.isArray()) {
-      if (segment.isObject()) {
-        JsValue nameVal = segment["name"];
-        JsValue atVal = segment["at"];
-        if (nameVal is string) {
-          timeLabels.set(nameVal, calcNextTime(currentTime, atVal, prevTime, timeLabels));
-        }
-      }
+      timeLabels.set(
+        asString(segment["name"]),
+        calcNextTime(currentTime, segment["at"], prevTime, timeLabels)
+      );
       continue;
     }
 
-    JsValue subject = segment[0];
-    JsValue keyframes = null;
-    Record<JsValue> transition = record{};
-    int segLen = segment.length.toInt();
-    if (segLen > 1) {
-      keyframes = segment[1];
+    JsValue[] parts = asList(segment);
+    JsValue subject = parts[0];
+    JsValue keyframes = parts[1];
+    JsValue? transitionOption = parts[2];
+    JsValue transition = transitionOption ?? object{};
+
+    JsValue? at = asTransition(transition).at;
+    if (at != null) {
+      currentTime = calcNextTime(currentTime, at, prevTime, timeLabels);
     }
-    if (segLen > 2) {
-      JsValue t = segment[2];
-      if (t.truthy() && t.isObject()) {
-        for (string tk in t) {
-          transition[tk] = t[tk];
-        }
+
+    float maxDuration = 0.0;
+    auto resolveValueSequence = (
+      JsValue valueKeyframes,
+      JsValue valueTransitionValue,
+      AbsoluteKeyframe[] valueSequence,
+      int elementIndex,
+      int numSubjects
+    ) => {
+      JsValue[] valueKeyframesAsList = keyframesAsList(valueKeyframes);
+      SegmentTransition valueTransition = asTransition(valueTransitionValue);
+      JsValue delay = valueTransition.delay;
+      float calculatedDelay = asOptionalNumber(
+        if (isFunction(delay)) { callFn2(delay, elementIndex, numSubjects) } else { delay }
+      ) ?? 0.0;
+      float[] times = asNumbers(valueTransition.times) ?? defaultOffset(valueKeyframesAsList);
+      float repeat = valueTransition.repeat ?? 0.0;
+      string? repeatType = valueTransition.repeatType;
+      float repeatDelay = valueTransition.repeatDelay ?? 0.0;
+      JsValue ease = valueTransition.ease ?? defaultEase;
+      float duration = valueTransition.duration ?? defaultDuration;
+      float startTime = currentTime + calculatedDelay;
+
+      if (times.length == 1 && times[0] == 0.0) {
+        times.push(1.0);
       }
-    }
+      int remainder = times.length - valueKeyframesAsList.length;
+      if (remainder > 0) {
+        fillOffset(times, remainder);
+      }
+      if (valueKeyframesAsList.length == 1) {
+        valueKeyframesAsList = [null, ...valueKeyframesAsList];
+      }
 
-    JsValue atOpt = transition["at"];
-    if (atOpt.truthy()) {
-      currentTime = calcNextTime(currentTime, atOpt, prevTime, timeLabels);
-    }
+      // Segments cannot express `repeat: Infinity` or very large counts.
+      if (repeat != 0.0 && repeat < 20.0) {
+        float repeatDelayUnits = if (duration > 0.0) { repeatDelay / duration } else { 0.0 };
+        duration = duration * (repeat + 1.0) + repeatDelay * repeat;
+        JsValue[] originalKeyframes = [...valueKeyframesAsList];
+        float[] originalTimes = [...times];
+        JsValue[] easeList = if (ease.isArray()) { [...asList(ease)] } else { [ease] };
+        JsValue[] originalEase = [...easeList];
+        bool isFlipping = repeatType == "reverse" || repeatType == "mirror";
+        JsValue[] flippedKeyframes = originalKeyframes;
+        JsValue[] flippedEases = originalEase;
+        if (isFlipping) {
+          flippedKeyframes = [...originalKeyframes].reverse();
+          if (repeatType == "reverse") {
+            flippedEases = [...originalEase].reverse().map((JsValue e) => {
+              if (isFunction(e)) {
+                JsValue reversed = reverseEasing(asEasing(e));
+                return reversed;
+              }
+              return e;
+            });
+          }
+        }
+        for (int repeatIndex = 0; repeatIndex < repeat; repeatIndex++) {
+          bool isFlipped = isFlipping && repeatIndex % 2 == 0;
+          JsValue[] iterKeyframes = if (isFlipped) { flippedKeyframes } else { originalKeyframes };
+          JsValue[] iterEase = if (isFlipped) { flippedEases } else { originalEase };
+          float iterStartOffset = (repeatIndex + 1) * (1.0 + repeatDelayUnits);
+          if (repeatDelayUnits > 0.0) {
+            valueKeyframesAsList.push(valueKeyframesAsList[valueKeyframesAsList.length - 1]);
+            times.push(iterStartOffset);
+            easeList.push("linear");
+          }
+          for (int keyframeIndex = 0; keyframeIndex < iterKeyframes.length; keyframeIndex++) {
+            valueKeyframesAsList.push(iterKeyframes[keyframeIndex]);
+            times.push(originalTimes[keyframeIndex] + iterStartOffset);
+            easeList.push(
+              if (keyframeIndex == 0) { "linear" } else { getEasingForSegment(iterEase, keyframeIndex - 1) }
+            );
+          }
+        }
+        normalizeTimes(times, repeat, repeatDelayUnits);
+        ease = easeList;
+      }
 
-    DurationAccum segmentAccum = new DurationAccum();
-    segmentAccum.totalDuration = accum.totalDuration;
+      float targetTime = startTime + duration;
+      addKeyframes(valueSequence, valueKeyframesAsList, ease, times, startTime, targetTime);
+      maxDuration = (calculatedDelay + duration).max(maxDuration);
+      totalDuration = targetTime.max(totalDuration);
+    };
 
     if (isMotionValue(subject)) {
-      SequenceMap subjectSequence = getSubjectSequence(subject, sequences, sequencedSubjects);
-      AbsoluteKeyframe[] valueSequence = getValueSequence("default", subjectSequence);
       resolveValueSequence(
         keyframes,
         transition,
-        valueSequence,
+        getValueSequence("default", getSubjectSequence(subject)),
         0,
-        0,
-        currentTime,
-        defaultDuration,
-        defaultTransition,
-        factories,
-        (float calculatedDelay, float duration, float targetTime) => {
-          segmentAccum.note(calculatedDelay, duration, targetTime);
-        }
+        0
       );
     } else {
       JsValue[] subjects = resolveSubjects(subject, keyframes, scope, elementCache);
       int numSubjects = subjects.length;
       for (int subjectIndex = 0; subjectIndex < numSubjects; subjectIndex++) {
-        JsValue thisSubject = subjects[subjectIndex];
-        SequenceMap subjectSequence =
-          getSubjectSequence(thisSubject, sequences, sequencedSubjects);
-        if (keyframes.truthy() && keyframes.isObject()) {
-          for (string key in keyframes) {
-            AbsoluteKeyframe[] valueSequence = getValueSequence(key, subjectSequence);
-            resolveValueSequence(
-              keyframes[key],
-              getValueTransition(transition, key),
-              valueSequence,
-              subjectIndex,
-              numSubjects,
-              currentTime,
-              defaultDuration,
-              defaultTransition,
-              factories,
-              (float calculatedDelay, float duration, float targetTime) => {
-                segmentAccum.note(calculatedDelay, duration, targetTime);
-              }
-            );
-          }
+        Record<AbsoluteKeyframe[]> subjectSequence = getSubjectSequence(subjects[subjectIndex]);
+        for (string key in keyframes) {
+          resolveValueSequence(
+            keyframes[key],
+            spread(transition, transition[key]),
+            getValueSequence(key, subjectSequence),
+            subjectIndex,
+            numSubjects
+          );
         }
       }
     }
 
-    if (segmentAccum.totalDuration > accum.totalDuration) {
-      accum.totalDuration = segmentAccum.totalDuration;
-    }
     prevTime = currentTime;
-    currentTime = currentTime + segmentAccum.maxDuration;
+    currentTime = currentTime + maxDuration;
   }
 
-  for (int elementIndex = 0; elementIndex < sequencedSubjects.length; elementIndex++) {
-    JsValue element = sequencedSubjects[elementIndex];
-    SequenceMap? valueSequencesOpt = sequences.get(element);
-    if (valueSequencesOpt != null) {
-      SequenceMap sequencesForElement = valueSequencesOpt;
-      for (int keyIndex = 0; keyIndex < sequencesForElement.keys.length; keyIndex++) {
-      string key = sequencesForElement.keys[keyIndex];
-      AbsoluteKeyframe[]? valueSequence = sequencesForElement.entries.get(key);
-      if (valueSequence != null) {
-      AbsoluteKeyframe[] frames = valueSequence;
-      sortAbsoluteKeyframes(frames);
+  // `type` is left out: springs were resolved to easing above.
+  JsValue remainingDefaultTransition = copy(defaultTransition);
+  deleteProp(remainingDefaultTransition, "type");
 
-      JsValue[] outKeyframes = [];
+  forEachEntry(sequences, (Record<AbsoluteKeyframe[]> valueSequences, JsValue subject) => {
+    bool animatesValues = false;
+    JsValue definitionKeyframes = object{};
+    JsValue definitionTransition = object{};
+    for (string key in valueSequences) {
+      animatesValues = true;
+      AbsoluteKeyframe[] valueSequence = getValueSequence(key, valueSequences);
+      sortByTime(valueSequence);
+      JsValue[] keyframes = [];
       float[] valueOffset = [];
       JsValue[] valueEasing = [];
-
-      for (int i = 0; i < frames.length; i++) {
-        AbsoluteKeyframe frame = frames[i];
-        outKeyframes.push(frame.value);
-        valueOffset.push(progress(0.0, accum.totalDuration, frame.at));
-        if (frame.easing != null) {
-          valueEasing.push(frame.easing);
-        } else {
-          valueEasing.push("easeOut");
-        }
+      for (int f = 0; f < valueSequence.length; f++) {
+        AbsoluteKeyframe frame = valueSequence[f];
+        keyframes.push(frame.value);
+        valueOffset.push(progress(0.0, totalDuration, frame.at));
+        JsValue easing = frame.easing;
+        valueEasing.push(if (easing.truthy()) { easing } else { "easeOut" });
       }
-
-      if (valueOffset.length > 0 && valueOffset[0] != 0.0) {
+      if (valueOffset[0] != 0.0) {
         valueOffset = [0.0, ...valueOffset];
-        outKeyframes = [outKeyframes[0], ...outKeyframes];
-        valueEasing = [defaultSegmentEasing, ...valueEasing];
+        keyframes = [keyframes[0], ...keyframes];
+        valueEasing = ["easeInOut", ...valueEasing];
       }
-
-      if (valueOffset.length > 0 && valueOffset[valueOffset.length - 1] != 1.0) {
+      if (valueOffset[valueOffset.length - 1] != 1.0) {
         valueOffset.push(1.0);
-        outKeyframes.push(null);
+        keyframes.push(null);
       }
-
-      ResolvedAnimationDefinition? definition = animationDefinitions.get(element);
-      if (definition == null) {
-        Record<JsValue> keyframesRecord = record{};
-        Record<JsValue> transitionRecord = record{};
-        ResolvedAnimationDefinition created =
-          new ResolvedAnimationDefinition(keyframesRecord, transitionRecord);
-        animationDefinitions.set(element, created);
-        definition = created;
-      }
-      if (definition != null) {
-      ResolvedAnimationDefinition resolved = definition;
-      setProp(resolved.keyframes, key, outKeyframes);
-
-      Record<JsValue> remainingDefaultTransition = record{};
-      string[] __keys_k_defaultTransition = Object.keys(defaultTransition);
-
-      for (int __i_k_defaultTransition = 0; __i_k_defaultTransition < __keys_k_defaultTransition.length; __i_k_defaultTransition++) {
-
-        string k = __keys_k_defaultTransition[__i_k_defaultTransition];
-        if (k != "type") {
-          remainingDefaultTransition[k] = defaultTransition[k];
-        }
-      }
-
-      Record<JsValue> valueTransition = record{};
-      string[] __keys_k_remainingDefaultTransition = Object.keys(remainingDefaultTransition);
-
-      for (int __i_k_remainingDefaultTransition = 0; __i_k_remainingDefaultTransition < __keys_k_remainingDefaultTransition.length; __i_k_remainingDefaultTransition++) {
-
-        string k = __keys_k_remainingDefaultTransition[__i_k_remainingDefaultTransition];
-        valueTransition[k] = remainingDefaultTransition[k];
-      }
-      valueTransition["duration"] = accum.totalDuration;
-      valueTransition["ease"] = valueEasing;
-      valueTransition["times"] = valueOffset;
-      string[] __keys_k_sequenceTransition = Object.keys(sequenceTransition);
-
-      for (int __i_k_sequenceTransition = 0; __i_k_sequenceTransition < __keys_k_sequenceTransition.length; __i_k_sequenceTransition++) {
-
-        string k = __keys_k_sequenceTransition[__i_k_sequenceTransition];
-        valueTransition[k] = sequenceTransition[k];
-      }
-      setProp(resolved.transition, key, valueTransition);
-      }
-      }
-      }
+      definitionKeyframes[key] = keyframes;
+      definitionTransition[key] = spread3(
+        remainingDefaultTransition,
+        object{ duration: totalDuration, ease: valueEasing, times: valueOffset },
+        sequenceTransition
+      );
     }
-  }
-
-  return animationDefinitions;
-}
-
-void resolveValueSequence(
-  JsValue valueKeyframes,
-  JsValue valueTransition,
-  AbsoluteKeyframe[] valueSequence,
-  int elementIndex,
-  int numSubjects,
-  float currentTime,
-  float defaultDuration,
-  JsValue defaultTransition,
-  JsValue? factories,
-  func(float, float, float)->void onTiming
-) {
-  JsValue[] valueKeyframesAsList = keyframesAsList(valueKeyframes);
-
-  JsValue delayVal = valueTransition["delay"];
-  float calculatedDelay = 0.0;
-  if (delayVal is float) {
-    calculatedDelay = delayVal;
-  } else if (isFunction(delayVal)) {
-    float elementIndexF = elementIndex;
-    float numSubjectsF = numSubjects;
-    JsValue delayResult = callFn2(delayVal, elementIndexF, numSubjectsF);
-    if (delayResult is float) {
-      calculatedDelay = delayResult;
+    if (animatesValues) {
+      onDefinition(subject, definitionKeyframes, definitionTransition);
     }
-  }
-
-  JsValue timesVal = valueTransition["times"];
-  float[] times = defaultOffset(valueKeyframesAsList);
-  if (timesVal.truthy() && timesVal.isArray()) {
-    times = [];
-    int tlen = timesVal.length.toInt();
-    for (int ti = 0; ti < tlen; ti++) {
-      JsValue t = timesVal[ti];
-      if (t is float) {
-        times.push(t);
-      }
-    }
-  }
-
-  JsValue repeatVal = valueTransition["repeat"];
-  float? repeat = null;
-  if (repeatVal is float) {
-    repeat = repeatVal;
-  }
-
-  JsValue repeatTypeVal = valueTransition["repeatType"];
-  string? repeatType = null;
-  if (repeatTypeVal is string) {
-    repeatType = repeatTypeVal;
-  }
-
-  float repeatDelay = 0.0;
-  JsValue repeatDelayVal = valueTransition["repeatDelay"];
-  if (repeatDelayVal is float) {
-    repeatDelay = repeatDelayVal;
-  }
-
-  JsValue ease = valueTransition["ease"];
-  if (!ease.truthy()) {
-    ease = defaultTransition["ease"];
-    if (!ease.truthy()) {
-      ease = "easeOut";
-    }
-  }
-
-  float? duration = null;
-  JsValue durationVal = valueTransition["duration"];
-  if (durationVal is float) {
-    duration = durationVal;
-  }
-
-  Record<JsValue> remainingTransition = record{};
-  if (valueTransition.isObject()) {
-    for (string k in valueTransition) {
-      if (
-        k != "delay" &&
-        k != "times" &&
-        k != "type" &&
-        k != "repeat" &&
-        k != "repeatType" &&
-        k != "repeatDelay" &&
-        k != "ease" &&
-        k != "duration" &&
-        k != "at"
-      ) {
-        remainingTransition[k] = valueTransition[k];
-      }
-    }
-  }
-
-  float resolvedDuration = defaultDuration;
-  if (duration != null) {
-    resolvedDuration = duration;
-  }
-
-  float startTime = currentTime + calculatedDelay;
-
-  if (times.length == 1 && times[0] == 0.0) {
-    times.push(1.0);
-  }
-
-  int remainder = times.length - valueKeyframesAsList.length;
-  if (remainder > 0) {
-    fillOffset(times, remainder);
-  }
-
-  if (valueKeyframesAsList.length == 1) {
-    valueKeyframesAsList = [null, ...valueKeyframesAsList];
-  }
-
-  if (repeat != null) {
-    float repeatCount = repeat;
-    warning(
-      repeatCount < MAX_REPEAT,
-      `Sequence segments can't repeat ${repeatCount} times — ignoring repeat option. Use a value below ${MAX_REPEAT} or apply repeat at the sequence level instead.`,
-      null
-    );
-    if (repeatCount < MAX_REPEAT) {
-    float repeatDelayUnits = 0.0;
-    if (resolvedDuration > 0.0) {
-      repeatDelayUnits = repeatDelay / resolvedDuration;
-    }
-    resolvedDuration = calculateRepeatDuration(resolvedDuration, repeatCount, repeatDelay);
-
-    JsValue[] originalKeyframes = [...valueKeyframesAsList];
-    float[] originalTimes = [...times];
-    JsValue[] easeList = [];
-    if (ease.isArray()) {
-      int elen = ease.length.toInt();
-      for (int ei = 0; ei < elen; ei++) {
-        easeList.push(ease[ei]);
-      }
-    } else {
-      easeList.push(ease);
-    }
-    JsValue[] originalEase = [...easeList];
-
-    bool isFlipping = repeatType == "reverse" || repeatType == "mirror";
-    JsValue[] flippedKeyframes = originalKeyframes;
-    JsValue[] flippedEases = originalEase;
-    if (isFlipping) {
-      flippedKeyframes = [];
-      for (int fi = originalKeyframes.length - 1; fi >= 0; fi--) {
-        flippedKeyframes.push(originalKeyframes[fi]);
-      }
-      if (repeatType == "reverse") {
-        flippedEases = [];
-        for (int fi = originalEase.length - 1; fi >= 0; fi--) {
-          JsValue e = originalEase[fi];
-          flippedEases.push(e);
-        }
-      }
-    }
-
-    for (float repeatIndex = 0.0; repeatIndex < repeatCount; repeatIndex = repeatIndex + 1.0) {
-      bool isFlipped = isFlipping && ((repeatIndex.toInt() % 2) == 0);
-      JsValue[] iterKeyframes = originalKeyframes;
-      JsValue[] iterEase = originalEase;
-      if (isFlipped) {
-        iterKeyframes = flippedKeyframes;
-        iterEase = flippedEases;
-      }
-      float iterStartOffset = (repeatIndex + 1.0) * (1.0 + repeatDelayUnits);
-
-      if (repeatDelayUnits > 0.0) {
-        valueKeyframesAsList.push(valueKeyframesAsList[valueKeyframesAsList.length - 1]);
-        times.push(iterStartOffset);
-        easeList.push("linear");
-      }
-
-      for (int ki = 0; ki < iterKeyframes.length; ki++) {
-        valueKeyframesAsList.push(iterKeyframes[ki]);
-      }
-
-      for (int keyframeIndex = 0; keyframeIndex < iterKeyframes.length; keyframeIndex++) {
-        times.push(originalTimes[keyframeIndex] + iterStartOffset);
-        if (keyframeIndex == 0) {
-          easeList.push("linear");
-        } else {
-          easeList.push(getEasingForSegment(iterEase, keyframeIndex - 1));
-        }
-      }
-    }
-
-    normalizeTimes(times, repeatCount, repeatDelayUnits);
-    ease = easeList;
-    }
-  }
-
-  float targetTime = startTime + resolvedDuration;
-  addKeyframes(valueSequence, valueKeyframesAsList, ease, times, startTime, targetTime);
-  onTiming(calculatedDelay, resolvedDuration, targetTime);
+  });
 }

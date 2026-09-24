@@ -1,7 +1,6 @@
-import { getNamedEdges, resolveEdge } from "./edge";
-import { stringTrim, stringSplit } from "../../../../../motion-dom/string-host";
+import { namedEdges, resolveEdge } from "./edge";
 
-float[] defaultOffsetPair = [0.0, 0.0];
+JsValue defaultOffset = [0.0, 0.0];
 
 export float resolveOffset(
   JsValue offset,
@@ -9,33 +8,17 @@ export float resolveOffset(
   float targetLength,
   float targetInset
 ) {
-  JsValue offsetDefinition = defaultOffsetPair;
-  if (offset.isArray()) {
-    offsetDefinition = offset;
-  }
-
+  JsValue offsetDefinition = if (offset.isArray()) { offset } else { defaultOffset };
   if (offset is float) {
     offsetDefinition = [offset, offset];
   } else if (offset is string) {
-    string trimmed = stringTrim(offset);
+    string trimmed = offset.trim();
     if (trimmed.includes(" ")) {
-      string[] parts = stringSplit(trimmed, " ");
-      if (parts.length >= 2) {
-        offsetDefinition = [parts[0], parts[1]];
-      }
+      offsetDefinition = trimmed.split(" ");
     } else {
-      Map<string, float> named = getNamedEdges();
-      if (named.has(trimmed)) {
-        offsetDefinition = [trimmed, trimmed];
-      } else {
-        offsetDefinition = [trimmed, "0"];
-      }
+      offsetDefinition = [trimmed, if (JS.get(namedEdges, trimmed).truthy()) { trimmed } else { "0" }];
     }
   }
-
-  JsValue targetEdge = offsetDefinition[0];
-  JsValue containerEdge = offsetDefinition[1];
-  float targetPoint = resolveEdge(targetEdge, targetLength, targetInset);
-  float containerPoint = resolveEdge(containerEdge, containerLength);
-  return targetPoint - containerPoint;
+  return resolveEdge(offsetDefinition[0], targetLength, targetInset) -
+    resolveEdge(offsetDefinition[1], containerLength);
 }

@@ -80,16 +80,16 @@ HTMLProjectionNode? getProjectionParent(JsValue element) {
 }
 
 HTMLVisualElement createVisualElement() {
-  return new HTMLVisualElement(record{
-    props: record{},
+  return new HTMLVisualElement(object{
+    props: object{},
     presenceContext: null,
-    visualState: record{
-      latestValues: record{},
-      renderState: record{
-        transform: record{},
-        transformOrigin: record{},
-        style: record{},
-        vars: record{}
+    visualState: object{
+      latestValues: object{},
+      renderState: object{
+        transform: object{},
+        transformOrigin: object{},
+        style: object{},
+        vars: object{}
       }
     }
   });
@@ -122,7 +122,7 @@ JsValue readNodeOptions(JsValue element, JsValue? transition) {
   if (layoutAttr != null && layoutAttr != "true") {
     animationType = layoutAttr;
   }
-  return record{
+  return object{
     layoutId: layoutId,
     layout: layoutAttr != null,
     animationType: animationType,
@@ -146,7 +146,7 @@ HTMLProjectionNode prepareNode(JsValue element, JsValue? transition) {
       style["transform"] = "";
     }
   }
-  HTMLProjectionNode node = new HTMLProjectionNode(record{
+  HTMLProjectionNode node = new HTMLProjectionNode(object{
     visualElement: visualElement,
     parent: getProjectionParent(element)
   });
@@ -159,7 +159,7 @@ HTMLProjectionNode prepareNode(JsValue element, JsValue? transition) {
 }
 
 void dropNode(JsValue element, HTMLProjectionNode node) {
-  node.setOptions(record{onExitComplete: null});
+  node.setOptions(object{onExitComplete: null});
   node.unmount();
   weakMapDelete(layoutNodes, element);
 }
@@ -353,7 +353,7 @@ export class LayoutAnimationBuilder {
       this.trackedElements.push(element);
     }
     this.tracked.set(element, node);
-    this.restorePoints.set(element, record{
+    this.restorePoints.set(element, object{
       parent: element["parentElement"],
       next: element["nextSibling"]
     });
@@ -434,7 +434,7 @@ export class LayoutAnimationBuilder {
           box.y.min = parseFloatValue(rect["top"]);
           box.y.max = parseFloatValue(rect["bottom"]);
         }
-        this.snapshots.set(element, record{layoutBox: box});
+        this.snapshots.set(element, object{layoutBox: box});
         continue;
       }
     }
@@ -452,7 +452,7 @@ export JsValue parseAnimateLayoutArgs(
 ) {
   JsValue documentRef = windowGet("document");
   if (isFunction(scopeOrUpdateDom)) {
-    return record{
+    return object{
       scope: documentRef,
       updateDom: scopeOrUpdateDom,
       defaultOptions: updateDomOrOptions
@@ -467,7 +467,7 @@ export JsValue parseAnimateLayoutArgs(
       scope = resolved[0];
     }
   }
-  return record{
+  return object{
     scope: scope,
     updateDom: updateDomOrOptions,
     defaultOptions: options
