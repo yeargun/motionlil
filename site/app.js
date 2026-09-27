@@ -1,3 +1,5 @@
+import { renderRelease } from "./release.js"
+
 const esmComparison = await fetch("./comparison.json").then(response => response.json())
 const data = await fetch("./results.json").then((response) => {
   if (!response.ok) throw new Error(`Unable to load results: ${response.status}`)
@@ -53,6 +55,7 @@ function renderResults() {
   }).join("")
 }
 
+renderRelease(data)
 renderDemos()
 renderResults()
 

@@ -25,6 +25,9 @@ for(const file of ['node_modules/motion-dom/dist/index.d.ts','node_modules/motio
     if(ts.isIdentifier(node.name)||ts.isStringLiteral(node.name)||ts.isNumericLiteral(node.name))(file.endsWith('/lib.dom.d.ts')?browserNames:publicNames).add(node.name.text)
    }
   }
+  // String literal types in the public declarations are names callers pass
+  // at runtime (an easing such as "anticipate" indexes a library table).
+  if(!file.endsWith('/lib.dom.d.ts')&&ts.isLiteralTypeNode(node)&&ts.isStringLiteral(node.literal)&&/^[A-Za-z_$][\w$]*$/.test(node.literal.text))publicNames.add(node.literal.text)
   ts.forEachChild(node,visit)
  }
  visit(tree)

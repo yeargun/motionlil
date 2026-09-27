@@ -17,11 +17,11 @@
 ➤ YN0002: │ react-env@workspace:dev/react doesn't provide eslint (p83e1f), requested by @typescript-eslint/parser
 ➤ YN0002: │ react-env@workspace:dev/react doesn't provide eslint (p70406), requested by eslint-plugin-react-refresh
 ➤ YN0000: │ Some peer dependencies are incorrectly met; run yarn explain peer-requirements <hash> for details, where <hash> is the six-letter p-prefixed code
-➤ YN0000: └ Completed
+➤ YN0000: └ Completed in 0s 230ms
 ➤ YN0000: ┌ Fetch step
 ➤ YN0066: │ typescript@patch:typescript@npm%3A5.4.3#~builtin<compat/typescript>::version=5.4.3&hash=29ae49: Cannot apply hunk #8
 ➤ YN0013: │ 119 packages were already cached, 1378 had to be fetched
-➤ YN0000: └ Completed in 17s 647ms
+➤ YN0000: └ Completed in 1m 17s
 ➤ YN0000: ┌ Link step
-➤ YN0000: └ Completed in 18s 247ms
-➤ YN0000: Done with warnings in 36s 144ms
+➤ YN0000: └ Completed in 2m 11s
+➤ YN0000: Done with warnings in 3m 27s

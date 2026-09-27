@@ -89,5 +89,413 @@
       "title": "Spring carousel",
       "group": "showcase"
     }
-  ]
+  ],
+  "compiler": {
+    "revision": "aa2052f0",
+    "binarySha256": "13cb49a93fb3e376a5978484835322c84adea692b69ae4720775291377cf18f9",
+    "compileWallMs": [
+      34980,
+      15377,
+      22262
+    ],
+    "fullEntryWallMs": [
+      34980,
+      15377,
+      22261
+    ],
+    "date": "2026-09-24",
+    "measures": "wall time of the build's one compile: full.lil, which the build splits into the shared module graph",
+    "host": "Azure B8als_v2 (8 burstable vCPUs), shared with other jobs",
+    "hostLoad1m": [
+      18.3,
+      9.2,
+      6.3
+    ]
+  },
+  "install": {
+    "motionlilUnpacked": 888037,
+    "motionDependencyTree": 9141537,
+    "reduction": 0.9028569265759139
+  },
+  "package": {
+    "date": "2026-09-27",
+    "codec": "lilscript-codec: Brotli quality 11 (window 22), gzip level 9",
+    "objective": "Brotli (cost_model = \"brotli\")",
+    "artifacts": [
+      {
+        "file": "dist/animate-mini.js",
+        "raw": 50,
+        "gzip": 70,
+        "brotli": 54,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/animate.js",
+        "raw": 45,
+        "gzip": 65,
+        "brotli": 49,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/debug.js",
+        "raw": 43,
+        "gzip": 63,
+        "brotli": 47,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/full.bundle.js",
+        "raw": 108665,
+        "gzip": 38991,
+        "brotli": 34869,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/full.js",
+        "raw": 42,
+        "gzip": 62,
+        "brotli": 46,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/gestures.js",
+        "raw": 46,
+        "gzip": 66,
+        "brotli": 50,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/index.bundle.js",
+        "raw": 73115,
+        "gzip": 26397,
+        "brotli": 23877,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/index.js",
+        "raw": 43,
+        "gzip": 63,
+        "brotli": 47,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/mini.js",
+        "raw": 42,
+        "gzip": 62,
+        "brotli": 46,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/motionlil.global.js",
+        "raw": 73611,
+        "gzip": 26563,
+        "brotli": 23998,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/resize.js",
+        "raw": 44,
+        "gzip": 64,
+        "brotli": 48,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/scroll.js",
+        "raw": 44,
+        "gzip": 64,
+        "brotli": 48,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/viewport.js",
+        "raw": 46,
+        "gzip": 64,
+        "brotli": 50,
+        "writtenBy": "build script (re-export of the shared graph)",
+        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/animate-mini.cjs",
+        "raw": 138,
+        "gzip": 135,
+        "brotli": 102,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/animate.cjs",
+        "raw": 4004,
+        "gzip": 538,
+        "brotli": 471,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/debug.cjs",
+        "raw": 138,
+        "gzip": 136,
+        "brotli": 101,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/full.cjs",
+        "raw": 109606,
+        "gzip": 39489,
+        "brotli": 35291,
+        "writtenBy": "esbuild + Terser",
+        "label": "post-processed by esbuild + Terser, not compiler-written"
+      },
+      {
+        "file": "dist/gestures.cjs",
+        "raw": 205,
+        "gzip": 140,
+        "brotli": 109,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/index.cjs",
+        "raw": 4585,
+        "gzip": 593,
+        "brotli": 524,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/mini.cjs",
+        "raw": 237,
+        "gzip": 151,
+        "brotli": 119,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/resize.cjs",
+        "raw": 128,
+        "gzip": 131,
+        "brotli": 99,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/scroll.cjs",
+        "raw": 217,
+        "gzip": 141,
+        "brotli": 110,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      },
+      {
+        "file": "dist/viewport.cjs",
+        "raw": 128,
+        "gzip": 133,
+        "brotli": 100,
+        "writtenBy": "build script (CommonJS re-export of full.cjs)",
+        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+      }
+    ],
+    "bars": {
+      "artifact": "dist/full.bundle.js",
+      "upstream": "motion 13.1.0, export * (312 names; dist/full.bundle.js exports all of them plus numberType, getAsType and animateSequenceMini)",
+      "competitors": [
+        {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "source": "this repository: scripts/measure-size.mjs, export * from motion",
+          "raw": 135753,
+          "gzip": 44702,
+          "brotli": 39871
+        },
+        {
+          "name": "Terser",
+          "tool": "Terser 5.51.2 -m --module over an esbuild bundle",
+          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
+          "raw": 139742,
+          "gzip": 46145,
+          "brotli": 41032
+        },
+        {
+          "name": "Oxc",
+          "tool": "Oxc minifier, Rolldown 1.2.5",
+          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
+          "raw": 137455,
+          "gzip": 46191,
+          "brotli": 41246
+        },
+        {
+          "name": "esbuild",
+          "tool": "esbuild 0.28.1 minify",
+          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
+          "raw": 140304,
+          "gzip": 48015,
+          "brotli": 42840
+        }
+      ],
+      "strongest": {
+        "raw": {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "bytes": 135753
+        },
+        "gzip": {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "bytes": 44702
+        },
+        "brotli": {
+          "name": "esbuild + Terser",
+          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
+          "bytes": 39871
+        }
+      }
+    },
+    "compilerOutput": {
+      "file": "src/.__compiled-full.mjs (not shipped)",
+      "raw": 113625,
+      "gzip": 39205,
+      "brotli": 34395,
+      "sha256": "832a736f74c988b5d11a70b30245627df67a5c73036ff4abf7ce2b752ec107b4",
+      "note": "The compiler's output for full.lil, before scripts/shared-graph.mjs splits it into dist/internal/graph/ and esbuild reprints it."
+    },
+    "graph": {
+      "directory": "dist/internal/",
+      "files": 606,
+      "raw": 266465,
+      "writtenBy": "the compiler's full.lil module split into shared modules by scripts/shared-graph.mjs and reprinted by esbuild, plus the build script's entry facades and src/compat.mjs; not compiler-written"
+    },
+    "previous": {
+      "commit": "07455d5",
+      "date": "2026-09-11",
+      "sizes": {
+        "dist/animate-mini.js": {
+          "raw": 50,
+          "gzip": 70,
+          "brotli": 54
+        },
+        "dist/animate.js": {
+          "raw": 45,
+          "gzip": 65,
+          "brotli": 49
+        },
+        "dist/debug.js": {
+          "raw": 43,
+          "gzip": 63,
+          "brotli": 47
+        },
+        "dist/full.bundle.js": {
+          "raw": 182830,
+          "gzip": 60551,
+          "brotli": 52394
+        },
+        "dist/full.js": {
+          "raw": 42,
+          "gzip": 62,
+          "brotli": 46
+        },
+        "dist/gestures.js": {
+          "raw": 46,
+          "gzip": 66,
+          "brotli": 50
+        },
+        "dist/index.bundle.js": {
+          "raw": 122396,
+          "gzip": 40380,
+          "brotli": 35197
+        },
+        "dist/index.js": {
+          "raw": 43,
+          "gzip": 63,
+          "brotli": 47
+        },
+        "dist/mini.js": {
+          "raw": 42,
+          "gzip": 62,
+          "brotli": 46
+        },
+        "dist/motionlil.global.js": {
+          "raw": 122940,
+          "gzip": 40507,
+          "brotli": 35326
+        },
+        "dist/resize.js": {
+          "raw": 44,
+          "gzip": 64,
+          "brotli": 48
+        },
+        "dist/scroll.js": {
+          "raw": 44,
+          "gzip": 64,
+          "brotli": 48
+        },
+        "dist/viewport.js": {
+          "raw": 46,
+          "gzip": 64,
+          "brotli": 50
+        },
+        "dist/animate-mini.cjs": {
+          "raw": 138,
+          "gzip": 135,
+          "brotli": 102
+        },
+        "dist/animate.cjs": {
+          "raw": 4004,
+          "gzip": 538,
+          "brotli": 471
+        },
+        "dist/debug.cjs": {
+          "raw": 138,
+          "gzip": 136,
+          "brotli": 101
+        },
+        "dist/full.cjs": {
+          "raw": 185044,
+          "gzip": 61754,
+          "brotli": 53410
+        },
+        "dist/gestures.cjs": {
+          "raw": 205,
+          "gzip": 140,
+          "brotli": 109
+        },
+        "dist/index.cjs": {
+          "raw": 4585,
+          "gzip": 593,
+          "brotli": 524
+        },
+        "dist/mini.cjs": {
+          "raw": 237,
+          "gzip": 151,
+          "brotli": 119
+        },
+        "dist/resize.cjs": {
+          "raw": 128,
+          "gzip": 131,
+          "brotli": 99
+        },
+        "dist/scroll.cjs": {
+          "raw": 217,
+          "gzip": 141,
+          "brotli": 110
+        },
+        "dist/viewport.cjs": {
+          "raw": 128,
+          "gzip": 133,
+          "brotli": 100
+        }
+      }
+    }
+  }
 }

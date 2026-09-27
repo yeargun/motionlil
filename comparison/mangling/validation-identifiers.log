@@ -2,235 +2,235 @@ TAP version 13
 # Subtest: mini Bezier easing and repeat controls match
 ok 1 - mini Bezier easing and repeat controls match
   ---
-  duration_ms: 1412.764168
+  duration_ms: 4722.543257
   type: 'test'
   ...
 # Subtest: mini segmented easing matches
 ok 2 - mini segmented easing matches
   ---
-  duration_ms: 680.121222
+  duration_ms: 3475.343641
   type: 'test'
   ...
 # Subtest: mini spring generator matches
 ok 3 - mini spring generator matches
   ---
-  duration_ms: 632.21892
+  duration_ms: 2640.681392
   type: 'test'
   ...
 # Subtest: function easing matches
 ok 4 - function easing matches
   ---
-  duration_ms: 617.035942
+  duration_ms: 2516.137892
   type: 'test'
   ...
 # Subtest: anticipate easing matches
 ok 5 - anticipate easing matches
   ---
-  duration_ms: 616.977869
+  duration_ms: 2465.223237
   type: 'test'
   ...
 # Subtest: JavaScript function easing matches
 ok 6 - JavaScript function easing matches
   ---
-  duration_ms: 598.12307
+  duration_ms: 1954.583243
   type: 'test'
   ...
 # Subtest: opacity uses native animation
 ok 7 - opacity uses native animation
   ---
-  duration_ms: 617.534646
+  duration_ms: 1711.529025
   type: 'test'
   ...
 # Subtest: string transforms use native animation
 ok 8 - string transforms use native animation
   ---
-  duration_ms: 618.07579
+  duration_ms: 1850.866198
   type: 'test'
   ...
 # Subtest: x/y and opacity use the same mixed backends
 ok 9 - x/y and opacity use the same mixed backends
   ---
-  duration_ms: 597.299943
+  duration_ms: 1878.937439
   type: 'test'
   ...
 # Subtest: width/margin and opacity use the same mixed backends
 ok 10 - width/margin and opacity use the same mixed backends
   ---
-  duration_ms: 617.20053
+  duration_ms: 1992.152422
   type: 'test'
   ...
 # Subtest: reverse repeat retains native timing
 ok 11 - reverse repeat retains native timing
   ---
-  duration_ms: 617.027909
+  duration_ms: 1785.534489
   type: 'test'
   ...
 # Subtest: repeat delay selects JavaScript
 ok 12 - repeat delay selects JavaScript
   ---
-  duration_ms: 598.593451
+  duration_ms: 1648.511967
   type: 'test'
   ...
 # Subtest: mirror repeat selects JavaScript
 ok 13 - mirror repeat selects JavaScript
   ---
-  duration_ms: 599.975011
+  duration_ms: 1671.403663
   type: 'test'
   ...
 # Subtest: cross-realm elements select JavaScript
 ok 14 - cross-realm elements select JavaScript
   ---
-  duration_ms: 617.190016
+  duration_ms: 2061.274793
   type: 'test'
   ...
 # Subtest: native construction failure falls back to JavaScript
 ok 15 - native construction failure falls back to JavaScript
   ---
-  duration_ms: 600.011587
+  duration_ms: 1630.993468
   type: 'test'
   ...
 # Subtest: Bezier easing is retained
 ok 16 - Bezier easing is retained
   ---
-  duration_ms: 617.863244
+  duration_ms: 1738.510412
   type: 'test'
   ...
 # Subtest: per-keyframe easing is retained
 ok 17 - per-keyframe easing is retained
   ---
-  duration_ms: 632.527479
+  duration_ms: 1641.408336
   type: 'test'
   ...
 # Subtest: JS string values interpolate
 ok 18 - JS string values interpolate
   ---
-  duration_ms: 598.774345
+  duration_ms: 1400.092582
   type: 'test'
   ...
 # Subtest: spring opacity uses the same native easing
 ok 19 - spring opacity uses the same native easing
   ---
-  duration_ms: 601.14338
+  duration_ms: 1621.951476
   type: 'test'
   ...
 # Subtest: spring strings interpolate in JavaScript
 ok 20 - spring strings interpolate in JavaScript
   ---
-  duration_ms: 598.772631
+  duration_ms: 1719.879586
   type: 'test'
   ...
 # Subtest: JavaScript Bezier easing is retained
 ok 21 - JavaScript Bezier easing is retained
   ---
-  duration_ms: 600.08472
+  duration_ms: 1520.372123
   type: 'test'
   ...
 # Subtest: JavaScript segment easing is retained
 ok 22 - JavaScript segment easing is retained
   ---
-  duration_ms: 616.22077
+  duration_ms: 1610.731353
   type: 'test'
   ...
 # Subtest: autoplay false remains paused
 ok 23 - autoplay false remains paused
   ---
-  duration_ms: 634.36309
+  duration_ms: 2450.291839
   type: 'test'
   ...
 # Subtest: JS colors interpolate
 ok 24 - JS colors interpolate
   ---
-  duration_ms: 598.823123
+  duration_ms: 2699.866501
   type: 'test'
   ...
 # Subtest: native control access matches Motion without unrelated effect timing reads
 ok 25 - native control access matches Motion without unrelated effect timing reads
   ---
-  duration_ms: 145.163356
+  duration_ms: 1913.064788
   type: 'test'
   ...
 # Subtest: group controls seek, change speed and complete real browser animations
 ok 26 - group controls seek, change speed and complete real browser animations
   ---
-  duration_ms: 994.129941
+  duration_ms: 4090.580745
   type: 'test'
   ...
 # Subtest: resume: controls, callbacks, completion and library RAF match Motion
 ok 27 - resume: controls, callbacks, completion and library RAF match Motion
   ---
-  duration_ms: 935.360709
+  duration_ms: 4227.884494
   type: 'test'
   ...
 # Subtest: cancel: controls, callbacks, completion and library RAF match Motion
 ok 28 - cancel: controls, callbacks, completion and library RAF match Motion
   ---
-  duration_ms: 196.243857
+  duration_ms: 3015.376276
   type: 'test'
   ...
 # Subtest: stop: controls, callbacks, completion and library RAF match Motion
 ok 29 - stop: controls, callbacks, completion and library RAF match Motion
   ---
-  duration_ms: 199.213908
+  duration_ms: 2319.943623
   type: 'test'
   ...
 # Subtest: reverse: controls, callbacks, completion and library RAF match Motion
 ok 30 - reverse: controls, callbacks, completion and library RAF match Motion
   ---
-  duration_ms: 189.416417
+  duration_ms: 2290.700323
   type: 'test'
   ...
 # Subtest: render requested inside render phase runs in that frame
 ok 31 - render requested inside render phase runs in that frame
   ---
-  duration_ms: 198.231653
+  duration_ms: 1980.12957
   type: 'test'
   ...
 # Subtest: native interruption preserves the sampled style and replacement keyframe without completing
 ok 32 - native interruption preserves the sampled style and replacement keyframe without completing
   ---
-  duration_ms: 158.765837
+  duration_ms: 1676.858773
   type: 'test'
   ...
 # Subtest: public animation constructors share methods, preserve bound stop and resolve with Motion values
 ok 33 - public animation constructors share methods, preserve bound stop and resolve with Motion values
   ---
-  duration_ms: 124.21936
+  duration_ms: 1024.970327
   type: 'test'
   ...
 # Subtest: mini updates caller keyframes and copies option getters with the same order as Motion
 ok 34 - mini updates caller keyframes and copies option getters with the same order as Motion
   ---
-  duration_ms: 101.089075
+  duration_ms: 950.723128
   type: 'test'
   ...
 # Subtest: frame queues match upstream deduplication, immediate scheduling and cancellation
 ok 35 - frame queues match upstream deduplication, immediate scheduling and cancellation
   ---
-  duration_ms: 934.780475
+  duration_ms: 4045.655837
   type: 'test'
   ...
 # Subtest: linear: callbacks, values and completion match upstream under the same clock
 ok 36 - linear: callbacks, values and completion match upstream under the same clock
   ---
-  duration_ms: 207.402753
+  duration_ms: 2604.010061
   type: 'test'
   ...
 # Subtest: delay: callbacks, values and completion match upstream under the same clock
 ok 37 - delay: callbacks, values and completion match upstream under the same clock
   ---
-  duration_ms: 191.460944
+  duration_ms: 3036.064458
   type: 'test'
   ...
 # Subtest: reverse repeat: callbacks, values and completion match upstream under the same clock
 ok 38 - reverse repeat: callbacks, values and completion match upstream under the same clock
   ---
-  duration_ms: 194.03636
+  duration_ms: 2155.80556
   type: 'test'
   ...
 # Subtest: mirror repeat: callbacks, values and completion match upstream under the same clock
 ok 39 - mirror repeat: callbacks, values and completion match upstream under the same clock
   ---
-  duration_ms: 192.832224
+  duration_ms: 2180.768762
   type: 'test'
   ...
 1..39
@@ -241,4 +241,4 @@ ok 39 - mirror repeat: callbacks, values and completion match upstream under the
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 16200.399461
+# duration_ms 58930.452568

@@ -7,9 +7,9 @@
     "directory": "packages/motion"
   },
   "portSource": {
-    "commit": "894693ba6474b0d6c3881c7b93414e1cfaf28401"
+    "commit": "4f824fe5075181bdcbcaf2fdc57aed6a5d2f779a"
   },
-  "compilerCommit": "e5f7f254470ae4af178f3625b8b3dfd8fe501ad7",
+  "compilerCommit": "aa2052f081ca8184666ca280ee9b91d476e46cfc",
   "install": [
     "corepack",
     "yarn",
@@ -37,8 +37,8 @@
   "defaultExport": false,
   "external": [],
   "esmScope": "motion@13.1.0 public ESM runtime graph, assembled from the pinned upstream source build",
-  "lilscriptBuild": "node scripts/build.mjs --compile --force",
+  "lilscriptBuild": "node scripts/build.mjs",
   "test": "npm test && npm run check:types && npm run test:browser",
-  "comparisonEntry": "dist/full.js",
+  "comparisonEntry": "dist/full.bundle.js",
   "comparisonScope": "Motion public ESM versus motionlil/full, retaining every export of each entry. The full port covers all original export names; some constructor/layout adapters remain incomplete. React-specific entry points are excluded."
 }

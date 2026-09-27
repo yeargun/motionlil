@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
-  "measuredAt": "2026-09-11T12:46:15.371Z",
+  "measuredAt": "2026-09-27T09:19:47.105Z",
   "browser": "145.0.7632.6",
   "machine": {
-    "cpu": "AMD EPYC 9V45 96-Core Processor",
-    "logicalCpus": 16,
-    "memoryBytes": 33648431104,
-    "os": "Ubuntu 24.04.4 LTS",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpus": 8,
+    "memoryBytes": 16706420736,
+    "os": "Ubuntu 24.04.3 LTS",
     "node": "v24.11.1",
     "architecture": "x64",
     "loadAtStart": [
-      1.42,
-      1.02,
-      0.44
+      0.58,
+      0.32,
+      0.22
     ],
     "loadAtEnd": [
-      0.67,
-      0.77,
-      0.54
+      10.07,
+      11.06,
+      5.61
     ],
     "provider": "Azure",
-    "instanceClass": "Standard_D16als_v7"
+    "instanceClass": "Standard_B8als_v2 (burstable)"
   },
   "protocol": {
     "repetitions": 30,
@@ -45,22 +45,40 @@
   "inputs": {
     "lilscript": {
       "file": "inputs/lilscript.js",
-      "sha256": "93c79cf55008ee20a07074570c0f1a8be8c628708b7d89e8fa8c47029aaed78c"
+      "sha256": "08e4fcb8555475dd321855346e6ee51cb1731b8d1cb78f74b279a7641b5653b8"
     },
     "original": {
       "file": "inputs/original.js",
-      "sha256": "ea1fb8868e180bea4c77d24ea1eb438b8d0343eeb07fa9decf5dee78c52c375d"
+      "sha256": "a06cb774f80796b4fc9a10acce1e73b0af7dffeb728204fdb1142342e8ae9111"
     },
     "harnessSha256": "6a4a988d1360735dd78b674c409731b4fe33af20e1c1995384b620cc8f039b90"
   },
-  "finishedAt": "2026-09-11T12:53:04.773Z",
+  "finishedAt": "2026-09-27T09:27:28.485Z",
+  "remeasured": [
+    {
+      "id": "mini-transform-256",
+      "measuredAt": "2026-09-27T10:03:07.668Z",
+      "finishedAt": "2026-09-27T10:04:09.254Z",
+      "loadAtStart": [
+        4.19,
+        7.52,
+        8.01
+      ],
+      "loadAtEnd": [
+        3.2,
+        6.63,
+        7.67
+      ],
+      "reason": "The first run stopped this workload at paired repetition 6: its final-value check (after 800 ms) saw the LilScript lane's native animations short of completion (element 0 opacity: LilScript 0.979241, original 1; element 0 x: LilScript 23.3357, original 24) while a concurrent compile on the shared host raised the load average to about 10. Its five paused validation samples had matched. The check is load-sensitive in both lanes: in an earlier run at load 18-20, the original lane was the one short of completion in two of the three mini workloads. The workload was re-run alone with the same inputs and protocol; the first re-run (load 4.8, falling from 8) stopped the same way, the second (load 4.2) completed all 30 pairs."
+    }
+  ],
   "sources": {
     "compiler": {
-      "commit": "10f5734a70a49e550d2c7577549d5595de743e2f",
-      "sha256": "ea725196ae4fbb63736dc784db12b40717d8a38ed00028045c13767e396cc953"
+      "commit": "aa2052f081ca8184666ca280ee9b91d476e46cfc",
+      "sha256": "13cb49a93fb3e376a5978484835322c84adea692b69ae4720775291377cf18f9"
     },
     "port": {
-      "commit": "21e680e422205f927ff0392c3707d5a6f5cfc810"
+      "commit": "4f824fe5075181bdcbcaf2fdc57aed6a5d2f779a"
     },
     "original": {
       "repository": "https://github.com/motiondivision/motion.git",
@@ -81,27 +99,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 17.4775,
-          "scriptMs": 0.6465,
-          "styleLayoutMs": 5.477,
-          "setupMs": 1.599999999976717,
-          "frameP95Ms": 16.700000000000045,
+          "mainThreadMs": 54.502,
+          "scriptMs": 1.771,
+          "styleLayoutMs": 18.8245,
+          "setupMs": 3,
+          "frameP95Ms": 16.75,
           "medianFrameMs": 16.699999999999932,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 17.738,
-          "scriptMs": 0.6845,
-          "styleLayoutMs": 5.438000000000001,
-          "setupMs": 1.7999999999883585,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
+          "mainThreadMs": 56.236999999999995,
+          "scriptMs": 2.0375,
+          "styleLayoutMs": 19.1705,
+          "setupMs": 3.900000035762787,
+          "frameP95Ms": 16.717000000000027,
+          "medianFrameMs": 16.699999999999932,
           "frames": 49
         },
-        "cpuRatio": 1.0146410143543663,
+        "cpuRatio": 0.9856288509377344,
         "cpuRatio95": [
-          1.0042004500431845,
-          1.0267278984791193
+          0.9509387741598752,
+          1.0383340964196957
         ],
         "withinFivePercent": true
       },
@@ -150,27 +168,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 60.425,
-          "scriptMs": 1.5305,
-          "styleLayoutMs": 20.107,
-          "setupMs": 4.599999999976717,
+          "mainThreadMs": 140.68899999999996,
+          "scriptMs": 2.8005000000000004,
+          "styleLayoutMs": 45.0325,
+          "setupMs": 8.900000005960464,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "medianFrameMs": 16.69999999999996,
+          "frames": 50
         },
         "lilscript": {
-          "mainThreadMs": 60.694500000000005,
-          "scriptMs": 1.3159999999999998,
-          "styleLayoutMs": 20.2965,
-          "setupMs": 5.649999999994179,
-          "frameP95Ms": 16.75,
-          "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "mainThreadMs": 141.8935,
+          "scriptMs": 2.585,
+          "styleLayoutMs": 44.156,
+          "setupMs": 9.099999994039536,
+          "frameP95Ms": 16.700000000000045,
+          "medianFrameMs": 16.699999999999932,
+          "frames": 50
         },
-        "cpuRatio": 1.0062237153092208,
+        "cpuRatio": 0.99162436246683,
         "cpuRatio95": [
-          0.9998809415971803,
-          1.0194584214160485
+          0.961450458363897,
+          1.031220272950976
         ],
         "withinFivePercent": true
       },
@@ -219,29 +237,29 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 58.8005,
-          "scriptMs": 1.1724999999999999,
-          "styleLayoutMs": 17.384,
-          "setupMs": 3.400000000023283,
-          "frameP95Ms": 16.700000000000045,
+          "mainThreadMs": 210.64,
+          "scriptMs": 3.1290000000000004,
+          "styleLayoutMs": 66.223,
+          "setupMs": 12.949999988079071,
+          "frameP95Ms": 16.799999999999955,
           "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 59.266999999999996,
-          "scriptMs": 1.1360000000000001,
-          "styleLayoutMs": 17.365000000000002,
-          "setupMs": 3.8999999999941792,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999996,
+          "mainThreadMs": 213.4415,
+          "scriptMs": 3.3340000000000005,
+          "styleLayoutMs": 65.59899999999999,
+          "setupMs": 11.599999994039536,
+          "frameP95Ms": 16.79999999999997,
+          "medianFrameMs": 16.69999999999999,
           "frames": 49
         },
-        "cpuRatio": 1.0063119244148537,
+        "cpuRatio": 1.0146765094689996,
         "cpuRatio95": [
-          1.0002429669539663,
-          1.0153257867819803
+          0.9713240479709278,
+          1.0527828124591774
         ],
-        "withinFivePercent": true
+        "withinFivePercent": false
       },
       "validation": {
         "errors": [],
@@ -289,27 +307,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 36.785,
-          "scriptMs": 6.048500000000001,
-          "styleLayoutMs": 10.2835,
-          "setupMs": 2.800000000046566,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "mainThreadMs": 258.453,
+          "scriptMs": 36.575500000000005,
+          "styleLayoutMs": 51.292,
+          "setupMs": 15.149999976158142,
+          "frameP95Ms": 16.80000000000001,
+          "medianFrameMs": 16.699999999999932,
+          "frames": 47
         },
         "lilscript": {
-          "mainThreadMs": 40.434,
-          "scriptMs": 5.8395,
-          "styleLayoutMs": 10.311,
-          "setupMs": 6.9500000000116415,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "mainThreadMs": 234.39300000000003,
+          "scriptMs": 37.2255,
+          "styleLayoutMs": 50.426500000000004,
+          "setupMs": 12.849999964237213,
+          "frameP95Ms": 16.799999999999983,
+          "medianFrameMs": 16.69999999999996,
+          "frames": 48
         },
-        "cpuRatio": 1.075715759585648,
+        "cpuRatio": 0.9867296121446023,
         "cpuRatio95": [
-          1.0668386255339932,
-          1.1031900915078996
+          0.9056407244482909,
+          1.0673325741248103
         ],
         "withinFivePercent": false
       },
@@ -358,27 +376,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 60.934,
-          "scriptMs": 15.5735,
-          "styleLayoutMs": 20.117,
-          "setupMs": 3.199999999953434,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.699999999999932,
-          "frames": 49
+          "mainThreadMs": 540.6545000000001,
+          "scriptMs": 129.4325,
+          "styleLayoutMs": 182.716,
+          "setupMs": 26.099999994039536,
+          "frameP95Ms": 58.349999999999994,
+          "medianFrameMs": 16.69999999999999,
+          "frames": 40
         },
         "lilscript": {
-          "mainThreadMs": 66.23850000000002,
-          "scriptMs": 18.3015,
-          "styleLayoutMs": 20.297,
-          "setupMs": 6.400000000023283,
-          "frameP95Ms": 16.799999999999955,
+          "mainThreadMs": 543.6329999999999,
+          "scriptMs": 122.46000000000001,
+          "styleLayoutMs": 169.8375,
+          "setupMs": 27.899999976158142,
+          "frameP95Ms": 41.700000000000045,
           "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "frames": 40.5
         },
-        "cpuRatio": 1.0839714130142921,
+        "cpuRatio": 1.0313824612805607,
         "cpuRatio95": [
-          1.0583370304177129,
-          1.0985565245737647
+          0.9507441555701899,
+          1.0537580326456548
         ],
         "withinFivePercent": false
       },
@@ -426,27 +444,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 75.486,
-          "scriptMs": 14,
-          "styleLayoutMs": 23.2165,
-          "setupMs": 3.299999999930151,
-          "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "mainThreadMs": 531.5975000000001,
+          "scriptMs": 88.9395,
+          "styleLayoutMs": 120.237,
+          "setupMs": 16.349999994039536,
+          "frameP95Ms": 50.05000000000001,
+          "medianFrameMs": 16.700000000000045,
+          "frames": 34
         },
         "lilscript": {
-          "mainThreadMs": 79.70700000000001,
-          "scriptMs": 17.08,
-          "styleLayoutMs": 23.225499999999997,
-          "setupMs": 6.2999999999883585,
-          "frameP95Ms": 16.799999999999955,
-          "medianFrameMs": 16.69999999999999,
-          "frames": 49
+          "mainThreadMs": 529.204,
+          "scriptMs": 89.747,
+          "styleLayoutMs": 133.55700000000002,
+          "setupMs": 24.150000005960464,
+          "frameP95Ms": 66.60000000000002,
+          "medianFrameMs": 16.700000000000045,
+          "frames": 34
         },
-        "cpuRatio": 1.0557025495255026,
+        "cpuRatio": 0.9917710237346806,
         "cpuRatio95": [
-          1.035468859662932,
-          1.0776144619249481
+          0.9441713083428094,
+          1.0367951381932947
         ],
         "withinFivePercent": false
       },
@@ -494,27 +512,27 @@
       "status": "measured",
       "summary": {
         "original": {
-          "mainThreadMs": 23.624499999999998,
-          "scriptMs": 5.7585,
-          "styleLayoutMs": 5.5584999999999996,
-          "setupMs": 2.300000000046566,
+          "mainThreadMs": 60.4015,
+          "scriptMs": 18.2145,
+          "styleLayoutMs": 12.6955,
+          "setupMs": 4.299999982118607,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
+          "medianFrameMs": 16.699999999999932,
           "frames": 49
         },
         "lilscript": {
-          "mainThreadMs": 24.7755,
-          "scriptMs": 5.971,
-          "styleLayoutMs": 5.5175,
-          "setupMs": 3.1000000000349246,
+          "mainThreadMs": 63.382000000000005,
+          "scriptMs": 18.657,
+          "styleLayoutMs": 13.138000000000002,
+          "setupMs": 5.75,
           "frameP95Ms": 16.700000000000045,
-          "medianFrameMs": 16.69999999999999,
+          "medianFrameMs": 16.699999999999946,
           "frames": 49
         },
-        "cpuRatio": 1.047828032185464,
+        "cpuRatio": 1.0759987678569227,
         "cpuRatio95": [
-          1.0365343288701747,
-          1.0585480406819037
+          0.9981374377360968,
+          1.1103615033284575
         ],
         "withinFivePercent": false
       },

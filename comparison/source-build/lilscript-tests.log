@@ -2,28 +2,28 @@
 > motionlil@0.1.5 test
 > node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs test/shared-graph.test.mjs
 
-✔ ESM entry points load without a browser global (1.371529ms)
-✔ pure utilities and MotionValue behavior work (2.338034ms)
-✔ CommonJS entry points expose the same public names (10.07216ms)
-✔ every Motion DOM export is present on the full entry (0.344224ms)
-✔ default entry keeps the JS consumer API (0.158006ms)
-✔ public constructor compatibility covers common direct usage (0.264996ms)
-✔ MotionValue uses its public prototype and preserves method defaults (0.246448ms)
-✔ group compatibility preserves existing native accessors and completion promises (0.303844ms)
-✔ ESM entry points share the same frame queue, values and control constructors (0.395361ms)
-✔ value type tables use Motion's object keys, identities and defaults (0.211977ms)
-✔ subscriptions preserve mutation order, omitted arguments and the cleared array (0.225558ms)
-✔ MotionValue start resolves with undefined (0.197294ms)
-✔ keyframe helpers preserve null, undefined, holes and nonnumeric values like Motion (0.442021ms)
-✔ transition lookup uses property access, nullish fallback and inherited properties (0.233489ms)
-✔ mix preserves Motion's numeric and mixer-returning overloads (6.558029ms)
-✔ named imports do not pull the whole consumer graph (1883.032251ms)
-✔ shared graph preserves initialization reads, later writes and live closures (35.096477ms)
-✔ shared graph preserves initialization helpers, IIFEs and shared constructor identity (14.972437ms)
-✔ shared graph retains unclassified effects and prunes unrelated definitions (13.1439ms)
-✔ shared graph retains module var bindings declared inside control flow (6.773722ms)
-✔ the distributed animate module survives a second Terser pass (1102.0743ms)
-✔ Vite bundles the public package entry (1654.926397ms)
+✔ ESM entry points load without a browser global (2.794406ms)
+✔ pure utilities and MotionValue behavior work (4.015463ms)
+✔ CommonJS entry points expose the same public names (13.474814ms)
+✔ every Motion DOM export is present on the full entry (0.499816ms)
+✔ default entry keeps the JS consumer API (0.580809ms)
+✔ public constructor compatibility covers common direct usage (0.426379ms)
+✔ MotionValue uses its public prototype and preserves method defaults (0.479949ms)
+✔ group compatibility preserves existing native accessors and completion promises (0.366727ms)
+✔ ESM entry points share the same frame queue, values and control constructors (0.812502ms)
+✔ value type tables use Motion's object keys, identities and defaults (0.621955ms)
+✔ subscriptions preserve mutation order, omitted arguments and the cleared array (0.558947ms)
+✔ MotionValue start resolves with undefined (0.58729ms)
+✔ keyframe helpers preserve null, undefined, holes and nonnumeric values like Motion (0.853859ms)
+✔ transition lookup uses property access, nullish fallback and inherited properties (0.476022ms)
+✔ mix preserves Motion's numeric and mixer-returning overloads (20.509751ms)
+✔ named imports do not pull the whole consumer graph (2695.186404ms)
+✔ shared graph preserves initialization reads, later writes and live closures (96.038909ms)
+✔ shared graph preserves initialization helpers, IIFEs and shared constructor identity (23.737676ms)
+✔ shared graph retains unclassified effects and prunes unrelated definitions (12.486931ms)
+✔ shared graph retains module var bindings declared inside control flow (17.654545ms)
+✔ the distributed animate module survives a second Terser pass (1668.028791ms)
+✔ Vite bundles the public package entry (2511.162983ms)
 ℹ tests 22
 ℹ suites 0
 ℹ pass 22
@@ -31,59 +31,54 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1997.908165
+ℹ duration_ms 2961.045503
 
 > motionlil@0.1.5 check:types
 > tsc -p test/types/tsconfig.json
 
 
-> motionlil@0.1.5 check:pack
-> node scripts/check-pack.mjs
-
-npm pack: 680 files, 390441 bytes packed, 1368891 bytes unpacked
-
 > motionlil@0.1.5 test:browser
 > node --test test/browser-controls.test.mjs test/browser-runtime.test.mjs test/browser-backends.test.mjs test/browser-lifecycle.test.mjs
 
-✔ mini Bezier easing and repeat controls match (4940.959909ms)
-✔ mini segmented easing matches (597.362781ms)
-✔ mini spring generator matches (566.6556ms)
-✔ function easing matches (566.825165ms)
-✔ anticipate easing matches (566.541954ms)
-✔ JavaScript function easing matches (566.004252ms)
-✔ opacity uses native animation (567.263148ms)
-✔ string transforms use native animation (584.014029ms)
-✔ x/y and opacity use the same mixed backends (565.410748ms)
-✔ width/margin and opacity use the same mixed backends (566.690609ms)
-✔ reverse repeat retains native timing (567.053452ms)
-✔ repeat delay selects JavaScript (565.78088ms)
-✔ mirror repeat selects JavaScript (549.860952ms)
-✔ cross-realm elements select JavaScript (566.779263ms)
-✔ native construction failure falls back to JavaScript (566.78337ms)
-✔ Bezier easing is retained (566.961263ms)
-✔ per-keyframe easing is retained (583.051778ms)
-✔ JS string values interpolate (549.154246ms)
-✔ spring opacity uses the same native easing (567.36764ms)
-✔ spring strings interpolate in JavaScript (566.576299ms)
-✔ JavaScript Bezier easing is retained (566.179066ms)
-✔ JavaScript segment easing is retained (566.519947ms)
-✔ autoplay false remains paused (567.066054ms)
-✔ JS colors interpolate (549.074967ms)
-✔ native control access matches Motion without unrelated effect timing reads (96.052792ms)
-✔ group controls seek, change speed and complete real browser animations (4546.850169ms)
-✔ resume: controls, callbacks, completion and library RAF match Motion (4487.425639ms)
-✔ cancel: controls, callbacks, completion and library RAF match Motion (141.4468ms)
-✔ stop: controls, callbacks, completion and library RAF match Motion (118.220104ms)
-✔ reverse: controls, callbacks, completion and library RAF match Motion (123.477162ms)
-✔ render requested inside render phase runs in that frame (120.179445ms)
-✔ native interruption preserves the sampled style and replacement keyframe without completing (110.154684ms)
-✔ public animation constructors share methods, preserve bound stop and resolve with Motion values (84.974875ms)
-✔ mini updates caller keyframes and copies option getters with the same order as Motion (67.354364ms)
-✔ frame queues match upstream deduplication, immediate scheduling and cancellation (4482.944354ms)
-✔ linear: callbacks, values and completion match upstream under the same clock (146.928661ms)
-✔ delay: callbacks, values and completion match upstream under the same clock (118.735342ms)
-✔ reverse repeat: callbacks, values and completion match upstream under the same clock (123.597107ms)
-✔ mirror repeat: callbacks, values and completion match upstream under the same clock (119.359365ms)
+✔ mini Bezier easing and repeat controls match (905.471518ms)
+✔ mini segmented easing matches (1423.935626ms)
+✔ mini spring generator matches (1274.140042ms)
+✔ function easing matches (1279.266521ms)
+✔ anticipate easing matches (964.299385ms)
+✔ JavaScript function easing matches (754.294293ms)
+✔ opacity uses native animation (707.58438ms)
+✔ string transforms use native animation (704.666783ms)
+✔ x/y and opacity use the same mixed backends (848.676137ms)
+✔ width/margin and opacity use the same mixed backends (766.575227ms)
+✔ reverse repeat retains native timing (730.174431ms)
+✔ repeat delay selects JavaScript (699.57034ms)
+✔ mirror repeat selects JavaScript (716.271249ms)
+✔ cross-realm elements select JavaScript (1338.992228ms)
+✔ native construction failure falls back to JavaScript (1319.100238ms)
+✔ Bezier easing is retained (1225.652778ms)
+✔ per-keyframe easing is retained (950.079837ms)
+✔ JS string values interpolate (825.914776ms)
+✔ spring opacity uses the same native easing (984.571912ms)
+✔ spring strings interpolate in JavaScript (1012.126422ms)
+✔ JavaScript Bezier easing is retained (1042.388182ms)
+✔ JavaScript segment easing is retained (987.731477ms)
+✔ autoplay false remains paused (779.268179ms)
+✔ JS colors interpolate (799.01924ms)
+✔ native control access matches Motion without unrelated effect timing reads (322.203841ms)
+✔ group controls seek, change speed and complete real browser animations (506.534717ms)
+✔ resume: controls, callbacks, completion and library RAF match Motion (522.63332ms)
+✔ cancel: controls, callbacks, completion and library RAF match Motion (209.635391ms)
+✔ stop: controls, callbacks, completion and library RAF match Motion (219.964062ms)
+✔ reverse: controls, callbacks, completion and library RAF match Motion (726.668216ms)
+✔ render requested inside render phase runs in that frame (962.456608ms)
+✔ native interruption preserves the sampled style and replacement keyframe without completing (650.784019ms)
+✔ public animation constructors share methods, preserve bound stop and resolve with Motion values (482.185484ms)
+✔ mini updates caller keyframes and copies option getters with the same order as Motion (581.366607ms)
+✔ frame queues match upstream deduplication, immediate scheduling and cancellation (448.609016ms)
+✔ linear: callbacks, values and completion match upstream under the same clock (210.117945ms)
+✔ delay: callbacks, values and completion match upstream under the same clock (235.921418ms)
+✔ reverse repeat: callbacks, values and completion match upstream under the same clock (634.169218ms)
+✔ mirror repeat: callbacks, values and completion match upstream under the same clock (878.000945ms)
 ℹ tests 39
 ℹ suites 0
 ℹ pass 39
@@ -91,4 +86,4 @@ npm pack: 680 files, 390441 bytes packed, 1368891 bytes unpacked
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 18382.579559
+ℹ duration_ms 24202.739074

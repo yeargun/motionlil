@@ -7,7 +7,7 @@ source revisions, toolchain, machine, exact export names, hashes and timings.
 
 | Scope | Retained code |
 | --- | --- |
-| `full` | The same 312 original Motion public export names in both lanes. The port's 15 additional names are excluded. |
+| `full` | The same 312 original Motion public export names in both lanes. The port's 3 additional names are excluded. |
 | `consumer-api` | The same 50 original names present in the port's default entry. This differs from the shipped 52-export default. |
 | `closed-app` | Identical `consumer.mjs` caller linked with each library. Only the scenario runner is exported; unused library API can be removed. |
 | `closed-full` | The identical caller plus all 312 library roots, exported under identical short `e0`…`e311` aliases. This includes caller code and is a closed-program diagnostic. |
@@ -25,11 +25,14 @@ Browser declarations include TypeScript 5.9.2 `lib.dom.d.ts`, including WebIDL
 dictionary keys such as WAAPI `iterations`. Terser's built-in reservations alone
 do not cover all of those keys. Dynamic reservations use identifier-shaped
 words from string literals across both input graphs and the shared caller,
-including event-name forms. This is deliberately conservative and symmetric.
+including event-name forms, and the identifier-shaped string literal types of
+the public declarations (names callers pass at runtime, such as the easing
+names that index a library table). This is deliberately conservative and
+symmetric.
 
-LilScript's compiler-proven internal property mangling remains enabled in every
-port row. The identifier-only row preserves remaining properties after compiler
-emission. Neither lane starts from an already Terser-minified vendor artifact:
+The LilScript compiler renames no properties yet (plan M9.6), so the port input
+carries its source property names. The identifier-only row preserves every
+remaining property name. Neither lane starts from an already Terser-minified vendor artifact:
 the original input is the source build's recorded unminified ESM graph, and
 the port input is its unminified shared module graph.
 
