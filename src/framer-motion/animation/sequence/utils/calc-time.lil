@@ -1,6 +1,6 @@
 import extern { view as asString } from "../../utils/anim-host.ts";
 
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 extern string asString(JsValue value);
 
 export float calcNextTime(

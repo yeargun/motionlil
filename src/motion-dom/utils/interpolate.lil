@@ -1,6 +1,6 @@
 import { clamp } from "../../motion-utils/clamp";
 import { MotionGlobalConfig } from "../../motion-utils/global-config";
-import { noop } from "../../motion-utils/noop";
+import { identityEase } from "../../motion-utils/noop";
 import { progress } from "../../motion-utils/progress";
 import { callFn2 } from "../dom-host";
 import { asFloatFn, asMixer, floatsAsJs } from "../value/types/types";
@@ -60,7 +60,7 @@ export func(float)->float interpolate(
     };
     if (ease != null) {
       JsValue easing = if (ease.isArray()) {
-        if (ease[i].truthy()) { ease[i] } else { noop }
+        if (ease[i].truthy()) { ease[i] } else { identityEase }
       } else {
         ease
       };

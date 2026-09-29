@@ -2,7 +2,7 @@ import { Axis, Box, Delta, Point } from "../../../motion-utils/types/geometry";
 import { mixNumber } from "../../utils/mix/number";
 import { hasTransform } from "../utils/has-transform";
 
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 
 export float scalePoint(float point, float scale, float originPoint) {
   return originPoint + scale * (point - originPoint);

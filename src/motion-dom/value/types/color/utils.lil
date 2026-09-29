@@ -3,7 +3,7 @@ import { singleColorRegex } from "../utils/single-color-regex";
 import { asOpt, asRec, asStr } from "../types";
 import extern { stringMatch as matchList } from "../../../string-host.ts";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 extern JsValue[] matchList(string s, Regex re);
 
 // True for a single colour string of this model ("rgb…", "hsl…", "#…"), or

@@ -4,7 +4,7 @@ import { RGBA, ValueType, valueType, asNum, asRGBA } from "../types";
 import { sanitize } from "../utils/sanitize";
 import { isColorString, splitColor } from "./utils";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 float rgbUnitTransform(JsValue v) {
   return clamp(0.0, 255.0, asNum(v)).round();

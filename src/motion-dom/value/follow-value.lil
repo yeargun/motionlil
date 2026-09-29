@@ -7,7 +7,7 @@ import { MotionValue, motionValue } from "./index";
 import { asCallback, asNum, asRec, asStr } from "./types/types";
 import { isMotionValue } from "./utils/is-motion-value";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 // The options object a JavaScript caller passes (`{ type, stiffness, … }`).
 export class FollowValueOptions {

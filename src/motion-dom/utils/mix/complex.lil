@@ -11,8 +11,11 @@ import { mixImmediate } from "./immediate";
 import { mixNumber } from "./number";
 import { invisibleValues, mixVisibility } from "./visibility";
 
+// `a` is a number (getMixer tested it); `b` is whatever the caller passed,
+// and upstream's `to - from` converts it: `mix(0, "10")(0.5)` is 5.
 func(float)->JsValue mixNumbers(JsValue a, JsValue b) {
-  return (float p) => mixNumber(asNum(a), asNum(b), p);
+  float from = asNum(a);
+  return (float p) => from + (b - from) * p;
 }
 
 export func(JsValue, JsValue)->func(float)->JsValue getMixer(JsValue a) {

@@ -18,7 +18,7 @@ extern JsValue document;
 extern JsValue Object;
 extern JsValue Promise;
 extern JsValue getComputedStyle(JsValue element);
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 
 string[] definitionNames = ["layout", "enter", "exit", "new", "old"];
 

@@ -3,7 +3,7 @@ import { asOpt, asStr } from "../../value/types/types";
 import extern { cast as asStrOpt } from "../../value/types/cast.ts";
 import { MotionValueState } from "../MotionValueState";
 
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 extern string? asStrOpt(JsValue v);
 
 JsValue translateAlias = object {

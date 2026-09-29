@@ -1,1 +1,7 @@
-export func(float)->float noop = (float any) => any;
+// Upstream's `<T>(any: T): T => any`: a public export called with any value,
+// the frame loop's scheduler without `requestAnimationFrame`, a promise's
+// catch handler.
+export func(JsValue)->JsValue noop = (JsValue any) => any;
+
+// The same identity where a float flows through: the linear easing.
+export func(float)->float identityEase = (float t) => t;

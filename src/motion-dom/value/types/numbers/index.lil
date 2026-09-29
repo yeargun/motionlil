@@ -1,7 +1,7 @@
 import { clamp } from "../../../../motion-utils/clamp";
 import { ValueType, valueType, asNum } from "../types";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 export func(JsValue)->bool isNumber = (JsValue v) => v is float;
 

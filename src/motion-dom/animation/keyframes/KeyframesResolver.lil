@@ -17,7 +17,7 @@ import {
   removeNonTranslationalTransform
 } from "./utils/unit-conversion";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 export extern class AnimResolverState {
   JsValue unresolvedKeyframes;

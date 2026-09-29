@@ -1,4 +1,4 @@
-import { noop } from "../noop";
+import { identityEase } from "../noop";
 
 float calcBezier(float t, float a1, float a2) {
   return (((1.0 - 3.0 * a2 + 3.0 * a1) * t + (3.0 * a2 - 6.0 * a1)) * t + 3.0 * a1) * t;
@@ -6,7 +6,7 @@ float calcBezier(float t, float a1, float a2) {
 
 export func(float, float, float, float)->func(float)->float cubicBezier = (float mX1, float mY1, float mX2, float mY2) => {
   if (mX1 == mY1 && mX2 == mY2) {
-    return noop;
+    return identityEase;
   }
   return (float t) => {
     if (t == 0.0 || t == 1.0) {

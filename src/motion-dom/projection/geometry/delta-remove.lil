@@ -3,7 +3,7 @@ import { mixNumber } from "../../utils/mix/number";
 import { percent } from "../../value/types/numbers/units";
 import { scalePoint } from "./delta-apply";
 
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 
 export float removePointDelta(
   float point,

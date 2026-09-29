@@ -7,7 +7,7 @@ export extern class MathHost {
 }
 
 export extern MathHost Math;
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 
 float radToDeg(float rad) {
   return (rad * 180.0) / Math.PI;

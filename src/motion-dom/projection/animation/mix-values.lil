@@ -1,9 +1,10 @@
-import { circOut, noop, progress as calcProgress } from "../../../motion-utils/index";
+import { circOut, progress as calcProgress } from "../../../motion-utils/index";
+import { identityEase } from "../../../motion-utils/noop";
 import { mixNumber } from "../../utils/mix/number";
 import { percent, px } from "../../value/types/numbers/units";
 import { cornerRadiusProps } from "../../utils/border-radius";
 
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 
 float asNumber(JsValue value) {
   return if (value is string) { parseFloat(value) } else { JS.assume(value) };
@@ -28,7 +29,7 @@ func(float)->float compress(float min, float max, func(float)->float easing) {
 }
 
 func(float)->float easeCrossfadeIn = compress(0.0, 0.5, circOut);
-func(float)->float easeCrossfadeOut = compress(0.5, 0.95, noop);
+func(float)->float easeCrossfadeOut = compress(0.5, 0.95, identityEase);
 
 export void mixValues(
   JsValue target,

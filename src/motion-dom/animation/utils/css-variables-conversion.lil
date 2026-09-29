@@ -2,7 +2,7 @@ import { isNumericalString } from "../../../motion-utils/is-numerical-string";
 import { isCSSVariableToken } from "./is-css-variable";
 import { getComputedStyleProperty } from "../../dom-host";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 Regex splitCSSVariableRegex = new Regex(
   "^var\\(--(?:([\\w-]+)|([\\w-]+), ?([a-zA-Z\\d ()%#.,-]+))\\)",

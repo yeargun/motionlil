@@ -6,7 +6,7 @@ import { ValueType, valueType, asNum, asOpt } from "../types";
 import extern { stringMatch as matchAll } from "../../../string-host.ts";
 import { stringReplace } from "../../../string-host";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 extern bool isNaN(JsValue v);
 extern string[]? matchAll(string s, Regex re);
 

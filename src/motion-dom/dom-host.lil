@@ -32,7 +32,7 @@ extern JsValue globalThis;
 extern JsValue performance;
 extern JsValue PointerEvent;
 extern void queueMicrotask(func()->void callback);
-extern float parseFloat(string value);
+extern float parseFloat(JsValue value);
 
 
 export float performanceNow() {

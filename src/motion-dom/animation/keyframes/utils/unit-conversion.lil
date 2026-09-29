@@ -5,7 +5,7 @@ import { px } from "../../../value/types/numbers/units";
 import { ValueType } from "../../../value/types/types";
 import { visualElementOf } from "../../../cast";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 export bool isNumOrPxType(ValueType? v) {
   return v == numberType || v == px;

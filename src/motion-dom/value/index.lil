@@ -10,7 +10,8 @@ import { animAdopt, animArity, animClass } from "../animation/anim-host";
 
 extern SubscriptionManager? asManager(JsValue v);
 
-extern float parseFloat(string v);
+// ECMAScript's parseFloat converts any value to a string first.
+extern float parseFloat(JsValue v);
 
 // Maximum time between the value of two frames, beyond which the velocity is
 // assumed to have since been 0.
@@ -108,7 +109,7 @@ export class MotionValue {
     this.updatedAt = time.now();
     // Upstream tests `current !== undefined`: a null value is still classified.
     if (this.canTrackVelocity == null && !JS.isUndefined(current)) {
-      float parsed = parseFloat(asStr(current));
+      float parsed = parseFloat(current);
       this.canTrackVelocity = parsed == parsed;
     }
   }
@@ -261,7 +262,7 @@ export class MotionValue {
       return 0.0;
     }
     return velocityPerSecond(
-      parseFloat(asStr(this.current)) - parseFloat(asStr(this.prevFrameValue)),
+      parseFloat(this.current) - parseFloat(this.prevFrameValue),
       (this.updatedAt - asNum(this.prevUpdatedAt)).min(MAX_VELOCITY_DELTA)
     );
   }

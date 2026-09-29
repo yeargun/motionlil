@@ -1,7 +1,7 @@
 import { isNumber } from "./numbers/index";
 import { ValueType, valueType, asNum } from "./types";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 export ValueType intType = valueType(object {
   test: isNumber,

@@ -25,7 +25,7 @@ import { resolveVariantFromProps } from "./utils/resolve-variants";
 import { isSVGTag } from "./svg/utils/is-svg-tag";
 import { RHMap, window, Set as SetConstructor } from "./host-views";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 string[] propEventHandlers = [
   "AnimationStart",

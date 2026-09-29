@@ -2,7 +2,7 @@ import { getAsType } from "../../../value/types/utils/get-as-type";
 import { numberValueType } from "../../../value/types/maps/number";
 import { transformPropOrder } from "../../utils/keys-transform";
 
-extern float parseFloat(string v);
+extern float parseFloat(JsValue v);
 
 JsValue translateAlias = object{
   x: "translateX",
