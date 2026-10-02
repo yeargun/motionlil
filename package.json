@@ -553,7 +553,7 @@
     "check:site": "npm run build:site && node --test test/site.test.mjs",
     "check:types": "tsc -p test/types/tsconfig.json",
     "check:pack": "node scripts/check-pack.mjs",
-    "test": "node --test test/node.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs test/shared-graph.test.mjs",
+    "test": "node --test test/node.test.mjs test/array-identity.test.mjs test/terser.test.mjs test/vite.test.mjs test/shake.test.mjs test/shared-graph.test.mjs",
     "test:size": "node scripts/measure-size.mjs",
     "record:release": "node scripts/record-release.mjs",
     "prepublishOnly": "npm run check",
