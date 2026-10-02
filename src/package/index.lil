@@ -1,0 +1,61 @@
+// Package boundary; compiler delivery owns every format and shared binding.
+import {anticipate,
+backIn,
+backInOut,
+backOut,
+cancelFrame,
+circIn,
+circInOut,
+circOut,
+clamp,
+createScopedAnimate,
+cubicBezier,
+delay,
+delayInSeconds,
+distance,
+distance2D,
+easeIn,
+easeInOut,
+easeOut,
+followValue,
+frame,
+getAsType,
+inertia,
+interpolate,
+isMotionValue,
+keyframes,
+mapValue,
+mix,
+motionValue,
+numberType,
+progress,
+spring,
+springValue,
+stagger,
+steps,
+transform,
+transformValue,
+wrap} from "./animate";
+export {anticipate, backIn, backInOut, backOut, cancelFrame, circIn, circInOut, circOut, clamp, createScopedAnimate, cubicBezier, delay, delayInSeconds, distance, distance2D, easeIn, easeInOut, easeOut, followValue, frame, getAsType, inertia, interpolate, isMotionValue, keyframes, mapValue, mix, motionValue, numberType, progress, spring, springValue, stagger, steps, transform, transformValue, wrap};
+import {hover,
+press} from "./gestures";
+export {hover, press};
+import {resize} from "./resize";
+export {resize};
+import {scroll,
+scrollInfo} from "./scroll";
+export {scroll, scrollInfo};
+import {inView} from "./viewport";
+export {inView};
+import {GroupAnimation,
+GroupAnimationWithThen,
+MotionValue,
+SubscriptionManager,
+animate,
+animateMini,
+defaultEasing,
+getValueAsType,
+number as publicNumber} from "../compat/core";
+export {GroupAnimation, GroupAnimationWithThen, MotionValue, SubscriptionManager, animate, animateMini, defaultEasing, getValueAsType, publicNumber as number};
+
+export constructor SubscriptionManager;

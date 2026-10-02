@@ -1,356 +1,90 @@
-import { splitSharedGraph } from "./shared-graph.mjs"
-import { spawn, spawnSync } from "node:child_process"
-import { createHash } from "node:crypto"
-import { existsSync } from "node:fs"
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
-import { dirname, join, relative, resolve } from "node:path"
-import { fileURLToPath } from "node:url"
-import { build } from "esbuild"
-import { minify } from "terser"
+import { spawn, spawnSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { constants, existsSync } from 'node:fs'
+import { access, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
+import { delimiter, dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
-const source = join(root, "src")
-const dist = join(root, "dist")
-const compilerCandidates = [
-  process.env.MOTIONLIL_LILSCRIPT_BIN,
-  process.env.LILSCRIPT_COMPILER,
-  resolve(root, "../lilscript/target/release/lilscript"),
-  "lilscript",
-].filter(Boolean)
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+const config = join(root, 'src/lilscript.toml')
+const dist = join(root, 'dist')
+const scratch = join(root, '.tmp')
+const stage = join(scratch, `dist-${process.pid}`)
+const previous = join(scratch, `dist-previous-${process.pid}`)
+const mode = process.env.MOTIONLIL_BUILD_MODE ?? 'production'
+if (!['development', 'production'].includes(mode)) throw Error(`Invalid MOTIONLIL_BUILD_MODE: ${mode}`)
+const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 
-const compiler = compilerCandidates.find((candidate) => {
-  if (candidate.includes("/") && !existsSync(candidate)) return false
-  return spawnSync(candidate, ["--version"], { stdio: "ignore" }).status === 0
-})
-const buildMode = process.env.MOTIONLIL_BUILD_MODE ?? "production"
-const keepCompilerOutput = process.env.MOTIONLIL_KEEP_COMPILER_OUTPUT === "1"
-if (!new Set(["development", "production"]).has(buildMode)) {
-  throw new Error(`Invalid MOTIONLIL_BUILD_MODE: ${buildMode}`)
-}
-if (!compiler) {
-  throw new Error(
-    "LilScript compiler not found. Set MOTIONLIL_LILSCRIPT_BIN to a release compiler.",
-  )
-}
-
-await rm(dist, { recursive: true, force: true })
-await mkdir(dist, { recursive: true })
-
-const featureEntries = [
-  ["animate", "entries/animate.lil"],
-  ["animate-mini", "entries/animate-mini.lil"],
-  ["scroll", "entries/scroll.lil"],
-  ["gestures", "entries/gestures.lil"],
-  ["viewport", "entries/viewport.lil"],
-  ["resize", "entries/resize.lil"],
-]
-const standaloneEntries = [
-  ["full", "full.lil"],
-  ["mini", "mini.lil"],
-  ["debug", "debug.lil"],
-]
-
-const animatePublic = [
-  "createScopedAnimate",
-  "stagger",
-  "delay",
-  "delayInSeconds",
-  "spring",
-  "inertia",
-  "keyframes",
-  "motionValue",
-  "mapValue",
-  "transformValue",
-  "springValue",
-  "followValue",
-  "mix",
-  "interpolate",
-  "transform",
-  "clamp",
-  "wrap",
-  "progress",
-  "distance",
-  "distance2D",
-  "frame",
-  "cancelFrame",
-  "easeIn",
-  "easeOut",
-  "easeInOut",
-  "cubicBezier",
-  "backIn",
-  "backOut",
-  "backInOut",
-  "circIn",
-  "circOut",
-  "circInOut",
-  "anticipate",
-  "steps",
-  "numberType",
-  "getAsType",
-  "isMotionValue",
-]
-const compatPublic = [
-  "animate",
-  "MotionValue",
-  "SubscriptionManager",
-  "GroupAnimation",
-  "GroupAnimationWithThen",
-  "number",
-  "getValueAsType",
-  "defaultEasing",
-]
-
-const compileWallMs = {}
-
-function compile(name, input) {
-  const compiled = join(dirname(join(source, input)), `.__compiled-${name}.mjs`)
-  const started = performance.now()
-  return new Promise((resolvePromise, reject) => {
-    const child = spawn(
-      compiler,
-      [
-        join(source, input),
-        "--target",
-        "js-module",
-        "--config",
-        join(source, "lilscript.toml"),
-        "--mode",
-        buildMode,
-        "--output",
-        compiled,
-      ],
-      { cwd: root },
-    )
-    let output = ""
-    child.stdout.on("data", (chunk) => { output += chunk })
-    // The compiler writes its `lilscript-timing` line to stderr under
-    // LILSCRIPT_TIMING=1, and the build pool reads that line as proof a
-    // compile really happened -- a build that exits 0 without one is
-    // reported as failed, so its dist is never copied back. Buffering
-    // stderr for the error path is right; swallowing it on success is not.
-    child.stderr.on("data", (chunk) => { output += chunk; process.stderr.write(chunk) })
-    child.on("error", reject)
-    child.on("close", (status) => {
-      compileWallMs[name] = Math.round(performance.now() - started)
-      if (status !== 0) reject(new Error(output || `${name} failed`))
-      else resolvePromise(compiled)
-    })
-  })
-}
-
-const compiledFiles = []
-const facadeFiles = []
-const graphDirectory = join(source, ".__shared-graph")
-let compiledPublic = []
-
-// One compatibility module serves every entry, so the public constructors it
-// supplies (MotionValue, GroupAnimation, ...) are the same values everywhere.
-let compatModule = null
-async function writeCompat(compiledName) {
-  if (compatModule) return compatModule
-  compatModule = join(source, ".__compat.mjs")
-  const template = await readFile(join(source, "compat.mjs"), "utf8")
-  await writeFile(compatModule, template.replaceAll("./.__compiled-index.mjs", compiledName))
-  facadeFiles.push(compatModule)
-  return compatModule
-}
-
-async function writeFacade(name, compiled) {
-  const facade = join(source, `.__entry-${name}.mjs`)
-  const compiledName = `./${relative(source, compiled)}`
-  let sourceCode
-  if (name === "animate") {
-    await writeCompat(compiledName)
-    sourceCode = [
-      `export { ${animatePublic.join(", ")} } from ${JSON.stringify(compiledName)}`,
-      `export { ${compatPublic.join(", ")} } from "./.__compat.mjs"`,
-    ].join("\n")
-  } else if (name === "animate-mini") {
-    sourceCode = `export { animateMini } from ${JSON.stringify(compiledName)}`
-  } else if (name === "full") {
-    await writeCompat(compiledName)
-    sourceCode = [
-      `export { ${compiledPublic.join(", ")} } from ${JSON.stringify(compiledName)}`,
-      `export * from "./.__compat.mjs"`,
-      'export { animate, animateMini } from "./.__compat.mjs"',
-    ].join("\n")
-  } else if (name === "mini") {
-    sourceCode = `export { animateMini as animate, animateSequenceMini as animateSequence } from ${JSON.stringify(compiledName)}`
-  } else if (name === "debug") {
-    sourceCode = `export { recordStats } from ${JSON.stringify(compiledName)}`
-  } else if (name === "scroll") {
-    sourceCode = `export { scroll, scrollInfo } from ${JSON.stringify(compiledName)}`
-  } else if (name === "gestures") {
-    sourceCode = `export { hover, press } from ${JSON.stringify(compiledName)}`
-  } else if (name === "viewport") {
-    sourceCode = `export { inView } from ${JSON.stringify(compiledName)}`
-  } else if (name === "resize") {
-    sourceCode = `export { resize } from ${JSON.stringify(compiledName)}`
-  } else {
-    throw new Error(`Unknown entry ${name}`)
+// Resolve a path without invoking a shell. The recorded digest belongs to the
+// executable actually used, including when it was found through PATH.
+async function findCompiler() {
+  const pinned = process.env.MOTIONLIL_LILSCRIPT_BIN ?? process.env.LILSCRIPT_COMPILER
+  for (const candidate of pinned ? [pinned] : [resolve(root, '../lilscript/target/release/lilscript'), 'lilscript']) {
+    const paths = candidate.includes(sep) ? [resolve(candidate)] : (process.env.PATH ?? '').split(delimiter).map(dir => resolve(dir, candidate))
+    for (const path of paths) {
+      try { await access(path, constants.X_OK) } catch { continue }
+      if (spawnSync(path, ['--version'], {stdio: 'ignore'}).status === 0) return path
+    }
   }
-  await writeFile(facade, `${sourceCode}\n`)
-  facadeFiles.push(facade)
-  return facade
+  throw Error('LilScript compiler not found. Set MOTIONLIL_LILSCRIPT_BIN to a release compiler.')
 }
-
-const nameCache = {}
-async function terserMinify(file, module) {
-  if (buildMode !== "production") return
-  const sourceCode = await readFile(file, "utf8")
-  const result = await minify(sourceCode, {
-    module,
-    nameCache,
-    compress: { passes: 3 },
-    mangle: {
-      toplevel: true,
-      properties: { regex: /^_/, keep_quoted: true },
-    },
-    format: { comments: false },
-  })
-  if (result.code == null) throw new Error(`Terser produced no code for ${file}`)
-  await writeFile(file, `${result.code}\n`)
-}
-
-async function emitBundled(entry, outfile, format, platform = "browser") {
-  await build({
-    entryPoints: [entry],
-    bundle: true,
-    platform,
-    format,
-    // Preserve the compiler's native class fields in modern ESM. Downleveling
-    // them adds a host helper call for every field of every MotionValue.
-    target: format === "esm" ? "es2022" : "es2020",
-    treeShaking: true,
-    legalComments: "none",
-    logLevel: "warning",
-    outfile,
-    ...(format === "iife" ? { globalName: "motionlil" } : {}),
-  })
-  await terserMinify(outfile, format === "esm")
-}
-
-const barrelSource = [
-  `export { ${[...animatePublic, ...compatPublic].join(", ")} } from "./animate.js"`,
-  'export { animateMini } from "./animate-mini.js"',
-  'export { scroll, scrollInfo } from "./scroll.js"',
-  'export { hover, press } from "./gestures.js"',
-  'export { inView } from "./viewport.js"',
-  'export { resize } from "./resize.js"',
-  "",
-].join("\n")
-
-let compilePhaseWallMs = 0
-let compilerOutput = null
-
+const compiler = await findCompiler()
+const args = ['--config', config, '--target', 'js-module', '--mode', mode, '--out-dir', stage]
+const policy = spawnSync(compiler, [...args, '--print-policy'], {cwd: root, encoding: 'utf8', maxBuffer: 8 * 1024 * 1024})
+if (policy.status !== 0) throw Error(policy.stderr || 'Could not resolve compiler policy')
+const resolvedPolicy = JSON.parse(policy.stdout)
+await mkdir(scratch, {recursive: true})
+await rm(stage, {recursive: true, force: true})
+const started = performance.now()
+let installed = false
 try {
-  // One typed module owns shared state (frame queues, MotionValues and caches).
-  // ESM splitting happens after LilScript compilation, so feature imports reuse
-  // those bindings instead of embedding separately compiled copies.
-  const compileStarted = performance.now()
-  const file = await compile("full", "full.lil")
-  compilePhaseWallMs = Math.round(performance.now() - compileStarted)
-  compiledFiles.push(file)
-  const compiledText = await readFile(file)
-  compilerOutput = { raw: compiledText.length, sha256: createHash("sha256").update(compiledText).digest("hex") }
-  const parsed = await build({entryPoints: [file], bundle: false, write: false, metafile: true, format: "esm", logLevel: "silent"})
-  compiledPublic = Object.values(parsed.metafile.outputs)[0].exports.filter(name => !name.startsWith("__lil") && name !== "animate" && name !== "animateMini")
-  const graph = await splitSharedGraph(file, graphDirectory)
-  console.log(`Linked ${graph.statements} statements into ${graph.components} shared modules (${graph.effects} unconditional statements)`)
-  const entries = {}
-  for (const [name] of [...featureEntries, ...standaloneEntries]) {
-    entries[name] = await writeFacade(name, graph.entry)
+  await new Promise((accept, reject) => {
+    const child = spawn(compiler, args, {cwd: root, stdio: 'inherit'})
+    child.on('error', reject)
+    child.on('close', status => status === 0 ? accept() : reject(Error(`LilScript exited ${status}`)))
+  })
+  const compilePhaseWallMs = Math.round(performance.now() - started)
+  const manifestBytes = await readFile(join(stage, 'lilscript.manifest.json'))
+  const manifest = JSON.parse(manifestBytes)
+  if (manifest.version !== 5) throw Error('This build requires LilScript multi-output manifest v5')
+  const artifacts = {}
+  const sideEffects = new Set()
+  for (const output of manifest.outputs) {
+    for (const file of output.files) {
+      const path = resolve(stage, file.file)
+      const local = relative(stage, path)
+      if (!local || local.startsWith(`..${sep}`) || local === '..' || isAbsolute(local)) throw Error(`Invalid manifest file: ${file.file}`)
+      if (artifacts[file.file]) throw Error(`Duplicate manifest file: ${file.file}`)
+      const bytes = await readFile(path)
+      if (sha256(bytes) !== file.sha256 || bytes.length !== file.bytes) throw Error(`Delivered bytes differ from compiler manifest: ${file.file}`)
+      artifacts[file.file] = {sha256: file.sha256, raw: bytes.length, codec: output.codec,
+        codecBytes: file.codec_bytes, output: output.output, policyFingerprint: output.policy_fingerprint}
+    }
+    for (const file of output.side_effects) {
+      if (!artifacts[file]) throw Error(`Unknown side-effect file: ${file}`)
+      sideEffects.add(`./dist/${file}`)
+    }
   }
-  const indexFacade = join(source, ".__entry-index.mjs")
-  await writeFile(indexFacade, barrelSource.replaceAll(/"\.\/([^"/]+)\.js"/g, '"./.__entry-$1.mjs"'))
-  facadeFiles.push(indexFacade)
-  entries.index = indexFacade
-  // Publish the shared modules intact. Bundling all entry points into a few
-  // chunks would combine unrelated initializers and prevent narrow tree shaking.
-  const linked = await build({entryPoints:Object.values(entries), bundle:true, write:false,
-    metafile:true, format:"esm", logLevel:"silent", outdir:dist})
-  const inputs = Object.keys(linked.metafile.inputs).filter(path => path.startsWith("src/"))
-  const outputFor = path => path.replace(/^src\//, "internal/")
-    .replace(".__shared-graph", "graph").replace(/\.__((?:entry-|compat))/g, "$1").replace(/\.(?:mjs|ts)$/, ".js")
-  const modules = await build({entryPoints:Object.fromEntries(inputs.map(path => [outputFor(path).slice(0,-3),path])),
-    bundle:false, write:false, format:"esm", target:"es2022", outdir:dist, logLevel:"warning"})
-  for (const output of modules.outputFiles) {
-    const input = inputs.find(path => resolve(dist,outputFor(path)) === output.path)
-    const code = output.text.replace(/(from\s*|import\s*)(["'])([^"']+)\2/g, (match, prefix, quote, specifier) => {
-      if (!specifier.startsWith(".")) return match
-      const target = relative(root,resolve(dirname(resolve(root,input)),specifier))
-      const next = "./" + relative(dirname(output.path),resolve(dist,outputFor(target))).replaceAll("\\","/")
-      return prefix + quote + next + quote
-    })
-    await mkdir(dirname(output.path),{recursive:true})
-    await writeFile(output.path,code)
+  const report = {
+    schema: 2, date: new Date().toISOString(), mode, compiler,
+    compilerSha256: sha256(await readFile(compiler)), configSha256: sha256(await readFile(config)),
+    dependencyLockSha256: sha256(await readFile(join(root, 'package-lock.json'))),
+    sourceSha256: manifest.source_sha256, manifestSha256: sha256(manifestBytes), resolvedPolicy,
+    compilePhaseWallMs, compileWallMs: {graph: compilePhaseWallMs}, artifacts,
+    writtenBy: Object.fromEntries(Object.keys(artifacts).sort().map(file => [`dist/${file}`, 'compiler'])),
   }
-  for (const [name,entry] of Object.entries(entries)) {
-    await writeFile(join(dist,name+".js"), `export * from "./${outputFor(relative(root,entry))}";\n`)
-  }
-  await emitBundled(entries.full, join(dist, "full.bundle.js"), "esm")
-  await emitBundled(indexFacade, join(dist, "index.bundle.js"), "esm")
-  await emitBundled(indexFacade, join(dist, "motionlil.global.js"), "iife")
-  await emitBundled(entries.full, join(dist, "full.cjs"), "cjs", "neutral")
-  for (const name of Object.keys(entries).filter(name => name !== "full")) {
-    const module = await import(`file://${join(dist, name + ".js")}`)
-    const mapping = Object.keys(module).map(key => [key, name === "mini"
-      ? ({animate: "animateMini", animateSequence: "animateSequenceMini"}[key] ?? key) : key])
-    await writeFile(join(dist, name + ".cjs"), '"use strict";const core=require("./full.cjs");' +
-      mapping.map(([key, value]) => `Object.defineProperty(exports,${JSON.stringify(key)},{enumerable:true,get:()=>core[${JSON.stringify(value)}]});`).join("") + "\n")
-  }
+  const packagePath = join(root, 'package.json')
+  const pkg = JSON.parse(await readFile(packagePath, 'utf8'))
+  pkg.sideEffects = [...sideEffects].sort()
+  // Keep the previous output intact until compilation and every digest check
+  // succeed. Renaming never rewrites compiler output or changes relative links.
+  if (existsSync(dist)) await rename(dist, previous)
+  try { await rename(stage, dist); installed = true }
+  catch (error) { if (existsSync(previous)) await rename(previous, dist); throw error }
+  await writeFile(packagePath, `${JSON.stringify(pkg, null, 2)}\n`)
+  await writeFile(join(scratch, 'build-report.json'), `${JSON.stringify(report, null, 2)}\n`)
+  await rm(previous, {recursive: true, force: true})
+  console.log(`Built ten ${mode} entries and five output groups with LilScript in ${compilePhaseWallMs} ms`)
 } finally {
-  if (!keepCompilerOutput) await rm(graphDirectory, {recursive:true,force:true})
-  const cleanup = keepCompilerOutput ? facadeFiles : [...compiledFiles, ...facadeFiles]
-  await Promise.all(cleanup.map((file) => rm(file, { force: true })))
+  if (!installed) await rm(stage, {recursive: true, force: true})
 }
-
-// What wrote each published file. Only the compiler's own module would carry a
-// size claim; every file here is either that module after the shared-graph
-// split and an esbuild reprint, a build-script facade, or esbuild + Terser
-// output (plan M12.2). `.tmp/build-report.json` records which is which.
-const postProcessedBy = "esbuild + Terser"
-const writtenBy = {}
-async function listDist(directory) {
-  const { readdir } = await import("node:fs/promises")
-  const files = []
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    const path = join(directory, entry.name)
-    if (entry.isDirectory()) files.push(...await listDist(path))
-    else files.push(relative(root, path))
-  }
-  return files
-}
-for (const file of (await listDist(dist)).sort()) {
-  const name = file.slice("dist/".length)
-  writtenBy[file] =
-    name.startsWith("internal/graph/")
-      ? "compiler (full.lil), split into shared modules by scripts/shared-graph.mjs and reprinted by esbuild"
-      : name.startsWith("internal/")
-        ? "build script facade, reprinted by esbuild"
-        : ["full.bundle.js", "index.bundle.js", "motionlil.global.js", "full.cjs"].includes(name)
-          ? postProcessedBy
-          : name.endsWith(".cjs")
-            ? "build script (CommonJS re-export of full.cjs)"
-            : "build script (re-export of the shared graph)"
-}
-const compilerBinary = spawnSync("sh", ["-c", `command -v ${JSON.stringify(compiler)}`], {
-  encoding: "utf8",
-}).stdout.trim() || compiler
-const report = {
-  date: new Date().toISOString(),
-  mode: buildMode,
-  compiler: compilerBinary,
-  compilerSha256: createHash("sha256").update(await readFile(compilerBinary)).digest("hex"),
-  compilePhaseWallMs,
-  compileWallMs,
-  compilerOutput,
-  writtenBy,
-}
-await mkdir(join(root, ".tmp"), { recursive: true })
-await writeFile(join(root, ".tmp", "build-report.json"), `${JSON.stringify(report, null, 2)}\n`)
-
-console.log(
-  `Built ${featureEntries.length} ESM features and ${standaloneEntries.length} standalone ${buildMode} entries with ${compiler}`,
-)
-console.log(`Compiled full.lil in ${compileWallMs.full} ms wall`)

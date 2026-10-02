@@ -1,7 +1,7 @@
 import { JSAnimation, createJSAnimation, jsAnimationVelocity, stopJSAnimation } from "./JSAnimation";
 
 // Typed options for callers that build a JSAnimation field by field.
-export class JSAnimationOptionsFull {
+export class JSAnimationOptions {
   float[] keyframes;
   float velocity;
   string? type;
@@ -30,7 +30,7 @@ export class JSAnimationOptionsFull {
 export class JSAnimationFull {
   JSAnimation animation;
 
-  init(JSAnimationOptionsFull options) {
+  init(JSAnimationOptions options) {
     this.animation = createJSAnimation(options);
   }
 

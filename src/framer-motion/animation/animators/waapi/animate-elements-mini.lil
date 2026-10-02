@@ -6,8 +6,8 @@ import { fillWildcards } from "../../../../motion-dom/animation/keyframes/utils/
 import { getComputedStyle } from "../../../../motion-dom/render/dom/style-computed";
 import { getValueTransition } from "../../../../motion-dom/animation/utils/get-value-transition-mini";
 import { pxValues } from "../../../../motion-dom/animation/waapi/utils/px-values-mini";
-import { NativeAnimationMini } from "../../../../motion-dom/animation/NativeAnimationMini";
-import { resolveElements, AnimationScopeMini } from "../../../../motion-dom/utils/resolve-elements-mini";
+import { NativeAnimation } from "../../../../motion-dom/animation/NativeAnimationMini";
+import { resolveElements, AnimationScope } from "../../../../motion-dom/utils/resolve-elements-mini";
 import { secondsToMilliseconds } from "../../../../motion-utils/time-conversion";
 import { callFn2, isFunction } from "../../../../motion-dom/dom-host";
 import extern { identity as nativeAnimationOf } from "../../../../motion-dom/cast-host.ts";
@@ -19,13 +19,13 @@ import extern {
 } from "../../utils/anim-host.ts";
 import { keyframesAsList } from "../../sequence/create";
 
-extern NativeAnimationMini nativeAnimationOf(JsValue value);
+extern NativeAnimation nativeAnimationOf(JsValue value);
 extern JsValue copy(JsValue? a);
 extern JsValue spread(JsValue? a, JsValue? b);
 extern float asNumber(JsValue value);
 extern string asString(JsValue value);
 
-struct AnimationDefinitionMini {
+struct AnimationDefinition {
   Map<string, JsValue> map;
   string key;
   JsValue[] unresolvedKeyframes;
@@ -35,20 +35,20 @@ struct AnimationDefinitionMini {
   JsValue pseudoElement;
 }
 
-export NativeAnimationMini[] animateElements(
+export NativeAnimation[] animateElements(
   JsValue? elementOrSelector,
   JsValue keyframes,
   JsValue options,
-  AnimationScopeMini? scope
+  AnimationScope? scope
 ) {
-  NativeAnimationMini[] animations = [];
+  NativeAnimation[] animations = [];
   if (elementOrSelector == null) {
     return animations;
   }
   JsValue[] elements = resolveElements(elementOrSelector, scope);
   int numElements = elements.length;
 
-  AnimationDefinitionMini[] animationDefinitions = [];
+  AnimationDefinition[] animationDefinitions = [];
   for (int i = 0; i < numElements; i++) {
     JsValue element = elements[i];
     JsValue elementTransition = copy(options);
@@ -83,7 +83,7 @@ export NativeAnimationMini[] animateElements(
       if (currentAnimation != null) {
         nativeAnimationOf(currentAnimation).stop();
       }
-      animationDefinitions.push(AnimationDefinitionMini{
+      animationDefinitions.push(AnimationDefinition{
         map,
         key,
         keyframesAsList(keyframes[valueName]),
@@ -96,7 +96,7 @@ export NativeAnimationMini[] animateElements(
   }
 
   for (int i = 0; i < animationDefinitions.length; i++) {
-    AnimationDefinitionMini definition = animationDefinitions[i];
+    AnimationDefinition definition = animationDefinitions[i];
     JsValue[] unresolvedKeyframes = definition.unresolvedKeyframes;
     string name = definition.name;
     bool readInitial = !definition.pseudoElement.truthy();
@@ -121,8 +121,8 @@ export NativeAnimationMini[] animateElements(
   }
 
   for (int i = 0; i < animationDefinitions.length; i++) {
-    AnimationDefinitionMini definition = animationDefinitions[i];
-    NativeAnimationMini animation = new NativeAnimationMini(definition.options, definition.map, definition.key);
+    AnimationDefinition definition = animationDefinitions[i];
+    NativeAnimation animation = new NativeAnimation(definition.options, definition.map, definition.key);
     definition.map.set(definition.key, animation);
     animations.push(animation);
   }

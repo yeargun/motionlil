@@ -1,8 +1,8 @@
-import { GroupAnimationMini } from "./GroupAnimationMini";
-import { NativeAnimationMini } from "./NativeAnimationMini";
+import { GroupAnimation } from "./GroupAnimationMini";
+import { NativeAnimation } from "./NativeAnimationMini";
 
-export class GroupAnimationWithThenMini extends GroupAnimationMini {
-  init(NativeAnimationMini[] input) {
+export class GroupAnimationWithThen extends GroupAnimation {
+  init(NativeAnimation[] input) {
     super(input);
   }
 

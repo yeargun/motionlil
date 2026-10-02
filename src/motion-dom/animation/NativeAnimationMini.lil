@@ -10,7 +10,7 @@ import {
   callMethod1
 } from "../dom-host";
 
-export class NativeAnimationMini extends WithPromise {
+export class NativeAnimation extends WithPromise {
   JsValue options;
   JsValue animation;
   bool isStopped;
@@ -63,7 +63,7 @@ export class NativeAnimationMini extends WithPromise {
       if (autoplay is bool && autoplay == false) {
         this.pause();
       }
-      NativeAnimationMini selfFinish = this;
+      NativeAnimation selfFinish = this;
       setProp(this.animation, "onfinish", () => {
         selfFinish.onAnimationFinish();
       });
@@ -191,7 +191,7 @@ export class NativeAnimationMini extends WithPromise {
           iterationDuration = iterationDuration + delay / 1000.0;
         }
       }
-      NativeAnimationMini selfTimeline = this;
+      NativeAnimation selfTimeline = this;
       JsValue valueAnimation = object{ iterationDuration: iterationDuration };
       setProp(valueAnimation, "pause", () => {
         selfTimeline.pause();

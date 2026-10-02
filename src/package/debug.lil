@@ -1,0 +1,3 @@
+// Package boundary; compiler delivery owns every format and shared binding.
+import {recordStats} from "../debug";
+export {recordStats};

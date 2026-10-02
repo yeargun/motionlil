@@ -4,7 +4,7 @@ import {
   isEventTarget
 } from "../dom-host";
 
-export class AnimationScopeMini {
+export class AnimationScope {
   JsValue current;
   JsValue[] animations;
 
@@ -16,7 +16,7 @@ export class AnimationScopeMini {
 
 export JsValue[] resolveElements(
   JsValue? elementOrSelector = null,
-  AnimationScopeMini? _scope = null
+  AnimationScope? _scope = null
 ) {
   if (elementOrSelector == null) {
     return [];

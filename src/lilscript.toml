@@ -1,29 +1,74 @@
-[optimization]
-preset = "maximum"
-
+# All package formats share one checked ten-entry graph. Level 15 deliberately
+# buys smaller files with the extra joint/beam/naming work beyond default 13.
+[policy]
+version = 3
+[effort]
+level = 15
+[objective]
+codecs = "brotli"
 [javascript]
-# A dynamic member read runs no getter (Terser's pure_getters). Set in 8.79
-# together with the old emitter's member rematerialisation (-202 Brotli as a
-# pair); that key, `function_spelling` and `local_name_reserve` have no effect
-# in the one compiler and were removed with the rebuild of 2026-09-24.
-assume_pure_property_reads = true
 priority = "size-first"
-# origin/main (2026-09-11) built at level 0 with `local_name_coalescing = false`
-# and `emit_pure_annotations = true` for the old compiler. The one compiler
-# reports those two keys as having no effect, and level 15 is the size
-# objective this release is measured at.
-optimization_level = 15
-cost_model = "brotli"
-# Motion runs against the platform's own builtins, as every other port here
-# declares: a class construction is then its literal (the store fold).
+# Motion model property reads are treated as effect-free, matching this port's
+# public host contract. Consumers must not install side-effectful getters on
+# those models; disable this assumption for such integrations.
+assume_pure_property_reads = true
+# Platform builtins/prototypes are unmodified while Motion runs. Disable when
+# embedding in an environment that patches Array/Object/Math or their methods.
 assume_pristine_builtins = true
-
 [mangle]
 identifiers = true
 properties = true
 pool_strings = true
-
-[bundle]
-# The compiler lowers these host modules into the program, where
-# pruning, inlining and naming reach them.
+[delivery]
+# Checked purity annotations let downstream consumers remove unused API branches.
+# They add a few source bytes; standalone browser/bundle outputs disable them.
+annotations = "all"
+mode = "preserve-modules"
+directory = "."
 host_modules = "embed"
+entry_names = "[name].js"
+# Host and source modules can share a stem; the index keeps file identities unique.
+module_names = "internal/esm/[path]-[index].js"
+chunk_names = "internal/esm/chunk-[index].js"
+[delivery.entries]
+"animate" = "package/animate.lil"
+"animate-mini" = "package/animate-mini.lil"
+"debug" = "package/debug.lil"
+"full" = "package/full.lil"
+"gestures" = "package/gestures.lil"
+"index" = "package/index.lil"
+"mini" = "package/mini.lil"
+"resize" = "package/resize.lil"
+"scroll" = "package/scroll.lil"
+"viewport" = "package/viewport.lil"
+
+[[delivery.also]]
+name = "cjs"
+annotations = "off"
+format = "cjs"
+mode = "split"
+entry_names = "[name].cjs"
+module_names = "internal/cjs/[path]-[index].cjs"
+chunk_names = "internal/cjs/chunk-[index].cjs"
+[[delivery.also]]
+name = "browser"
+annotations = "off"
+format = "iife"
+mode = "single"
+entries = ["index"]
+global = "motionlil"
+entry_names = "motionlil.global.js"
+[[delivery.also]]
+name = "full-bundle"
+annotations = "off"
+format = "esm"
+mode = "single"
+entries = ["full"]
+entry_names = "full.bundle.js"
+[[delivery.also]]
+name = "index-bundle"
+annotations = "off"
+format = "esm"
+mode = "single"
+entries = ["index"]
+entry_names = "index.bundle.js"

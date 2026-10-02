@@ -5,9 +5,12 @@ import { numberValueType } from "../value/types/maps/number";
 import { asJs } from "../value/types/types";
 import { getAsType } from "../value/types/utils/get-as-type";
 
-struct StoredValue {
-  MotionValue value;
-  func()->void onRemove;
+// This object lives in the state cache shared through WeakMap and callbacks.
+// Match the host's named reference object; a copied positional value product
+// cannot preserve a mutable Map's public storage representation.
+shape StoredValue {
+  data MotionValue value;
+  data func()->void onRemove;
 }
 
 export class MotionValueState {
@@ -53,7 +56,7 @@ export class MotionValueState {
         value.removeDependent(computed);
       }
     };
-    this.values.set(name, StoredValue{value, remove});
+    this.values.set(name, StoredValue{value: value, onRemove: remove});
     return remove;
   }
 

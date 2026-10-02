@@ -1,0 +1,30 @@
+// Shared compatibility surface used by the default and full package entries.
+import { numberType } from "../motion-dom/value/types/numbers/index";
+import { getAsType } from "../motion-dom/value/types/utils/get-as-type";
+import { easeInOut } from "../motion-utils/easing/ease";
+import { motionValueConstructor } from "../motion-dom/value/index";
+import { groupAnimationConstructor } from "../motion-dom/animation/GroupAnimation";
+import { groupAnimationWithThenConstructor } from "../motion-dom/animation/GroupAnimationWithThen";
+import { animate } from "../framer-motion/animation/animate/consumer";
+import { animateMini } from "../framer-motion/animation/animators/waapi/animate-style-mini";
+export {numberType as number, getAsType as getValueAsType, animate, animateMini,
+ motionValueConstructor as MotionValue, groupAnimationConstructor as GroupAnimation,
+ groupAnimationWithThenConstructor as GroupAnimationWithThen};
+export JsValue defaultEasing(JsValue values, JsValue easing = easeInOut) {
+ return values.map((JsValue _value) => JS.or(easing, easeInOut)).slice(0, -1);
+}
+export void addUnique(JsValue values, JsValue value) { if (values.indexOf(value) == -1) { values.push(value); } }
+export void removeItem(JsValue values, JsValue value) { JsValue index = values.indexOf(value); if (index >= 0) { values.splice(index, 1); } }
+export class SubscriptionManager {
+ JsValue subscriptions;
+ init() { this.subscriptions = JS.array(); }
+ func()->void add(JsValue handler) { addUnique(this.subscriptions, handler); return () => removeItem(this.subscriptions, handler); }
+ void notify(JsValue a, JsValue b, JsValue c) {
+  JsValue subscriptions=this.subscriptions;
+  JsValue length=subscriptions.length;
+  for (float i=0.0;i<length;i=i+1.0) { JsValue handler=subscriptions[i];if(!JS.isNullish(handler)){JS.call(handler,subscriptions,a,b,c);} }
+ }
+ JsValue getSize(){return this.subscriptions.length;}
+ void clear(){this.subscriptions.length=0;}
+}
+export constructor SubscriptionManager;

@@ -1,15 +1,15 @@
 import { setProp } from "../dom-host";
-import { NativeAnimationMini } from "./NativeAnimationMini";
+import { NativeAnimation } from "./NativeAnimationMini";
 
-export class GroupAnimationMini {
-  NativeAnimationMini[] animations;
+export class GroupAnimation {
+  NativeAnimation[] animations;
 
-  init(NativeAnimationMini[] input) {
+  init(NativeAnimation[] input) {
     this.animations = [];
     for (int i = 0; i < input.length; i++) {
       this.animations.push(input[i]);
     }
-    GroupAnimationMini self = this;
+    GroupAnimation self = this;
     setProp(this, "attachTimeline", (JsValue timeline) => {
       return self.attachTimeline(timeline);
     });

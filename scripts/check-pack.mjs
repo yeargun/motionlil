@@ -34,8 +34,10 @@ for (const path of required) {
 }
 const manifest = JSON.parse(readFileSync("package.json", "utf8"))
 if (manifest.name !== "motionlil") throw new Error("unexpected package name")
-if (JSON.stringify(manifest.sideEffects) !== JSON.stringify(["./dist/internal/graph/effect-*.js"])) {
-  throw new Error("only explicit initialization modules may have side effects")
+const delivery = JSON.parse(readFileSync("dist/lilscript.manifest.json", "utf8"))
+const effects = [...new Set(delivery.outputs.flatMap(output => output.side_effects.map(file => `./dist/${file}`)))].sort()
+if (JSON.stringify(manifest.sideEffects) !== JSON.stringify(effects)) {
+  throw new Error("package sideEffects must match the compiler's initialization manifest")
 }
 for (const file of files) {
   if (!file.startsWith("dist/") || !file.endsWith(".js")) continue

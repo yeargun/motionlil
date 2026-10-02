@@ -1,0 +1,149 @@
+// Full-only compatibility helpers. Default entries import compat/core directly.
+import {number as publicNumber, getValueAsType, animate, animateMini, MotionValue,
+ GroupAnimation, GroupAnimationWithThen, defaultEasing, SubscriptionManager, addUnique, removeItem} from "./compat/core";
+export {publicNumber as number, getValueAsType, animate, animateMini, MotionValue,
+ GroupAnimation, GroupAnimationWithThen, defaultEasing, SubscriptionManager};
+
+import { motionValue } from "./motion-dom/value/index";
+import { compareByDepth } from "./motion-dom/projection/utils/compare-by-depth";
+import { createBox } from "./motion-dom/projection/geometry/models";
+import { animateView } from "./motion-dom/view/index";
+import { groupAnimationConstructor } from "./motion-dom/animation/GroupAnimation";
+import { jsAnimationConstructor } from "./motion-dom/animation/JSAnimation";
+import { nativeAnimationConstructor } from "./motion-dom/animation/NativeAnimation";
+import { nativeAnimationExtendedConstructor } from "./motion-dom/animation/NativeAnimationExtended";
+import { nativeAnimationWrapperConstructor } from "./motion-dom/animation/NativeAnimationWrapper";
+import { asyncMotionValueAnimationConstructor } from "./motion-dom/animation/AsyncMotionValueAnimation";
+import extern { viewTransitionConstructor, keyframeSubclass, visualSubclasses } from "./compat-host.ts";
+extern JsValue viewTransitionConstructor(func(JsValue, JsValue)->JsValue implementation);
+extern JsValue keyframeSubclass(JsValue base);
+extern JsValue visualSubclasses(JsValue base);
+extern JsValue Array;
+extern JsValue Object;
+extern JsValue Set;
+extern JsValue Map;
+extern void queueMicrotask(func()->void callback);
+
+
+export {
+ jsAnimationConstructor as JSAnimation,
+ nativeAnimationConstructor as NativeAnimation, nativeAnimationExtendedConstructor as NativeAnimationExtended,
+ nativeAnimationWrapperConstructor as NativeAnimationWrapper, asyncMotionValueAnimationConstructor as AsyncMotionValueAnimation
+};
+export JsValue ViewTransitionBuilder = viewTransitionConstructor(animateView);
+JsValue iterableSnapshot(JsValue values){JsValue copy=JS.array();for(JsValue value of values){copy.push(value);}return copy;}
+JsValue optionalProperty(JsValue receiver,string name){if(JS.isNullish(receiver)){return JS.undefined();}return receiver[name];}
+void optionalMethod(JsValue receiver, string name) {
+ if (!JS.isNullish(receiver)) { JsValue method=receiver[name];if(!JS.isNullish(method)){JS.call(method,receiver);} }
+}
+JsValue currentValue(JsValue value) {
+ if(JS.isNullish(value)){return JS.undefined();}
+ JsValue get=value.get;if(JS.isNullish(get)){return JS.undefined();}return JS.call(get,value);
+}
+export JsValue animateValue(JsValue options){return JS.construct(jsAnimationConstructor,options);}
+JsValue resolverQueue=JS.construct(Set);
+export class KeyframeResolver {
+ JsValue state; JsValue isAsync; JsValue needsMeasurement; JsValue unresolvedKeyframes;
+ JsValue onComplete; JsValue name; JsValue motionValue; JsValue element;
+ init(JsValue unresolvedKeyframes, JsValue onComplete, JsValue name, JsValue motionValue, JsValue element, JsValue isAsync=false) {
+  this.state="pending";this.isAsync=isAsync;this.needsMeasurement=false;
+  this.unresolvedKeyframes=iterableSnapshot(unresolvedKeyframes);this.onComplete=onComplete;
+  this.name=name;this.motionValue=motionValue;this.element=element;
+ }
+ void scheduleResolve(){
+  this.state="scheduled";
+  if(this.isAsync.truthy()){
+   resolverQueue.add(this);
+   queueMicrotask(()=>{for(JsValue resolver of iterableSnapshot(resolverQueue)){resolver.readKeyframes();resolver.complete(false);}});
+  } else {JsValue self=this;self.readKeyframes();self.complete();}
+ }
+ void readKeyframes(){
+  JsValue frames=this.unresolvedKeyframes;JsValue value=this.motionValue;
+  if(frames[0]==null){
+   JsValue first=currentValue(value);
+   if(JS.isNullish(first)){
+    JsValue element=this.element;
+    if(!JS.isNullish(element)){JsValue read=element.readValue;if(!JS.isNullish(read)){first=JS.call(read,element,this.name,frames.at(-1));}}
+   }
+   frames[0]=first ?? frames.at(-1);
+   if(JS.isUndefined(currentValue(value)) && !JS.isNullish(value)){
+    JsValue set=value.set;if(!JS.isNullish(set)){JS.call(set,value,frames[0]);}
+   }
+  }
+  for(float index=1.0;index<frames.length;index=index+1.0){if(JS.isNullish(frames[index])){frames[index]=frames[index-1.0];}}
+ }
+ void setFinalKeyframe(){} void measureInitialState(){} void renderEndStyles(){} void measureEndState(){}
+ void complete(JsValue forced=false){this.state="complete";JsValue self=this;this.onComplete(this.unresolvedKeyframes,self.finalKeyframe,forced);resolverQueue.delete(this);}
+ void cancel(){resolverQueue.delete(this);this.state="pending";}
+ void resume(){if(this.state==="pending"){JsValue self=this;self.scheduleResolve();}}
+}
+export constructor KeyframeResolver;
+export JsValue DOMKeyframesResolver=keyframeSubclass(KeyframeResolver);
+export class Feature {
+ JsValue isMounted; JsValue node;
+ init(JsValue node){this.isMounted=false;this.node=node;}
+ void mount(){this.isMounted=true;}void unmount(){this.isMounted=false;}void update(){}
+}
+export constructor Feature;
+export class FlatTree {
+ JsValue children;JsValue isDirty;
+ init(){this.children=JS.array();this.isDirty=false;}
+ void add(JsValue child){addUnique(this.children,child);this.isDirty=true;}
+ void remove(JsValue child){removeItem(this.children,child);this.isDirty=true;}
+ void forEach(JsValue callback){if(this.isDirty.truthy()){this.children.sort(compareByDepth);}this.isDirty=false;this.children.forEach(callback);}
+}
+export constructor FlatTree;
+export class NodeStack {
+ JsValue lead;JsValue prevLead;JsValue members;
+ init(){this.lead=JS.undefined();this.prevLead=JS.undefined();this.members=JS.array();}
+ void add(JsValue node){addUnique(this.members,node);optionalMethod(node,"scheduleRender");}
+ void remove(JsValue node){removeItem(this.members,node);if(node===this.prevLead){this.prevLead=JS.undefined();}if(node===this.lead){JsValue self=this;self.promote(this.members.at(-1));}}
+ bool relegate(JsValue node){JsValue candidate=this.members[this.members.indexOf(node)-1];if(!candidate.truthy()){return false;}JsValue self=this;self.promote(candidate);return true;}
+ void promote(JsValue node){if(!node.truthy() || node===this.lead){return;}this.prevLead=this.lead;this.lead=node;optionalMethod(node,"show");optionalMethod(node,"scheduleRender");}
+ void exitAnimationComplete(){for(JsValue member of this.members){optionalMethod(member.options,"onExitComplete");}}
+ void scheduleRender(){this.members.forEach((JsValue member)=>{JsValue render=member.scheduleRender;if(!JS.isNullish(render)){JS.call(render,member,false);}});}
+ void removeLeadSnapshot(){if(this.lead.truthy()){this.lead.snapshot=JS.undefined();}}
+}
+export constructor NodeStack;
+export class VisualElement {
+ JsValue current;JsValue parent;JsValue children;JsValue values;JsValue events;JsValue features;
+ JsValue options;JsValue props;JsValue latestValues;JsValue renderState;JsValue isMounted;JsValue isVisible;
+ init(JsValue options=object{},JsValue parent=null){
+  JsValue visualState=options.visualState;this.current=null;this.parent=parent ?? options.parent ?? null;
+  this.children=JS.construct(Set);this.values=JS.construct(Map);this.events=JS.construct(Map);this.features=JS.construct(Map);
+  this.options=options;this.props=options.props ?? object{};this.latestValues=optionalProperty(visualState,"latestValues") ?? object{};
+  this.renderState=optionalProperty(visualState,"renderState") ?? object{};this.isMounted=false;this.isVisible=true;
+ }
+ void mount(JsValue instance){this.current=instance;this.isMounted=true;JsValue children=optionalProperty(this.parent,"children");if(!JS.isNullish(children)){children.add(this);}}
+ void unmount(){JsValue children=optionalProperty(this.parent,"children");if(!JS.isNullish(children)){children.delete(this);}this.current=null;this.isMounted=false;}
+ void update(JsValue props,JsValue presenceContext){this.props=props;JsValue self=this;self.presenceContext=presenceContext;}
+ JsValue getProps(){return this.props;}
+ JsValue getValue(JsValue key,JsValue fallback){if(!this.values.has(key).truthy() && !JS.isUndefined(fallback)){this.values.set(key,motionValue(fallback));}return this.values.get(key);}
+ void addValue(JsValue key,JsValue value){this.values.set(key,value);}
+ void removeValue(JsValue key){this.values.delete(key);}
+ JsValue hasValue(JsValue key){return this.values.has(key);}
+ void forEachValue(JsValue callback){this.values.forEach(callback);}
+ JsValue on(JsValue event,JsValue callback){if(!this.events.has(event).truthy()){this.events.set(event,new SubscriptionManager());}return this.events.get(event).add(callback);}
+ void notify(JsValue event,JsValue... args){JsValue subscriptions=this.events.get(event);if(!JS.isNullish(subscriptions)){subscriptions.notify(...args);}}
+ void scheduleRender(){JsValue self=this;self.render();}void render(){}void build(){}
+ JsValue measureViewportBox(){return createBox();}
+ void setStaticValue(JsValue key,JsValue value){this.latestValues[key]=value;}
+ JsValue getStaticValue(JsValue key){return this.latestValues[key];}
+ void setVisibility(JsValue visible){this.isVisible=visible;}void show(){JsValue self=this;self.setVisibility(true);}void hide(){JsValue self=this;self.setVisibility(false);}
+}
+export constructor VisualElement;
+JsValue visualConstructors=visualSubclasses(VisualElement);
+export JsValue DOMVisualElement=visualConstructors[0];
+export JsValue HTMLVisualElement=visualConstructors[1];
+export JsValue ObjectVisualElement=visualConstructors[2];
+export JsValue SVGVisualElement=visualConstructors[3];
+export JsValue DocumentProjectionNode=visualConstructors[4];
+export JsValue HTMLProjectionNode=visualConstructors[5];
+export class LayoutAnimationBuilder {
+ JsValue scope;JsValue updateDom;JsValue defaultOptions;
+ init(JsValue scope,JsValue updateDom,JsValue defaultOptions){this.scope=scope;this.updateDom=updateDom;this.defaultOptions=defaultOptions;}
+ JsValue start(){optionalMethod(this,"updateDom");return JS.construct(groupAnimationConstructor,JS.array());}
+}
+export constructor LayoutAnimationBuilder;
+
+export constructor SubscriptionManager;

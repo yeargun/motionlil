@@ -8,7 +8,7 @@ import { animateSubject } from "./subject-dom";
 
 extern JsValue spread(JsValue? a, JsValue? b);
 
-export class ScopedAnimateOptionsConsumer {
+export class ScopedAnimateOptions {
   AnimationScope? scope;
   bool? reduceMotion;
   bool? skipAnimations;
@@ -26,7 +26,7 @@ export class ScopedAnimateOptionsConsumer {
 
 // The DOM-only `animate`: index.lil's createScopedAnimate over subject-dom.
 export func(JsValue, JsValue, JsValue)->GroupAnimationWithThen createScopedAnimate(
-  ScopedAnimateOptionsConsumer? options = null
+  ScopedAnimateOptions? options = null
 ) {
   AnimationScope? scope = null;
   JsValue inherited = object{};
