@@ -1,149 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="motionlil: Motion's DOM animation API ported to LilScript. Explore 16 live browser demos, current ESM sizes, source-build times and paired performance results." />
-    <meta name="theme-color" content="#e9ff59" />
-    <title>motionlil — Motion rewritten in LilScript</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script type="module" src="./app.js"></script>
-  </head>
-  <body>
-    <div class="progress" aria-hidden="true"></div>
-    <header class="nav shell">
-      <a class="wordmark" href="#top" aria-label="motionlil home">
-        <span class="mark">m</span>
-        <span>motionlil</span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="#release">this release</a>
-        <a href="#lab">16 demos</a>
-        <a href="#evidence">evidence</a>
-        <a href="#performance">performance</a>
-        <a href="https://github.com/yeargun/motionlil">GitHub ↗</a>
-      </nav>
-    </header>
-
-    <main id="top">
-      <section class="hero shell">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="live-dot"></span> Motion 13 DOM · LilScript port</p>
-          <h1>Motion,<br /><em>rewritten.</em></h1>
-          <p class="lede">Motion’s browser animation runtime, ported to LilScript with recorded source builds and behavior checks.</p>
-          <div class="install-row">
-            <code>npm install motionlil</code>
-            <button class="copy" data-copy="npm install motionlil" type="button">copy</button>
-          </div>
-          <div class="hero-actions">
-            <a class="button primary" href="#lab">Run the lab</a>
-            <a class="button secondary" href="https://www.npmjs.com/package/motionlil">npm package ↗</a>
-          </div>
-        </div>
-
-        <div class="scoreboard" aria-label="Compression results">
-          <div class="score-main">
-            <span class="score-label">312 exports · LilScript / original</span>
-            <strong>0.86<span>× Brotli</span></strong>
-            <p>34,540 B vs 39,934 B</p>
-          </div>
-          <div class="score-grid">
-            <div><strong>106,073 B</strong><span>LilScript raw ESM</span></div>
-            <div><strong>38,544 B</strong><span>LilScript gzip-9</span></div>
-            <div><strong>34,540 B</strong><span>LilScript Brotli-11</span></div>
-            <div><strong>39,934 B</strong><span>Original ESM Brotli-11</span></div>
-          </div>
-          <p class="score-note">Same 312 exports and public extern reservations. Both sides are property-mangled. Low-level layout/rendering adapters remain incomplete.</p>
-        </div>
-      </section>
-
-      <section class="ticker" aria-label="Supported APIs">
-        <div>animate <span>✦</span> spring <span>✦</span> stagger <span>✦</span> scroll <span>✦</span> inView <span>✦</span> motionValue <span>✦</span> hover <span>✦</span> press <span>✦</span> resize <span>✦</span> sequences</div>
-      </section>
-
-      <section class="release shell" id="release">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">This release · LilScript <span data-release="revision">—</span></p>
-            <h2>The whole<br />package.</h2>
-          </div>
-          <p><code>motionlil/full</code> carries all 312 of Motion’s exports. Here is its self-contained build against <code>export * from "motion"</code> minified by each competitor, next to the previous release, with every delivered file, what wrote it, and how long the compiler took.</p>
-        </div>
-        <div id="release-body" aria-live="polite"></div>
-      </section>
-
-      <section class="lab shell" id="lab">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Motion DOM examples</p>
-            <h2>The complete<br />motion lab.</h2>
-          </div>
-          <p>Every original animation case, recreated against the current compiled runtime. Replay anything. Hover, press, scroll, resize, and poke at the controls.</p>
-        </div>
-
-        <div class="filters" role="group" aria-label="Filter demos">
-          <button class="active" data-filter="all" type="button">All 16</button>
-          <button data-filter="animation" type="button">Animation</button>
-          <button data-filter="gestures" type="button">Gestures</button>
-          <button data-filter="observers" type="button">Observers</button>
-          <button data-filter="values" type="button">Values</button>
-          <button data-filter="performance" type="button">Performance</button>
-          <button data-filter="showcase" type="button">Showcase</button>
-        </div>
-
-        <div class="demo-grid" id="demo-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="evidence" id="evidence">
-        <div class="shell">
-          <div class="section-heading inverse">
-            <div>
-              <p class="eyebrow">The receipts</p>
-              <h2>Every byte,<br />accounted for.</h2>
-            </div>
-            <p>The same 312 original Motion exports, with identical bundling and minification settings. Matching names alone does not establish behavior parity.</p>
-          </div>
-          <div class="total-bar">
-            <div class="bar-motion" style="width:100.000%"><span>Motion</span><strong>39,934 B</strong></div>
-            <div class="bar-lil" style="width:86.493%"><span>LilScript</span><strong>34,540 B</strong></div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Full ESM metric</th><th>Motion</th><th>LilScript</th><th>Ratio</th><th>Difference</th></tr></thead>
-              <tbody id="results-body"></tbody>
-            </table>
-          </div>
-          <div class="method-note">
-            <p><strong>Matched public ESM.</strong> Both graphs retain the same 312 original export names. The shipped full port exposes 315 names; its 3 extra names are excluded here. Public names stay usable by external callers. Low-level layout/rendering adapters remain incomplete. The native default port entry has 52 exports and measures 73,115 B raw, 26,397 B gzip-9 and 23,877 B Brotli-11; its scope differs from this comparison.</p>
-            <a href="https://github.com/yeargun/motionlil#esm-comparison-scope">Read the methodology ↗</a>
-          </div><!-- mangling:start --><div class="section-heading inverse" id="mangling"><div><p class="eyebrow">Same scope · same settings</p><h2>Mangling<br />and scope.</h2></div><p>Original and LilScript use the same esbuild 0.28.1 and Terser 5.51.2 pipeline, ES2022 target and three compression passes. Sizes are bytes; ratios are LilScript / Motion.</p></div><div class="table-wrap"><table><thead><tr><th>Scope / mangling</th><th>Motion raw</th><th>LilScript raw</th><th>Motion Brotli-11</th><th>LilScript Brotli-11</th><th>Brotli ratio</th></tr></thead><tbody><tr data-mangling="full-identifiers"><th scope="row">Full public ESM · 312 exports<br>Identifiers</th><td>137,560</td><td>108,585</td><td>40,141</td><td>34,834</td><td>0.868×</td></tr><tr data-mangling="full-public-properties"><th scope="row">Full public ESM · 312 exports<br>Identifiers + properties</th><td>134,555</td><td>106,073</td><td>39,934</td><td>34,540</td><td>0.865×</td></tr><tr data-mangling="consumer-api-identifiers"><th scope="row">Shared consumer API · 50 exports<br>Identifiers</th><td>106,871</td><td>73,198</td><td>30,956</td><td>23,853</td><td>0.771×</td></tr><tr data-mangling="consumer-api-public-properties"><th scope="row">Shared consumer API · 50 exports<br>Identifiers + properties</th><td>104,268</td><td>71,108</td><td>30,730</td><td>23,608</td><td>0.768×</td></tr><tr data-mangling="closed-app-identifiers"><th scope="row">Closed application · identical caller<br>Identifiers</th><td>96,458</td><td>61,814</td><td>27,715</td><td>20,188</td><td>0.728×</td></tr><tr data-mangling="closed-app-closed-properties"><th scope="row">Closed application · identical caller<br>Identifiers + properties</th><td>79,563</td><td>56,260</td><td>25,871</td><td>19,450</td><td>0.752×</td></tr><tr data-mangling="closed-full-identifiers"><th scope="row">Closed diagnostic · 312 roots + caller<br>Identifiers</th><td>136,336</td><td>107,362</td><td>39,414</td><td>34,129</td><td>0.866×</td></tr><tr data-mangling="closed-full-closed-properties"><th scope="row">Closed diagnostic · 312 roots + caller<br>Identifiers + properties</th><td>116,705</td><td>98,224</td><td>37,331</td><td>32,724</td><td>0.877×</td></tr></tbody></table></div><div class="method-note"><p><strong>Public builds.</strong> Both sides use the same extern reservations collected from public declarations, browser declarations and dynamic string names. Other properties are eligible for mangling. The identifiers row preserves every remaining property name; the LilScript compiler renames no properties yet (plan M9.6).<br><strong>Closed builds.</strong> The identical application caller is bundled and transformed with each library. All eligible properties can be renamed, while browser and dynamic protocols remain reserved. The application row removes unused API. The full diagnostic retains all 312 library roots under identical short aliases and includes the caller; it is not a distributable public ESM library.<br><strong>Validation.</strong> Each 312-export public mode passes 39 browser checks against the original with property names unchanged. All 72 closed comparisons match sampled values, native animation timing and checked library RAF activity. These scenarios do not establish complete API parity. No lane disables behavior to obtain a smaller result.<br><strong>Assembly timing.</strong> On the recorded Azure Standard_B8als_v2 (burstable) worker, the headline ESM bundling + minification took 1.504 s for Motion and 1.297 s for LilScript (one assembly sample each). Native source package-build times and machine details are recorded separately.<br><a href="./mangling.json">Complete measurement record ↗</a> · <a href="https://github.com/yeargun/motionlil/tree/main/comparison/mangling">Artifacts and reproduction ↗</a></p></div><!-- mangling:end --><!-- performance:start -->
-          <div class="section-heading inverse" id="performance">
-            <div><p class="eyebrow">Same fixtures · paired trials</p><h2>Browser<br />performance.</h2></div>
-            <p>Identical elements, CSS, keyframes, easing and duration on both sides. Thirty paired trials per passing workload, after two warmups per lane. No speed score is assigned to a behavior mismatch.</p>
-          </div>
-          <div class="table-wrap"><table>
-            <thead><tr><th>Workload</th><th>Motion CPU ms</th><th>LilScript CPU ms</th><th>Lil / Motion CPU<br>95% interval</th><th>Script ms<br>Motion / Lil</th><th>Style + layout ms<br>Motion / Lil</th><th>Setup ms<br>Motion / Lil</th><th>Frame p95 ms<br>Motion / Lil</th></tr></thead>
-            <tbody><tr data-workload="mini-transform-64"><th scope="row">WAAPI transform + opacity · 64 elements</th><td>54.50</td><td>56.24</td><td><strong>0.986×</strong><br>0.951–1.038<br>Within ±5%</td><td>1.77 / 2.04</td><td>18.82 / 19.17</td><td>3.00 / 3.90</td><td>16.75 / 16.72</td></tr><tr data-workload="mini-transform-256"><th scope="row">WAAPI transform + opacity · 256 elements</th><td>140.69</td><td>141.89</td><td><strong>0.992×</strong><br>0.961–1.031<br>Within ±5%</td><td>2.80 / 2.58</td><td>45.03 / 44.16</td><td>8.90 / 9.10</td><td>16.70 / 16.70</td></tr><tr data-workload="mini-layout-128"><th scope="row">WAAPI width + margin layout · 128 elements</th><td>210.64</td><td>213.44</td><td><strong>1.015×</strong><br>0.971–1.053<br>Inconclusive</td><td>3.13 / 3.33</td><td>66.22 / 65.60</td><td>12.95 / 11.60</td><td>16.80 / 16.80</td></tr><tr data-workload="animate-transform-128"><th scope="row">animate transform + opacity · 128 elements</th><td>258.45</td><td>234.39</td><td><strong>0.987×</strong><br>0.906–1.067<br>Inconclusive</td><td>36.58 / 37.23</td><td>51.29 / 50.43</td><td>15.15 / 12.85</td><td>16.80 / 16.80</td></tr><tr data-workload="animate-xy-128"><th scope="row">animate x/y · 128 elements</th><td>540.65</td><td>543.63</td><td><strong>1.031×</strong><br>0.951–1.054<br>Inconclusive</td><td>129.43 / 122.46</td><td>182.72 / 169.84</td><td>26.10 / 27.90</td><td>58.35 / 41.70</td></tr><tr data-workload="animate-layout-128"><th scope="row">Width + margin layout · 128 elements</th><td>531.60</td><td>529.20</td><td><strong>0.992×</strong><br>0.944–1.037<br>Inconclusive</td><td>88.94 / 89.75</td><td>120.24 / 133.56</td><td>16.35 / 24.15</td><td>50.05 / 66.60</td></tr><tr data-workload="motion-values-128"><th scope="row">MotionValue + DOM writes · 128 values</th><td>60.40</td><td>63.38</td><td><strong>1.076×</strong><br>0.998–1.110<br>Inconclusive</td><td>18.21 / 18.66</td><td>12.70 / 13.14</td><td>4.30 / 5.75</td><td>16.70 / 16.70</td></tr></tbody></table></div>
-          <div class="method-note"><p><strong>What the numbers mean.</strong> CPU is Chromium renderer main-thread task time during an 800 ms observation window; animations last 600 ms. Numbers are medians; ratios use paired medians with a 95% bootstrap interval. Equivalence requires the entire interval inside 0.95–1.05. 2 of 3 mini WAAPI workloads meet that criterion. JavaScript, style and layout costs are reported separately. Lower CPU is not a measure of better animation behavior.<br><strong>Behavior contract.</strong> The rewrite must preserve Motion's animation behavior. All 7 workloads match native animation calls/options, active native properties, five paused timeline positions and final values. Native transform/opacity uses WAAPI; x/y and layout use JavaScript with native opacity; standalone MotionValues use JavaScript. A separate natural-playback check inspects every animated property on every element across three fresh pages per side. The repository also compares easing, repeats, pause/seek/replay/reverse/stop, interruption, callback order and library RAF under a shared clock. These checks cover the documented scenarios; low-level layout/rendering adapters remain incomplete.<br><strong>Frame activity.</strong> Frame p95 is the benchmark observer's RAF cadence. Library RAF request/execution counts match during untimed validation, with no queued callbacks after stop. Equal display cadence alone does not establish equal runtime cost.<br><strong>Machine and method.</strong> Both lanes use the exact 312-export ESM files from the headline size comparison, with the same toolchain and public extern reservations. Azure Standard_B8als_v2 (burstable) · AMD EPYC 7763 64-Core Processor · 8 vCPUs · 15.6 GiB RAM · Ubuntu 24.04.3 LTS · Node 24.11.1 · headless Chromium 145.0.7632.6 · 1280×900, DPR 1. Fresh page for every run; original/LilScript order alternates. Bundle download, module evaluation and initial DOM creation are outside the CPU interval. Headless renderer CPU does not measure all GPU/compositor work.<br><a href="./performance/performance.json">All paired samples and backend/RAF checks ↗</a> · <a href="./performance/natural-validation.json">Natural playback checks ↗</a> · <a href="https://github.com/yeargun/motionlil/blob/main/scripts/measure-performance.mjs">Reproduce the measurement ↗</a></p></div>
-          <!-- performance:end -->
-
-        </div>
-      </section>
-
-      <section class="closing shell">
-        <p class="eyebrow">Zero runtime dependencies</p>
-        <h2>Build motion<br />with LilScript.</h2>
-        <div class="install-row large">
-          <code>npm install motionlil</code>
-          <button class="copy" data-copy="npm install motionlil" type="button">copy</button>
-        </div>
-      </section>
-    </main>
-
-    <footer class="shell">
-      <span>motionlil · MIT</span>
-      <span>Motion DOM ported to LilScript</span>
-      <a href="https://github.com/yeargun/motionlil">source ↗</a>
-    </footer>
-  </body>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="motionlil: current LilScript raw, gzip and Brotli objective builds versus minified upstream, with build times and live examples." name="description"/>
+<meta content="#e9ff59" name="theme-color"/>
+<title>motionlil — Motion rewritten in LilScript</title>
+<link href="./styles.css" rel="stylesheet"/>
+<script src="./app.js" type="module"></script>
+<link href="./objective-comparison.css" rel="stylesheet"/></head>
+<body>
+<div aria-hidden="true" class="progress"></div>
+<header class="nav shell">
+<a aria-label="motionlil home" class="wordmark" href="#top">
+<span class="mark">m</span>
+<span>motionlil</span>
+</a>
+<nav aria-label="Main navigation">
+<a href="#compiler">build time</a>
+<a href="#lab">16 demos</a>
+<a href="#evidence">evidence</a>
+<a href="#compiler">build time</a>
+<a href="https://github.com/yeargun/motionlil">GitHub ↗</a>
+</nav>
+</header>
+<main id="top">
+<section class="hero shell">
+<div class="hero-copy">
+<p class="eyebrow"><span class="live-dot"></span> Motion 13 DOM · LilScript port</p>
+<h1>Motion,<br/><em>rewritten.</em></h1>
+<p class="lede">Motion’s browser animation runtime, ported to LilScript with recorded source builds and behavior checks.</p>
+<div class="install-row">
+<code>npm install motionlil</code>
+<button class="copy" data-copy="npm install motionlil" type="button">copy</button>
+</div>
+<div class="hero-actions">
+<a class="button primary" href="#lab">Run the lab</a>
+<a class="button secondary" href="https://www.npmjs.com/package/motionlil">npm package ↗</a>
+</div>
+</div>
+<div aria-label="Compression results" class="scoreboard">
+<div class="score-main">
+<span class="score-label">Current LilScript versus minified original · portable ESM</span>
+<strong>0.86<span>× Brotli</span></strong>
+<p>34,540 B vs 39,934 B</p>
+</div>
+<div class="score-grid">
+<div><strong>106,073 B</strong><span>LilScript raw ESM</span></div>
+<div><strong>38,544 B</strong><span>LilScript gzip-9</span></div>
+<div><strong>34,540 B</strong><span>LilScript Brotli-11</span></div>
+<div><strong>39,934 B</strong><span>Original ESM Brotli-11</span></div>
+</div>
+<p class="score-note">Raw, gzip and Brotli each use a separate LilScript compilation targeting that objective. The original uses the same export and dependency boundary, then a JavaScript minifier.</p>
+</div>
+</section>
+<section aria-label="Supported APIs" class="ticker">
+<div>animate <span>✦</span> spring <span>✦</span> stagger <span>✦</span> scroll <span>✦</span> inView <span>✦</span> motionValue <span>✦</span> hover <span>✦</span> press <span>✦</span> resize <span>✦</span> sequences</div>
+</section>
+<section class="lab shell" id="lab">
+<div class="section-heading">
+<div>
+<p class="eyebrow">Motion DOM examples</p>
+<h2>The complete<br/>motion lab.</h2>
+</div>
+<p>Every original animation case, recreated against the current compiled runtime. Replay anything. Hover, press, scroll, resize, and poke at the controls.</p>
+</div>
+<div aria-label="Filter demos" class="filters" role="group">
+<button class="active" data-filter="all" type="button">All 16</button>
+<button data-filter="animation" type="button">Animation</button>
+<button data-filter="gestures" type="button">Gestures</button>
+<button data-filter="observers" type="button">Observers</button>
+<button data-filter="values" type="button">Values</button>
+<button data-filter="performance" type="button">Performance</button>
+<button data-filter="showcase" type="button">Showcase</button>
+</div>
+<div aria-live="polite" class="demo-grid" id="demo-grid"></div>
+</section>
+<section class="objective-section shell" id="evidence"><p class="eyebrow">Current library · original minified</p><h2>Three objectives.<br/>Measured separately.</h2><div id="compression-comparison"></div></section><section class="objective-section shell" id="compiler"><p class="eyebrow">Same machine · sequential builds</p><h2>Build time.</h2><div id="objective-build-times"></div></section>
+<section class="closing shell">
+<p class="eyebrow">Zero runtime dependencies</p>
+<h2>Build motion<br/>with LilScript.</h2>
+<div class="install-row large">
+<code>npm install motionlil</code>
+<button class="copy" data-copy="npm install motionlil" type="button">copy</button>
+</div>
+</section>
+</main>
+<footer class="shell">
+<span>motionlil · MIT</span>
+<span>Motion DOM ported to LilScript</span>
+<a href="https://github.com/yeargun/motionlil">source ↗</a>
+</footer>
+</body>
 </html>

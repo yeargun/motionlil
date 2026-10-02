@@ -1,13 +1,4 @@
 {
-  "schemaVersion": 2,
-  "source": {
-    "repository": "yeargun/lilscript",
-    "commit": "9fc14a8",
-    "purpose": "Origin of demo cases; current measurements are in comparison.json and performance.json."
-  },
-  "summary": {
-    "cases": 16
-  },
   "examples": [
     {
       "id": "animate-play",
@@ -90,412 +81,520 @@
       "group": "showcase"
     }
   ],
-  "compiler": {
-    "revision": "aa2052f0",
-    "binarySha256": "13cb49a93fb3e376a5978484835322c84adea692b69ae4720775291377cf18f9",
-    "compileWallMs": [
-      34980,
-      15377,
-      22262
-    ],
-    "fullEntryWallMs": [
-      34980,
-      15377,
-      22261
-    ],
-    "date": "2026-09-24",
-    "measures": "wall time of the build's one compile: full.lil, which the build splits into the shared module graph",
-    "host": "Azure B8als_v2 (8 burstable vCPUs), shared with other jobs",
-    "hostLoad1m": [
-      18.3,
-      9.2,
-      6.3
-    ]
-  },
-  "install": {
-    "motionlilUnpacked": 888037,
-    "motionDependencyTree": 9141537,
-    "reduction": 0.9028569265759139
-  },
-  "package": {
-    "date": "2026-09-27",
-    "codec": "lilscript-codec: Brotli quality 11 (window 22), gzip level 9",
-    "objective": "Brotli (cost_model = \"brotli\")",
-    "artifacts": [
+  "package": "motionlil",
+  "pin": "motion@13.1.0",
+  "objectiveComparison": {
+    "schemaVersion": 4,
+    "name": "motionlil",
+    "package": "motionlil",
+    "measuredAt": "2026-10-03T02:05:48.925220+03:00",
+    "compiler": {
+      "baseRevision": "f7d29bd9",
+      "binarySha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
+      "hasLocalSourceChanges": true
+    },
+    "upstream": {
+      "package": "motion",
+      "version": "13.1.0",
+      "external": [],
+      "sharedExports": [
+        "AsyncMotionValueAnimation",
+        "DOMKeyframesResolver",
+        "DOMVisualElement",
+        "DocumentProjectionNode",
+        "Feature",
+        "FlatTree",
+        "GroupAnimation",
+        "GroupAnimationWithThen",
+        "HTMLProjectionNode",
+        "HTMLVisualElement",
+        "JSAnimation",
+        "KeyframeResolver",
+        "LayoutAnimationBuilder",
+        "MotionGlobalConfig",
+        "MotionValue",
+        "NativeAnimation",
+        "NativeAnimationExtended",
+        "NativeAnimationWrapper",
+        "NodeStack",
+        "ObjectVisualElement",
+        "SVGVisualElement",
+        "SubscriptionManager",
+        "ViewTransitionBuilder",
+        "VisualElement",
+        "acceleratedValues",
+        "addAttrValue",
+        "addDomEvent",
+        "addScaleCorrector",
+        "addStyleValue",
+        "addUniqueItem",
+        "addValueToWillChange",
+        "alpha",
+        "analyseComplexValue",
+        "animate",
+        "animateMini",
+        "animateMotionValue",
+        "animateSingleValue",
+        "animateTarget",
+        "animateValue",
+        "animateVariant",
+        "animateView",
+        "animateVisualElement",
+        "animationMapKey",
+        "anticipate",
+        "applyAxisDelta",
+        "applyBoxDelta",
+        "applyGeneratorOptions",
+        "applyPointDelta",
+        "applyPxDefaults",
+        "applyTreeDeltas",
+        "arc",
+        "aspectRatio",
+        "attachFollow",
+        "attachSpring",
+        "attrEffect",
+        "axisDeltaEquals",
+        "axisEquals",
+        "axisEqualsRounded",
+        "backIn",
+        "backInOut",
+        "backOut",
+        "boxEquals",
+        "boxEqualsRounded",
+        "buildHTMLStyles",
+        "buildProjectionTransform",
+        "buildSVGAttrs",
+        "buildSVGPath",
+        "buildTransform",
+        "calcAxisDelta",
+        "calcBoxDelta",
+        "calcChildStagger",
+        "calcGeneratorDuration",
+        "calcLength",
+        "calcRelativeAxis",
+        "calcRelativeAxisPosition",
+        "calcRelativeBox",
+        "calcRelativePosition",
+        "camelCaseAttributes",
+        "camelToDash",
+        "cancelFrame",
+        "cancelMicrotask",
+        "cancelSync",
+        "checkVariantsDidChange",
+        "circIn",
+        "circInOut",
+        "circOut",
+        "clamp",
+        "cleanDirtyNodes",
+        "collectMotionValues",
+        "color",
+        "compareByDepth",
+        "complex",
+        "containsCSSVariable",
+        "convertBoundingBoxToBox",
+        "convertBoxToBoundingBox",
+        "convertOffsetToTimes",
+        "copyAxisDeltaInto",
+        "copyAxisInto",
+        "copyBoxInto",
+        "correctBorderRadius",
+        "correctBoxShadow",
+        "createAnimationState",
+        "createAxis",
+        "createAxisDelta",
+        "createBox",
+        "createDelta",
+        "createGeneratorEasing",
+        "createProjectionNode",
+        "createRenderBatcher",
+        "createScopedAnimate",
+        "cubicBezier",
+        "cubicBezierAsString",
+        "defaultEasing",
+        "defaultOffset",
+        "defaultTransformValue",
+        "defaultValueTypes",
+        "degrees",
+        "delay",
+        "delayInSeconds",
+        "dimensionValueTypes",
+        "distance",
+        "distance2D",
+        "eachAxis",
+        "easeIn",
+        "easeInOut",
+        "easeOut",
+        "easingDefinitionToFunction",
+        "fillOffset",
+        "fillWildcards",
+        "findDimensionValueType",
+        "findValueType",
+        "flushKeyframeResolvers",
+        "followValue",
+        "frame",
+        "frameData",
+        "frameSteps",
+        "generateLinearEasing",
+        "getAnimatableNone",
+        "getAnimationMap",
+        "getComputedStyle",
+        "getDefaultTransition",
+        "getDefaultValueType",
+        "getEasingForSegment",
+        "getFeatureDefinitions",
+        "getFinalKeyframe",
+        "getMixer",
+        "getOptimisedAppearId",
+        "getOriginIndex",
+        "getValueAsType",
+        "getValueTransition",
+        "getVariableValue",
+        "getVariantContext",
+        "getViewAnimationLayerInfo",
+        "getViewAnimations",
+        "globalProjectionState",
+        "has2DTranslate",
+        "hasReducedMotionListener",
+        "hasScale",
+        "hasTransform",
+        "hasWarned",
+        "hex",
+        "hover",
+        "hsla",
+        "hslaToRgba",
+        "inView",
+        "inertia",
+        "initPrefersReducedMotion",
+        "interpolate",
+        "invariant",
+        "invisibleValues",
+        "isAnimationControls",
+        "isBezierDefinition",
+        "isCSSVariableName",
+        "isCSSVariableToken",
+        "isControllingVariants",
+        "isDeltaZero",
+        "isDragActive",
+        "isDragging",
+        "isEasingArray",
+        "isElementKeyboardAccessible",
+        "isElementTextInput",
+        "isForcedMotionValue",
+        "isGenerator",
+        "isHTMLElement",
+        "isKeyframesTarget",
+        "isMotionValue",
+        "isNear",
+        "isNodeOrChild",
+        "isNumericalString",
+        "isObject",
+        "isPrimaryPointer",
+        "isSVGElement",
+        "isSVGSVGElement",
+        "isSVGTag",
+        "isTransitionDefined",
+        "isVariantLabel",
+        "isVariantNode",
+        "isWaapiSupportedEasing",
+        "isWillChangeMotionValue",
+        "isZeroValueString",
+        "keyframes",
+        "makeAnimationInstant",
+        "mapEasingToNativeEasing",
+        "mapValue",
+        "maxGeneratorDuration",
+        "measurePageBox",
+        "measureViewportBox",
+        "memo",
+        "microtask",
+        "millisecondsToSeconds",
+        "mirrorEasing",
+        "mix",
+        "mixArray",
+        "mixColor",
+        "mixComplex",
+        "mixImmediate",
+        "mixLinearColor",
+        "mixNumber",
+        "mixObject",
+        "mixValues",
+        "mixVisibility",
+        "motionValue",
+        "moveItem",
+        "nodeGroup",
+        "noop",
+        "number",
+        "numberValueTypes",
+        "observeTimeline",
+        "optimizedAppearDataAttribute",
+        "optimizedAppearDataId",
+        "parseAnimateLayoutArgs",
+        "parseCSSVariable",
+        "parseValueFromTransform",
+        "percent",
+        "pipe",
+        "pixelsToPercent",
+        "positionalKeys",
+        "prefersReducedMotion",
+        "press",
+        "progress",
+        "progressPercentage",
+        "propEffect",
+        "propagateDirtyNodes",
+        "px",
+        "readTransformValue",
+        "recordStats",
+        "removeAxisDelta",
+        "removeAxisTransforms",
+        "removeBoxTransforms",
+        "removeItem",
+        "removePointDelta",
+        "renderHTML",
+        "renderSVG",
+        "resize",
+        "resolveElements",
+        "resolveMotionValue",
+        "resolveTransition",
+        "resolveVariant",
+        "resolveVariantFromProps",
+        "reverseEasing",
+        "rgbUnit",
+        "rgba",
+        "rootProjectionNode",
+        "scale",
+        "scaleCorrectors",
+        "scalePoint",
+        "scrapeHTMLMotionValuesFromProps",
+        "scrapeSVGMotionValuesFromProps",
+        "scroll",
+        "scrollInfo",
+        "secondsToMilliseconds",
+        "setDragLock",
+        "setFeatureDefinitions",
+        "setStyle",
+        "setTarget",
+        "spring",
+        "springValue",
+        "stagger",
+        "startWaapiAnimation",
+        "statsBuffer",
+        "steps",
+        "styleEffect",
+        "supportedWaapiEasing",
+        "supportsBrowserAnimation",
+        "supportsFlags",
+        "supportsLinearEasing",
+        "supportsPartialKeyframes",
+        "supportsScrollTimeline",
+        "supportsViewTimeline",
+        "svgEffect",
+        "sync",
+        "testValueType",
+        "time",
+        "transform",
+        "transformAxis",
+        "transformBox",
+        "transformBoxPoints",
+        "transformPropOrder",
+        "transformProps",
+        "transformValue",
+        "transformValueTypes",
+        "translateAxis",
+        "updateMotionValuesFromProps",
+        "variantPriorityOrder",
+        "variantProps",
+        "velocityPerSecond",
+        "vh",
+        "visualElementStore",
+        "vw",
+        "warnOnce",
+        "warning",
+        "wrap"
+      ],
+      "excludedExports": [
+        "__esModule",
+        "default"
+      ],
+      "additionalExports": [
+        "animateSequenceMini",
+        "getAsType",
+        "numberType"
+      ],
+      "resolution": {
+        "platform": "neutral",
+        "conditions": [
+          "production"
+        ],
+        "mainFields": [
+          "module",
+          "main"
+        ],
+        "target": "es2020",
+        "defines": {
+          "process.env.NODE_ENV": "production"
+        }
+      }
+    },
+    "scope": "Portable main-entry ESM with matching shared named exports and external imports. The original uses production/default package conditions, keeping data-based entity decoding rather than relying on the DOM.",
+    "machine": {
+      "cpu": "AMD EPYC 7763 64-Core Processor",
+      "logicalCpus": 8,
+      "memoryGiB": 15.6,
+      "os": "Linux-7.0.0-1014-azure-x86_64-with-glibc2.39",
+      "node": "v20.19.0"
+    },
+    "objectives": [
       {
-        "file": "dist/animate-mini.js",
-        "raw": 50,
-        "gzip": 70,
-        "brotli": 54,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+        "objective": "raw",
+        "metric": "raw",
+        "lilscript": {
+          "artifact": "./comparison-artifacts/lilscript-raw.mjs",
+          "sizes": {
+            "raw": 114644,
+            "gzip9": 41918,
+            "brotli11": 37127
+          },
+          "sha256": "03eaa33ba65e3d27d5016a0766b2ed0222996081c90b55c736e1e223564800b2",
+          "buildSeconds": 8.129557624997688,
+          "config": "./comparison-artifacts/lilscript-raw.toml",
+          "configSha256": "eb4f43463be867a53f8de2fe53d2ee3ab2ea631d9411900e470cb33da1c933bc"
+        },
+        "original": {
+          "tool": "Oxc",
+          "version": "via Vite 8.2.1",
+          "artifact": "./comparison-artifacts/original-oxc.mjs",
+          "sizes": {
+            "raw": 135340,
+            "gzip9": 45162,
+            "brotli11": 40417
+          },
+          "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
+          "buildSeconds": 0.23536112599999978
+        },
+        "ratio": 0.8470814245603665
       },
       {
-        "file": "dist/animate.js",
-        "raw": 45,
-        "gzip": 65,
-        "brotli": 49,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
+        "objective": "gzip",
+        "metric": "gzip9",
+        "lilscript": {
+          "artifact": "./comparison-artifacts/lilscript-gzip.mjs",
+          "sizes": {
+            "raw": 121834,
+            "gzip9": 41699,
+            "brotli11": 36473
+          },
+          "sha256": "37a4466852d1ba17eda124f9df75b474fcdc30fa246cdb7f4e15de9e7e5b9715",
+          "buildSeconds": 7.379765014000441,
+          "config": "./comparison-artifacts/lilscript-gzip.toml",
+          "configSha256": "6823b6a5c874dfe7da352bd4e1baeefe05f18deda5e0fd35753d99eee2f29646"
+        },
+        "original": {
+          "tool": "Terser",
+          "version": "5.51.2",
+          "artifact": "./comparison-artifacts/original-terser.mjs",
+          "sizes": {
+            "raw": 137559,
+            "gzip9": 45028,
+            "brotli11": 40188
+          },
+          "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+          "buildSeconds": 1.853884387000002
+        },
+        "ratio": 0.9260682242160434
       },
       {
-        "file": "dist/debug.js",
-        "raw": 43,
-        "gzip": 63,
-        "brotli": 47,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/full.bundle.js",
-        "raw": 108665,
-        "gzip": 38991,
-        "brotli": 34869,
-        "writtenBy": "esbuild + Terser",
-        "label": "post-processed by esbuild + Terser, not compiler-written"
-      },
-      {
-        "file": "dist/full.js",
-        "raw": 42,
-        "gzip": 62,
-        "brotli": 46,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/gestures.js",
-        "raw": 46,
-        "gzip": 66,
-        "brotli": 50,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/index.bundle.js",
-        "raw": 73115,
-        "gzip": 26397,
-        "brotli": 23877,
-        "writtenBy": "esbuild + Terser",
-        "label": "post-processed by esbuild + Terser, not compiler-written"
-      },
-      {
-        "file": "dist/index.js",
-        "raw": 43,
-        "gzip": 63,
-        "brotli": 47,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/mini.js",
-        "raw": 42,
-        "gzip": 62,
-        "brotli": 46,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/motionlil.global.js",
-        "raw": 73611,
-        "gzip": 26563,
-        "brotli": 23998,
-        "writtenBy": "esbuild + Terser",
-        "label": "post-processed by esbuild + Terser, not compiler-written"
-      },
-      {
-        "file": "dist/resize.js",
-        "raw": 44,
-        "gzip": 64,
-        "brotli": 48,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/scroll.js",
-        "raw": 44,
-        "gzip": 64,
-        "brotli": 48,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/viewport.js",
-        "raw": 46,
-        "gzip": 64,
-        "brotli": 50,
-        "writtenBy": "build script (re-export of the shared graph)",
-        "label": "re-export of the shared module graph written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/animate-mini.cjs",
-        "raw": 138,
-        "gzip": 135,
-        "brotli": 102,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/animate.cjs",
-        "raw": 4004,
-        "gzip": 538,
-        "brotli": 471,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/debug.cjs",
-        "raw": 138,
-        "gzip": 136,
-        "brotli": 101,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/full.cjs",
-        "raw": 109606,
-        "gzip": 39489,
-        "brotli": 35291,
-        "writtenBy": "esbuild + Terser",
-        "label": "post-processed by esbuild + Terser, not compiler-written"
-      },
-      {
-        "file": "dist/gestures.cjs",
-        "raw": 205,
-        "gzip": 140,
-        "brotli": 109,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/index.cjs",
-        "raw": 4585,
-        "gzip": 593,
-        "brotli": 524,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/mini.cjs",
-        "raw": 237,
-        "gzip": 151,
-        "brotli": 119,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/resize.cjs",
-        "raw": 128,
-        "gzip": 131,
-        "brotli": 99,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/scroll.cjs",
-        "raw": 217,
-        "gzip": 141,
-        "brotli": 110,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
-      },
-      {
-        "file": "dist/viewport.cjs",
-        "raw": 128,
-        "gzip": 133,
-        "brotli": 100,
-        "writtenBy": "build script (CommonJS re-export of full.cjs)",
-        "label": "CommonJS re-export of full.cjs written by the build script, not compiler-written"
+        "objective": "brotli",
+        "metric": "brotli11",
+        "lilscript": {
+          "artifact": "./comparison-artifacts/lilscript-brotli.mjs",
+          "sizes": {
+            "raw": 121895,
+            "gzip9": 41766,
+            "brotli11": 36483
+          },
+          "sha256": "f2a713da81ab3fbbdd84a5927d773a3109c4feeeaf9ebbadb6f9f2c39c4f5cfd",
+          "buildSeconds": 9.531892057999357,
+          "config": "./comparison-artifacts/lilscript-brotli.toml",
+          "configSha256": "9bd177893554f03c3175a418344cc5e3c6615d1e4c6a5c9384158412dd1bd034"
+        },
+        "original": {
+          "tool": "Terser",
+          "version": "5.51.2",
+          "artifact": "./comparison-artifacts/original-terser.mjs",
+          "sizes": {
+            "raw": 137559,
+            "gzip9": 45028,
+            "brotli11": 40188
+          },
+          "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+          "buildSeconds": 1.853884387000002
+        },
+        "ratio": 0.9078083009853688
       }
     ],
-    "bars": {
-      "artifact": "dist/full.bundle.js",
-      "upstream": "motion 13.1.0, export * (312 names; dist/full.bundle.js exports all of them plus numberType, getAsType and animateSequenceMini)",
-      "competitors": [
+    "minifiers": [
+      {
+        "tool": "Terser",
+        "version": "5.51.2",
+        "artifact": "./comparison-artifacts/original-terser.mjs",
+        "sizes": {
+          "raw": 137559,
+          "gzip9": 45028,
+          "brotli11": 40188
+        },
+        "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+        "buildSeconds": 1.853884387000002
+      },
+      {
+        "tool": "esbuild",
+        "version": "0.28.1",
+        "artifact": "./comparison-artifacts/original-esbuild.mjs",
+        "sizes": {
+          "raw": 139527,
+          "gzip9": 47692,
+          "brotli11": 42589
+        },
+        "sha256": "fd463f2b0bae5f48347e43ab017a091c082cfcbb2c5df871f3db2f9cd1a7d31a",
+        "buildSeconds": 0.1265080940000007
+      },
+      {
+        "tool": "Oxc",
+        "version": "via Vite 8.2.1",
+        "artifact": "./comparison-artifacts/original-oxc.mjs",
+        "sizes": {
+          "raw": 135340,
+          "gzip9": 45162,
+          "brotli11": 40417
+        },
+        "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
+        "buildSeconds": 0.23536112599999978
+      }
+    ],
+    "validation": {
+      "checks": 1209,
+      "objectives": [
         {
-          "name": "esbuild + Terser",
-          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
-          "source": "this repository: scripts/measure-size.mjs, export * from motion",
-          "raw": 135753,
-          "gzip": 44702,
-          "brotli": 39871
+          "objective": "raw",
+          "checks": 403,
+          "suite": "differential"
         },
         {
-          "name": "Terser",
-          "tool": "Terser 5.51.2 -m --module over an esbuild bundle",
-          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
-          "raw": 139742,
-          "gzip": 46145,
-          "brotli": 41032
+          "objective": "gzip",
+          "checks": 403,
+          "suite": "differential"
         },
         {
-          "name": "Oxc",
-          "tool": "Oxc minifier, Rolldown 1.2.5",
-          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
-          "raw": 137455,
-          "gzip": 46191,
-          "brotli": 41246
-        },
-        {
-          "name": "esbuild",
-          "tool": "esbuild 0.28.1 minify",
-          "source": "yeargun/lilscript benchmarks/migration-results/2026-09-20-competitors/motionlil",
-          "raw": 140304,
-          "gzip": 48015,
-          "brotli": 42840
+          "objective": "brotli",
+          "checks": 403,
+          "suite": "differential"
         }
       ],
-      "strongest": {
-        "raw": {
-          "name": "esbuild + Terser",
-          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
-          "bytes": 135753
-        },
-        "gzip": {
-          "name": "esbuild + Terser",
-          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
-          "bytes": 44702
-        },
-        "brotli": {
-          "name": "esbuild + Terser",
-          "tool": "esbuild 0.25.9 minify + Terser 5.43.1: 3 passes, top-level and _-property mangling",
-          "bytes": 39871
-        }
-      }
-    },
-    "compilerOutput": {
-      "file": "src/.__compiled-full.mjs (not shipped)",
-      "raw": 113625,
-      "gzip": 39205,
-      "brotli": 34395,
-      "sha256": "832a736f74c988b5d11a70b30245627df67a5c73036ff4abf7ce2b752ec107b4",
-      "note": "The compiler's output for full.lil, before scripts/shared-graph.mjs splits it into dist/internal/graph/ and esbuild reprints it."
-    },
-    "graph": {
-      "directory": "dist/internal/",
-      "files": 606,
-      "raw": 266465,
-      "writtenBy": "the compiler's full.lil module split into shared modules by scripts/shared-graph.mjs and reprinted by esbuild, plus the build script's entry facades and src/compat.mjs; not compiler-written"
-    },
-    "previous": {
-      "commit": "07455d5",
-      "date": "2026-09-11",
-      "sizes": {
-        "dist/animate-mini.js": {
-          "raw": 50,
-          "gzip": 70,
-          "brotli": 54
-        },
-        "dist/animate.js": {
-          "raw": 45,
-          "gzip": 65,
-          "brotli": 49
-        },
-        "dist/debug.js": {
-          "raw": 43,
-          "gzip": 63,
-          "brotli": 47
-        },
-        "dist/full.bundle.js": {
-          "raw": 182830,
-          "gzip": 60551,
-          "brotli": 52394
-        },
-        "dist/full.js": {
-          "raw": 42,
-          "gzip": 62,
-          "brotli": 46
-        },
-        "dist/gestures.js": {
-          "raw": 46,
-          "gzip": 66,
-          "brotli": 50
-        },
-        "dist/index.bundle.js": {
-          "raw": 122396,
-          "gzip": 40380,
-          "brotli": 35197
-        },
-        "dist/index.js": {
-          "raw": 43,
-          "gzip": 63,
-          "brotli": 47
-        },
-        "dist/mini.js": {
-          "raw": 42,
-          "gzip": 62,
-          "brotli": 46
-        },
-        "dist/motionlil.global.js": {
-          "raw": 122940,
-          "gzip": 40507,
-          "brotli": 35326
-        },
-        "dist/resize.js": {
-          "raw": 44,
-          "gzip": 64,
-          "brotli": 48
-        },
-        "dist/scroll.js": {
-          "raw": 44,
-          "gzip": 64,
-          "brotli": 48
-        },
-        "dist/viewport.js": {
-          "raw": 46,
-          "gzip": 64,
-          "brotli": 50
-        },
-        "dist/animate-mini.cjs": {
-          "raw": 138,
-          "gzip": 135,
-          "brotli": 102
-        },
-        "dist/animate.cjs": {
-          "raw": 4004,
-          "gzip": 538,
-          "brotli": 471
-        },
-        "dist/debug.cjs": {
-          "raw": 138,
-          "gzip": 136,
-          "brotli": 101
-        },
-        "dist/full.cjs": {
-          "raw": 185044,
-          "gzip": 61754,
-          "brotli": 53410
-        },
-        "dist/gestures.cjs": {
-          "raw": 205,
-          "gzip": 140,
-          "brotli": 109
-        },
-        "dist/index.cjs": {
-          "raw": 4585,
-          "gzip": 593,
-          "brotli": 524
-        },
-        "dist/mini.cjs": {
-          "raw": 237,
-          "gzip": 151,
-          "brotli": 119
-        },
-        "dist/resize.cjs": {
-          "raw": 128,
-          "gzip": 131,
-          "brotli": 99
-        },
-        "dist/scroll.cjs": {
-          "raw": 217,
-          "gzip": 141,
-          "brotli": 110
-        },
-        "dist/viewport.cjs": {
-          "raw": 128,
-          "gzip": 133,
-          "brotli": 100
-        }
-      }
+      "scope": "Main ESM entry; selected corpora and API checks, not all package formats or complete upstream equivalence."
     }
+  },
+  "spec": {
+    "pass": 1209,
+    "total": 1209,
+    "label": "current main-entry checks"
   }
 }

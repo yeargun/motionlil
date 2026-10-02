@@ -1,0 +1,4502 @@
+{
+  "compiler": {
+    "baseRevision": "f7d29bd9",
+    "binarySha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
+    "hasLocalSourceChanges": true
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "logicalCpus": 8,
+    "memoryGiB": 15.6,
+    "os": "Linux-7.0.0-1014-azure-x86_64-with-glibc2.39",
+    "node": "v20.19.0"
+  },
+  "lilscript": [
+    {
+      "library": "motionlil",
+      "objective": "raw",
+      "command": [
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/bin/lilscript",
+        "--config",
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/configs/motionlil-raw.toml",
+        "--target",
+        "js-module",
+        "--mode",
+        "production",
+        "--jobs",
+        "1",
+        "--out-dir",
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/artifacts/motionlil/raw",
+        "--explain",
+        "json",
+        "--cache",
+        "off",
+        "--logical-work",
+        "2000000000"
+      ],
+      "wallSeconds": 8.129557624997688,
+      "returncode": 0,
+      "compilerSha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
+      "configSha256": "eb4f43463be867a53f8de2fe53d2ee3ab2ea631d9411900e470cb33da1c933bc",
+      "measuredAt": "2026-10-02T22:52:58.997270+00:00",
+      "outputSha256": "03eaa33ba65e3d27d5016a0766b2ed0222996081c90b55c736e1e223564800b2",
+      "raw": 114644
+    },
+    {
+      "library": "motionlil",
+      "objective": "gzip",
+      "command": [
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/bin/lilscript",
+        "--config",
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/configs/motionlil-gzip.toml",
+        "--target",
+        "js-module",
+        "--mode",
+        "production",
+        "--jobs",
+        "1",
+        "--out-dir",
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/artifacts/motionlil/gzip",
+        "--explain",
+        "json",
+        "--cache",
+        "off",
+        "--logical-work",
+        "2000000000"
+      ],
+      "wallSeconds": 7.379765014000441,
+      "returncode": 0,
+      "compilerSha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
+      "configSha256": "6823b6a5c874dfe7da352bd4e1baeefe05f18deda5e0fd35753d99eee2f29646",
+      "measuredAt": "2026-10-02T22:53:06.393798+00:00",
+      "outputSha256": "37a4466852d1ba17eda124f9df75b474fcdc30fa246cdb7f4e15de9e7e5b9715",
+      "raw": 121834
+    },
+    {
+      "library": "motionlil",
+      "objective": "brotli",
+      "command": [
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/bin/lilscript",
+        "--config",
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/configs/motionlil-brotli.toml",
+        "--target",
+        "js-module",
+        "--mode",
+        "production",
+        "--jobs",
+        "1",
+        "--out-dir",
+        "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/artifacts/motionlil/brotli",
+        "--explain",
+        "json",
+        "--cache",
+        "off",
+        "--logical-work",
+        "2000000000"
+      ],
+      "wallSeconds": 9.531892057999357,
+      "returncode": 0,
+      "compilerSha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
+      "configSha256": "9bd177893554f03c3175a418344cc5e3c6615d1e4c6a5c9384158412dd1bd034",
+      "measuredAt": "2026-10-02T22:53:15.943133+00:00",
+      "outputSha256": "f2a713da81ab3fbbdd84a5927d773a3109c4feeeaf9ebbadb6f9f2c39c4f5cfd",
+      "raw": 121895
+    }
+  ],
+  "upstream": {
+    "name": "motionlil",
+    "package": "motion",
+    "version": "13.1.0",
+    "resolveDir": "/home/azureuser/motionlil",
+    "output": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil",
+    "entry": "export {AsyncMotionValueAnimation,DOMKeyframesResolver,DOMVisualElement,DocumentProjectionNode,Feature,FlatTree,GroupAnimation,GroupAnimationWithThen,HTMLProjectionNode,HTMLVisualElement,JSAnimation,KeyframeResolver,LayoutAnimationBuilder,MotionGlobalConfig,MotionValue,NativeAnimation,NativeAnimationExtended,NativeAnimationWrapper,NodeStack,ObjectVisualElement,SVGVisualElement,SubscriptionManager,ViewTransitionBuilder,VisualElement,acceleratedValues,addAttrValue,addDomEvent,addScaleCorrector,addStyleValue,addUniqueItem,addValueToWillChange,alpha,analyseComplexValue,animate,animateMini,animateMotionValue,animateSingleValue,animateTarget,animateValue,animateVariant,animateView,animateVisualElement,animationMapKey,anticipate,applyAxisDelta,applyBoxDelta,applyGeneratorOptions,applyPointDelta,applyPxDefaults,applyTreeDeltas,arc,aspectRatio,attachFollow,attachSpring,attrEffect,axisDeltaEquals,axisEquals,axisEqualsRounded,backIn,backInOut,backOut,boxEquals,boxEqualsRounded,buildHTMLStyles,buildProjectionTransform,buildSVGAttrs,buildSVGPath,buildTransform,calcAxisDelta,calcBoxDelta,calcChildStagger,calcGeneratorDuration,calcLength,calcRelativeAxis,calcRelativeAxisPosition,calcRelativeBox,calcRelativePosition,camelCaseAttributes,camelToDash,cancelFrame,cancelMicrotask,cancelSync,checkVariantsDidChange,circIn,circInOut,circOut,clamp,cleanDirtyNodes,collectMotionValues,color,compareByDepth,complex,containsCSSVariable,convertBoundingBoxToBox,convertBoxToBoundingBox,convertOffsetToTimes,copyAxisDeltaInto,copyAxisInto,copyBoxInto,correctBorderRadius,correctBoxShadow,createAnimationState,createAxis,createAxisDelta,createBox,createDelta,createGeneratorEasing,createProjectionNode,createRenderBatcher,createScopedAnimate,cubicBezier,cubicBezierAsString,defaultEasing,defaultOffset,defaultTransformValue,defaultValueTypes,degrees,delay,delayInSeconds,dimensionValueTypes,distance,distance2D,eachAxis,easeIn,easeInOut,easeOut,easingDefinitionToFunction,fillOffset,fillWildcards,findDimensionValueType,findValueType,flushKeyframeResolvers,followValue,frame,frameData,frameSteps,generateLinearEasing,getAnimatableNone,getAnimationMap,getComputedStyle,getDefaultTransition,getDefaultValueType,getEasingForSegment,getFeatureDefinitions,getFinalKeyframe,getMixer,getOptimisedAppearId,getOriginIndex,getValueAsType,getValueTransition,getVariableValue,getVariantContext,getViewAnimationLayerInfo,getViewAnimations,globalProjectionState,has2DTranslate,hasReducedMotionListener,hasScale,hasTransform,hasWarned,hex,hover,hsla,hslaToRgba,inView,inertia,initPrefersReducedMotion,interpolate,invariant,invisibleValues,isAnimationControls,isBezierDefinition,isCSSVariableName,isCSSVariableToken,isControllingVariants,isDeltaZero,isDragActive,isDragging,isEasingArray,isElementKeyboardAccessible,isElementTextInput,isForcedMotionValue,isGenerator,isHTMLElement,isKeyframesTarget,isMotionValue,isNear,isNodeOrChild,isNumericalString,isObject,isPrimaryPointer,isSVGElement,isSVGSVGElement,isSVGTag,isTransitionDefined,isVariantLabel,isVariantNode,isWaapiSupportedEasing,isWillChangeMotionValue,isZeroValueString,keyframes,makeAnimationInstant,mapEasingToNativeEasing,mapValue,maxGeneratorDuration,measurePageBox,measureViewportBox,memo,microtask,millisecondsToSeconds,mirrorEasing,mix,mixArray,mixColor,mixComplex,mixImmediate,mixLinearColor,mixNumber,mixObject,mixValues,mixVisibility,motionValue,moveItem,nodeGroup,noop,number,numberValueTypes,observeTimeline,optimizedAppearDataAttribute,optimizedAppearDataId,parseAnimateLayoutArgs,parseCSSVariable,parseValueFromTransform,percent,pipe,pixelsToPercent,positionalKeys,prefersReducedMotion,press,progress,progressPercentage,propEffect,propagateDirtyNodes,px,readTransformValue,recordStats,removeAxisDelta,removeAxisTransforms,removeBoxTransforms,removeItem,removePointDelta,renderHTML,renderSVG,resize,resolveElements,resolveMotionValue,resolveTransition,resolveVariant,resolveVariantFromProps,reverseEasing,rgbUnit,rgba,rootProjectionNode,scale,scaleCorrectors,scalePoint,scrapeHTMLMotionValuesFromProps,scrapeSVGMotionValuesFromProps,scroll,scrollInfo,secondsToMilliseconds,setDragLock,setFeatureDefinitions,setStyle,setTarget,spring,springValue,stagger,startWaapiAnimation,statsBuffer,steps,styleEffect,supportedWaapiEasing,supportsBrowserAnimation,supportsFlags,supportsLinearEasing,supportsPartialKeyframes,supportsScrollTimeline,supportsViewTimeline,svgEffect,sync,testValueType,time,transform,transformAxis,transformBox,transformBoxPoints,transformPropOrder,transformProps,transformValue,transformValueTypes,translateAxis,updateMotionValuesFromProps,variantPriorityOrder,variantProps,velocityPerSecond,vh,visualElementStore,vw,warnOnce,warning,wrap} from \"motion\";",
+    "external": [],
+    "sharedExports": [
+      "AsyncMotionValueAnimation",
+      "DOMKeyframesResolver",
+      "DOMVisualElement",
+      "DocumentProjectionNode",
+      "Feature",
+      "FlatTree",
+      "GroupAnimation",
+      "GroupAnimationWithThen",
+      "HTMLProjectionNode",
+      "HTMLVisualElement",
+      "JSAnimation",
+      "KeyframeResolver",
+      "LayoutAnimationBuilder",
+      "MotionGlobalConfig",
+      "MotionValue",
+      "NativeAnimation",
+      "NativeAnimationExtended",
+      "NativeAnimationWrapper",
+      "NodeStack",
+      "ObjectVisualElement",
+      "SVGVisualElement",
+      "SubscriptionManager",
+      "ViewTransitionBuilder",
+      "VisualElement",
+      "acceleratedValues",
+      "addAttrValue",
+      "addDomEvent",
+      "addScaleCorrector",
+      "addStyleValue",
+      "addUniqueItem",
+      "addValueToWillChange",
+      "alpha",
+      "analyseComplexValue",
+      "animate",
+      "animateMini",
+      "animateMotionValue",
+      "animateSingleValue",
+      "animateTarget",
+      "animateValue",
+      "animateVariant",
+      "animateView",
+      "animateVisualElement",
+      "animationMapKey",
+      "anticipate",
+      "applyAxisDelta",
+      "applyBoxDelta",
+      "applyGeneratorOptions",
+      "applyPointDelta",
+      "applyPxDefaults",
+      "applyTreeDeltas",
+      "arc",
+      "aspectRatio",
+      "attachFollow",
+      "attachSpring",
+      "attrEffect",
+      "axisDeltaEquals",
+      "axisEquals",
+      "axisEqualsRounded",
+      "backIn",
+      "backInOut",
+      "backOut",
+      "boxEquals",
+      "boxEqualsRounded",
+      "buildHTMLStyles",
+      "buildProjectionTransform",
+      "buildSVGAttrs",
+      "buildSVGPath",
+      "buildTransform",
+      "calcAxisDelta",
+      "calcBoxDelta",
+      "calcChildStagger",
+      "calcGeneratorDuration",
+      "calcLength",
+      "calcRelativeAxis",
+      "calcRelativeAxisPosition",
+      "calcRelativeBox",
+      "calcRelativePosition",
+      "camelCaseAttributes",
+      "camelToDash",
+      "cancelFrame",
+      "cancelMicrotask",
+      "cancelSync",
+      "checkVariantsDidChange",
+      "circIn",
+      "circInOut",
+      "circOut",
+      "clamp",
+      "cleanDirtyNodes",
+      "collectMotionValues",
+      "color",
+      "compareByDepth",
+      "complex",
+      "containsCSSVariable",
+      "convertBoundingBoxToBox",
+      "convertBoxToBoundingBox",
+      "convertOffsetToTimes",
+      "copyAxisDeltaInto",
+      "copyAxisInto",
+      "copyBoxInto",
+      "correctBorderRadius",
+      "correctBoxShadow",
+      "createAnimationState",
+      "createAxis",
+      "createAxisDelta",
+      "createBox",
+      "createDelta",
+      "createGeneratorEasing",
+      "createProjectionNode",
+      "createRenderBatcher",
+      "createScopedAnimate",
+      "cubicBezier",
+      "cubicBezierAsString",
+      "defaultEasing",
+      "defaultOffset",
+      "defaultTransformValue",
+      "defaultValueTypes",
+      "degrees",
+      "delay",
+      "delayInSeconds",
+      "dimensionValueTypes",
+      "distance",
+      "distance2D",
+      "eachAxis",
+      "easeIn",
+      "easeInOut",
+      "easeOut",
+      "easingDefinitionToFunction",
+      "fillOffset",
+      "fillWildcards",
+      "findDimensionValueType",
+      "findValueType",
+      "flushKeyframeResolvers",
+      "followValue",
+      "frame",
+      "frameData",
+      "frameSteps",
+      "generateLinearEasing",
+      "getAnimatableNone",
+      "getAnimationMap",
+      "getComputedStyle",
+      "getDefaultTransition",
+      "getDefaultValueType",
+      "getEasingForSegment",
+      "getFeatureDefinitions",
+      "getFinalKeyframe",
+      "getMixer",
+      "getOptimisedAppearId",
+      "getOriginIndex",
+      "getValueAsType",
+      "getValueTransition",
+      "getVariableValue",
+      "getVariantContext",
+      "getViewAnimationLayerInfo",
+      "getViewAnimations",
+      "globalProjectionState",
+      "has2DTranslate",
+      "hasReducedMotionListener",
+      "hasScale",
+      "hasTransform",
+      "hasWarned",
+      "hex",
+      "hover",
+      "hsla",
+      "hslaToRgba",
+      "inView",
+      "inertia",
+      "initPrefersReducedMotion",
+      "interpolate",
+      "invariant",
+      "invisibleValues",
+      "isAnimationControls",
+      "isBezierDefinition",
+      "isCSSVariableName",
+      "isCSSVariableToken",
+      "isControllingVariants",
+      "isDeltaZero",
+      "isDragActive",
+      "isDragging",
+      "isEasingArray",
+      "isElementKeyboardAccessible",
+      "isElementTextInput",
+      "isForcedMotionValue",
+      "isGenerator",
+      "isHTMLElement",
+      "isKeyframesTarget",
+      "isMotionValue",
+      "isNear",
+      "isNodeOrChild",
+      "isNumericalString",
+      "isObject",
+      "isPrimaryPointer",
+      "isSVGElement",
+      "isSVGSVGElement",
+      "isSVGTag",
+      "isTransitionDefined",
+      "isVariantLabel",
+      "isVariantNode",
+      "isWaapiSupportedEasing",
+      "isWillChangeMotionValue",
+      "isZeroValueString",
+      "keyframes",
+      "makeAnimationInstant",
+      "mapEasingToNativeEasing",
+      "mapValue",
+      "maxGeneratorDuration",
+      "measurePageBox",
+      "measureViewportBox",
+      "memo",
+      "microtask",
+      "millisecondsToSeconds",
+      "mirrorEasing",
+      "mix",
+      "mixArray",
+      "mixColor",
+      "mixComplex",
+      "mixImmediate",
+      "mixLinearColor",
+      "mixNumber",
+      "mixObject",
+      "mixValues",
+      "mixVisibility",
+      "motionValue",
+      "moveItem",
+      "nodeGroup",
+      "noop",
+      "number",
+      "numberValueTypes",
+      "observeTimeline",
+      "optimizedAppearDataAttribute",
+      "optimizedAppearDataId",
+      "parseAnimateLayoutArgs",
+      "parseCSSVariable",
+      "parseValueFromTransform",
+      "percent",
+      "pipe",
+      "pixelsToPercent",
+      "positionalKeys",
+      "prefersReducedMotion",
+      "press",
+      "progress",
+      "progressPercentage",
+      "propEffect",
+      "propagateDirtyNodes",
+      "px",
+      "readTransformValue",
+      "recordStats",
+      "removeAxisDelta",
+      "removeAxisTransforms",
+      "removeBoxTransforms",
+      "removeItem",
+      "removePointDelta",
+      "renderHTML",
+      "renderSVG",
+      "resize",
+      "resolveElements",
+      "resolveMotionValue",
+      "resolveTransition",
+      "resolveVariant",
+      "resolveVariantFromProps",
+      "reverseEasing",
+      "rgbUnit",
+      "rgba",
+      "rootProjectionNode",
+      "scale",
+      "scaleCorrectors",
+      "scalePoint",
+      "scrapeHTMLMotionValuesFromProps",
+      "scrapeSVGMotionValuesFromProps",
+      "scroll",
+      "scrollInfo",
+      "secondsToMilliseconds",
+      "setDragLock",
+      "setFeatureDefinitions",
+      "setStyle",
+      "setTarget",
+      "spring",
+      "springValue",
+      "stagger",
+      "startWaapiAnimation",
+      "statsBuffer",
+      "steps",
+      "styleEffect",
+      "supportedWaapiEasing",
+      "supportsBrowserAnimation",
+      "supportsFlags",
+      "supportsLinearEasing",
+      "supportsPartialKeyframes",
+      "supportsScrollTimeline",
+      "supportsViewTimeline",
+      "svgEffect",
+      "sync",
+      "testValueType",
+      "time",
+      "transform",
+      "transformAxis",
+      "transformBox",
+      "transformBoxPoints",
+      "transformPropOrder",
+      "transformProps",
+      "transformValue",
+      "transformValueTypes",
+      "translateAxis",
+      "updateMotionValuesFromProps",
+      "variantPriorityOrder",
+      "variantProps",
+      "velocityPerSecond",
+      "vh",
+      "visualElementStore",
+      "vw",
+      "warnOnce",
+      "warning",
+      "wrap"
+    ],
+    "excludedExports": [
+      "__esModule",
+      "default"
+    ],
+    "additionalExports": [
+      "animateSequenceMini",
+      "getAsType",
+      "numberType"
+    ],
+    "resolution": {
+      "platform": "neutral",
+      "conditions": [
+        "production"
+      ],
+      "mainFields": [
+        "module",
+        "main"
+      ],
+      "target": "es2020",
+      "defines": {
+        "process.env.NODE_ENV": "production"
+      }
+    },
+    "minifiers": [
+      {
+        "tool": "Terser",
+        "version": "5.51.2",
+        "esbuild": "0.28.1",
+        "artifact": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil/terser.mjs",
+        "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+        "raw": 137559,
+        "imports": [],
+        "wallSeconds": 1.853884387000002,
+        "command": [
+          "/home/azureuser/.nvm/versions/node/v20.19.0/bin/node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream.mjs",
+          "child",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil/job.json",
+          "Terser"
+        ]
+      },
+      {
+        "tool": "esbuild",
+        "version": "0.28.1",
+        "esbuild": "0.28.1",
+        "artifact": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil/esbuild.mjs",
+        "sha256": "fd463f2b0bae5f48347e43ab017a091c082cfcbb2c5df871f3db2f9cd1a7d31a",
+        "raw": 139527,
+        "imports": [],
+        "wallSeconds": 0.1265080940000007,
+        "command": [
+          "/home/azureuser/.nvm/versions/node/v20.19.0/bin/node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream.mjs",
+          "child",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil/job.json",
+          "esbuild"
+        ]
+      },
+      {
+        "tool": "Oxc",
+        "version": "via Vite 8.2.1",
+        "esbuild": "0.28.1",
+        "artifact": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil/oxc.mjs",
+        "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
+        "raw": 135340,
+        "imports": [],
+        "wallSeconds": 0.23536112599999978,
+        "command": [
+          "/home/azureuser/.nvm/versions/node/v20.19.0/bin/node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream.mjs",
+          "child",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-pages/upstream/motionlil/job.json",
+          "Oxc"
+        ]
+      }
+    ]
+  },
+  "sourceInputs": {
+    "root": 0,
+    "entries": [
+      {
+        "name": "index",
+        "module": 0
+      }
+    ],
+    "modules": [
+      {
+        "path": "/home/azureuser/motionlil/src/package/full.lil",
+        "bytes": 10515,
+        "sha256": "1fd23f1b7fc0945eedf4d78662dfa9016e24779c35757c258f9707f7fb8d5ce5",
+        "dependencies": [
+          1,
+          299
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/full.lil",
+        "bytes": 14867,
+        "sha256": "859ef5ae9785398afd318a8085b68fce9bdd37bc36974aa73b3088bfc484bdc0",
+        "dependencies": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          298,
+          86,
+          138,
+          139,
+          14,
+          116,
+          113,
+          140,
+          4
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/dom.lil",
+        "bytes": 14011,
+        "sha256": "62ffbe250903c1d1b6b3525b78ce46d96b80ed10729e1739724d440c991d8e26",
+        "dependencies": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          248,
+          267,
+          278,
+          280,
+          283,
+          296,
+          297
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/index.lil",
+        "bytes": 19583,
+        "sha256": "5420e26e22e2998e3dd5e46d34d5f2fc49e7bfcd3b4074a22176fbf63bfca7ef",
+        "dependencies": [
+          4,
+          138,
+          139,
+          14,
+          116,
+          113,
+          140,
+          129,
+          141,
+          107,
+          142,
+          143,
+          18,
+          134,
+          43,
+          52,
+          44,
+          45,
+          47,
+          128,
+          144,
+          69,
+          63,
+          64,
+          65,
+          145,
+          108,
+          125,
+          148,
+          122,
+          126,
+          121,
+          149,
+          135,
+          136,
+          127,
+          49,
+          150,
+          158,
+          159,
+          163,
+          87,
+          10,
+          79,
+          6,
+          12,
+          164,
+          165,
+          166,
+          168,
+          171,
+          169,
+          170,
+          112,
+          174,
+          114,
+          70,
+          71,
+          175,
+          180,
+          181,
+          182,
+          184,
+          160,
+          177,
+          185,
+          186,
+          32,
+          17,
+          38,
+          40,
+          155,
+          187,
+          120,
+          124,
+          117,
+          188,
+          86,
+          189,
+          190,
+          192,
+          191,
+          19,
+          33,
+          22,
+          29,
+          34,
+          91,
+          92,
+          94,
+          23,
+          36,
+          37,
+          88,
+          95,
+          153,
+          96,
+          193,
+          202,
+          203,
+          83,
+          204,
+          84,
+          205,
+          206,
+          80,
+          207,
+          208,
+          209,
+          212,
+          66,
+          213,
+          211,
+          214,
+          216,
+          223,
+          222,
+          221,
+          218,
+          219,
+          220,
+          224,
+          225,
+          226,
+          235,
+          97,
+          236,
+          74,
+          242,
+          244,
+          99,
+          98,
+          231,
+          232,
+          100,
+          102,
+          215,
+          105,
+          217,
+          101,
+          103,
+          245,
+          85,
+          82,
+          233,
+          234,
+          246,
+          247,
+          253,
+          254,
+          255,
+          256,
+          257,
+          258,
+          259,
+          262,
+          263,
+          264,
+          261,
+          260,
+          151,
+          227,
+          228,
+          229,
+          230,
+          237,
+          239,
+          106,
+          238,
+          240,
+          241,
+          265,
+          266
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/AsyncMotionValueAnimation.lil",
+        "bytes": 8123,
+        "sha256": "d0b7eda15af7fcb952e7828119ed047681439bf2714cbad3d3414568c21ddbe5",
+        "dependencies": [
+          5,
+          6,
+          14,
+          66,
+          69,
+          113,
+          132,
+          134,
+          68,
+          135,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/global-config.lil",
+        "bytes": 312,
+        "sha256": "7d2426ca9a4948b2163ef987e6f08053af3abf1c31b1d51c598a9be0d30d97d5",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/sync-time.lil",
+        "bytes": 786,
+        "sha256": "f677ddde990a6a59d8186b00ce9faeed3e7e02570cfd52d8839ec5f65be01d29",
+        "dependencies": [
+          5,
+          7,
+          8
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/dom-host.lil",
+        "bytes": 7648,
+        "sha256": "d7b89463b176d0ab175baef1b70e439c8d95500050801f8960a545ee25e5e056",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/frame.lil",
+        "bytes": 664,
+        "sha256": "1262c3bba2504c9794608fd46c1ca7a6444646ebd08c2ce214c3ca44cd12d6d6",
+        "dependencies": [
+          9,
+          10,
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/noop.lil",
+        "bytes": 357,
+        "sha256": "3522036d29b1cdc338c7c44ba95d310e18f5279e06fc1f0ead641a95a2eb94aa",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/batcher.lil",
+        "bytes": 2378,
+        "sha256": "677279878de3dd1c87574ced2a1ff36e6e76e79cebc109a7ccc0dc81c7856280",
+        "dependencies": [
+          5,
+          7,
+          11,
+          13,
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/render-step.lil",
+        "bytes": 1511,
+        "sha256": "f776d268f8470fa87431c07c10cbaebf91f3747ef382199db87d3f36d24fbdcd",
+        "dependencies": [
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/types.lil",
+        "bytes": 2772,
+        "sha256": "7def20d9f1d06344ec767c5f97f2739221977edb7234dda43b526fbe9c88d938",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/order.lil",
+        "bytes": 146,
+        "sha256": "0da0f1e901a7e292e0b7d1247ce9ab86adb786f6012b2d9a1be169555cb34bfb",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/JSAnimation.lil",
+        "bytes": 14396,
+        "sha256": "02012171585c05935f375df00ec81502381e9bf8a9316b5704d8e173a4038803",
+        "dependencies": [
+          15,
+          16,
+          6,
+          17,
+          41,
+          42,
+          43,
+          52,
+          46,
+          45,
+          50,
+          66,
+          67,
+          68,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/clamp.lil",
+        "bytes": 148,
+        "sha256": "91823fb0d8f4c1ecd34623e693b9a1901bf66d7b848be8f79dc3088f8ebfef0c",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/time-conversion.lil",
+        "bytes": 185,
+        "sha256": "b22962b8115d10f64bddf82a5386af495a363f7ed4bd19270c2b89cf87f465e6",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/mix/complex.lil",
+        "bytes": 3729,
+        "sha256": "24feeb1b8bf51b992d54340418b328aaf9b6095591b92c1f9b25c0f1df53a576",
+        "dependencies": [
+          18,
+          19,
+          29,
+          20,
+          32,
+          38,
+          39,
+          40
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/is-css-variable.lil",
+        "bytes": 537,
+        "sha256": "8b0dda1e86168ee7c6fb66f0fa5f96381922b748499a8da1f5b0b457922dd725",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/color/index.lil",
+        "bytes": 824,
+        "sha256": "a674137584d2e636180421a3bf5d4055a64b24fd2dde98a48f1b7b5a556826fb",
+        "dependencies": [
+          20,
+          21,
+          28,
+          22
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/types.lil",
+        "bytes": 1829,
+        "sha256": "19d7e0f578d0fa026820141c395292a5a1e2291689134b85dd4924ddfed353fd",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/color/hex.lil",
+        "bytes": 772,
+        "sha256": "7fb1817273ff3b61f287fa5a84646e50638c2bf19dd05142e45f28fb25e4e186",
+        "dependencies": [
+          20,
+          22,
+          25
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/color/rgba.lil",
+        "bytes": 883,
+        "sha256": "f80b2489cf16c3aef52117f01134e22268e289e83cfb3fa6d2992aea1275831a",
+        "dependencies": [
+          15,
+          23,
+          20,
+          24,
+          25
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/numbers/index.lil",
+        "bytes": 618,
+        "sha256": "bbfda2acfa00e097381a7155514f72cba2ec7ec61e59ed98422c300c6dbecaf8",
+        "dependencies": [
+          15,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/sanitize.lil",
+        "bytes": 79,
+        "sha256": "0e5b49fc73795963212c8aaa49913e15cc8c5b381f593fe7a4b3e812d8dc96a6",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/color/utils.lil",
+        "bytes": 1227,
+        "sha256": "41216f85322c03ac829747998d0af885eac841bdea184e64d307be38cebf53d4",
+        "dependencies": [
+          26,
+          27,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/float-regex.lil",
+        "bytes": 77,
+        "sha256": "544b7d88187afcfca07477835f8bd39c70ba5244e891f00763e3b009c17ba10d",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/single-color-regex.lil",
+        "bytes": 186,
+        "sha256": "4e99d724b46d55ed705f8c1215114b4cde21c8ce3b8cbdc4baa232e9fa6854bc",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/color/hsla.lil",
+        "bytes": 571,
+        "sha256": "719beb928a3f49cfdd0f5b4a5f9f173f43a494d469a58268d79e114f80064792",
+        "dependencies": [
+          23,
+          20,
+          24,
+          25
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/complex/index.lil",
+        "bytes": 4050,
+        "sha256": "3954a8734c6fbf38b847700459cc55d6bb978b3f8f9970f87acc7f925fd6efed",
+        "dependencies": [
+          19,
+          30,
+          26,
+          24,
+          20,
+          31
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/color-regex.lil",
+        "bytes": 179,
+        "sha256": "99b7368588bb9724a06bbec459c2f1c61667cabb9b9c45c55d8ca3bccaf0c6b5",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/string-host.lil",
+        "bytes": 691,
+        "sha256": "e2c2515812a2210444133271b86325522dde211e92277d746f33ca71884cbb4c",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/mix/color.lil",
+        "bytes": 1671,
+        "sha256": "f7b86aabccceb58358a783a48a3b129225a8bbbc85c76dc2a456bf5dd8062404",
+        "dependencies": [
+          21,
+          28,
+          33,
+          22,
+          34,
+          20,
+          38,
+          39
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/color/hsla-to-rgba.lil",
+        "bytes": 1086,
+        "sha256": "e6dafa91f19cb0ebbe0c46edef32e7d4303fe7f79b87a6d8b40ebb1fab59fcbd",
+        "dependencies": [
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/dimensions.lil",
+        "bytes": 598,
+        "sha256": "5cb1de5fadbd1970ee9b1b0ea88c96ecd0c4557ca279fc040a0791ff331972af",
+        "dependencies": [
+          35,
+          23,
+          36,
+          37,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/auto.lil",
+        "bytes": 162,
+        "sha256": "7607eb6131e9e32ea0a92a4b44db317c42b537f78deef75be065e156801e98be",
+        "dependencies": [
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/numbers/units.lil",
+        "bytes": 759,
+        "sha256": "45c68d8479ba765e8e936bef91ae714c9225174825d8b526b13fd36f1a13e912",
+        "dependencies": [
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/test.lil",
+        "bytes": 139,
+        "sha256": "52f445bb9ced187cb7275e262c809f9dd2a69588d762336b69663a8ba02e9807",
+        "dependencies": [
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/mix/immediate.lil",
+        "bytes": 120,
+        "sha256": "e71dc0252f911f40afaa814f96d7765573e1598f2cb0ee596f9ae4f67bf5ac7a",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/mix/number.lil",
+        "bytes": 110,
+        "sha256": "afe105366a371285f4bf1176e8b3ed24e717673479086ec275c78969627e398b",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/mix/visibility.lil",
+        "bytes": 441,
+        "sha256": "299ee12912ab14bc534000a5635f075e83d998f6fdf8fcec71b4da022bde7997",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/drivers/frame.lil",
+        "bytes": 688,
+        "sha256": "b80b3a532635bd0298f39d3ffdf0bd74ddfdfe94e57cc8b0fd82f95ebd5bd3a9",
+        "dependencies": [
+          8,
+          6,
+          12,
+          42
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/drivers/types.lil",
+        "bytes": 146,
+        "sha256": "82089b4e4fa75ea918ec1e3ad0549f02cb53dabd97ead97d3b9b5e9340ad71af",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/inertia.lil",
+        "bytes": 3108,
+        "sha256": "7215b5616968ab1d52cc43ca5577959c9ff61d2b3882d7d97d67bb513ffe6d61",
+        "dependencies": [
+          44,
+          46,
+          50
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/spring.lil",
+        "bytes": 9155,
+        "sha256": "2c6bc4639a82249e8217685f1ab45717b9384882a398ea9dfeb36086b7acbdc9",
+        "dependencies": [
+          15,
+          16,
+          45,
+          47,
+          49,
+          46,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/utils/calc-duration.lil",
+        "bytes": 445,
+        "sha256": "9cc5492f4b3a1a5d9464d0bf2dc511a3c54b214c6baf0916b4cc162bbac75a5d",
+        "dependencies": [
+          46
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/generator.lil",
+        "bytes": 287,
+        "sha256": "7f3a16ac76a06085ddda2e15fb28d3645e98ed9eec8edb81c3df7dc23920c044",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/utils/create-generator-easing.lil",
+        "bytes": 1083,
+        "sha256": "89a1da9e6cc408abf2386edcf0ad0b6caf17ac64f1e44efd72a6ed6788f74e10",
+        "dependencies": [
+          16,
+          46,
+          45,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/anim-host.lil",
+        "bytes": 996,
+        "sha256": "bc9d364785be7e187700bbb64392e588bcaed85c56c5cb16e797428d959f069c",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/linear.lil",
+        "bytes": 387,
+        "sha256": "570a5d072316696a7c6e8ec4a10e575ab755c0f4e604b228a588d7e78b0dcd9d",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/utils/velocity.lil",
+        "bytes": 292,
+        "sha256": "fae43b3d2e57188e8c83ba6ab702a7237d98de8087cbcc9773fb8676df58cc54",
+        "dependencies": [
+          51
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/velocity-per-second.lil",
+        "bytes": 176,
+        "sha256": "ca4621443f165be0fc02c8e48675792f4969489cbd2c80854e1b1e6e2b4d7003",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/keyframes.lil",
+        "bytes": 2942,
+        "sha256": "f7e577307d1def5ba5cd43dc85a09c3f366c5cef533c5f1183b0bd2480bc0200",
+        "dependencies": [
+          53,
+          61,
+          60,
+          15,
+          9,
+          62,
+          17,
+          63,
+          65,
+          46
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/utils/map.lil",
+        "bytes": 977,
+        "sha256": "c8fcd8b307ec71ab05ff4261715a277d587623a659959213cd6cdb5c79c844d8",
+        "dependencies": [
+          9,
+          54,
+          55,
+          59,
+          56,
+          60
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/anticipate.lil",
+        "bytes": 252,
+        "sha256": "e351fe0108f2bce71716cfba5e0683643f20b0e94e751665c40f51609820720c",
+        "dependencies": [
+          55
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/back.lil",
+        "bytes": 343,
+        "sha256": "81ff8a25e909df4512b3130c51b160937f48622d6e0e47e97e7d81f92cc30994",
+        "dependencies": [
+          56,
+          57,
+          58
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/cubic-bezier.lil",
+        "bytes": 954,
+        "sha256": "594f43d9f6572115dcd7f4f43a61641373ec9c17d1b43d2fdff213027c02df1d",
+        "dependencies": [
+          9
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/modifiers/mirror.lil",
+        "bytes": 201,
+        "sha256": "82a48c401892bb75ec08c4df22e9b1ae5063e9e1dd185c002d848ef5923e6fc8",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/modifiers/reverse.lil",
+        "bytes": 137,
+        "sha256": "204eec854a56fd8ccb04a5948632f3cdecfd8a5fd7ce8a575d3acf98ba4828fb",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/circ.lil",
+        "bytes": 297,
+        "sha256": "0201b2f48696d9a81d8634db90853500e9db21b279f4d1979263cd5b47321878",
+        "dependencies": [
+          57,
+          58
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/ease.lil",
+        "bytes": 259,
+        "sha256": "b0d731b47e9d3d81b413f801ae8a0e4951d172fd2ec5a16d1271925ff312d049",
+        "dependencies": [
+          56
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/utils/is-easing-array.lil",
+        "bytes": 100,
+        "sha256": "8d403e3f74c8abc0f6f175422452f8dae954e34024b82c32ea5f8b5f91042ca2",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/progress.lil",
+        "bytes": 190,
+        "sha256": "5382fd3f24a30a03e86ac68bd08b4a7fba987db7352caf8a3e5421baeab3c02e",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/offsets/default.lil",
+        "bytes": 217,
+        "sha256": "0912d5fab5bc57a4bf84ebd84386dbb277b9e18d18173ef68d6c150ffb5a948d",
+        "dependencies": [
+          64
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/offsets/fill.lil",
+        "bytes": 335,
+        "sha256": "a0cba2e7eb6121e117aa4c99c62d223fbd2b6dbc718d4c904fce684d21b3bb43",
+        "dependencies": [
+          62,
+          39
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/offsets/time.lil",
+        "bytes": 120,
+        "sha256": "d636a8df4783a8aa1a188e753a6e2287b9040bc7823463beb5e9f0bc787b9b31",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/get-final.lil",
+        "bytes": 987,
+        "sha256": "c59f5cbf7472a14650feb8e527e66f796c0ce68ab191797aa16cdcca1bad6bcd",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/replace-transition-type-spring.lil",
+        "bytes": 475,
+        "sha256": "dc228952ea62ee56484fcd256d913bd39bf93c5cde2869e915dd53cf7648abd0",
+        "dependencies": [
+          43,
+          52,
+          44
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/WithPromise.lil",
+        "bytes": 1477,
+        "sha256": "282eeddb75e7f54659236fe531c001082204fbd64e07aeefa6da44da5a86d3bd",
+        "dependencies": [
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/KeyframesResolver.lil",
+        "bytes": 10567,
+        "sha256": "2873a7afabe9ff166e4eafe3f9a83f70b859df75579b3b83763142ed77ef8c35",
+        "dependencies": [
+          8,
+          12,
+          70,
+          34,
+          20,
+          73,
+          7,
+          107,
+          18,
+          108,
+          109,
+          110,
+          111
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/keys-position.lil",
+        "bytes": 298,
+        "sha256": "be00572e921278fde8f00966bd994eb0fea1218d8da427ffe649dd66563efc9d",
+        "dependencies": [
+          71,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/keys-transform.lil",
+        "bytes": 445,
+        "sha256": "546abeba3b86854067f941f54ae85255ebf35298adeba2b4449cd7ec42e8a851",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/host-views.lil",
+        "bytes": 1950,
+        "sha256": "c663dc7cf4e9108fc7ade3b2257273987be0022b710427d146393a720345746c",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/cast.lil",
+        "bytes": 605,
+        "sha256": "2288a79d37950a3cb1f4b5f4f492380d7600f2493c120959ebe4b71eaede42d3",
+        "dependencies": [
+          74,
+          86,
+          68
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/VisualElement.lil",
+        "bytes": 21735,
+        "sha256": "ad17d18653b0343ddda607dcd4cd8ad8e0f6bcd214e877ee6d3f5f87b3c96659",
+        "dependencies": [
+          75,
+          77,
+          78,
+          8,
+          79,
+          6,
+          12,
+          80,
+          82,
+          86,
+          29,
+          88,
+          95,
+          96,
+          97,
+          98,
+          71,
+          102,
+          103,
+          105,
+          106,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/subscription-manager.lil",
+        "bytes": 800,
+        "sha256": "7a36ed3f98efacc14fc792039c7e1b6030a4efdeb6772e1074ecc7f0a4f4ad9b",
+        "dependencies": [
+          76
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/array.lil",
+        "bytes": 1110,
+        "sha256": "7bdb9c9297b4f12eebf4dc8f35f9a045ff654fd7e96b7796d977150f2c496ec5",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/is-numerical-string.lil",
+        "bytes": 162,
+        "sha256": "6f30199cbd83b30d9da53260d4772985d4e53775c2c5262368cfde5c3d820282",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/is-zero-value-string.lil",
+        "bytes": 141,
+        "sha256": "db770dc763159887ef761ef5dcf98b33b7065e78b2f06ac60bed99edde9e39f6",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/microtask.lil",
+        "bytes": 352,
+        "sha256": "214e4677335c09aed776b0768c310a6073657cce60d2de5194e23da389fef294",
+        "dependencies": [
+          10,
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/models.lil",
+        "bytes": 399,
+        "sha256": "6b9e9fd590bf21e672209c33891dc0529d0b2da404d7e5d9314b7592bc4fbd12",
+        "dependencies": [
+          81
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/types/geometry.lil",
+        "bytes": 996,
+        "sha256": "1e13d08e12e1ec6071540aa4642134dff050779d2a0ce3dd4ebaf14dbcc74392",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/utils/measure.lil",
+        "bytes": 881,
+        "sha256": "c2368a3e1ed1349f9a00c73af6cfcd404ad3621021608caf1d5268027dc178a5",
+        "dependencies": [
+          81,
+          83,
+          84
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/conversion.lil",
+        "bytes": 790,
+        "sha256": "62496c0e0ef31bf91a2dde5d001f76b385f769e923eeb0aa9a4f9d3c8ccdf56b",
+        "dependencies": [
+          81
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/delta-apply.lil",
+        "bytes": 4205,
+        "sha256": "5fb589addc64cc0a601788e0cc7d9610c6409b9acb992756b2251c14eb6e0e40",
+        "dependencies": [
+          81,
+          39,
+          85
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/utils/has-transform.lil",
+        "bytes": 747,
+        "sha256": "06069f1cb401c6c387d2eab3eb01e5c6aa5f94ea40688e06db2a53fcc64d787d",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/index.lil",
+        "bytes": 12173,
+        "sha256": "8b5617518678e1e580c756a47a3282005c3854d24becc9147f6c59541fff23e8",
+        "dependencies": [
+          75,
+          51,
+          7,
+          87,
+          6,
+          12,
+          20,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/index.lil",
+        "bytes": 123,
+        "sha256": "8e9bf97395f96479b070b3bcb9aeda1e6856feeb4ecee824c05ccd136d8c92e8",
+        "dependencies": [
+          8
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/animatable-none.lil",
+        "bytes": 540,
+        "sha256": "ae306146078c26b99cd82c1988735344697749004f0ffaa158d9969c8ecf5058",
+        "dependencies": [
+          29,
+          89,
+          90,
+          91,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/complex/filter.lil",
+        "bytes": 1433,
+        "sha256": "a5f2741ed4729116c6844a4286adfcbbcb9581f03887b847b144b33ddebb3bb4",
+        "dependencies": [
+          29,
+          26,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/complex/mask.lil",
+        "bytes": 733,
+        "sha256": "e850fb554d25ed58be97efbea988c95c6ab621b62b5071dac7d5e4349d8ca782",
+        "dependencies": [
+          29,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/maps/defaults.lil",
+        "bytes": 960,
+        "sha256": "ebd6808fb7a4af478c27e2bd23156dc6df456c5acf44250cf462f16c7d030d14",
+        "dependencies": [
+          19,
+          89,
+          90,
+          20,
+          92
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/maps/number.lil",
+        "bytes": 2109,
+        "sha256": "1cad716e9c47508921055f017f7a37d8ef6e757e847150708950a8ee6cbca308",
+        "dependencies": [
+          93,
+          23,
+          36,
+          20,
+          94
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/int.lil",
+        "bytes": 271,
+        "sha256": "f2e15d71ecd977d049d12413f2759f099029ebeb6f4c3c1debb01894aea101fb",
+        "dependencies": [
+          23,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/maps/transform.lil",
+        "bytes": 686,
+        "sha256": "a316af533ce1b0232dabf9c3b5b79d4d4928d8d5acdbbd156f9f98043843a740",
+        "dependencies": [
+          23,
+          36
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/find.lil",
+        "bytes": 335,
+        "sha256": "3ffa598299f7e0e871ffd1fdf279791457f8830f53da88cde5b04919c140ec65",
+        "dependencies": [
+          19,
+          29,
+          34,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/utils/is-motion-value.lil",
+        "bytes": 163,
+        "sha256": "50f704325d027ccba04a6879cdfcf6530d58ee0eb80e71b612ac20c059358287",
+        "dependencies": [
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/store.lil",
+        "bytes": 124,
+        "sha256": "2e08e1477137343dae967bb89396b640b9292815b25fa27163bf7770c47c19d9",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/is-controlling-variants.lil",
+        "bytes": 448,
+        "sha256": "e4d14edbf105564aeb671c97f431ba21af5412eded68c4407f62616b1f136c3b",
+        "dependencies": [
+          99,
+          100,
+          101
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/is-animation-controls.lil",
+        "bytes": 160,
+        "sha256": "9b093c861624c76ce45ece002d89e1da082afa0468c59ed158935ce49907e9f4",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/is-variant-label.lil",
+        "bytes": 81,
+        "sha256": "6701ed6e75c490668fbab164ac4f3c56d06f29cd0553863907bad67ba9117b1b",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/variant-props.lil",
+        "bytes": 294,
+        "sha256": "08c800b2339be469dc7c06ef59536df87353326ac455a3b66527a26b0a51aa78",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/motion-values.lil",
+        "bytes": 1380,
+        "sha256": "e7f47313cf10070b737b25d879feafef778c58528c5e62eee4d438b30ba2eca3",
+        "dependencies": [
+          86,
+          96,
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/reduced-motion/index.lil",
+        "bytes": 811,
+        "sha256": "d3d5a5dc3761bade23c6444df097b6984e09c58497f465ab2341ae411dcb237d",
+        "dependencies": [
+          104,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/reduced-motion/state.lil",
+        "bytes": 339,
+        "sha256": "2bf6f1048a38daaeddb3d2c79833bba4498792f4d015b08e05a229543a8c2d07",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/resolve-variants.lil",
+        "bytes": 1261,
+        "sha256": "0c0076fb4055820ad82b7d02d78e13687f1058dc8fdbc6a5ae486c63fffbec51",
+        "dependencies": [
+          74,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/utils/is-svg-tag.lil",
+        "bytes": 120,
+        "sha256": "ab0f36fcde3734a0db7817822105cc563b097c11bb3deb553c1a8a3fda52d095",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/css-variables-conversion.lil",
+        "bytes": 1194,
+        "sha256": "5960c2c7b388ddee954ee8e9bfb1cdfc6c35f7b981247aee428d511bcda53fc6",
+        "dependencies": [
+          77,
+          18,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/utils/fill-wildcards.lil",
+        "bytes": 189,
+        "sha256": "c7905e02415f36d7cf5167d8ac0d62711bffa40437b15bbabd5e5dfec7b01ee7",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/utils/is-none.lil",
+        "bytes": 287,
+        "sha256": "0ac96b02345ffb9fdce59594a541c24637b75228bcae11c665cb4612f0d9c09d",
+        "dependencies": [
+          78
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/utils/make-none-animatable.lil",
+        "bytes": 869,
+        "sha256": "361620b2bd21591e778dafd91d6929fd9ca770682b4af29d5afb71cf30b29e1a",
+        "dependencies": [
+          29,
+          88
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/utils/unit-conversion.lil",
+        "bytes": 2652,
+        "sha256": "4d2199e72060f1b63181c73382859b593d9912530f976a7cd94a936c800bcd8e",
+        "dependencies": [
+          112,
+          71,
+          23,
+          36,
+          20,
+          73
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/dom/parse-transform.lil",
+        "bytes": 2889,
+        "sha256": "9390ef6ecfaf95e88f490b33bbf4579f4e69faa9420ec3d08806e0c2bf784ecd",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/NativeAnimationExtended.lil",
+        "bytes": 3009,
+        "sha256": "1a0f96dece2091a56db5d8f49df5a9a705546b76bf55c8cef7572036192a2f7d",
+        "dependencies": [
+          15,
+          6,
+          114,
+          116,
+          14,
+          67,
+          131,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/dom/style-set.lil",
+        "bytes": 262,
+        "sha256": "e0051f562c278cf291737c19db973490f5d08ee75a983e9e6af0c402b2c7e3ba",
+        "dependencies": [
+          115
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/dom/is-css-var.lil",
+        "bytes": 70,
+        "sha256": "2d7f246eefcaf73712df478c8825df1b0114d959a2d0e0e1b5c6e6776fa146d1",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/NativeAnimation.lil",
+        "bytes": 9476,
+        "sha256": "83d1443ca67714a764747d80b3447ea0aef88a2e9f22657b22454ccbd5128a57",
+        "dependencies": [
+          16,
+          114,
+          117,
+          66,
+          68,
+          121,
+          127,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/supports/scroll-timeline.lil",
+        "bytes": 324,
+        "sha256": "b773f0e6954fd1271321f599d2a966fbb417d454c60cfd2547eed43be0f5c576",
+        "dependencies": [
+          7,
+          118
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/supports/memo.lil",
+        "bytes": 385,
+        "sha256": "4eaed6a5ad69365e2fc9084ffcc5403dad65f8cef5353b289c1110fe4b4beece",
+        "dependencies": [
+          119,
+          120
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/memo.lil",
+        "bytes": 201,
+        "sha256": "7830e8652fb59238bada3d07064496b9f7d7118069147d776b0f124594bcbead",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/supports/flags.lil",
+        "bytes": 108,
+        "sha256": "a8bcf7d33666a6524c9c6da4f35665872051947b7d8b36e3577b0c915f6cd4f1",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/start-waapi-animation.lil",
+        "bytes": 1363,
+        "sha256": "1b95e3fe86b95f3d87f2b2fb2e5ad414c69378da104f82085adbed128c3dadb8",
+        "dependencies": [
+          122
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/easing/map-easing.lil",
+        "bytes": 1293,
+        "sha256": "27c8e821ec00c0cce0cb7ae3dad9b3f1b2cc118cfc164cbb5dbb059b3feff8be",
+        "dependencies": [
+          123,
+          124,
+          49,
+          125,
+          126
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/utils/is-bezier-definition.lil",
+        "bytes": 110,
+        "sha256": "0ec02c5acaef6f71be4aae4f9725253bdc9e3aca37122663b25a54b760058b0d",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/supports/linear-easing.lil",
+        "bytes": 214,
+        "sha256": "62fee996de1ba6f022cda88456c33a90d9edba9af645fb3ea8a29145c90ce998",
+        "dependencies": [
+          7,
+          118
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/easing/cubic-bezier.lil",
+        "bytes": 135,
+        "sha256": "a4474047347f9d14ca83c59f308c7049698ee5ee088f39d1ccf9fa2e41805e7a",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/easing/supported.lil",
+        "bytes": 718,
+        "sha256": "5f789ffddcc66b3fc032ccdaa6504603e5c492f249d85c7ed79d91fbceae334d",
+        "dependencies": [
+          125
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/apply-generator.lil",
+        "bytes": 881,
+        "sha256": "916313d1415f62d12379b9700fde46fedbce60d7b81d1e9ebe8c67b3b76ced98",
+        "dependencies": [
+          124,
+          128,
+          129,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/generators/utils/is-generator.lil",
+        "bytes": 115,
+        "sha256": "fe1f39be7fdb1efd6c27b2fbba32e88becd80531a99c824198c5e2044b87eea7",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/types.lil",
+        "bytes": 2127,
+        "sha256": "0b73af5b2beaa159164b15aef3b67d44ebbebd586204f9c6a4358a04efa9504d",
+        "dependencies": [
+          130
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/animation-state.lil",
+        "bytes": 136,
+        "sha256": "720a941aa3e45fb1f268ed859ddc2c5e3e1a859b0705c2742af5046a15c6d0bd",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/unsupported-easing.lil",
+        "bytes": 560,
+        "sha256": "2c14a4480a4c14b54f71a1dda27dbf66652f9d5312f427c84f507c2b15a6818c",
+        "dependencies": [
+          54,
+          55,
+          59
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/can-animate.lil",
+        "bytes": 817,
+        "sha256": "d4fe3b21a2e2eccbed4ef85f713b3a7a080045a3803cfd4a97ecb1f8d253d83f",
+        "dependencies": [
+          128,
+          133
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/is-animatable.lil",
+        "bytes": 315,
+        "sha256": "d4330f831dbafac874b2d9503970a6b4bcb5f5812fdc7f700b81755fcd619d10",
+        "dependencies": [
+          29
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/make-animation-instant.lil",
+        "bytes": 116,
+        "sha256": "cfbf95f0f409c77736e0ec1deccbdbca622debcc5c4bef7cc6a76089ae1061fe",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/supports/waapi.lil",
+        "bytes": 1734,
+        "sha256": "5ded4e4e31e8767638908b104d7db14c731447d9692e75b56185e6bc5fe7c89d",
+        "dependencies": [
+          119,
+          136,
+          137,
+          7,
+          73
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/accelerated-values.lil",
+        "bytes": 238,
+        "sha256": "440fed7b96101fdc9bc844fbe8a407ea9ba34cb035c2ed1fd409d28f0134d29b",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/is-browser-color.lil",
+        "bytes": 360,
+        "sha256": "c589d32b73a55871c5aadcdf8cf396db55b776641ac1c91c9084faf5efa7b20f",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/GroupAnimation.lil",
+        "bytes": 3672,
+        "sha256": "54f9595708480a6cc4655c907855a0112287553318a036edaae8d1a1a0269d33",
+        "dependencies": [
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/GroupAnimationWithThen.lil",
+        "bytes": 879,
+        "sha256": "4e102a058adf8070f78c27440a19270374ae180a47be14ea0a52371235d495f7",
+        "dependencies": [
+          138,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/NativeAnimationWrapper.lil",
+        "bytes": 959,
+        "sha256": "56b7f5557a2ebd8fdf2afead77a669616964bf6692af4c3abe71e501ee2b8cc4",
+        "dependencies": [
+          116,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/active-animations.lil",
+        "bytes": 776,
+        "sha256": "bb22178771cabd96f37fb5da40a06cf2d66983200dbb6aaecd9f52ad9d38287d",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/get-value-transition.lil",
+        "bytes": 478,
+        "sha256": "7f540b7e7fba7abcc35d08337a6df824788af47bb50cce176959ce3300a75dca",
+        "dependencies": [
+          143
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/resolve-transition.lil",
+        "bytes": 465,
+        "sha256": "e6113093ec911d317dd5321ab09e47d66690a51b0982886c435682d835fb4ddb",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/DOMKeyframesResolver.lil",
+        "bytes": 363,
+        "sha256": "89248ddc5138e9d490e7e7861b8bb7ec3a3cdfa7911fca7237affd2e4ad44357",
+        "dependencies": [
+          69
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/keyframes/utils/apply-px-defaults.lil",
+        "bytes": 304,
+        "sha256": "e6bc308c0aa914c7bf95ea3ef9a99af89b2060f569d329cfbd4932188ffbbbb3",
+        "dependencies": [
+          146
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/px-values-mini.lil",
+        "bytes": 61,
+        "sha256": "6da2d4241d8b6107607a47eb1f152b0880003f70001e50b88e6389ae90930f56",
+        "dependencies": [
+          147
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/utils/px-values.lil",
+        "bytes": 1226,
+        "sha256": "2d703c79e464cd382a093efaf9f0a8eb5e1f40ca4abbc682d812e011ba1134a7",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/easing/is-supported.lil",
+        "bytes": 593,
+        "sha256": "cb3a571d93aace37b6916182a2cc0b278efb0724a17a226f929d8cd24dd98371",
+        "dependencies": [
+          123,
+          124,
+          126
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/waapi/supports/partial-keyframes.lil",
+        "bytes": 228,
+        "sha256": "44a74a17970931ab31291e7adfd05a211be1e10d89a73002c35658e9b913fb32",
+        "dependencies": [
+          119,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/attr/index.lil",
+        "bytes": 1397,
+        "sha256": "cd8aa201a6c5533d6358d09b17f51153ebeb4c612ab97e95b559c7ea3e940487",
+        "dependencies": [
+          12,
+          151,
+          86,
+          20,
+          152,
+          154,
+          157,
+          156
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/dom/utils/camel-to-dash.lil",
+        "bytes": 146,
+        "sha256": "44316a632d725d74ea95af6c1962d7dd2d491a0975e4f40a236fc675f776778c",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/MotionValueState.lil",
+        "bytes": 2103,
+        "sha256": "0e66a8b1a8a4ce4fb45834b79a23b90ad13f172b62823d334c99e1a8e869a76f",
+        "dependencies": [
+          8,
+          12,
+          86,
+          92,
+          20,
+          153
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/types/utils/get-as-type.lil",
+        "bytes": 201,
+        "sha256": "5c7e56856a66b9f1fd0382a7d5e1e88b23c6c7e39fe20acf37298b7998ff7691",
+        "dependencies": [
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/utils/create-dom-effect.lil",
+        "bytes": 450,
+        "sha256": "8088df093680e42e48e3f852db68ea895ab85dc9d8035191b36b6642f1f65ecb",
+        "dependencies": [
+          155,
+          86,
+          156
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/resolve-elements.lil",
+        "bytes": 1214,
+        "sha256": "42f4bf0b373a47dd5fe434a653fdff3c840f7ae670e6960f8c4aaea0a4377191",
+        "dependencies": [
+          31,
+          7,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/utils/dom.lil",
+        "bytes": 742,
+        "sha256": "7c8b175ae64ffd644038c2699cf02acc8b78002993d2be791c2f04683aa75b89",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/utils/create-effect.lil",
+        "bytes": 1090,
+        "sha256": "1e2d8fd87c53647c31d7a528ec6971591f0c87e3b2aff720bb89e9b40d85e0c8",
+        "dependencies": [
+          86,
+          152,
+          156
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/prop/index.lil",
+        "bytes": 485,
+        "sha256": "f5aa9da23bb7738bb51684af3b12afe9059a11ebf3219772c73775116d1cf25a",
+        "dependencies": [
+          12,
+          86,
+          152,
+          157
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/style/index.lil",
+        "bytes": 2248,
+        "sha256": "7379903cbb63ebf381a32fbbdba4f2413a724dc558f534b2e5dbefc5b8554d58",
+        "dependencies": [
+          12,
+          115,
+          71,
+          160,
+          86,
+          20,
+          152,
+          154,
+          157,
+          156,
+          162
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/is-html-element.lil",
+        "bytes": 380,
+        "sha256": "7a62a76345f85a60a9eaad7a7d853923642e524616b2aadf162fc868897016a5",
+        "dependencies": [
+          161,
+          7,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/is-object.lil",
+        "bytes": 99,
+        "sha256": "e1ae6c8ee576eadbf68ca83fe59adf36d9b2b630748b4d8756b24be958e9d61b",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/style/transform.lil",
+        "bytes": 1500,
+        "sha256": "af0c0d39551404ff9cbb4a6f70293953086909d8250587aa3e32452d010aa438",
+        "dependencies": [
+          71,
+          20,
+          152
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/effects/svg/index.lil",
+        "bytes": 2420,
+        "sha256": "63731fdea6b2d0c9695cdaead925a6c952cd33c3de4936934d6b0c90f205dce2",
+        "dependencies": [
+          87,
+          12,
+          7,
+          86,
+          20,
+          150,
+          152,
+          159,
+          154,
+          157,
+          156
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/drag/state/is-active.lil",
+        "bytes": 254,
+        "sha256": "4ddcccfa1d7f6b2bc2a9e6a36e7b452b7fbdbfd7973eef2ad04237963279647e",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/drag/state/set-active.lil",
+        "bytes": 539,
+        "sha256": "247014da2133e66b86fc0489d2a231846a1799b24a759b94aae2b5614e95f494",
+        "dependencies": [
+          164
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/hover.lil",
+        "bytes": 2509,
+        "sha256": "bb6e6e0653040fd867dbebe479ddfbc3a13cc798b7b035bb72e3e4f3ed9079ed",
+        "dependencies": [
+          167,
+          164,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/utils/setup.lil",
+        "bytes": 863,
+        "sha256": "ef3e3e1f9e318b8d0ea4640b80fde11f88845cf0185ee050a250b5344bf0db01",
+        "dependencies": [
+          155,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/press/index.lil",
+        "bytes": 3436,
+        "sha256": "26742639d122ba1da75f2471aac3737b488c941a37790aa2d9a7d9d5117b05fc",
+        "dependencies": [
+          160,
+          164,
+          169,
+          170,
+          167,
+          171,
+          172,
+          173,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/utils/is-node-or-child.lil",
+        "bytes": 224,
+        "sha256": "935e3421708c7c4e622ef9f30c40c79fa8a8d2971f39f486bf3fa453dd78e888",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/utils/is-primary-pointer.lil",
+        "bytes": 264,
+        "sha256": "e4feadfc039b91a0e0a6cc6148786fdae8987a36c3bc330be97d41a3492a77db",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/press/utils/is-keyboard-accessible.lil",
+        "bytes": 612,
+        "sha256": "6f581ea9add9eb7012d1002d7a5643d47b3218b4bb6ee0ae7faf47e983db84fd",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/press/utils/keyboard.lil",
+        "bytes": 1320,
+        "sha256": "7b327be904ef483d88d47fe212e34dffaeb33e8ce5333d67716556954df4a3b0",
+        "dependencies": [
+          173,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/gestures/press/utils/state.lil",
+        "bytes": 122,
+        "sha256": "0bf890b4598794d6bd0b83b897e52237ac8b13ed5c5f774420ece31ddd0e5092",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/dom/style-computed.lil",
+        "bytes": 346,
+        "sha256": "a04b48de63baacf5ab20f5706d57f50f66794bdefb9e598b80fe2f6e9bb074c1",
+        "dependencies": [
+          115,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/resize/index.lil",
+        "bytes": 351,
+        "sha256": "871289c53a6e5f33524cc374f7c21f41355258b52e90a76e1ed87763b337e172",
+        "dependencies": [
+          176,
+          178,
+          179
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/resize/handle-element.lil",
+        "bytes": 2412,
+        "sha256": "752da2d6bb62a0e0d012d98758ee19ef87ce12e5a98ee17b398abb894219d6b1",
+        "dependencies": [
+          177,
+          155,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/is-svg-element.lil",
+        "bytes": 336,
+        "sha256": "72f1bfbc2999c3d9152ee99d47f88644e0067325db959180e993a76fd568136c",
+        "dependencies": [
+          161,
+          7,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/resize/handle-window.lil",
+        "bytes": 917,
+        "sha256": "297f63ae5422a667ed42132d475f285ebeb2b43a48a5d158e7cdd1bfc16053b8",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/resize/types.lil",
+        "bytes": 162,
+        "sha256": "18fe8691435a0b042a748f2dae9eec96df65773d68e5838ac614aa57d11597cf",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/scroll/observe.lil",
+        "bytes": 682,
+        "sha256": "49a70d402609a4ce457b37615199539e4bf597ecebf53fa872312f28fc071a55",
+        "dependencies": [
+          87,
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/stats/index.lil",
+        "bytes": 762,
+        "sha256": "7e38d2cfb702fdfa72dfc8c294b436dda3e914a99bd5c095a501b1d9fd08fd7b",
+        "dependencies": [
+          182,
+          183
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/stats/buffer.lil",
+        "bytes": 315,
+        "sha256": "96f77e41492f9ce28e257f8cd859ae9889f4444292378d2371c5db8681ab08d3",
+        "dependencies": [
+          183
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/stats/types.lil",
+        "bytes": 745,
+        "sha256": "c9b7626f133b642b49fcb8f0bb8d32ac854a7252b0c37d4fa074e36d64560af9",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/interpolate.lil",
+        "bytes": 3007,
+        "sha256": "2da39ef20ef703f20d1f2af0a31dfb5749523dae6af6ce828221fe2ab49759d7",
+        "dependencies": [
+          15,
+          5,
+          9,
+          62,
+          7,
+          20,
+          17
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/is-svg-svg-element.lil",
+        "bytes": 290,
+        "sha256": "106cafb21361349494a77c12f43d8fc224d810466882671b9389b199fe6b532f",
+        "dependencies": [
+          20,
+          177
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/mix/index.lil",
+        "bytes": 386,
+        "sha256": "9378a043c221549df5bf6a251e45ccfd600afaa22419b6c14ea066fa2d99829e",
+        "dependencies": [
+          17,
+          39,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/stagger.lil",
+        "bytes": 1549,
+        "sha256": "8f3d36a74025bfbaf985aa922aadc12be471611ed1b56414f426b20d81abbc8f",
+        "dependencies": [
+          53,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/transform.lil",
+        "bytes": 1079,
+        "sha256": "075f1436c5ac06155951957747c7b2dcd0e2f85b89de4320220b499c701b5a9b",
+        "dependencies": [
+          20,
+          184
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/follow-value.lil",
+        "bytes": 4368,
+        "sha256": "0ee126706fcad7ef386a388e1f9defb55269faa08a064c16bcb5c5d959a409cf",
+        "dependencies": [
+          14,
+          48,
+          7,
+          87,
+          12,
+          86,
+          20,
+          96
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/map-value.lil",
+        "bytes": 743,
+        "sha256": "97babadaf0a70121f7fb7701641316862d94dc09181d2c5bbd065579e0ffcd9c",
+        "dependencies": [
+          184,
+          86,
+          191,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/transform-value.lil",
+        "bytes": 1045,
+        "sha256": "3dc51c9d2ed83e3f9f527f9b63e2b3bca971a43574733c881e76486c2cb60a31",
+        "dependencies": [
+          87,
+          12,
+          86
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/spring-value.lil",
+        "bytes": 672,
+        "sha256": "4ddc82e5b961b3b79de7d6e55cb878cdb91ed2b8c64e78dc1b6607f931febd6b",
+        "dependencies": [
+          189,
+          86,
+          20
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/index.lil",
+        "bytes": 3687,
+        "sha256": "1e20639866fcf42c62c54caceb0e9f77de4e3a313e0d87a0c64879f9aaa4c572",
+        "dependencies": [
+          194,
+          9
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/queue.lil",
+        "bytes": 1790,
+        "sha256": "881c3429ebadaaa895e6975ddab550136d773be015cc240d862dcbb34e6dbea9",
+        "dependencies": [
+          79,
+          12,
+          195,
+          76
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/start.lil",
+        "bytes": 25015,
+        "sha256": "10db972ac8888a2143064da2ee4835f4af6eaf36135c025031abf9ff04800248",
+        "dependencies": [
+          138,
+          116,
+          140,
+          142,
+          122,
+          124,
+          196,
+          155,
+          16,
+          197,
+          199,
+          200,
+          201,
+          202,
+          203
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/border-radius.lil",
+        "bytes": 148,
+        "sha256": "c04b69dd88139e77ca0d097558a11f16941dc0f11deeed6a4cabc09dd7235517",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/warn-once.lil",
+        "bytes": 483,
+        "sha256": "1729045aaf5eef2833341c01177f39448610921c71aaa7ebeac15c5f922e029f",
+        "dependencies": [
+          198
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/format-error-message.lil",
+        "bytes": 252,
+        "sha256": "07fb5182db1b17f36a3ebf3ab02ba7f1ecc8ad460dfd9205dba832d677b61da5",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/utils/assign-names.lil",
+        "bytes": 1171,
+        "sha256": "60a2429b3c39051b4e56f080cf1ae87e596a718762ac090f1274cfff25b883c1",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/utils/choose-layer-type.lil",
+        "bytes": 197,
+        "sha256": "48178dbc00ed44da27df12ea7e1a1351a7a313f27bf27dfc101f15945d171cdd",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/utils/css.lil",
+        "bytes": 856,
+        "sha256": "a1df513e3ee54cc583c15761a616e84c48483e3d43b9247dc00d39b7285379bc",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/utils/get-layer-info.lil",
+        "bytes": 545,
+        "sha256": "b13dc0e0706f75c1bb455818740c5015bdb2bd8114e7edfa6ff1c0f73b0fab53",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/view/utils/get-view-animations.lil",
+        "bytes": 535,
+        "sha256": "2874405d8399ac12d1e92fab7d524ebd9cc3b5802449d41f88cf3fc14fe78730",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/copy.lil",
+        "bytes": 555,
+        "sha256": "52f5b8a110c507c559a90d0bf9c62fb0a3c74a8ce6023cb9486a123dbed5ce57",
+        "dependencies": [
+          81
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/delta-calc.lil",
+        "bytes": 3042,
+        "sha256": "e53ad486da5b7b354dcb1e966acb27a16ec39d49054f20a66c2705c0b188ebe8",
+        "dependencies": [
+          81,
+          39
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/delta-remove.lil",
+        "bytes": 2287,
+        "sha256": "7f9be3b03339d529fcc107d136881f56eb899cb0aa8e2e34a03471dfc0c318dc",
+        "dependencies": [
+          81,
+          39,
+          36,
+          84
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/geometry/utils.lil",
+        "bytes": 1013,
+        "sha256": "197c01f0432bda0056d0cabb83b7009a1595516d1168b6b9b1f657aa39932665",
+        "dependencies": [
+          81,
+          205
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/calc-child-stagger.lil",
+        "bytes": 744,
+        "sha256": "0603a1c8dae5de3561a69a51c3c19537133650083bcb4d17fa947805418c2f87",
+        "dependencies": [
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/arc.lil",
+        "bytes": 7256,
+        "sha256": "c5df92743a56a7d398c4b280350f9b18a2a4968d859151586e57cada540d70be",
+        "dependencies": [
+          112,
+          210,
+          86,
+          73,
+          211,
+          142,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/wrap.lil",
+        "bytes": 237,
+        "sha256": "8087dbbfab998d104c22794047f16d44897a777a0239ec907f92eda92263b2d5",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/interfaces/motion-value.lil",
+        "bytes": 4362,
+        "sha256": "d2c8ccc772338358aa5d47533d0a76bf9ec8cb6994f7074cd4d9fd75f806d10d",
+        "dependencies": [
+          5,
+          16,
+          8,
+          12,
+          4,
+          14,
+          66,
+          212,
+          142,
+          213,
+          134,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/default-transitions.lil",
+        "bytes": 936,
+        "sha256": "71de2ba297d511f3a2acab6bad21a1580b77dc99b3ec911ad1e2e3e109c49bcf",
+        "dependencies": [
+          71
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/utils/is-transition-defined.lil",
+        "bytes": 365,
+        "sha256": "2608687d3a831f8bd8fd02cab7564353852a00403716984002aa8dfe020a3daa",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/interfaces/visual-element.lil",
+        "bytes": 1188,
+        "sha256": "b5676fd7a7c947e6aa9e9595f22447cca1d64bcd96faab2c84c8b4237164601a",
+        "dependencies": [
+          215,
+          216,
+          223,
+          48,
+          73
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/resolve-dynamic-variants.lil",
+        "bytes": 441,
+        "sha256": "5916bc645283d137283bab6ad58969facbc39409e6fdb65f27e2515d07185a6b",
+        "dependencies": [
+          105,
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/interfaces/visual-element-target.lil",
+        "bytes": 4953,
+        "sha256": "77e513c8012ca9bd18a8c2ef108c0f37b7947ce0883ad247d7904312a9dda6ff",
+        "dependencies": [
+          8,
+          12,
+          70,
+          217,
+          219,
+          73,
+          7,
+          221,
+          142,
+          143,
+          211,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/setters.lil",
+        "bytes": 1127,
+        "sha256": "f0090bed152af6a2ced3518d816d23a8df9e9b57c1755178aa2739efacbd51e5",
+        "dependencies": [
+          86,
+          74,
+          215,
+          218
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/is-keyframes-target.lil",
+        "bytes": 67,
+        "sha256": "940775643e4619ee7b82596085efd7f5da2e1962ce329c46f25daf9dcb22f2f7",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/will-change/add-will-change.lil",
+        "bytes": 920,
+        "sha256": "c33a0a5e6e984019063695daaf0b4905d8d2f8aafbae29d373fd1d7c8556b6d7",
+        "dependencies": [
+          5,
+          7,
+          73,
+          220,
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/will-change/is.lil",
+        "bytes": 223,
+        "sha256": "af2dad07be3280d60992257992dcdbbdcf6dc601d665737cc1e909c9e10b8c4a",
+        "dependencies": [
+          20,
+          96
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/optimized-appear/get-appear-id.lil",
+        "bytes": 185,
+        "sha256": "93a0281e84fc4c3c2466bbdf8bcb8308d0bf581183a6cd821cc42f16343c072d",
+        "dependencies": [
+          222
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/optimized-appear/data-id.lil",
+        "bytes": 216,
+        "sha256": "a1d44d7d4126934465749c3ef9e9b79b5cd44e503c0d472b74760369a5123b73",
+        "dependencies": [
+          151
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/interfaces/visual-element-variant.lil",
+        "bytes": 3062,
+        "sha256": "ebba1511023c44c518c25346b263a35ccd5a291c7056b00afb3232548695c020",
+        "dependencies": [
+          215,
+          73,
+          208,
+          216,
+          48
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/dom/DOMVisualElement.lil",
+        "bytes": 423,
+        "sha256": "093b51ea3da16b133d99ccb25fca40f17ac163d7a7edab79348a639592ec1d22",
+        "dependencies": [
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/Feature.lil",
+        "bytes": 197,
+        "sha256": "1eeae4fcdad9c66dfc839e1d9ab68c91acfc3aa1da491534fac4f31ac28f3dfb",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/html/HTMLVisualElement.lil",
+        "bytes": 1930,
+        "sha256": "bc42e5dc5f424c4e2b188c239f022a5a03cc4bb12c23eef9dee85149c9efbf96",
+        "dependencies": [
+          224,
+          74,
+          71,
+          112,
+          18,
+          227,
+          229,
+          230,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/html/utils/build-styles.lil",
+        "bytes": 1503,
+        "sha256": "39a9a84fbdf0aa21a1bdbbe0062529807c2d690403d0e74840eff75c18b18669",
+        "dependencies": [
+          71,
+          18,
+          228
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/html/utils/build-transform.lil",
+        "bytes": 1963,
+        "sha256": "7110ef33594451f2bb7126a55b2a1ddc103b862588ff9a6e5b8c74dc1456c3fe",
+        "dependencies": [
+          153,
+          92,
+          71
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/html/utils/render.lil",
+        "bytes": 548,
+        "sha256": "3773bb350d87e400c7467a82b2337d4ccbf11cbce6d4fe84ba50a391ce63ef76",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/html/utils/scrape-motion-values.lil",
+        "bytes": 1011,
+        "sha256": "0214f5cd496a05c038684ea2ab2d81c4a447c071582c98350a2c9d2c7b094161",
+        "dependencies": [
+          96,
+          231,
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/is-forced-motion-value.lil",
+        "bytes": 398,
+        "sha256": "dc5b3249c150f97b0ebe78760194f9d54116bd4a477086c66a65f1f888f43c45",
+        "dependencies": [
+          71,
+          232
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/styles/scale-correction.lil",
+        "bytes": 841,
+        "sha256": "0197b205b6eadc33f7515375d261357e24fc17f4fab3425b056688b8a6af8a05",
+        "dependencies": [
+          18,
+          196,
+          233,
+          234
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/styles/scale-border-radius.lil",
+        "bytes": 791,
+        "sha256": "a0fbcc23a6dd9d3df90ba587515b627f800fa009efa8d4128e709d332074211e",
+        "dependencies": [
+          81,
+          36
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/styles/scale-box-shadow.lil",
+        "bytes": 1475,
+        "sha256": "d95ab1ff39f77e380698ee64fe389287c0ddeb84c93a8d6304be1f41a823bc13",
+        "dependencies": [
+          81,
+          39,
+          29
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/object/ObjectVisualElement.lil",
+        "bytes": 1239,
+        "sha256": "5ce48b996c436a4f1dd88ed239a7e50e541bed235b89334bfd9329072f12a5c3",
+        "dependencies": [
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/SVGVisualElement.lil",
+        "bytes": 1938,
+        "sha256": "771a1dedd7e35d032d485b1df18479c20c1cbec5be5ce77ad2b608791432fbf4",
+        "dependencies": [
+          224,
+          74,
+          71,
+          151,
+          226,
+          91,
+          20,
+          237,
+          239,
+          240,
+          241,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/utils/build-attrs.lil",
+        "bytes": 2265,
+        "sha256": "ada74a80917475ec85459ead8593e0e2ac28ee7be8671beecc890f28a44f83e9",
+        "dependencies": [
+          227,
+          238
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/utils/path.lil",
+        "bytes": 361,
+        "sha256": "4aeb8326f4d279b08ad88e06bd29e91931229b0ca97f36ee8c7379b2edb8fade",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/utils/camel-case-attrs.lil",
+        "bytes": 563,
+        "sha256": "7b7a27c0c434c3badb69d2143a73d9af7bc57a57c27ac8d5c717694b27afb1c5",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/utils/render.lil",
+        "bytes": 580,
+        "sha256": "8b98a033725290e1d16e4fbe10580a398a1121d958197ece7a27007fc5974c20",
+        "dependencies": [
+          151,
+          229,
+          239
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/svg/utils/scrape-motion-values.lil",
+        "bytes": 810,
+        "sha256": "16817dbd364ce9bd74cc71aae3911f5dfe6266cfb0b96c877baa0929b7da5029",
+        "dependencies": [
+          96,
+          71,
+          230
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/animation-state.lil",
+        "bytes": 14849,
+        "sha256": "08aff70a62e93b8eafb63926b832bb4af4dae17e1f19b2c5b12a4121d5b0287f",
+        "dependencies": [
+          214,
+          208,
+          99,
+          218,
+          100,
+          215,
+          243,
+          101,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/shallow-compare.lil",
+        "bytes": 358,
+        "sha256": "f97680c52ca21c4febd3af9c9e20ec403c8ba4c3cab84c66104b2e0f0e8c3a24",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/render/utils/get-variant-context.lil",
+        "bytes": 1132,
+        "sha256": "6361351b14191eb3753b7ef28224d15a241347d5ea026ff39af83f60701c39b6",
+        "dependencies": [
+          100,
+          101
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/utils/each-axis.lil",
+        "bytes": 103,
+        "sha256": "782e4e67bfd6ab5fd3a8bfd4699d35cc5e0fcf7d8bc345dda28e72ad56c1dd5a",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/styles/transform.lil",
+        "bytes": 1711,
+        "sha256": "55345aeaa02759906babf3d070acd360ca63aca7451ec13ca660bdf926830b67",
+        "dependencies": [
+          81
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/animation/mix-values.lil",
+        "bytes": 2678,
+        "sha256": "7455babbf016b2bab7d6007b3d5d3b3c4c7e623a1e5b8a7458777d5184d15db4",
+        "dependencies": [
+          248,
+          9,
+          39,
+          36,
+          196
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/index.lil",
+        "bytes": 2257,
+        "sha256": "549be76ae016f2586e5029915c35572d76c1fa29ef4e47388b95faef121eb209",
+        "dependencies": [
+          76,
+          15,
+          249,
+          5,
+          77,
+          161,
+          78,
+          119,
+          9,
+          250,
+          62,
+          75,
+          16,
+          51,
+          197,
+          210,
+          76,
+          54,
+          55,
+          59,
+          56,
+          60,
+          57,
+          58,
+          251,
+          252,
+          123,
+          61,
+          53,
+          81
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/errors.lil",
+        "bytes": 157,
+        "sha256": "373dcaf5fdeb413121d523751a59078d9356e1b4c5478e147151e75aef30f4cf",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/pipe.lil",
+        "bytes": 306,
+        "sha256": "a0060c00e4bec1dd95c9f326326cda0926e215248cd660218257942446545cc2",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/steps.lil",
+        "bytes": 372,
+        "sha256": "76f8ae6e41432c0fd37fe76256dd886dc85d61d1b5f4825485038b34585bd005",
+        "dependencies": [
+          15
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-utils/easing/utils/get-easing-for-segment.lil",
+        "bytes": 257,
+        "sha256": "9681f0b637dcd46fae6466ed97a35333f278e30f93a6d727dd45ea1005b86ec4",
+        "dependencies": [
+          210,
+          61
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/animation/animate/single-value.lil",
+        "bytes": 545,
+        "sha256": "c1fb87b3b5f7eaf484338176db0a2685a14cc4c68326bdf88a0a8d8534cd8273",
+        "dependencies": [
+          96,
+          86,
+          211
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/events/add-dom-event.lil",
+        "bytes": 387,
+        "sha256": "a67e8b26fceccdf7e9effa35e7dae24c5a554972e87c3ad1093e9d23c0e1a048",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/utils/compare-by-depth.lil",
+        "bytes": 178,
+        "sha256": "02a9db6600c7c3415595c070511bdf4168b0722a79ee14d30cdb5c1fc921e435",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/utils/flat-tree.lil",
+        "bytes": 1056,
+        "sha256": "30691feaf3eae1cc24ef8996398cce790e7af4d3c567f8396493233448a34a62",
+        "dependencies": [
+          76,
+          255
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/utils/delay.lil",
+        "bytes": 795,
+        "sha256": "373ef65fc79ecaca2fa3d54cb2a2ae65d23299e4cccbc7a39eb7a264912d03de",
+        "dependencies": [
+          16,
+          87,
+          6,
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/value/utils/resolve-motion-value.lil",
+        "bytes": 301,
+        "sha256": "5f04265165ec495243b8e04d25af3859eddf8da1bb5bac55ca4c261544ccecaf",
+        "dependencies": [
+          7,
+          96
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/node/create-projection-node.lil",
+        "bytes": 78081,
+        "sha256": "c2db3ffb09912ca0ab4b53848839bdc5017b049aa341cc9386e99ec06ee8974a",
+        "dependencies": [
+          15,
+          9,
+          75,
+          39,
+          253,
+          221,
+          142,
+          8,
+          12,
+          79,
+          6,
+          182,
+          183,
+          257,
+          177,
+          185,
+          86,
+          247,
+          204,
+          84,
+          205,
+          206,
+          80,
+          207,
+          260,
+          245,
+          76,
+          255,
+          85,
+          261,
+          246,
+          232,
+          258,
+          7,
+          81,
+          74
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/shared/stack.lil",
+        "bytes": 4181,
+        "sha256": "4eec318d41b06db130d3bea0257e18b425c6baadaab85fe99bcfcfd455075b0a",
+        "dependencies": [
+          76,
+          7,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/node/state.lil",
+        "bytes": 265,
+        "sha256": "ba4d74e7bb5ee3d0a938aef6a59a8ec935c4bbc06bf3ca02ad41cfcf96204306",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/node/DocumentProjectionNode.lil",
+        "bytes": 1452,
+        "sha256": "510c02d0345d9a78e89eac1203aabb96fcf0fadce813897f58aa27295bdd9299",
+        "dependencies": [
+          7,
+          254,
+          259
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/node/group.lil",
+        "bytes": 2047,
+        "sha256": "41e00c80fef7264955d13d53f320c4f2c5e2c052127bd1018fc04188ea9f8d0c",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/projection/node/HTMLProjectionNode.lil",
+        "bytes": 1603,
+        "sha256": "3090325ab5e46948d1ca62703f94286c1f501818e4e8e150d53d6448dcda4180",
+        "dependencies": [
+          7,
+          259,
+          262
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/layout/LayoutAnimationBuilder.lil",
+        "bytes": 14889,
+        "sha256": "70c74e60a2ec78bd02f8802d78245a9f66bd009662cef5fc406ef4f004bf9d0c",
+        "dependencies": [
+          138,
+          8,
+          12,
+          79,
+          6,
+          264,
+          85,
+          97,
+          226,
+          155,
+          80,
+          81,
+          15,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/motion-dom/frameloop/index-legacy.lil",
+        "bytes": 321,
+        "sha256": "c0b6300c9bc3f29733123ae252d0310a6b767e908d08bb9162ede80bcc1bfc96",
+        "dependencies": [
+          87,
+          13,
+          12
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animate/index.lil",
+        "bytes": 2550,
+        "sha256": "6aa49e7fc8d9f24e5251d757b7cf257bb6abe82f5e772d842be136c25e9c643b",
+        "dependencies": [
+          139,
+          155,
+          76,
+          7,
+          268,
+          276
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animate/sequence.lil",
+        "bytes": 1678,
+        "sha256": "4d1ad4efce119a7c215f67d6cea2ba210c4faae56f870aabbe3fbee44d19cf63",
+        "dependencies": [
+          86,
+          155,
+          7,
+          269
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/sequence/create.lil",
+        "bytes": 11040,
+        "sha256": "b42004456b97f98d5fc2ae6292a14defedde559984ef54fd3149b0ba1fa4d640",
+        "dependencies": [
+          63,
+          64,
+          96,
+          155,
+          252,
+          62,
+          58,
+          7,
+          270,
+          272,
+          273,
+          274,
+          275
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animate/resolve-subjects.lil",
+        "bytes": 698,
+        "sha256": "6b782bf1ae2fffc1d81264fd31992a5495ac0d02f58886c05ca2ecc8ef117468",
+        "dependencies": [
+          155,
+          271,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/utils/is-dom-keyframes.lil",
+        "bytes": 162,
+        "sha256": "936a0c45f29da286a9835991401f6e42dc90d0a58adb004e6abc34f6f298a6f5",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/sequence/utils/sort.lil",
+        "bytes": 649,
+        "sha256": "3847893c956b978f5ed7668d0a59c180adfde5b602e38295106b3f8660f00d6b",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/sequence/utils/calc-time.lil",
+        "bytes": 619,
+        "sha256": "8d6fa6eeee4695ae1b3a7273dc3c2be43110aaa5d4e7c1fcd44004edf3846bf6",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/sequence/utils/edit.lil",
+        "bytes": 1055,
+        "sha256": "f27a1b16e29ac004001b93d3f77e1630f8b0f24e8473d7c896b52b115fb1645e",
+        "dependencies": [
+          39,
+          252,
+          272
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/sequence/utils/normalize-times.lil",
+        "bytes": 238,
+        "sha256": "289e48af5b6b1eba1361725e6a78e1602ea6a2e4051c38b7e826496836ac109b",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animate/subject.lil",
+        "bytes": 2511,
+        "sha256": "3bceba9cd1c7dd3b098f3f396445f866159ef1598208d389934a2070e1e47a84",
+        "dependencies": [
+          216,
+          253,
+          96,
+          97,
+          155,
+          7,
+          277,
+          271,
+          270
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/utils/create-visual-element.lil",
+        "bytes": 1683,
+        "sha256": "8af0f96a7150bd543d967dc6fb161bcdadba8812a3a23d29bdad7200d351fd12",
+        "dependencies": [
+          177,
+          185,
+          74,
+          226,
+          236,
+          235,
+          97,
+          7
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animators/waapi/animate-style.lil",
+        "bytes": 393,
+        "sha256": "4b9acc0350130ec726292bcf0869f76402665692cdc7b170123032edd97c738e",
+        "dependencies": [
+          139,
+          279
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animators/waapi/animate-elements.lil",
+        "bytes": 4817,
+        "sha256": "96094319339aa1c8c6ffa96103c3286a45bcf26401d87776792b3485174c54f2",
+        "dependencies": [
+          141,
+          145,
+          108,
+          174,
+          142,
+          116,
+          155,
+          16,
+          7,
+          269
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/index.lil",
+        "bytes": 925,
+        "sha256": "3285927d4e42e4c4a3561ef7cfed15214ca967710e4aba45e510137b9e01b519",
+        "dependencies": [
+          281,
+          294,
+          285
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/attach-animation.lil",
+        "bytes": 1437,
+        "sha256": "6d995513f74e56b309aeca9cd34118ee33d120cd2c819410fe8c901c799af0c9",
+        "dependencies": [
+          180,
+          282,
+          292,
+          293
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/utils/get-timeline.lil",
+        "bytes": 2424,
+        "sha256": "e831e8cf1a54ac8c9b3c0799cf79c049103821b50fab650e8c5ecdb753b53c90",
+        "dependencies": [
+          283,
+          285,
+          292,
+          293,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/track.lil",
+        "bytes": 4716,
+        "sha256": "103eb2f0e4daef299a7e7fbe921829e7090b7f5052ef758dc5ab20040d76b25f",
+        "dependencies": [
+          87,
+          12,
+          175,
+          284,
+          286,
+          285
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/info.lil",
+        "bytes": 1084,
+        "sha256": "8355fd596b02f654004686840ba14a44893fe9cfc89877aaecfb327d0f26c403",
+        "dependencies": [
+          62,
+          51,
+          285
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/types.lil",
+        "bytes": 1254,
+        "sha256": "591ce6e86046725eb1d70133689427926b5e80fb9d12da6e65f995c4b2043d92",
+        "dependencies": [
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/on-scroll-handler.lil",
+        "bytes": 1471,
+        "sha256": "b012b35be40849e33e0fd3702ed75ee1df5cf257409d6c36e0649c9326bc3842",
+        "dependencies": [
+          284,
+          287,
+          285
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/offsets/index.lil",
+        "bytes": 2361,
+        "sha256": "200db2f268852c1dc4191064a7b06072af64b2f6b97230ff818fb8f0a0e7c9a0",
+        "dependencies": [
+          63,
+          184,
+          15,
+          285,
+          288,
+          289,
+          291
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/offsets/inset.lil",
+        "bytes": 1643,
+        "sha256": "06806ef52770e5af994f512e0256c58d69ee56f6c213b93a25561ba8fab38820",
+        "dependencies": [
+          160,
+          285
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/offsets/offset.lil",
+        "bytes": 759,
+        "sha256": "30471aee709daa864540dca3e0173b6ebf49004b43e0b9cefcbbd153fce6c9bd",
+        "dependencies": [
+          290
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/offsets/edge.lil",
+        "bytes": 980,
+        "sha256": "027ad7cf9533c1dc8fe4ccee798495e58f23356b8defa81b4d1ca0f5cc9ac563",
+        "dependencies": [
+          285
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/offsets/presets.lil",
+        "bytes": 239,
+        "sha256": "886f6ed97e9fb7103686dc3f3cde4a4a0b1beeaf9afcba26edd299d83c3d022f",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/utils/can-use-native-timeline.lil",
+        "bytes": 419,
+        "sha256": "954a5cf71ed6f2b2976ea0b49f6c96171475cd26535a55e405cb5d80e9f02947",
+        "dependencies": [
+          117,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/utils/offset-to-range.lil",
+        "bytes": 1991,
+        "sha256": "e8ae4ed2af6b732804d8f5baec662b56a8e4d61dc986843a88e1d4abf80cb998",
+        "dependencies": [
+          291
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/attach-function.lil",
+        "bytes": 726,
+        "sha256": "f63ae28e221cdfe9b58eb679162b219d1da1be5e4e9a3c62fdf48649523dd8c5",
+        "dependencies": [
+          180,
+          283,
+          285,
+          282,
+          295
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/scroll/utils/is-element-tracking.lil",
+        "bytes": 131,
+        "sha256": "75ae4209428350defcedaa5bc396ca61cfeaedd2c2b9d6ed00e887b18906add9",
+        "dependencies": [],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/render/dom/viewport/index.lil",
+        "bytes": 1903,
+        "sha256": "cf901c8cb26f23b1532939478fca8a2282bb8335c5c732e04dcde2ce8fe329a8",
+        "dependencies": [
+          155,
+          72
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/utils/distance.lil",
+        "bytes": 302,
+        "sha256": "95a0b45ec144b9e09a7af7918d29585105c3ba30ed875ccca3a46678602a8c09",
+        "dependencies": [
+          81
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animators/waapi/animate-sequence.lil",
+        "bytes": 758,
+        "sha256": "b80da89da53170a078b2fcc3c4a29234323acf1fbbd42466fd8431008e26a397",
+        "dependencies": [
+          139,
+          269,
+          279
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/compat.lil",
+        "bytes": 10193,
+        "sha256": "ff3ceba11bf77960ec63154e9ac208087dded5816b6a7963666a89fc08519377",
+        "dependencies": [
+          300,
+          86,
+          255,
+          80,
+          193,
+          138,
+          14,
+          116,
+          113,
+          140,
+          4
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/compat/core.lil",
+        "bytes": 1986,
+        "sha256": "6e6c47e2d8bf8657e3599c4b25fab989f5968283615320b1f916877ef85b62c6",
+        "dependencies": [
+          23,
+          153,
+          60,
+          86,
+          138,
+          139,
+          301,
+          304
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animate/consumer.lil",
+        "bytes": 2560,
+        "sha256": "8a03a99631a5dd3da521d456bcf6fc3a51692252a3758a7059c33cc166b44e2e",
+        "dependencies": [
+          139,
+          155,
+          76,
+          7,
+          268,
+          302
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animate/subject-dom.lil",
+        "bytes": 2522,
+        "sha256": "fef9202016c7b952d0a46ed9fa29bd5607051a1c2f43ffc5ce902a4f5f36ad9b",
+        "dependencies": [
+          216,
+          253,
+          96,
+          97,
+          155,
+          7,
+          303,
+          271,
+          270
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/utils/create-html-visual-element.lil",
+        "bytes": 1328,
+        "sha256": "5b2c245a50933a20132d11d8079399fdb9e6eb6542b249f6926c686f92afc6f0",
+        "dependencies": [
+          226,
+          236,
+          74,
+          97,
+          177,
+          185
+        ],
+        "dynamic_dependencies": []
+      },
+      {
+        "path": "/home/azureuser/motionlil/src/framer-motion/animation/animators/waapi/animate-style-mini.lil",
+        "bytes": 71,
+        "sha256": "490afdc3d8920fa00e5bfebdd5ca97803e93384bc42f4ddf023cfb63e877530a",
+        "dependencies": [
+          278
+        ],
+        "dynamic_dependencies": []
+      }
+    ],
+    "host_modules": [
+      {
+        "specifier": "../motion-dom/dom-host.ts",
+        "stem": "dom-host",
+        "delivered_bytes": 5828,
+        "sha256": "abbf63bf4ff90e59c26450c7bc086a422b7ef732f4338a925176b696a87722ff",
+        "exports": [
+          [
+            "performanceNow",
+            "performanceNow"
+          ],
+          [
+            "scheduleAnimationFrame",
+            "scheduleAnimationFrame"
+          ],
+          [
+            "scheduleMicrotask",
+            "scheduleMicrotask"
+          ],
+          [
+            "hasOwn",
+            "hasOwn"
+          ],
+          [
+            "isEventTarget",
+            "isEventTarget"
+          ],
+          [
+            "isNodeList",
+            "isNodeList"
+          ],
+          [
+            "querySelectorAll",
+            "querySelectorAll"
+          ],
+          [
+            "documentQuerySelectorAll",
+            "documentQuerySelectorAll"
+          ],
+          [
+            "arrayFromNullable",
+            "arrayFromNullable"
+          ],
+          [
+            "supportsLinearEasingCheck",
+            "supportsLinearEasingCheck"
+          ],
+          [
+            "supportsPartialKeyframesCheck",
+            "supportsPartialKeyframesCheck"
+          ],
+          [
+            "supportsWaapiCheck",
+            "supportsWaapiCheck"
+          ],
+          [
+            "documentCreateElement",
+            "documentCreateElement"
+          ],
+          [
+            "documentHead",
+            "documentHead"
+          ],
+          [
+            "documentGetAnimations",
+            "documentGetAnimations"
+          ],
+          [
+            "documentStartViewTransition",
+            "documentStartViewTransition"
+          ],
+          [
+            "asMap",
+            "asMap"
+          ],
+          [
+            "asSet",
+            "asSet"
+          ],
+          [
+            "asArray",
+            "asArray"
+          ],
+          [
+            "hasScrollTimeline",
+            "hasScrollTimeline"
+          ],
+          [
+            "hasViewTimeline",
+            "hasViewTimeline"
+          ],
+          [
+            "windowInnerWidth",
+            "windowInnerWidth"
+          ],
+          [
+            "windowInnerHeight",
+            "windowInnerHeight"
+          ],
+          [
+            "addWindowListener",
+            "addWindowListener"
+          ],
+          [
+            "removeWindowListener",
+            "removeWindowListener"
+          ],
+          [
+            "addEventListener",
+            "addEventListener"
+          ],
+          [
+            "removeEventListener",
+            "removeEventListener"
+          ],
+          [
+            "createResizeObserver",
+            "createResizeObserver"
+          ],
+          [
+            "observeResize",
+            "observeResize"
+          ],
+          [
+            "unobserveResize",
+            "unobserveResize"
+          ],
+          [
+            "readBorderBoxSize",
+            "readBorderBoxSize"
+          ],
+          [
+            "readElementSize",
+            "readElementSize"
+          ],
+          [
+            "getElementTagName",
+            "getElementTagName"
+          ],
+          [
+            "constructConfigured",
+            "constructConfigured"
+          ],
+          [
+            "constructConfigured2",
+            "constructConfigured2"
+          ],
+          [
+            "parseFloatValue",
+            "parseFloatValue"
+          ],
+          [
+            "hasFunction",
+            "hasFunction"
+          ],
+          [
+            "callMethod0",
+            "callMethod0"
+          ],
+          [
+            "callMethod1",
+            "callMethod1"
+          ],
+          [
+            "callMethod2",
+            "callMethod2"
+          ],
+          [
+            "createPointerEvent",
+            "createPointerEvent"
+          ],
+          [
+            "dispatchEvent",
+            "dispatchEvent"
+          ],
+          [
+            "isFunction",
+            "isFunction"
+          ],
+          [
+            "invoke1",
+            "invoke1"
+          ],
+          [
+            "invoke2",
+            "invoke2"
+          ],
+          [
+            "callFn3",
+            "callFn3"
+          ],
+          [
+            "callFn0",
+            "callFn0"
+          ],
+          [
+            "callFn1",
+            "callFn1"
+          ],
+          [
+            "callFn2",
+            "callFn2"
+          ],
+          [
+            "callFn5",
+            "callFn5"
+          ],
+          [
+            "taskFromCallback",
+            "taskFromCallback"
+          ],
+          [
+            "getComputedStyleValue",
+            "getComputedStyleValue"
+          ],
+          [
+            "getComputedStyleProperty",
+            "getComputedStyleProperty"
+          ],
+          [
+            "getComputedStyleField",
+            "getComputedStyleField"
+          ],
+          [
+            "windowScrollTo",
+            "windowScrollTo"
+          ],
+          [
+            "windowPageYOffset",
+            "windowPageYOffset"
+          ],
+          [
+            "windowGet",
+            "windowGet"
+          ],
+          [
+            "windowSelf",
+            "windowSelf"
+          ],
+          [
+            "documentElement",
+            "documentElement"
+          ],
+          [
+            "matchMediaQuery",
+            "matchMediaQuery"
+          ],
+          [
+            "hasWindow",
+            "hasWindow"
+          ],
+          [
+            "addMatchMediaListener",
+            "addMatchMediaListener"
+          ],
+          [
+            "matchMediaMatches",
+            "matchMediaMatches"
+          ],
+          [
+            "documentGet",
+            "documentGet"
+          ],
+          [
+            "documentScrollingElement",
+            "documentScrollingElement"
+          ],
+          [
+            "setProp",
+            "setProp"
+          ],
+          [
+            "getProp",
+            "getProp"
+          ],
+          [
+            "deleteProp",
+            "deleteProp"
+          ],
+          [
+            "mapKeys",
+            "mapKeys"
+          ],
+          [
+            "mapValues",
+            "mapValues"
+          ],
+          [
+            "setValues",
+            "setValues"
+          ],
+          [
+            "isCurrentRealmElement",
+            "isCurrentRealmElement"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../motion-dom/value/types/cast.ts",
+        "stem": "cast",
+        "delivered_bytes": 34,
+        "sha256": "02902f0c97e9e63d83fd7c96131c83777f210bcd49943b9d98681101b8f2029d",
+        "exports": [
+          [
+            "cast",
+            "cast"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../motion-dom/string-host.ts",
+        "stem": "string-host",
+        "delivered_bytes": 409,
+        "sha256": "81df9bb205eacf2d3fd8e25d653d9cc143ab7934883de186c02e04b573da8f8d",
+        "exports": [
+          [
+            "stringMatch",
+            "stringMatch"
+          ],
+          [
+            "stringReplace",
+            "stringReplace"
+          ],
+          [
+            "stringSplit",
+            "stringSplit"
+          ],
+          [
+            "stringSubstring",
+            "stringSubstring"
+          ],
+          [
+            "stringTrim",
+            "stringTrim"
+          ],
+          [
+            "isNaNNumber",
+            "isNaNNumber"
+          ],
+          [
+            "arrayFrom",
+            "arrayFrom"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../motion-dom/animation/anim-host.ts",
+        "stem": "anim-host",
+        "delivered_bytes": 1119,
+        "sha256": "cb47cfbe32c2d90165b9facdbf6ee6fa50026c1aa1e3f488976970709720b190",
+        "exports": [
+          [
+            "animAssign2",
+            "animAssign2"
+          ],
+          [
+            "animAssign3",
+            "animAssign3"
+          ],
+          [
+            "animDefineProperties",
+            "animDefineProperties"
+          ],
+          [
+            "animSinh",
+            "animSinh"
+          ],
+          [
+            "animCosh",
+            "animCosh"
+          ],
+          [
+            "animNewPromise",
+            "animNewPromise"
+          ],
+          [
+            "animPromiseAll",
+            "animPromiseAll"
+          ],
+          [
+            "animArrayFrom",
+            "animArrayFrom"
+          ],
+          [
+            "animClass",
+            "animClass"
+          ],
+          [
+            "animAdopt",
+            "animAdopt"
+          ],
+          [
+            "animCreate",
+            "animCreate"
+          ],
+          [
+            "animArity",
+            "animArity"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../motion-dom/weak-host.ts",
+        "stem": "weak-host",
+        "delivered_bytes": 540,
+        "sha256": "8aea545a664421ce1e08850df0a1672f03e389a61752daa47f6a043de8ac71a0",
+        "exports": [
+          [
+            "weakMapCreate",
+            "weakMapCreate"
+          ],
+          [
+            "weakMapGet",
+            "weakMapGet"
+          ],
+          [
+            "weakMapSet",
+            "weakMapSet"
+          ],
+          [
+            "weakMapHas",
+            "weakMapHas"
+          ],
+          [
+            "weakMapDelete",
+            "weakMapDelete"
+          ],
+          [
+            "weakSetCreate",
+            "weakSetCreate"
+          ],
+          [
+            "weakSetAdd",
+            "weakSetAdd"
+          ],
+          [
+            "weakSetHas",
+            "weakSetHas"
+          ],
+          [
+            "weakSetDelete",
+            "weakSetDelete"
+          ],
+          [
+            "setForEach",
+            "setForEach"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../motion-dom/effects/utils/dom.ts",
+        "stem": "dom",
+        "delivered_bytes": 263,
+        "sha256": "da5daa0009f7882d4b8a02c31bef8918346e7247a33bd8fc90c3cd303599c136",
+        "exports": [
+          [
+            "canSetAsProperty",
+            "canSetAsProperty"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../framer-motion/animation/utils/anim-host.ts",
+        "stem": "anim-host",
+        "delivered_bytes": 290,
+        "sha256": "99463e661dbc0f05671a8e81ff09301d8aff40d347552c6cf5c7c1bcebe54938",
+        "exports": [
+          [
+            "copy",
+            "copy"
+          ],
+          [
+            "spread",
+            "spread"
+          ],
+          [
+            "spread3",
+            "spread3"
+          ],
+          [
+            "view",
+            "view"
+          ],
+          [
+            "sortBy",
+            "sortBy"
+          ],
+          [
+            "forEachEntry",
+            "forEachEntry"
+          ]
+        ],
+        "imports": []
+      },
+      {
+        "specifier": "../compat-host.ts",
+        "stem": "compat-host",
+        "delivered_bytes": 651,
+        "sha256": "7c491e6ca1ab76bd837eb0cf83b2b6b3eaf5ea5ce5fd1a758a2d88c538543e92",
+        "exports": [
+          [
+            "viewTransitionConstructor",
+            "viewTransitionConstructor"
+          ],
+          [
+            "keyframeSubclass",
+            "keyframeSubclass"
+          ],
+          [
+            "visualSubclasses",
+            "visualSubclasses"
+          ]
+        ],
+        "imports": []
+      }
+    ],
+    "host_reserved": [
+      "Array",
+      "Boolean",
+      "Element",
+      "EventTarget",
+      "HTMLElement",
+      "Map",
+      "Math",
+      "NodeList",
+      "Object",
+      "PointerEvent",
+      "Promise",
+      "ResizeObserver",
+      "SVGElement",
+      "Set",
+      "WeakMap",
+      "WeakSet",
+      "document",
+      "globalThis",
+      "isNaN",
+      "parseFloat",
+      "performance",
+      "queueMicrotask",
+      "requestAnimationFrame",
+      "undefined",
+      "window"
+    ]
+  },
+  "validation": {
+    "checks": 1209,
+    "objectives": [
+      {
+        "objective": "raw",
+        "checks": 403,
+        "suite": "differential"
+      },
+      {
+        "objective": "gzip",
+        "checks": 403,
+        "suite": "differential"
+      },
+      {
+        "objective": "brotli",
+        "checks": 403,
+        "suite": "differential"
+      }
+    ],
+    "scope": "Main ESM entry; selected corpora and API checks, not all package formats or complete upstream equivalence."
+  },
+  "workLimit": 2000000000,
+  "timingScope": "One sequential fresh-output build per objective/minifier. Upstream timing is ESM bundling and minification, not original-repository source compilation."
+}
