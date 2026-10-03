@@ -1,0 +1,1 @@
+import{memo}from"../../../../motion-utils/memo-102.js";import{Wk}from"../../../../dom-host-13.js";let jg=memo(()=>Wk());export{jg};

@@ -1,1 +1,1 @@
-"use strict";const core=require("./full.cjs");Object.defineProperty(exports,"inView",{enumerable:true,get:()=>core["inView"]});
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"inView",{enumerable:true,get:()=>$$0["inView"]});let $$0=$$r("./internal/cjs/chunk-213.cjs");return $$e})(exports,require,Object);

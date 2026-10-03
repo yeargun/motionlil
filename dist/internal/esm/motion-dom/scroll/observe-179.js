@@ -1,0 +1,1 @@
+import{O,P}from"../frameloop/frame-231.js";let observeTimeline=function(a,b){let c,d=d=>{let f=b.currentTime,g=(f==null?0:f.value)/100;if(c!==g)a(g);c=g};O.preUpdate(d,!0,!1);return()=>{P(d)}};export{observeTimeline};

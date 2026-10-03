@@ -1,1 +1,1 @@
-export * from "./internal/entry-viewport.js";
+export{inView}from"./internal/esm/framer-motion/render/dom/viewport/index-223.js";

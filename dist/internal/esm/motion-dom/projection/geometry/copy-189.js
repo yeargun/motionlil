@@ -1,0 +1,1 @@
+let copyAxisInto=function(a,b){a.min=b.min;a.max=b.max},copyBoxInto=function(a,b){copyAxisInto(a.x,b.x);copyAxisInto(a.y,b.y)},copyAxisDeltaInto=function(a,b){a.translate=b.translate;a.scale=b.scale;a.originPoint=b.originPoint;a.origin=b.origin};export{copyAxisInto,copyBoxInto,copyAxisDeltaInto};

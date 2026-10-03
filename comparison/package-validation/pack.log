@@ -1,0 +1,5 @@
+
+> motionlil@0.1.5 check:pack
+> node scripts/check-pack.mjs
+
+npm pack: 597 files, 363805 bytes packed, 1710837 bytes unpacked

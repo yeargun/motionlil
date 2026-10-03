@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isSVGSVGElement",{enumerable:true,get:()=>isSVGSVGElement});let $$0=$$r("./chunk-110.cjs");let isSVGSVGElement=function(a=null){return(0,$$0["isSVGElement"])(a)&&a.tagName=="svg"};return $$e})(exports,require,Object);

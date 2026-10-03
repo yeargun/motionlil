@@ -9,7 +9,8 @@ const {chromium}=await import(process.env.PLAYWRIGHT_MODULE??'playwright');
 const run=resolve(process.argv[2]??'site/performance'),root=existsSync(join(run,'motion-benchmark'))?join(run,'motion-benchmark'):run;
 const server=createServer((req,res)=>{try{const file=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname).replace(/\/$/,'/index.html'));if(!file.startsWith(root+'/')){res.writeHead(403);res.end();return}res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.json')?'application/json':'text/javascript');res.end(readFileSync(file))}catch{res.writeHead(404);res.end()}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const baseUrl='http://127.0.0.1:'+server.address().port+'/';
-const smoke=process.argv.includes('--smoke'), repetitions=smoke?1:30,warmups=smoke?0:2;
+const validateOnly=process.argv.includes('--validate-only');
+const smoke=process.argv.includes('--smoke'), repetitions=validateOnly?0:smoke?1:30,warmups=validateOnly||smoke?0:2;
 const workloads=JSON.parse(readFileSync(join(root,'workloads.json'),'utf8'));
 const only=process.argv.includes('--workloads')?process.argv[process.argv.indexOf('--workloads')+1].split(','):null;
 const median=xs=>{const a=[...xs].sort((a,b)=>a-b);return a.length%2?a[(a.length-1)/2]:(a[a.length/2-1]+a[a.length/2])/2};
@@ -17,7 +18,7 @@ const quantile=(xs,p)=>[...xs].sort((a,b)=>a-b)[Math.min(xs.length-1,Math.floor(
 const hash=p=>createHash('sha256').update(readFileSync(p)).digest('hex');
 const browser=await chromium.launch({headless:true,args:['--disable-background-timer-throttling','--disable-renderer-backgrounding','--disable-backgrounding-occluded-windows']});
 const result={schemaVersion:1,measuredAt:new Date().toISOString(),browser:browser.version(),machine:{cpu:os.cpus()[0].model,logicalCpus:os.cpus().length,memoryBytes:os.totalmem(),os:execFileSync('lsb_release',['-ds'],{encoding:'utf8'}).trim(),node:process.version,architecture:os.arch(),loadAtStart:os.loadavg()},protocol:{repetitions,warmups,order:'Alternating original/LilScript and LilScript/original for each paired repetition; fresh browser page per lane.',viewport:{width:1280,height:900},deviceScaleFactor:1,durationMs:600,observationMs:800,primary:'Renderer main-thread TaskDuration from Chromium DevTools Performance counters; fixed identical animation work.',excluded:'Bundle download, module evaluation and initial DOM creation occur before the CPU interval.',validation:'Five paused timeline samples, native backend calls/options, active native properties and final DOM values; identical element counts, keyframes, easing, durations, styles and viewport. Library RAF is counted separately in an untimed validation pass.',equivalenceMargin:0.05,confidence:'95% paired bootstrap interval of median CPU ratio; 10,000 resamples. Equivalence requires the entire interval within [0.95, 1.05].',headless:true,frameCaveat:'Frame cadence is the benchmark observer RAF. Library RAF activity is separately recorded outside the timing interval; deterministic lifecycle tests compare scheduling, callbacks, pause/seek/replay/stop behavior.'},inputs:{lilscript:{file:'inputs/lilscript.js',sha256:hash(join(root,'inputs/lilscript.js'))},original:{file:'inputs/original.js',sha256:hash(join(root,'inputs/original.js'))},harnessSha256:hash(join(root,'harness.mjs'))},workloads:[]};
-const save=()=>writeFileSync(join(root,smoke?'smoke.json':'performance.json'),JSON.stringify(result,null,2)+'\n');
+const save=()=>writeFileSync(join(root,validateOnly?'validation.json':smoke?'smoke.json':'performance.json'),JSON.stringify(result,null,2)+'\n');
 async function trial(lane,workload,kind){
  const page=await browser.newPage({viewport:result.protocol.viewport,deviceScaleFactor:1,reducedMotion:'no-preference'});const errors=[];page.on('pageerror',e=>errors.push(String(e)));
  try{
@@ -49,6 +50,7 @@ for(const workload of workloads){
  for(const lane of ['original','lilscript'])if(row.validation[lane].libraryRaf?.afterStop.pending)errors.push(lane+': library RAF remains queued after stop');
  row.validation.errors=errors;
  if(errors.length){row.status='behavior-mismatch';console.log(workload.id,'BEHAVIOR MISMATCH',errors.slice(0,2).join('; '));save();continue;}
+ if(validateOnly){row.status='validated';save();console.log(workload.id,'behavior validated');continue;}
  let finalReference;
  for(let repetition=-warmups;repetition<repetitions;repetition++){
   const pair={repetition};for(const lane of ((repetition+warmups)%2===0?['original','lilscript']:['lilscript','original']))pair[lane]=await trial(lane,workload,'measure');
@@ -63,3 +65,5 @@ for(const workload of workloads){
  const ratios=row.samples.map(x=>x.lilscript.cpu.TaskDuration/x.original.cpu.TaskDuration);summary.cpuRatio=median(ratios);summary.cpuRatio95=interval(ratios);summary.withinFivePercent=summary.cpuRatio95[0]>=.95&&summary.cpuRatio95[1]<=1.05;row.summary=summary;row.status='measured';save();console.log(workload.id,summary.cpuRatio.toFixed(3)+'×',summary.cpuRatio95.map(x=>x.toFixed(3)).join('–'));
 }
 result.machine.loadAtEnd=os.loadavg();result.finishedAt=new Date().toISOString();save();await browser.close();await new Promise(resolve=>server.close(resolve));
+
+if(result.workloads.some(row=>row.status==='behavior-mismatch'))process.exitCode=1;

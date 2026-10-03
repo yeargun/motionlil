@@ -1,0 +1,1 @@
+import{camelToDash}from"../../dom/utils/camel-to-dash-73.js";import{renderHTML}from"../../html/utils/render-126.js";import{wf}from"./camel-case-attrs-274.js";let renderSVG=function(a,b,c=void 0,d){renderHTML(a,b,void 0,d);let e=b.attrs;for(let b in e)a.setAttribute(wf.has(b)?b:camelToDash(b),e[b])};export{renderSVG};

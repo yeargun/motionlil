@@ -1,0 +1,1 @@
+let eachAxis=function(a){return[a("x"),a("y")]};export{eachAxis};

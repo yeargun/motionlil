@@ -1,0 +1,1 @@
+import{isGenerator}from"../generators/utils/is-generator-107.js";import{Le}from"./is-animatable-110.js";let Me=(a,b,c,d)=>{let e=a[0];if(e===null)return!1;if(b==="display"||b==="visibility")return!0;if(!Le(e,b)||!Le(a[a.length-1],b))return!1;if(a.length==1)return!0;for(let b=0;b<a.length;++b)if(a[b]!==e)return!0;return(c==="spring"||isGenerator(c))&&!!d};export{Me};

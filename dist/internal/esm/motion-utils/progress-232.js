@@ -1,0 +1,1 @@
+let progress=/*#__NO_SIDE_EFFECTS__*/(a,b,c)=>{let d=b-a;return d!=0?(c-a)/d:1};export{progress};

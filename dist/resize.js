@@ -1,1 +1,1 @@
-export * from "./internal/entry-resize.js";
+export{resize}from"./internal/esm/motion-dom/resize/index-178.js";

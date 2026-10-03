@@ -1,0 +1,1 @@
+let ng=/*#__NO_SIDE_EFFECTS__*/a=>()=>a.forEach(a=>a());export{ng};

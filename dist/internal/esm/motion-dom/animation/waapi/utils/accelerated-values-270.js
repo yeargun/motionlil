@@ -1,0 +1,1 @@
+let Ne=new Set;Ne.add("opacity");Ne.add("clipPath");Ne.add("filter");Ne.add("transform");Ne.add("backgroundColor");export{Ne};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isKeyframesTarget",{enumerable:true,get:()=>isKeyframesTarget});let isKeyframesTarget=function(a){return Array.isArray(a)};return $$e})(exports,require,Object);

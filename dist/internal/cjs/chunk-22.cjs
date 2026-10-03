@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"va",{enumerable:true,get:()=>va});let va=(a=null)=>a==null?!1:"object"==typeof a&&!Array.isArray(a);return $$e})(exports,require,Object);

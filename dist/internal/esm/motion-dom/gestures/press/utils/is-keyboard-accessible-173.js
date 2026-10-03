@@ -1,0 +1,1 @@
+let isElementKeyboardAccessible=function(a){return Dg.has(a.tagName)||a.isContentEditable===!0},isElementTextInput=function(a){return Eg.has(a.tagName)||a.isContentEditable===!0},Dg=new Set(["BUTTON","INPUT","SELECT","TEXTAREA","A"]),Eg=new Set(["INPUT","SELECT","TEXTAREA"]);export{isElementKeyboardAccessible,isElementTextInput};

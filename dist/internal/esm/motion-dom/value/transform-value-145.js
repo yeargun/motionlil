@@ -1,0 +1,1 @@
+import{O,P}from"../frameloop/frame-231.js";import{motionValue,_,ga,ja}from"./index-27.js";let transformValue=function(a){let b=[];_.current=b;let c=a();_.current=null;let d=motionValue(c),e=b=>ja(d,a()),f=b.map(a=>ga(a,"change",(a,b,c)=>{O.preRender(e,!1,!0)}));ga(d,"destroy",(a,b,c)=>{f.forEach(a=>a());P(e)});return d};export{transformValue};

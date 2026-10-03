@@ -1,0 +1,1 @@
+import{interpolate}from"./interpolate-144.js";let transform=function(a,b,c=null,d=null){let f=!Array.isArray(a),e=f?interpolate(b,c,d):interpolate(a,b,c);return f?e(a):e};export{transform};

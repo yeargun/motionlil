@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isSVGTag",{enumerable:true,get:()=>isSVGTag});let isSVGTag=function(a){return typeof a=="string"?a.toLowerCase()=="svg":!1};return $$e})(exports,require,Object);

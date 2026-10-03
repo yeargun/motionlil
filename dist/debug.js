@@ -1,1 +1,1 @@
-export * from "./internal/entry-debug.js";
+export{recordStats}from"./internal/esm/motion-dom/stats/index-278.js";

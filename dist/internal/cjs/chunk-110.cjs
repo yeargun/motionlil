@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isSVGElement",{enumerable:true,get:()=>isSVGElement});let $$0=$$r("./chunk-261.cjs");let $$1=$$r("./chunk-12.cjs");let isSVGElement=function(a=null){return(0,$$0["isObject"])(a)&&(0,$$1["t"])(a,"ownerSVGElement")};return $$e})(exports,require,Object);

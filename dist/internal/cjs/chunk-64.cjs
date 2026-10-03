@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"getOptimisedAppearId",{enumerable:true,get:()=>getOptimisedAppearId});let $$0=$$r("./chunk-246.cjs");let getOptimisedAppearId=function(a){return a.props[$$0["Nc"]]};return $$e})(exports,require,Object);

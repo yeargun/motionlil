@@ -1,0 +1,1 @@
+import{isSVGElement}from"./is-svg-element-120.js";let isSVGSVGElement=function(a=null){return isSVGElement(a)&&a.tagName=="svg"};export{isSVGSVGElement};

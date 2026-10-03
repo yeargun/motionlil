@@ -1,0 +1,1 @@
+import{I}from"../../motion-utils/global-config-228.js";import{s}from"../dom-host-22.js";import{Q}from"./frame-231.js";let S=function(){T=null},T=null,U=a=>{T=a;s(S)},V={now:()=>{if(T==null)U(Q.isProcessing||I.useManualTiming===!0?Q.timestamp:performance.now());return T},set:U};export{V};

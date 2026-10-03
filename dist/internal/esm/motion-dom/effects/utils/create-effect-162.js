@@ -1,0 +1,1 @@
+import"../../value/index-27.js";import"../MotionValueState-159.js";import{ng}from"./dom-160.js";import{em,fm,gm}from"../../../weak-host-14.js";let pg=a=>{let b=em();return(c,d)=>{let h,e=fm(b,c)??(h={latest:null,values:new Map},h.latest={},h);gm(b,c,e);let f=[];for(let b in d){let h=d[b]??null;if(h!=null)f.push(a(c,e,b,h))}return ng(f)}};export{pg};

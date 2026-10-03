@@ -1,0 +1,1 @@
+import{mc}from"../VisualElement-65.js";let ef=(a,b,c,d)=>{mc(a,b,c,d)},df=function(a,b){delete a.vars[b];delete a.style[b]};export{df,ef};

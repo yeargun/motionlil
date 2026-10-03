@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"camelToDash",{enumerable:true,get:()=>camelToDash});let camelToDash=function(a){return a.replace(/([A-Z])/g,a=>"-"+a.toLowerCase())};return $$e})(exports,require,Object);

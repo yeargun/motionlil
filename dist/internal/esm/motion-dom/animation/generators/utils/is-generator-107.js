@@ -1,0 +1,1 @@
+let isGenerator=function(a){return typeof a=="function"&&"applyToOptions" in a};export{isGenerator};

@@ -1,0 +1,1 @@
+import"../../value/index-27.js";import{lg}from"../MotionValueState-159.js";import{pg}from"../utils/create-effect-162.js";let rg=pg((a,b,c,d)=>lg(b,c,d,d=>{a[c]=b.latest[c]},null,!1));export{rg};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"Ch",{enumerable:true,get:()=>Ch});let Ch=(a,b)=>{if(!Array.isArray(b))return!1;let c=b.length;if(a.length!==c)return!1;for(let d=0;d<c;++d)if(b[d]!==a[d])return!1;return!0};return $$e})(exports,require,Object);

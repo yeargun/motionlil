@@ -1,0 +1,1 @@
+import{o}from"../../../../motion-dom/animation/GroupAnimationWithThen-18.js";import{Zf}from"./animate-elements-155.js";let animateMini=(a,b,c)=>{let d=Zf(a,b,c),e={animations:[]};o(e,d);return e};export{animateMini};

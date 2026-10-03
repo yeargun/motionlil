@@ -1,0 +1,1 @@
+let renderHTML=function(a,b,c=void 0,d){let e=a.style,f=b.style;for(let a in f)e[a]=f[a];if(d!=null)d.applyProjectionStyles(e,c);let g=b.vars;for(let a in g)e.setProperty(a,g[a])};export{renderHTML};

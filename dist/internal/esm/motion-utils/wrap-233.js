@@ -1,0 +1,1 @@
+let wrap=(a,b,c)=>{let e=b-a;return((c-a)%e+e)%e+a};export{wrap};

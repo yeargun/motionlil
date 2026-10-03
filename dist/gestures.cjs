@@ -1,1 +1,1 @@
-"use strict";const core=require("./full.cjs");Object.defineProperty(exports,"hover",{enumerable:true,get:()=>core["hover"]});Object.defineProperty(exports,"press",{enumerable:true,get:()=>core["press"]});
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"hover",{enumerable:true,get:()=>$$0["hover"]});$$o.defineProperty($$e,"press",{enumerable:true,get:()=>$$1["press"]});let $$0=$$r("./internal/cjs/chunk-160.cjs");let $$1=$$r("./internal/cjs/chunk-165.cjs");return $$e})(exports,require,Object);

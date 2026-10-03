@@ -1,0 +1,1 @@
+let s=a=>{queueMicrotask(a)},t=(a,b)=>b in a,x=a=>typeof a=="function",y=a=>a(),z=(a,b,c)=>a(b,c),A=a=>window.getComputedStyle(a),C=a=>globalThis[a],D=(a,b)=>{if("object"==typeof a&&a)delete a[b]};export{s,t,x,y,z,A,C,D};

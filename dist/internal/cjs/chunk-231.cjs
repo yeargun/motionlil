@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"La",{enumerable:true,get:()=>La});$$o.defineProperty($$e,"Ma",{enumerable:true,get:()=>Ma});let $$0=$$r("./chunk-220.cjs");let Ka=(0,$$0["createRenderBatcher"])(queueMicrotask,!1),La=Ka.schedule,Ma=Ka.cancel;return $$e})(exports,require,Object);

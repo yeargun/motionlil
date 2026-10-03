@@ -1,0 +1,1 @@
+let velocityPerSecond=/*#__NO_SIDE_EFFECTS__*/(a,b)=>b!=0?a*(1e3/b):0;export{velocityPerSecond};

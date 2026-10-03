@@ -1,1 +1,1 @@
-"use strict";const core=require("./full.cjs");Object.defineProperty(exports,"scroll",{enumerable:true,get:()=>core["scroll"]});Object.defineProperty(exports,"scrollInfo",{enumerable:true,get:()=>core["scrollInfo"]});
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"scroll",{enumerable:true,get:()=>$$0["scroll"]});$$o.defineProperty($$e,"scrollInfo",{enumerable:true,get:()=>$$1["scrollInfo"]});let $$0=$$r("./internal/cjs/chunk-212.cjs");let $$1=$$r("./internal/cjs/chunk-206.cjs");return $$e})(exports,require,Object);

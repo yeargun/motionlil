@@ -1,0 +1,1 @@
+import{gc}from"./resolve-variants-63.js";import"../VisualElement-65.js";let resolveVariant=function(a,b=null,c=null){let e=a.props;return gc(e,b,c??e.custom,a)};export{resolveVariant};

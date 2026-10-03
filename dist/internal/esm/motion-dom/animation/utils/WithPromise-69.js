@@ -1,0 +1,1 @@
+let Fc=a=>a,Gc=a=>{let b=Fc(a);b._finished=new Promise(a=>{b._resolve=a})},Kc=a=>{Fc(a)._resolve()},Hc={get:function(){return Fc(this)._finished}},Ic={value:function(a,b){return Fc(this)._finished.then(a,b)}};export{Fc,Gc,Hc,Ic,Kc};

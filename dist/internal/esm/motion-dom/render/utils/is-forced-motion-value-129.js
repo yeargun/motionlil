@@ -1,0 +1,1 @@
+import{Ga}from"./keys-transform-237.js";import{mf}from"../../projection/styles/scale-correction-128.js";let isForcedMotionValue=function(a,b){return Ga.has(a)||a.startsWith("origin")||(!!b.layout||b.layoutId!==void 0)&&(!!mf[a]||a=="opacity")};export{isForcedMotionValue};

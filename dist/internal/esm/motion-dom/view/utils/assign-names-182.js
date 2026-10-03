@@ -1,0 +1,1 @@
+let Vg=(a,b,c)=>{let d=a.style;if(d)d.setProperty(b,c)},Wg=(a,b)=>{let c=a.style;if(c)c.removeProperty(b)},Xg=0,sm=a=>Xg=a;export{Vg,Wg,Xg,sm};

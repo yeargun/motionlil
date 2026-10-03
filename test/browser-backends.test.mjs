@@ -5,7 +5,7 @@ import {before,after,test} from 'node:test'
 import {chromium} from 'playwright'
 let server,browser,origin
 before(async()=>{
- const sources={'/original.js':readFileSync('site/esm-comparison/original.js'),'/lilscript.js':readFileSync('dist/index.bundle.js'),'/full.js':readFileSync('dist/full.bundle.js')}
+ const sources={'/original.js':readFileSync('site/comparison-artifacts/original-terser.mjs'),'/lilscript.js':readFileSync('dist/index.bundle.js'),'/full.js':readFileSync('dist/full.bundle.js')}
  server=createServer((req,res)=>{res.setHeader('Content-Type',req.url in sources?'text/javascript':'text/html');res.end(sources[req.url]??'<!doctype html><body></body>')})
  await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port
  browser=await chromium.launch({headless:true})
@@ -43,7 +43,12 @@ async function inspect(lane,scenario){
   await page.goto(origin)
   return await page.evaluate(async({lane,scenario})=>{
    let doc=document
-   if(scenario.iframe){const frame=document.createElement('iframe');document.body.append(frame);doc=frame.contentDocument}
+   if(scenario.iframe){
+    const frame=document.createElement('iframe');
+    frame.srcdoc='<!doctype html><body></body>';
+    const loaded=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));
+    document.body.append(frame);await loaded;doc=frame.contentDocument;
+   }
    const el=doc.createElement('div');el.style.cssText='width:16px;height:16px;margin-right:2px;opacity:.25;background-color:#000';doc.body.append(el)
    const calls=[],prototype=doc.defaultView.Element.prototype,native=prototype.animate
    prototype.animate=function(keyframes,options){if(this.isConnected){calls.push({keyframes,options});if(scenario.rejectNative)throw new Error('Test native rejection')};return native.call(this,keyframes,options)}
@@ -58,7 +63,7 @@ async function inspect(lane,scenario){
     control.time=.6*progress
     await new Promise(requestAnimationFrame);await new Promise(requestAnimationFrame)
     const s=doc.defaultView.getComputedStyle(el),matrix=s.transform==='none'?new DOMMatrix():new DOMMatrix(s.transform)
-    samples.push({opacity:+s.opacity,x:matrix.m41,y:matrix.m42,width:parseFloat(s.width),marginRight:parseFloat(s.marginRight),backgroundColor:s.backgroundColor})
+    samples.push({opacity:+s.opacity,x:matrix.m41,y:matrix.m42,width:parseFloat(s.width),marginRight:parseFloat(s.marginRight),backgroundColor:s.backgroundColor,targetOpacity:el.opacity})
    }
    control.stop()
    return{calls,duration,speed,samples}

@@ -1,0 +1,1 @@
+let isKeyframesTarget=function(a){return Array.isArray(a)};export{isKeyframesTarget};

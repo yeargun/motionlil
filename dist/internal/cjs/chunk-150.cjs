@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"ng",{enumerable:true,get:()=>ng});let ng=a=>()=>a.forEach(a=>a());return $$e})(exports,require,Object);

@@ -1,0 +1,1 @@
+let isSVGTag=/*#__NO_SIDE_EFFECTS__*/function(a){return typeof a=="string"?a.toLowerCase()=="svg":!1};export{isSVGTag};

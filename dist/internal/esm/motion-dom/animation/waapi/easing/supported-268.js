@@ -1,0 +1,1 @@
+import{cubicBezierAsString}from"./cubic-bezier-104.js";let qe={linear:"linear",ease:"ease",easeIn:"ease-in",easeOut:"ease-out",easeInOut:"ease-in-out",circIn:cubicBezierAsString([0,.65,.55,1]),circOut:cubicBezierAsString([.55,0,1,.45]),backIn:cubicBezierAsString([.31,.01,.66,-.59]),backOut:cubicBezierAsString([.33,1.53,.69,.99])};export{qe};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isPrimaryPointer",{enumerable:true,get:()=>isPrimaryPointer});let isPrimaryPointer=function(a){if(a.pointerType==="mouse"){let c=a.button;return typeof c!="number"||c<=0}return a.isPrimary!==!1};return $$e})(exports,require,Object);

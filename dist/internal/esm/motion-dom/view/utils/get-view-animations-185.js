@@ -1,0 +1,1 @@
+let getViewAnimations=function(){return document.getAnimations().filter(a=>{let b=a.effect;return b&&b.target===document.documentElement&&b.pseudoElement&&b.pseudoElement.startsWith("::view-transition")})};export{getViewAnimations};

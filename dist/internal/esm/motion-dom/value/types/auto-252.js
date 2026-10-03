@@ -1,0 +1,1 @@
+let Tb={test:a=>a=="auto",parse:/*#__NO_SIDE_EFFECTS__*/a=>a};export{Tb};

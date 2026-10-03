@@ -1,0 +1,1 @@
+function Qj(a){return function(){return a(this)}}export{Qj};

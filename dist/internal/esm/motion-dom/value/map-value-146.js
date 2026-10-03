@@ -1,0 +1,1 @@
+import{interpolate}from"../utils/interpolate-144.js";import{pa}from"./index-27.js";import{transformValue}from"./transform-value-145.js";let mapValue=function(a,b,c,d=null){let e=interpolate(b,c,d);return transformValue(()=>e(pa(a)))};export{mapValue};

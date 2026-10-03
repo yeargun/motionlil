@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isDragActive",{enumerable:true,get:()=>isDragActive});$$o.defineProperty($$e,"Ag",{enumerable:true,get:()=>Ag});let isDragActive=function(){return!!(Ag.x||Ag.y)},Ag={x:!1,y:!1};return $$e})(exports,require,Object);

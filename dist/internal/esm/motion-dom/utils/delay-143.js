@@ -1,0 +1,1 @@
+import{secondsToMilliseconds}from"../../motion-utils/time-conversion-257.js";import{O,P}from"../frameloop/frame-231.js";import{V}from"../frameloop/sync-time-26.js";let delayInSeconds=function(a,b){return((a,b)=>{let c=V.now(),d=e=>{let f=e.timestamp-c;if(f>=b){P(d);a(f-b)}};O.setup(d,!0,!1);return()=>P(d)})(a,secondsToMilliseconds(b))};export{delayInSeconds};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"mixImmediate",{enumerable:true,get:()=>mixImmediate});let mixImmediate=function(a,b){return c=>c>0?b:a};return $$e})(exports,require,Object);

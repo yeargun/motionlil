@@ -5,7 +5,7 @@ import {before,after,test} from 'node:test'
 import {chromium} from 'playwright'
 let server,browser,origin
 before(async()=>{
- const sources={'/original.js':readFileSync('site/esm-comparison/original.js'),'/lilscript.js':readFileSync('dist/index.bundle.js'),'/full.js':readFileSync('dist/full.bundle.js')}
+ const sources={'/original.js':readFileSync('site/comparison-artifacts/original-terser.mjs'),'/lilscript.js':readFileSync('dist/index.bundle.js'),'/full.js':readFileSync('dist/full.bundle.js')}
  server=createServer((req,res)=>{res.setHeader('Content-Type',req.url in sources?'text/javascript':'text/html');res.end(sources[req.url]??'<!doctype html><body></body>')})
  await new Promise(r=>server.listen(0,'127.0.0.1',r));origin='http://127.0.0.1:'+server.address().port
  browser=await chromium.launch({headless:true})

@@ -1,0 +1,1 @@
+import{Tb}from"./auto-252.js";import{Xa}from"./numbers/index-243.js";import{Jb,Kb,Lb,Mb,Nb}from"./numbers/units-51.js";import{testValueType}from"./test-55.js";let Ub=(a,b)=>a.find(testValueType(b)),findDimensionValueType=function(a){return Ub(Vb,a)},Vb=[Xa,Lb,Kb,Jb,Nb,Mb,Tb];export{Ub,findDimensionValueType,Vb};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"progress",{enumerable:true,get:()=>progress});let progress=(a,b,c)=>{let d=b-a;return d!=0?(c-a)/d:1};return $$e})(exports,require,Object);

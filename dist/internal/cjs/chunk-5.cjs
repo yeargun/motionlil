@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"om",{enumerable:true,get:()=>om});let om=function(a,b){if(!(b in a))return!1;let c=Object.getOwnPropertyDescriptor(Object.getPrototypeOf(a),b)||Object.getOwnPropertyDescriptor(a,b);return!!c&&typeof c.set=="function"};return $$e})(exports,require,Object);

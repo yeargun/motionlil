@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"setStyle",{enumerable:true,get:()=>setStyle});let $$0=$$r("./chunk-90.cjs");let setStyle=function(a,b,c){let d=a.style;if((0,$$0["ke"])(b))d.setProperty(b,c);else d[b]=c};return $$e})(exports,require,Object);

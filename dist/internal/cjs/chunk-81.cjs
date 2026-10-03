@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"convertOffsetToTimes",{enumerable:true,get:()=>convertOffsetToTimes});let convertOffsetToTimes=function(a,b){return a.map(a=>a*b)};return $$e})(exports,require,Object);

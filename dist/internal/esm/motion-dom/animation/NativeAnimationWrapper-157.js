@@ -1,0 +1,1 @@
+import{se,te,ze,Be}from"./NativeAnimation-20.js";import{Bk,Dk}from"../../anim-host-11.js";import{Kc}from"./utils/WithPromise-69.js";let ig=(a,b)=>{Be(a,null,gg);let c=se(a);c.animation=b;b.onfinish=()=>{c.finishedTime=te(c);Kc(a)}},gg=Dk(ze),hg=Bk((a,b)=>{let c={};ig(c,a);return c},gg,{});export{hg,ig};

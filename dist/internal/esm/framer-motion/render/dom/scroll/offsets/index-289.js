@@ -1,0 +1,1 @@
+import"../../../../../motion-dom/utils/interpolate-144.js";let si={a:0,b:0};export{si};

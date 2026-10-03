@@ -1,0 +1,1 @@
+let em=function(){return new WeakMap},fm=function(a,b){return a.get(b)??null},gm=function(a,b,c){a.set(b,c)};export{em,fm,gm};

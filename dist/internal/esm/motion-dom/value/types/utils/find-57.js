@@ -1,0 +1,1 @@
+import{lb}from"../color/index-48.js";import{zb}from"../complex/index-49.js";import{Ub,Vb}from"../dimensions-56.js";let findValueType=function(a){return Ub(Wb,a)},Wb=[...[...Vb],lb,zb];export{findValueType};

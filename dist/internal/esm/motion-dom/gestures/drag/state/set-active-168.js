@@ -1,0 +1,1 @@
+import{isDragActive,Ag}from"./is-active-167.js";let setDragLock=function(a){if(a==="x"||a==="y"){if(Ag[a])return null;Ag[a]=!0;return()=>{Ag[a]=!1}}if(isDragActive())return null;Ag.x=!0;Ag.y=!0;return()=>{Ag.x=!1;Ag.y=!1}};export{setDragLock};

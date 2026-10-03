@@ -1,0 +1,1 @@
+let $a=/*#__NO_SIDE_EFFECTS__*/a=>Math.round(a*1e5)/1e5;export{$a};

@@ -1,0 +1,1 @@
+import{zb}from"../complex/index-49.js";import{Fb}from"../complex/filter-50.js";import{Gb}from"../complex/mask-249.js";import{getDefaultValueType}from"../maps/defaults-53.js";let getAnimatableNone=function(a,b){let c=getDefaultValueType(a),d=zb;if(c&&(c===Fb||c===Gb))d=c;return d.getAnimatableNone(b)};export{getAnimatableNone};

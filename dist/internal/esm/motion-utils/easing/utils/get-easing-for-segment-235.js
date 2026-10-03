@@ -1,0 +1,1 @@
+import{wrap}from"../../wrap-233.js";import{isEasingArray}from"./is-easing-array-234.js";let getEasingForSegment=(a,b)=>isEasingArray(a)?a[wrap(0,a.length,b)]:a;export{getEasingForSegment};

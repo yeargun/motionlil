@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"buildSVGPath",{enumerable:true,get:()=>buildSVGPath});let buildSVGPath=function(a,b,c=1,d=0,e=!0){a.pathLength=1;a[e?"stroke-dashoffset":"strokeDashoffset"]=`${-d}`;a[e?"stroke-dasharray":"strokeDasharray"]=`${b} ${c}`};return $$e})(exports,require,Object);

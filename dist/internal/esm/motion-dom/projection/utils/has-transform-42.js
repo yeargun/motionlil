@@ -1,0 +1,1 @@
+let Ta=a=>a===void 0||a===1,hasScale=function(a){return!Ta(a.scale)||!Ta(a.scaleX)||!Ta(a.scaleY)},Ua=a=>a&&a!=="0%",has2DTranslate=function(a){return Ua(a.x)||Ua(a.y)},hasTransform=function(a){return hasScale(a)||!!(has2DTranslate(a)||(a.z||(a.rotate||(a.rotateX||(a.rotateY||(a.skewX||a.skewY))))))};export{hasScale,has2DTranslate,hasTransform};

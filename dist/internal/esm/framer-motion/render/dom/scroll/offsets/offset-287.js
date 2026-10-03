@@ -1,0 +1,1 @@
+let ni=[0,0];export{ni};

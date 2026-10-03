@@ -1,0 +1,1 @@
+import{cubicBezier}from"./cubic-bezier-90.js";let fd=cubicBezier(.42,0,1,1),gd=cubicBezier(0,0,.58,1),hd=cubicBezier(.42,0,.58,1);export{fd,gd,hd};

@@ -1,0 +1,1 @@
+import{resolveElements}from"../../utils/resolve-elements-23.js";import"../../value/index-27.js";import{ng}from"./dom-160.js";let og=/*#__NO_SIDE_EFFECTS__*/a=>(b,c)=>ng(resolveElements(b).map(b=>a(b,c)));export{og};

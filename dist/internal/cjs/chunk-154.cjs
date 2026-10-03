@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isHTMLElement",{enumerable:true,get:()=>isHTMLElement});let $$0=$$r("./chunk-261.cjs");let $$1=$$r("./chunk-12.cjs");let isHTMLElement=function(a=null){return(0,$$0["isObject"])(a)&&(0,$$1["t"])(a,"offsetHeight")&&!(0,$$1["t"])(a,"ownerSVGElement")};return $$e})(exports,require,Object);

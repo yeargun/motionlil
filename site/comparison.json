@@ -2,7 +2,7 @@
   "schemaVersion": 4,
   "name": "motionlil",
   "package": "motionlil",
-  "measuredAt": "2026-10-03T02:05:48.925220+03:00",
+  "measuredAt": "2026-10-03T18:02:15.949388+03:00",
   "compiler": {
     "baseRevision": "f7d29bd9",
     "binarySha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
@@ -326,10 +326,7 @@
       "warning",
       "wrap"
     ],
-    "excludedExports": [
-      "__esModule",
-      "default"
-    ],
+    "excludedExports": [],
     "additionalExports": [
       "animateSequenceMini",
       "getAsType",
@@ -347,10 +344,11 @@
       "target": "es2020",
       "defines": {
         "process.env.NODE_ENV": "production"
-      }
+      },
+      "css": "excluded; measured JavaScript only"
     }
   },
-  "scope": "Portable main-entry ESM with matching shared named exports and external imports. The original uses production/default package conditions, keeping data-based entity decoding rather than relying on the DOM.",
+  "scope": "Full Motion DOM ESM entry with matching shared exports; React integration is excluded. Low-level adapters remain incomplete. The package separately supplies modular ESM, CJS, feature entries and a browser global.",
   "machine": {
     "cpu": "AMD EPYC 7763 64-Core Processor",
     "logicalCpus": 8,
@@ -365,14 +363,14 @@
       "lilscript": {
         "artifact": "./comparison-artifacts/lilscript-raw.mjs",
         "sizes": {
-          "raw": 114644,
-          "gzip9": 41918,
-          "brotli11": 37127
+          "raw": 114011,
+          "gzip9": 41906,
+          "brotli11": 37084
         },
-        "sha256": "03eaa33ba65e3d27d5016a0766b2ed0222996081c90b55c736e1e223564800b2",
-        "buildSeconds": 8.129557624997688,
+        "sha256": "83c05a477046dcfa62ffa814a6d37f7dc6566a36034f33d26bd061f7c5cfdb83",
+        "buildSeconds": 8.179954224993708,
         "config": "./comparison-artifacts/lilscript-raw.toml",
-        "configSha256": "eb4f43463be867a53f8de2fe53d2ee3ab2ea631d9411900e470cb33da1c933bc"
+        "configSha256": "14f218bbc3e65869c396f734f1753b7f8b4c1c80aecdafadf80b95efa3dd8b96"
       },
       "original": {
         "tool": "Oxc",
@@ -384,9 +382,9 @@
           "brotli11": 40417
         },
         "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
-        "buildSeconds": 0.23536112599999978
+        "buildSeconds": 0.35899680100000114
       },
-      "ratio": 0.8470814245603665
+      "ratio": 0.8424043150583715
     },
     {
       "objective": "gzip",
@@ -394,14 +392,14 @@
       "lilscript": {
         "artifact": "./comparison-artifacts/lilscript-gzip.mjs",
         "sizes": {
-          "raw": 121834,
-          "gzip9": 41699,
-          "brotli11": 36473
+          "raw": 121680,
+          "gzip9": 41768,
+          "brotli11": 36633
         },
-        "sha256": "37a4466852d1ba17eda124f9df75b474fcdc30fa246cdb7f4e15de9e7e5b9715",
-        "buildSeconds": 7.379765014000441,
+        "sha256": "457388f63c308c9db4735842cbd1c778527c1148f3aea47abd855cf9abce2084",
+        "buildSeconds": 7.578954041004181,
         "config": "./comparison-artifacts/lilscript-gzip.toml",
-        "configSha256": "6823b6a5c874dfe7da352bd4e1baeefe05f18deda5e0fd35753d99eee2f29646"
+        "configSha256": "2d32f9bd3df4ed535ecf9da5011f0d2845477186ddd1f86003230f59bbca9ad6"
       },
       "original": {
         "tool": "Terser",
@@ -413,9 +411,9 @@
           "brotli11": 40188
         },
         "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
-        "buildSeconds": 1.853884387000002
+        "buildSeconds": 2.421601515000002
       },
-      "ratio": 0.9260682242160434
+      "ratio": 0.9276006040685796
     },
     {
       "objective": "brotli",
@@ -423,14 +421,14 @@
       "lilscript": {
         "artifact": "./comparison-artifacts/lilscript-brotli.mjs",
         "sizes": {
-          "raw": 121895,
-          "gzip9": 41766,
-          "brotli11": 36483
+          "raw": 121062,
+          "gzip9": 41578,
+          "brotli11": 36405
         },
-        "sha256": "f2a713da81ab3fbbdd84a5927d773a3109c4feeeaf9ebbadb6f9f2c39c4f5cfd",
-        "buildSeconds": 9.531892057999357,
+        "sha256": "1fbd733674e6813f918d6233b9e350c4a6628c91076abdb1fbbfb28c4e346852",
+        "buildSeconds": 9.532530111988308,
         "config": "./comparison-artifacts/lilscript-brotli.toml",
-        "configSha256": "9bd177893554f03c3175a418344cc5e3c6615d1e4c6a5c9384158412dd1bd034"
+        "configSha256": "fd5db1f31fc9951b90b02a1e547b6e858405cd18830669564fb3d1dc2dda02e0"
       },
       "original": {
         "tool": "Terser",
@@ -442,9 +440,9 @@
           "brotli11": 40188
         },
         "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
-        "buildSeconds": 1.853884387000002
+        "buildSeconds": 2.421601515000002
       },
-      "ratio": 0.9078083009853688
+      "ratio": 0.9058674231113766
     }
   ],
   "minifiers": [
@@ -458,7 +456,7 @@
         "brotli11": 40188
       },
       "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
-      "buildSeconds": 1.853884387000002
+      "buildSeconds": 2.421601515000002
     },
     {
       "tool": "esbuild",
@@ -470,7 +468,7 @@
         "brotli11": 42589
       },
       "sha256": "fd463f2b0bae5f48347e43ab017a091c082cfcbb2c5df871f3db2f9cd1a7d31a",
-      "buildSeconds": 0.1265080940000007
+      "buildSeconds": 0.229860594999991
     },
     {
       "tool": "Oxc",
@@ -482,28 +480,91 @@
         "brotli11": 40417
       },
       "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
-      "buildSeconds": 0.23536112599999978
+      "buildSeconds": 0.35899680100000114
     }
   ],
   "validation": {
     "checks": 1209,
-    "objectives": [
+    "runs": [
       {
         "objective": "raw",
+        "suite": "differential",
         "checks": 403,
-        "suite": "differential"
+        "command": [
+          "node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/differential.mjs",
+          "validation/raw",
+          "motionlil"
+        ],
+        "artifact": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/validation/raw/motionlil/dist/index.mjs",
+        "ok": true
       },
       {
         "objective": "gzip",
+        "suite": "differential",
         "checks": 403,
-        "suite": "differential"
+        "command": [
+          "node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/differential.mjs",
+          "validation/gzip",
+          "motionlil"
+        ],
+        "artifact": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/validation/gzip/motionlil/dist/index.mjs",
+        "ok": true
       },
       {
         "objective": "brotli",
+        "suite": "differential",
         "checks": 403,
-        "suite": "differential"
+        "command": [
+          "node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/differential.mjs",
+          "validation/brotli",
+          "motionlil"
+        ],
+        "artifact": "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/validation/brotli/motionlil/dist/index.mjs",
+        "ok": true
       }
     ],
-    "scope": "Main ESM entry; selected corpora and API checks, not all package formats or complete upstream equivalence."
+    "ok": true,
+    "scope": "Current independent main-entry builds; package-format tests are recorded separately."
+  },
+  "originalValidation": {
+    "checks": 1209,
+    "runs": [
+      {
+        "minifier": "terser",
+        "checks": 403,
+        "ok": true,
+        "command": [
+          "node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/differential.mjs",
+          "validation/original-terser",
+          "motionlil"
+        ]
+      },
+      {
+        "minifier": "esbuild",
+        "checks": 403,
+        "ok": true,
+        "command": [
+          "node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/differential.mjs",
+          "validation/original-esbuild",
+          "motionlil"
+        ]
+      },
+      {
+        "minifier": "oxc",
+        "checks": 403,
+        "ok": true,
+        "command": [
+          "node",
+          "/home/azureuser/lilscript-rebuild-reports/2026-10-03-site-refresh/differential.mjs",
+          "validation/original-oxc",
+          "motionlil"
+        ]
+      }
+    ]
   }
 }

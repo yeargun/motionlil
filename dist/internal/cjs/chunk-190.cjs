@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"eachAxis",{enumerable:true,get:()=>eachAxis});let eachAxis=function(a){return[a("x"),a("y")]};return $$e})(exports,require,Object);

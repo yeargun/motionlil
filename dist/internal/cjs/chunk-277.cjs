@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"ni",{enumerable:true,get:()=>ni});let ni=[0,0];return $$e})(exports,require,Object);

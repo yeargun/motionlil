@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isAnimationControls",{enumerable:true,get:()=>isAnimationControls});let isAnimationControls=function(a){return a!==null&&typeof a=="object"&&typeof a.start=="function"};return $$e})(exports,require,Object);

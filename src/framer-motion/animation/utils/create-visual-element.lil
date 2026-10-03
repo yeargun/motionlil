@@ -5,13 +5,13 @@ import { HTMLVisualElement } from "../../../motion-dom/render/html/HTMLVisualEle
 import { SVGVisualElement } from "../../../motion-dom/render/svg/SVGVisualElement";
 import { ObjectVisualElement } from "../../../motion-dom/render/object/ObjectVisualElement";
 import { visualElementStore } from "../../../motion-dom/render/store";
-import { isEventTarget } from "../../../motion-dom/dom-host";
+import { isCurrentRealmDOMElement } from "../../../motion-dom/dom-host";
 import extern { weakMapSet } from "../../../motion-dom/weak-host.ts";
 
 extern void weakMapSet(JsValue map, JsValue key, JsValue value);
 
 VisualElement newVisualElement(JsValue subject) {
-  if (!isEventTarget(subject)) {
+  if (!isCurrentRealmDOMElement(subject)) {
     return new ObjectVisualElement(object{
       presenceContext: null,
       props: object{},

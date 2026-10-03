@@ -1,0 +1,1 @@
+let Ja=/^0[^.\s]+$/u,isZeroValueString=a=>Ja.test(a);export{isZeroValueString};

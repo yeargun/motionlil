@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"observeTimeline",{enumerable:true,get:()=>observeTimeline});let $$0=$$r("./chunk-221.cjs");let observeTimeline=function(a,b){let c,d=d=>{let f=b.currentTime,g=(f==null?0:f.value)/100;if(c!==g)a(g);c=g};$$0["O"].preUpdate(d,!0,!1);return()=>{(0,$$0["P"])(d)}};return $$e})(exports,require,Object);

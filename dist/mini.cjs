@@ -1,1 +1,1 @@
-"use strict";const core=require("./full.cjs");Object.defineProperty(exports,"animate",{enumerable:true,get:()=>core["animateMini"]});Object.defineProperty(exports,"animateSequence",{enumerable:true,get:()=>core["animateSequenceMini"]});
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"animate",{enumerable:true,get:()=>$$1["animateMini"]});$$o.defineProperty($$e,"animateSequence",{enumerable:true,get:()=>$$0["animateSequence"]});let $$0=$$r("./internal/cjs/chunk-214.cjs");let $$1=$$r("./internal/cjs/chunk-266.cjs");return $$e})(exports,require,Object);

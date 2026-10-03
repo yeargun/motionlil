@@ -1,0 +1,4 @@
+
+> motionlil@0.1.5 check:types
+> tsc -p test/types/tsconfig.json
+

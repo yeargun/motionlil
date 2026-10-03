@@ -1,0 +1,1 @@
+import{velocityPerSecond}from"../../../../motion-utils/velocity-per-second-226.js";let $c=(a,b,c)=>{let d=Math.max(b-5,0);return velocityPerSecond(c-a(d),b-d)};export{$c};

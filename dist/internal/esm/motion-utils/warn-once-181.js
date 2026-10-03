@@ -1,0 +1,1 @@
+import{Tg}from"./format-error-message-180.js";let warnOnce=function(a,b,c=null){if(a||Ug.has(b))return;console.warn(Tg(b,c));Ug.add(b)},Ug=new Set,hasWarned=/*#__NO_SIDE_EFFECTS__*/a=>Ug.has(a);export{warnOnce,hasWarned};

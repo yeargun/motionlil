@@ -1,0 +1,1 @@
+import{observeTimeline}from"../../../../motion-dom/scroll/observe-179.js";import{scrollInfo}from"./track-216.js";import{Ki}from"./utils/get-timeline-219.js";let Oi=(a,b)=>{if(a.length===2||b&&(b.target||b.offset))return scrollInfo(c=>{a((b.axis==="x"?c.x:c.y).progress,c)},b);return observeTimeline(a,Ki(b))};export{Oi};

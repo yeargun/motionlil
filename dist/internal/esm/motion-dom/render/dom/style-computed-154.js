@@ -1,0 +1,1 @@
+import{ke}from"./is-css-var-100.js";let Yf={getComputedStyle:function(a,b){let c=window.getComputedStyle(a);return ke(b)?c.getPropertyValue(b):c[b]}}.getComputedStyle;export{Yf};

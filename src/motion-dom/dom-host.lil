@@ -23,7 +23,8 @@ import extern {
   mapValues,
   setValues,
   taskFromCallback,
-  isCurrentRealmElement
+  isCurrentRealmElement,
+  isCurrentRealmDOMElement
 } from "./dom-host.ts";
 
 extern JsValue window;
@@ -58,6 +59,7 @@ export extern bool supportsWaapiCheck();
 // tests a WAAPI subject: an element from another window (an iframe, a popup)
 // runs on another timeline and animates in JavaScript instead.
 export extern bool isCurrentRealmElement(JsValue value);
+export extern bool isCurrentRealmDOMElement(JsValue value);
 export JsValue documentCreateElement(string tag) {
   return JS.invoke(document, "createElement", tag);
 }

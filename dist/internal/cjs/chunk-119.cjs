@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isForcedMotionValue",{enumerable:true,get:()=>isForcedMotionValue});let $$0=$$r("./chunk-227.cjs");let $$1=$$r("./chunk-118.cjs");let isForcedMotionValue=function(a,b){return $$0["Ga"].has(a)||a.startsWith("origin")||(!!b.layout||b.layoutId!==void 0)&&(!!$$1["mf"][a]||a=="opacity")};return $$e})(exports,require,Object);

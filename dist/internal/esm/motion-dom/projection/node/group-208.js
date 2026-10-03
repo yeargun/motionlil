@@ -1,0 +1,1 @@
+let nodeGroup=/*#__NO_SIDE_EFFECTS__*/function(){return{nodes:[],subscriptions:new Map}};export{nodeGroup};

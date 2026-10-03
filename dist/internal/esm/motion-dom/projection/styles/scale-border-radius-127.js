@@ -1,0 +1,1 @@
+import{Lb}from"../../value/types/numbers/units-51.js";let pixelsToPercent=/*#__NO_SIDE_EFFECTS__*/function(a,b){return b.max==b.min?0:a/(b.max-b.min)*100},kf={correct:(a,b)=>{let e=b.target;if(!e)return a;if(typeof a=="string"){if(!Lb.test(a))return a;a=parseFloat(a)}let d=a;return`${pixelsToPercent(d,e.x)}% ${pixelsToPercent(d,e.y)}%`}};export{pixelsToPercent,kf};

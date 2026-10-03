@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"Tg",{enumerable:true,get:()=>Tg});let Tg=(a,b=null)=>b!=null?`${a}. For more information and steps for solving, visit https://motion.dev/troubleshooting/${b}`:a;return $$e})(exports,require,Object);

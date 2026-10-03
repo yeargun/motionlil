@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isVariantLabel",{enumerable:true,get:()=>isVariantLabel});let isVariantLabel=function(a){return typeof a=="string"||Array.isArray(a)};return $$e})(exports,require,Object);

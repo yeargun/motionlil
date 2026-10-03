@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isBezierDefinition",{enumerable:true,get:()=>isBezierDefinition});let isBezierDefinition=a=>Array.isArray(a)&&typeof a[0]=="number";return $$e})(exports,require,Object);

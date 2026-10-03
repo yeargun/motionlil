@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"ke",{enumerable:true,get:()=>ke});let ke=a=>a.startsWith("--");return $$e})(exports,require,Object);

@@ -1,0 +1,1 @@
+import{progress}from"../../../../motion-utils/progress-232.js";import{mixNumber}from"../../../utils/mix/number-28.js";let fillOffset=function(a,b){let c=a[a.length-1];for(let d=1;d<=b;++d)a.push(mixNumber(c,1,progress(0,b,d)))};export{fillOffset};

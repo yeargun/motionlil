@@ -1,0 +1,1 @@
+import{Uk}from"../../dom-host-13.js";let resolveElements=function(a=null,b=null,c=null){if(a==null)return[];if(typeof EventTarget!="undefined"&&a instanceof EventTarget)return[a];if(typeof a=="string"){let d=c?c[a]??null:null;return d!=null?Array.from(d):b?Array.from(b.current.querySelectorAll(a)):Array.from(document.querySelectorAll(a))}return Uk(a)};export{resolveElements};

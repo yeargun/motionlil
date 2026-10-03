@@ -1,0 +1,1 @@
+let addDomEvent=function(a,b,c,d=void 0){let f=d===void 0?{passive:!0}:d;a.addEventListener(b,c,f);return()=>{a.removeEventListener(b,c,f)}};export{addDomEvent};

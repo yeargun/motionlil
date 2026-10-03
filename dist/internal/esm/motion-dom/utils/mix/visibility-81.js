@@ -1,0 +1,1 @@
+let mixVisibility=function(a,b){let c,d;return Sc.has(a)?(c=/*#__NO_SIDE_EFFECTS__*/c=>c<=0?a:b,c):(d=/*#__NO_SIDE_EFFECTS__*/c=>c>=1?b:a,d)},Sc=new Set;Sc.add("none");Sc.add("hidden");export{mixVisibility,Sc};

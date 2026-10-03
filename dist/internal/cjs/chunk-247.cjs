@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"secondsToMilliseconds",{enumerable:true,get:()=>secondsToMilliseconds});$$o.defineProperty($$e,"millisecondsToSeconds",{enumerable:true,get:()=>millisecondsToSeconds});let secondsToMilliseconds=a=>a*1e3,millisecondsToSeconds=a=>a/1e3;return $$e})(exports,require,Object);

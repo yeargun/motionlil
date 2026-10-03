@@ -1,0 +1,821 @@
+TAP version 13
+# Subtest: array utilities preserve upstream identity, NaN and sparse-array behavior
+ok 1 - array utilities preserve upstream identity, NaN and sparse-array behavior
+  ---
+  duration_ms: 2.781653
+  ...
+# Subtest: array utilities retain receiver, method order and strict index comparison
+ok 2 - array utilities retain receiver, method order and strict index comparison
+  ---
+  duration_ms: 0.346329
+  ...
+# Subtest: moveItem retains number indices, sparse spreading and item identity
+ok 3 - moveItem retains number indices, sparse spreading and item identity
+  ---
+  duration_ms: 1.022786
+  ...
+# Subtest: ESM entry points load without a browser global
+ok 4 - ESM entry points load without a browser global
+  ---
+  duration_ms: 2.580355
+  ...
+# Subtest: pure utilities and MotionValue behavior work
+ok 5 - pure utilities and MotionValue behavior work
+  ---
+  duration_ms: 2.15099
+  ...
+# Subtest: CommonJS entry points expose the same public names
+ok 6 - CommonJS entry points expose the same public names
+  ---
+  duration_ms: 53.513421
+  ...
+# Subtest: every Motion DOM export is present on the full entry
+ok 7 - every Motion DOM export is present on the full entry
+  ---
+  duration_ms: 0.558697
+  ...
+# Subtest: default entry keeps the JS consumer API
+ok 8 - default entry keeps the JS consumer API
+  ---
+  duration_ms: 0.282048
+  ...
+# Subtest: public constructor compatibility covers common direct usage
+ok 9 - public constructor compatibility covers common direct usage
+  ---
+  duration_ms: 0.584926
+  ...
+# Subtest: MotionValue uses its public prototype and preserves method defaults
+ok 10 - MotionValue uses its public prototype and preserves method defaults
+  ---
+  duration_ms: 0.637935
+  ...
+# Subtest: group compatibility preserves existing native accessors and completion promises
+ok 11 - group compatibility preserves existing native accessors and completion promises
+  ---
+  duration_ms: 0.623478
+  ...
+# Subtest: ESM entry points share the same frame queue, values and control constructors
+ok 12 - ESM entry points share the same frame queue, values and control constructors
+  ---
+  duration_ms: 18.961409
+  ...
+# Subtest: value type tables use Motion's object keys, identities and defaults
+ok 13 - value type tables use Motion's object keys, identities and defaults
+  ---
+  duration_ms: 0.425357
+  ...
+# Subtest: subscriptions preserve mutation order, omitted arguments and the cleared array
+ok 14 - subscriptions preserve mutation order, omitted arguments and the cleared array
+  ---
+  duration_ms: 0.374482
+  ...
+# Subtest: MotionValue start resolves with undefined
+ok 15 - MotionValue start resolves with undefined
+  ---
+  duration_ms: 0.380854
+  ...
+# Subtest: keyframe helpers preserve null, undefined, holes and nonnumeric values like Motion
+ok 16 - keyframe helpers preserve null, undefined, holes and nonnumeric values like Motion
+  ---
+  duration_ms: 0.637184
+  ...
+# Subtest: transition lookup uses property access, nullish fallback and inherited properties
+ok 17 - transition lookup uses property access, nullish fallback and inherited properties
+  ---
+  duration_ms: 0.420909
+  ...
+# Subtest: mix preserves Motion's numeric and mixer-returning overloads
+ok 18 - mix preserves Motion's numeric and mixer-returning overloads
+  ---
+  duration_ms: 2.25207
+  ...
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-utils/easing/ease-262.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/generators/keyframes-92.js:1:177:
+#       1 │ ....js";import"../../../motion-utils/easing/ease-262.js";import{cla...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/value/spring-value-148.js:1:66:
+#       1 │ ...llow-value-147.js";import"./index-27.js";let Vf=a=>{let b={type:...
+#         ╵                             ~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/types/numbers/index-243.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:6:
+#       1 │ import"../motion-dom/value/types/numbers/index-243.js";import{hd}fr...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:112:
+#       1 │ ...e-262.js";import"../motion-dom/value/index-27.js";import"../moti...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimation-17.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:152:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimation-17.js";import...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimationWithThen-18.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:205:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimationWithThen-18.js...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animate/consumer-140.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:266:
+#       1 │ ....js";import"../framer-motion/animation/animate/consumer-140.js";...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animators/waapi/animate-style-276.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:325:
+#       1 │ ....js";import"../framer-motion/animation/animators/waapi/animate-s...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/utils/interpolate-144.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/render/dom/scroll/offsets/index-289.js:1:6:
+#       1 │ import"../../../../../motion-dom/utils/interpolate-144.js";let si={...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:161:
+#       1 │ ....js";import"../../../motion-dom/render/VisualElement-65.js";impo...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/store-253.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:437:
+#       1 │ ...7.js";import"../../../motion-dom/render/store-253.js";let Nf=a=>...
+#         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/frameloop/microtask-241.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:265:
+#       1 │ ...me-231.js";import"../frameloop/microtask-241.js";import{V}from"....
+#         ╵                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:1059:
+#       1 │ ...ex-62.js";import"./utils/resolve-variants-63.js";import{isSVGTag...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/html/HTMLVisualElement-131.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/svg/SVGVisualElement-136.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:6:
+#       1 │ import"./render/VisualElement-65.js";import"./value/index-27.js";im...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:43:
+#       1 │ ...lElement-65.js";import"./value/index-27.js";import"./animation/u...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/utils/WithPromise-69.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:71:
+#       1 │ ...-27.js";import"./animation/utils/WithPromise-69.js";let Lc=a=>a;...
+#         ╵                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-dynamic-variants-66.js:1:47:
+#       1 │ ...riants-63.js";import"../VisualElement-65.js";let resolveVariant=...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js:1:6:
+#       1 │ import"../VisualElement-65.js";function fc(a,b,c,d){let h={},i={};i...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/keys-transform-237.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:85:
+#       1 │ ....js";import"../../../render/utils/keys-transform-237.js";import{...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/cast-70.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:252:
+#       1 │ ...rs/units-51.js";import"../../../cast-70.js";let Qd=a=>a===Xa||a=...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-utils/easing/ease-262.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/generators/keyframes-92.js:1:177:
+#       1 │ ....js";import"../../../motion-utils/easing/ease-262.js";import{cla...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/value/spring-value-148.js:1:66:
+#       1 │ ...llow-value-147.js";import"./index-27.js";let Vf=a=>{let b={type:...
+#         ╵                             ~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/types/numbers/index-243.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:6:
+#       1 │ import"../motion-dom/value/types/numbers/index-243.js";import{hd}fr...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:112:
+#       1 │ ...e-262.js";import"../motion-dom/value/index-27.js";import"../moti...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimation-17.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:152:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimation-17.js";import...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimationWithThen-18.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:205:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimationWithThen-18.js...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animate/consumer-140.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:266:
+#       1 │ ....js";import"../framer-motion/animation/animate/consumer-140.js";...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animators/waapi/animate-style-276.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:325:
+#       1 │ ....js";import"../framer-motion/animation/animators/waapi/animate-s...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:161:
+#       1 │ ....js";import"../../../motion-dom/render/VisualElement-65.js";impo...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/store-253.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:437:
+#       1 │ ...7.js";import"../../../motion-dom/render/store-253.js";let Nf=a=>...
+#         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/frameloop/microtask-241.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:265:
+#       1 │ ...me-231.js";import"../frameloop/microtask-241.js";import{V}from"....
+#         ╵                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:1059:
+#       1 │ ...ex-62.js";import"./utils/resolve-variants-63.js";import{isSVGTag...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/html/HTMLVisualElement-131.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/svg/SVGVisualElement-136.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js:1:6:
+#       1 │ import"../VisualElement-65.js";function fc(a,b,c,d){let h={},i={};i...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/utils/interpolate-144.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/render/dom/scroll/offsets/index-289.js:1:6:
+#       1 │ import"../../../../../motion-dom/utils/interpolate-144.js";let si={...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:6:
+#       1 │ import"./render/VisualElement-65.js";import"./value/index-27.js";im...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:43:
+#       1 │ ...lElement-65.js";import"./value/index-27.js";import"./animation/u...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/utils/WithPromise-69.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:71:
+#       1 │ ...-27.js";import"./animation/utils/WithPromise-69.js";let Lc=a=>a;...
+#         ╵                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/keys-transform-237.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:85:
+#       1 │ ....js";import"../../../render/utils/keys-transform-237.js";import{...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/cast-70.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:252:
+#       1 │ ...rs/units-51.js";import"../../../cast-70.js";let Qd=a=>a===Xa||a=...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-dynamic-variants-66.js:1:47:
+#       1 │ ...riants-63.js";import"../VisualElement-65.js";let resolveVariant=...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-utils/easing/ease-262.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/generators/keyframes-92.js:1:177:
+#       1 │ ....js";import"../../../motion-utils/easing/ease-262.js";import{cla...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/value/spring-value-148.js:1:66:
+#       1 │ ...llow-value-147.js";import"./index-27.js";let Vf=a=>{let b={type:...
+#         ╵                             ~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/types/numbers/index-243.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:6:
+#       1 │ import"../motion-dom/value/types/numbers/index-243.js";import{hd}fr...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:112:
+#       1 │ ...e-262.js";import"../motion-dom/value/index-27.js";import"../moti...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimation-17.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:152:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimation-17.js";import...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimationWithThen-18.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:205:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimationWithThen-18.js...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animate/consumer-140.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:266:
+#       1 │ ....js";import"../framer-motion/animation/animate/consumer-140.js";...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animators/waapi/animate-style-276.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:325:
+#       1 │ ....js";import"../framer-motion/animation/animators/waapi/animate-s...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:161:
+#       1 │ ....js";import"../../../motion-dom/render/VisualElement-65.js";impo...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/store-253.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:437:
+#       1 │ ...7.js";import"../../../motion-dom/render/store-253.js";let Nf=a=>...
+#         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/frameloop/microtask-241.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:265:
+#       1 │ ...me-231.js";import"../frameloop/microtask-241.js";import{V}from"....
+#         ╵                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:1059:
+#       1 │ ...ex-62.js";import"./utils/resolve-variants-63.js";import{isSVGTag...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/utils/interpolate-144.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/render/dom/scroll/offsets/index-289.js:1:6:
+#       1 │ import"../../../../../motion-dom/utils/interpolate-144.js";let si={...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:6:
+#       1 │ import"./render/VisualElement-65.js";import"./value/index-27.js";im...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:43:
+#       1 │ ...lElement-65.js";import"./value/index-27.js";import"./animation/u...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/utils/WithPromise-69.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:71:
+#       1 │ ...-27.js";import"./animation/utils/WithPromise-69.js";let Lc=a=>a;...
+#         ╵                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js:1:6:
+#       1 │ import"../VisualElement-65.js";function fc(a,b,c,d){let h={},i={};i...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-dynamic-variants-66.js:1:47:
+#       1 │ ...riants-63.js";import"../VisualElement-65.js";let resolveVariant=...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/keys-transform-237.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:85:
+#       1 │ ....js";import"../../../render/utils/keys-transform-237.js";import{...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/cast-70.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:252:
+#       1 │ ...rs/units-51.js";import"../../../cast-70.js";let Qd=a=>a===Xa||a=...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/html/HTMLVisualElement-131.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/svg/SVGVisualElement-136.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# Subtest: named imports do not pull the whole consumer graph
+ok 19 - named imports do not pull the whole consumer graph
+  ---
+  duration_ms: 2856.405446
+  ...
+# Subtest: all installed code is exactly the compiler delivery, with explicit format effects
+ok 20 - all installed code is exactly the compiler delivery, with explicit format effects
+  ---
+  duration_ms: 185.738781
+  ...
+# Subtest: all ten ESM and CJS entry points preserve the public export sets
+ok 21 - all ten ESM and CJS entry points preserve the public export sets
+  ---
+  duration_ms: 310.855389
+  ...
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-utils/easing/ease-262.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/generators/keyframes-92.js:1:177:
+#       1 │ ....js";import"../../../motion-utils/easing/ease-262.js";import{cla...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/value/spring-value-148.js:1:66:
+#       1 │ ...llow-value-147.js";import"./index-27.js";let Vf=a=>{let b={type:...
+#         ╵                             ~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/types/numbers/index-243.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:6:
+#       1 │ import"../motion-dom/value/types/numbers/index-243.js";import{hd}fr...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:112:
+#       1 │ ...e-262.js";import"../motion-dom/value/index-27.js";import"../moti...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimation-17.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:152:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimation-17.js";import...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/GroupAnimationWithThen-18.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:205:
+#       1 │ ....js";import"../motion-dom/animation/GroupAnimationWithThen-18.js...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animate/consumer-140.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:266:
+#       1 │ ....js";import"../framer-motion/animation/animate/consumer-140.js";...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/framer-motion/animation/animators/waapi/animate-style-276.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/compat/core-156.js:1:325:
+#       1 │ ....js";import"../framer-motion/animation/animators/waapi/animate-s...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:161:
+#       1 │ ....js";import"../../../motion-dom/render/VisualElement-65.js";impo...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/store-253.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/framer-motion/animation/utils/create-visual-element-138.js:1:437:
+#       1 │ ...7.js";import"../../../motion-dom/render/store-253.js";let Nf=a=>...
+#         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/frameloop/microtask-241.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:265:
+#       1 │ ...me-231.js";import"../frameloop/microtask-241.js";import{V}from"....
+#         ╵                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/VisualElement-65.js:1:1059:
+#       1 │ ...ex-62.js";import"./utils/resolve-variants-63.js";import{isSVGTag...
+#         ╵                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/html/HTMLVisualElement-131.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/svg/SVGVisualElement-136.js:1:56:
+#       1 │ ...ement-122.js";import"../VisualElement-65.js";import{Ga}from"../u...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:6:
+#       1 │ import"./render/VisualElement-65.js";import"./value/index-27.js";im...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/value/index-27.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:43:
+#       1 │ ...lElement-65.js";import"./value/index-27.js";import"./animation/u...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/animation/utils/WithPromise-69.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/cast-70.js:1:71:
+#       1 │ ...-27.js";import"./animation/utils/WithPromise-69.js";let Lc=a=>a;...
+#         ╵                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-variants-63.js:1:6:
+#       1 │ import"../VisualElement-65.js";function fc(a,b,c,d){let h={},i={};i...
+#         ╵       ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/VisualElement-65.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/render/utils/resolve-dynamic-variants-66.js:1:47:
+#       1 │ ...riants-63.js";import"../VisualElement-65.js";let resolveVariant=...
+#         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/render/utils/keys-transform-237.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:85:
+#       1 │ ....js";import"../../../render/utils/keys-transform-237.js";import{...
+#         ╵               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# ▲ [WARNING] Ignoring this import because "dist/internal/esm/motion-dom/cast-70.js" was marked as having no side effects [ignored-bare-import]
+#     dist/internal/esm/motion-dom/animation/keyframes/utils/unit-conversion-98.js:1:252:
+#       1 │ ...rs/units-51.js";import"../../../cast-70.js";let Qd=a=>a===Xa||a=...
+#         ╵                          ~~~~~~~~~~~~~~~~~~~~~
+#   It was excluded from the "sideEffects" array in the enclosing "package.json" file:
+#     package.json:26:2:
+#       26 │   "sideEffects": [
+#          ╵   ~~~~~~~~~~~~~
+# Subtest: the distributed animate module survives a second Terser pass
+ok 22 - the distributed animate module survives a second Terser pass
+  ---
+  duration_ms: 1802.588409
+  ...
+# Subtest: Vite bundles the public package entry
+ok 23 - Vite bundles the public package entry
+  ---
+  duration_ms: 5682.182081
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12230.730759

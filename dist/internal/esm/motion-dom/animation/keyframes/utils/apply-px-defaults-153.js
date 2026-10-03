@@ -1,0 +1,1 @@
+import{Xf}from"../../waapi/utils/px-values-275.js";let applyPxDefaults=function(a,b){for(let c=0;c<a.length;++c){let e=a[c];if(typeof e=="number"&&Xf.has(b))a[c]=e+"px"}};export{applyPxDefaults};

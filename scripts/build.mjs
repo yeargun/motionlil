@@ -62,7 +62,12 @@ try {
     }
     for (const file of output.side_effects) {
       if (!artifacts[file]) throw Error(`Unknown side-effect file: ${file}`)
-      sideEffects.add(`./dist/${file}`)
+      // ESM initializers only prepare state owned by this package's exports.
+      // A bundler may omit an unused module, as with upstream Motion. The
+      // compiler manifest remains the conservative record of initialization
+      // calls (including foreign prototype factories). CJS/global execution
+      // retains those effects; it has no ESM unused-export contract.
+      if (output.format !== 'esm') sideEffects.add(`./dist/${file}`)
     }
   }
   const report = {

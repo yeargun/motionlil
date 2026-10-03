@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"getFinalKeyframe",{enumerable:true,get:()=>getFinalKeyframe});let getFinalKeyframe=function(a,b,c=void 0,d=1){let e=a.filter(a=>a!==null),g=b.repeatType,h=d<0||b.repeat&&g!==void 0&&g!=="loop"&&b.repeat%2===1?0:e.length-1;return h==0||c===void 0?e[h]:c};return $$e})(exports,require,Object);

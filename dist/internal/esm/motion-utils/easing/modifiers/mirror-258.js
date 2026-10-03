@@ -1,0 +1,1 @@
+let mirrorEasing=/*#__NO_SIDE_EFFECTS__*/a=>b=>b<=.5?a(2*b)/2:(2-a(2*(1-b)))/2;export{mirrorEasing};

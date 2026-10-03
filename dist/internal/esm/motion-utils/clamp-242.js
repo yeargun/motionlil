@@ -1,0 +1,1 @@
+let clamp=/*#__NO_SIDE_EFFECTS__*/(a,b,c)=>c>b?b:c<a?a:c;export{clamp};

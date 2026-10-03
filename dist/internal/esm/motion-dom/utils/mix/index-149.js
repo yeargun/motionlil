@@ -1,0 +1,1 @@
+import{getMixer}from"./complex-82.js";import{mixNumber}from"./number-28.js";let mix=function(a,b,c=null){let d=c;if(typeof a=="number"&&typeof b=="number"&&typeof d=="number")return mixNumber(a,b,d);return getMixer(a)(a,b)};export{mix};

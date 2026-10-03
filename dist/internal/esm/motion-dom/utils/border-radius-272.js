@@ -1,0 +1,1 @@
+let jf=["borderTopLeftRadius","borderTopRightRadius","borderBottomRightRadius","borderBottomLeftRadius"];export{jf};

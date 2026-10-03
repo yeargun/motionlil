@@ -1,0 +1,1 @@
+import{ke}from"./is-css-var-100.js";let setStyle=function(a,b,c){let d=a.style;if(ke(b))d.setProperty(b,c);else d[b]=c};export{setStyle};

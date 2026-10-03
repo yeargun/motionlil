@@ -1,14 +1,14 @@
 # Current comparison with the original
 
-Portable main-entry ESM with matching shared named exports and external imports. The original uses production/default package conditions, keeping data-based entity decoding rather than relying on the DOM.
+Full Motion DOM ESM entry with matching shared exports; React integration is excluded. Low-level adapters remain incomplete. The package separately supplies modular ESM, CJS, feature entries and a browser global.
 
 Each compression row uses a separate LilScript compilation targeting that objective. Original results are the smallest of Terser, esbuild and Oxc for the named codec.
 
 | Objective | LilScript bytes | Original minified bytes | Original minifier | LilScript build (s) | Original bundle + minify (s) |
 |---|---:|---:|---|---:|---:|
-| raw | 114,644 | 135,340 | Oxc | 8.130 | 0.235 |
-| gzip | 41,699 | 45,028 | Terser | 7.380 | 1.854 |
-| brotli | 36,483 | 40,188 | Terser | 9.532 | 1.854 |
+| raw | 114,011 | 135,340 | Oxc | 8.180 | 0.359 |
+| gzip | 41,768 | 45,028 | Terser | 7.579 | 2.422 |
+| brotli | 36,405 | 40,188 | Terser | 9.533 | 2.422 |
 
 Original version: `motion@13.1.0`. gzip level 9; Brotli quality 11/window 22. Each time is one sequential fresh-output build on the recorded shared machine. Original timing starts from installed ESM and does not include the original repository’s TypeScript compilation. Dependency installation, tests and final file compression are excluded.
 

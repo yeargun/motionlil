@@ -1,0 +1,1 @@
+import{camelToDash}from"../../render/dom/utils/camel-to-dash-73.js";let Mc="framerAppearId",Nc=`data-${camelToDash(Mc)}`;export{Mc,Nc};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"resize",{enumerable:true,get:()=>resize});let $$0=$$r("./chunk-166.cjs");let $$1=$$r("./chunk-167.cjs");let resize=function(a,b=void 0){return typeof a=="function"?(0,$$1["Qg"])(a):(0,$$0["Ng"])(a,b)};return $$e})(exports,require,Object);

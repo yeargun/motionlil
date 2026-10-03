@@ -1,0 +1,1 @@
+import{O,P}from"./frame-231.js";import{L}from"./order-229.js";let bi=O,ci={};L.forEach(a=>{ci[a]=a=>P(a)});export{bi,ci};

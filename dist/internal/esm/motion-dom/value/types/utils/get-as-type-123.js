@@ -1,0 +1,1 @@
+let getAsType=function(a,b=null){return b&&typeof a=="number"?b.transform(a):a};export{getAsType};

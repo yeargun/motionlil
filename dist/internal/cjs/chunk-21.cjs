@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isMotionValue",{enumerable:true,get:()=>isMotionValue});let isMotionValue=function(a=null){return!!a&&!!a.getVelocity};return $$e})(exports,require,Object);

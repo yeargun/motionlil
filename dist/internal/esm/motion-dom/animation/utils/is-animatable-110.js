@@ -1,0 +1,1 @@
+import{zb}from"../../value/types/complex/index-49.js";let Le=(a,b)=>b==="zIndex"?!1:typeof a=="number"||Array.isArray(a)||typeof a=="string"&&(zb.test(a)||a=="0")&&!a.startsWith("url(");export{Le};

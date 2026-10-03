@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"clamp",{enumerable:true,get:()=>clamp});let clamp=(a,b,c)=>c>b?b:c<a?a:c;return $$e})(exports,require,Object);

@@ -7,7 +7,7 @@ import { chromium } from 'playwright'
 let server, browser, origin
 before(async () => {
   const sources = {
-    '/original.js': readFileSync('site/esm-comparison/original.js', 'utf8'),
+    '/original.js': readFileSync('site/comparison-artifacts/original-terser.mjs', 'utf8'),
     '/lilscript.js': readFileSync('dist/index.bundle.js', 'utf8'),
     '/full.js': readFileSync('dist/full.bundle.js', 'utf8'),
   }

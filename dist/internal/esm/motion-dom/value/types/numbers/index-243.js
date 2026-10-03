@@ -1,0 +1,1 @@
+import{clamp}from"../../../../motion-utils/clamp-242.js";let Wa=/*#__NO_SIDE_EFFECTS__*/a=>typeof a=="number",Xa={test:Wa,parse:parseFloat,transform:/*#__NO_SIDE_EFFECTS__*/a=>a},Ya={test:Wa,parse:parseFloat,transform:a=>clamp(0,1,a)},Za={test:Wa,parse:parseFloat,transform:Xa.transform,default:1};export{Wa,Xa,Ya,Za};

@@ -1,4 +1,0 @@
-let ma = "${}";
-export {
-  ma
-};

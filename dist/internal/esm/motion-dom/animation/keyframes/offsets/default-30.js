@@ -1,0 +1,1 @@
+import{fillOffset}from"./fill-29.js";let defaultOffset=function(a){let b=[0];fillOffset(b,a.length-1);return b};export{defaultOffset};

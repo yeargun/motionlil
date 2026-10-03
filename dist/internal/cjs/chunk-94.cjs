@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"cubicBezierAsString",{enumerable:true,get:()=>cubicBezierAsString});let cubicBezierAsString=function(a){return`cubic-bezier(${a[0]}, ${a[1]}, ${a[2]}, ${a[3]})`};return $$e})(exports,require,Object);

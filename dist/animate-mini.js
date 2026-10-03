@@ -1,1 +1,1 @@
-export * from "./internal/entry-animate-mini.js";
+export{animateMini}from"./internal/esm/framer-motion/animation/animators/waapi/animate-style-276.js";

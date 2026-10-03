@@ -1,0 +1,1 @@
+let compareByDepth=/*#__NO_SIDE_EFFECTS__*/function(a,b){return a.depth-b.depth|0};export{compareByDepth};

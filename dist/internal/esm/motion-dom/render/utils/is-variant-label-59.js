@@ -1,0 +1,1 @@
+let isVariantLabel=function(a){return typeof a=="string"||Array.isArray(a)};export{isVariantLabel};

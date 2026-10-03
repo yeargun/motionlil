@@ -1,0 +1,1 @@
+let mixImmediate=/*#__NO_SIDE_EFFECTS__*/function(a,b){return/*#__NO_SIDE_EFFECTS__*/c=>c>0?b:a};export{mixImmediate};

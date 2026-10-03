@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isNodeOrChild",{enumerable:true,get:()=>isNodeOrChild});let isNodeOrChild=function(a,b){return!b?!1:a===b?!0:isNodeOrChild(a,b.parentElement)};return $$e})(exports,require,Object);

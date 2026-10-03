@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"oi",{enumerable:true,get:()=>oi});$$o.defineProperty($$e,"pi",{enumerable:true,get:()=>pi});$$o.defineProperty($$e,"qi",{enumerable:true,get:()=>qi});$$o.defineProperty($$e,"ri",{enumerable:true,get:()=>ri});let oi=[[0,1],[1,1]],pi=[[0,0],[1,0]],qi=[[1,0],[0,1]],ri=[[0,0],[1,1]];return $$e})(exports,require,Object);

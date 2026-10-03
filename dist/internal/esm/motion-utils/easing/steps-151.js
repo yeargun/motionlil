@@ -1,0 +1,1 @@
+import{clamp}from"../clamp-242.js";let steps=/*#__NO_SIDE_EFFECTS__*/function(a,b="end"){return c=>{let d=b=="end",e=(d?Math.min(c,.999):Math.max(c,.001))*a;return clamp(0,1,(d?Math.floor(e):Math.ceil(e))/a)}};export{steps};

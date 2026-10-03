@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"makeAnimationInstant",{enumerable:true,get:()=>makeAnimationInstant});let makeAnimationInstant=function(a){a.duration=0;a.type="keyframes"};return $$e})(exports,require,Object);

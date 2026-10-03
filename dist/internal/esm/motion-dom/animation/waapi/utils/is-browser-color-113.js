@@ -1,0 +1,1 @@
+let Oe=a=>{for(let b=0;b<a.length;++b){let d=a[b];if(typeof d=="string"&&Pe.test(d))return!0}return!1},Pe=/^(?:oklch|oklab|lab|lch|color|color-mix|light-dark)\(/;export{Oe};

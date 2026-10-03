@@ -1,0 +1,1 @@
+import{bd}from"./back-259.js";let anticipate=a=>a>=1?1:(a=a*2,a<1?.5*bd(a):.5*(2-Math.exp(-10*(a-1)*Math.log(2))));export{anticipate};

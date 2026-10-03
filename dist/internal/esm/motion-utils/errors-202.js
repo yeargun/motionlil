@@ -1,0 +1,1 @@
+let warning=/*#__NO_SIDE_EFFECTS__*/function(a,b,c=void 0){},invariant=/*#__NO_SIDE_EFFECTS__*/function(a,b,c=void 0){};export{warning,invariant};

@@ -1,0 +1,1 @@
+let memo=/*#__NO_SIDE_EFFECTS__*/function(a){let b=null;return()=>{if(b==null)b=a();return b}};export{memo};

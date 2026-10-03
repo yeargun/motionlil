@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"anticipate",{enumerable:true,get:()=>anticipate});let $$0=$$r("./chunk-249.cjs");let anticipate=a=>a>=1?1:(a=a*2,a<1?.5*(0,$$0["bd"])(a):.5*(2-Math.exp(-10*(a-1)*Math.log(2))));return $$e})(exports,require,Object);

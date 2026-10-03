@@ -4,7 +4,7 @@ import { removeItem } from "../../../motion-utils/array";
 import { callFn0, deleteProp, isFunction } from "../../../motion-dom/dom-host";
 import extern { spread } from "../utils/anim-host.ts";
 import { animateSequence, isSequence } from "./sequence";
-import { animateSubject } from "./subject-dom";
+import { animateSubject } from "./subject";
 
 extern JsValue spread(JsValue? a, JsValue? b);
 
@@ -24,7 +24,8 @@ export class ScopedAnimateOptions {
   }
 }
 
-// The DOM-only `animate`: index.lil's createScopedAnimate over subject-dom.
+// Public animate accepts DOM elements, plain objects and MotionValues.
+// Share subject dispatch with the full entry so cross-realm elements follow upstream.
 export func(JsValue, JsValue, JsValue)->GroupAnimationWithThen createScopedAnimate(
   ScopedAnimateOptions? options = null
 ) {

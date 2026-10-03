@@ -1,0 +1,1 @@
+import{Ya}from"../numbers/index-243.js";import{$a}from"../utils/sanitize-45.js";import{bb,cb}from"./utils-46.js";let ib={test:bb("hsl","hue"),parse:cb("hue","saturation","lightness"),transform:a=>{let b=a;return`hsla(${Math.round(b.hue)}, ${$a(b.saturation)}%, ${$a(b.lightness)}%, ${$a(Ya.transform(b.alpha??1))})`}};export{ib};

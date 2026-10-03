@@ -1,0 +1,1 @@
+let Zg=(a,b)=>{$g[a]=b},$g={},tm=a=>$g=a,_g=null,um=a=>_g=a;export{Zg,$g,_g,tm,um};

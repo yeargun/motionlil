@@ -5,10 +5,10 @@ import {readFile, readdir} from 'node:fs/promises'
 import {createRequire} from 'node:module'
 
 const manifest = JSON.parse(await readFile(new URL('../dist/lilscript.manifest.json', import.meta.url)))
-const report = JSON.parse(await readFile(new URL('../.tmp/build-report.json', import.meta.url)))
+const report = JSON.parse(await readFile(new URL('../comparison/package-build-report.json', import.meta.url)))
 const digest = value => createHash('sha256').update(value).digest('hex')
 
-test('all installed code is exactly the compiler delivery, with complete package effects', async () => {
+test('all installed code is exactly the compiler delivery, with explicit format effects', async () => {
   assert.equal(manifest.version, 5)
   assert.equal(manifest.source_sha256, report.sourceSha256)
   const expected = new Set(['lilscript.manifest.json'])
@@ -24,7 +24,7 @@ test('all installed code is exactly the compiler delivery, with complete package
   const files = installed.filter(file => file.isFile()).map(file => `${file.parentPath ?? file.path}/${file.name}`)
   assert.equal(files.length, expected.size)
   const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url)))
-  assert.deepEqual(pkg.sideEffects, [...new Set(manifest.outputs.flatMap(output => output.side_effects.map(file => `./dist/${file}`)))].sort())
+  assert.deepEqual(pkg.sideEffects, [...new Set(manifest.outputs.filter(output => output.format !== 'esm').flatMap(output => output.side_effects.map(file => `./dist/${file}`)))].sort())
 })
 
 test('all ten ESM and CJS entry points preserve the public export sets', async () => {

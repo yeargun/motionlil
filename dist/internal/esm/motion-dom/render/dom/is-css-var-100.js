@@ -1,0 +1,1 @@
+let ke=/*#__NO_SIDE_EFFECTS__*/a=>a.startsWith("--");export{ke};

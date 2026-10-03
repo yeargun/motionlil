@@ -1,0 +1,1 @@
+import{isMotionValue}from"./is-motion-value-31.js";let resolveMotionValue=function(a=null){return isMotionValue(a)?a.get():a};export{resolveMotionValue};

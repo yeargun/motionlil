@@ -1,0 +1,1 @@
+import{isObject}from"../../motion-utils/is-object-271.js";import{t}from"../dom-host-22.js";let isHTMLElement=function(a=null){return isObject(a)&&t(a,"offsetHeight")&&!t(a,"ownerSVGElement")};export{isHTMLElement};

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isTransitionDefined",{enumerable:true,get:()=>isTransitionDefined});let isTransitionDefined=function(a){for(let b in a)if(!cf.includes(b))return!0;return!1},cf=["when","delay","delayChildren","staggerChildren","staggerDirection","repeat","repeatType","repeatDelay","from","elapsed"];return $$e})(exports,require,Object);

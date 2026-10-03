@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"si",{enumerable:true,get:()=>si});let $$0=$$r("./chunk-134.cjs");let si={x:0,y:0};return $$e})(exports,require,Object);

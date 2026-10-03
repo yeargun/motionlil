@@ -1,0 +1,1 @@
+let Na=(a,b,c)=>{a.x=b;a.y=c};export{Na};

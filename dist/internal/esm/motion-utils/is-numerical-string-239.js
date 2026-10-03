@@ -1,0 +1,1 @@
+let Ia=/^-?(?:\d+(?:\.\d+)?|\.\d+)$/u,isNumericalString=a=>Ia.test(a);export{isNumericalString};

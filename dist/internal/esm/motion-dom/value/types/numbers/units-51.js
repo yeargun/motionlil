@@ -1,0 +1,1 @@
+let Ib=a=>({test:/*#__NO_SIDE_EFFECTS__*/b=>typeof b=="string"&&b.endsWith(a)&&b.split(" ").length==1,parse:parseFloat,transform:b=>`${b}${a}`}),Jb=Ib("deg"),Kb=Ib("%"),Lb=Ib("px"),Mb=Ib("vh"),Nb=Ib("vw"),Ob={test:Kb.test,parse:a=>Kb.parse(a)/100,transform:a=>Kb.transform(a*100)};export{Jb,Kb,Lb,Mb,Nb,Ob};

@@ -1,0 +1,1 @@
+import{resolveElements}from"../../utils/resolve-elements-23.js";let Bg=(a,b)=>{let c=new AbortController,d={passive:!0};for(let a in b)d[a]=b[a];d.signal=c.signal;return{a:resolveElements(a),b:d,c:()=>{c.abort()}}};export{Bg};

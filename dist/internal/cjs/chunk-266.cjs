@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"animateMini",{enumerable:true,get:()=>animateMini});let $$0=$$r("./chunk-8.cjs");let $$1=$$r("./chunk-145.cjs");let animateMini=(a,b,c)=>{let d=(0,$$1["Zf"])(a,b,c),e={animations:[]};(0,$$0["o"])(e,d);return e};return $$e})(exports,require,Object);

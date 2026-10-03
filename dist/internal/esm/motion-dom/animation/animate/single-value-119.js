@@ -1,0 +1,1 @@
+import{isMotionValue}from"../../value/utils/is-motion-value-31.js";import{motionValue}from"../../value/index-27.js";import{animateMotionValue}from"../interfaces/motion-value-117.js";let animateSingleValue=function(a,b,c=null){let d=isMotionValue(a)?a:motionValue(a);d.start(animateMotionValue("",d,b,c,void 0,!1));return d.animation};export{animateSingleValue};

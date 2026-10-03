@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"steps",{enumerable:true,get:()=>steps});let $$0=$$r("./chunk-232.cjs");let steps=function(a,b="end"){return c=>{let d=b=="end",e=(d?Math.min(c,.999):Math.max(c,.001))*a;return(0,$$0["clamp"])(0,1,(d?Math.floor(e):Math.ceil(e))/a)}};return $$e})(exports,require,Object);

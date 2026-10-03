@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"testValueType",{enumerable:true,get:()=>testValueType});let testValueType=function(a){return b=>b.test(a)};return $$e})(exports,require,Object);

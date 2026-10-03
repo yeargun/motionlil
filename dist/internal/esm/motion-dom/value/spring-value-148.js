@@ -1,0 +1,1 @@
+import{followValue,attachFollow}from"./follow-value-147.js";import"./index-27.js";let Vf=a=>{let b={type:"spring"};Object.assign(b,a);return b},springValue=function(a,b=null){return followValue(a,Vf(b))},attachSpring=function(a,b,c=null){return attachFollow(a,b,Vf(c))};export{springValue,attachSpring};

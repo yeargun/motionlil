@@ -1,0 +1,1 @@
+import{Ng}from"./handle-element-176.js";import{Qg}from"./handle-window-177.js";let resize=function(a,b=void 0){return typeof a=="function"?Qg(a):Ng(a,b)};export{resize};

@@ -1,0 +1,1 @@
+import{f,h}from"./GroupAnimation-17.js";import{Bk,Dk}from"../../anim-host-11.js";let q,o=(a,b)=>{h(a,b,m)},m=Dk(f),n=Bk((q=(a,b)=>{let d={animations:[]};o(d,a);return d},q),m,{then:{value:function(a){return this.finished.finally(a).then(/*#__NO_SIDE_EFFECTS__*/()=>{})}}});export{n,o};

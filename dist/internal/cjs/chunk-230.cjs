@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isZeroValueString",{enumerable:true,get:()=>isZeroValueString});let Ja=/^0[^.\s]+$/u,isZeroValueString=a=>Ja.test(a);return $$e})(exports,require,Object);

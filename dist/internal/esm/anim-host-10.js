@@ -1,0 +1,1 @@
+let nk=function(a){return Object.assign({},a)},ok=function(a,b){return Object.assign({},a,b)},qk=function(a){return a},rk=function(a,b){a.sort(b)},sk=function(a,b){a.forEach(b)};export{nk,ok,qk,rk,sk};

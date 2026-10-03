@@ -1,0 +1,1 @@
+let mixNumber=/*#__NO_SIDE_EFFECTS__*/function(a,b,c){return a+(b-a)*c};export{mixNumber};

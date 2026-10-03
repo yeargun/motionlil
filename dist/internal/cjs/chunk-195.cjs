@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"compareByDepth",{enumerable:true,get:()=>compareByDepth});let compareByDepth=function(a,b){return a.depth-b.depth|0};return $$e})(exports,require,Object);

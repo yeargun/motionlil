@@ -1,0 +1,1 @@
+let convertOffsetToTimes=/*#__NO_SIDE_EFFECTS__*/function(a,b){return a.map(/*#__NO_SIDE_EFFECTS__*/a=>a*b)};export{convertOffsetToTimes};

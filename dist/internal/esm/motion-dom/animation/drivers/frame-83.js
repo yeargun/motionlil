@@ -1,0 +1,1 @@
+import{O,P,Q}from"../../frameloop/frame-231.js";import{V}from"../../frameloop/sync-time-26.js";let Vc=a=>{let b=b=>{a(b.timestamp)};return{start:a=>{O.update(b,a!==!1,!1)},stop:()=>{P(b)},now:()=>Q.isProcessing?Q.timestamp:V.now()}};export{Vc};

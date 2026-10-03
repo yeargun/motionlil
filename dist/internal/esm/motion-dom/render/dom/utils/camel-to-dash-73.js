@@ -1,0 +1,1 @@
+let camelToDash=function(a){return a.replace(/([A-Z])/g,/*#__NO_SIDE_EFFECTS__*/a=>"-"+a.toLowerCase())};export{camelToDash};

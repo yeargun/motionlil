@@ -1,0 +1,1 @@
+import{Nc}from"./data-id-256.js";let getOptimisedAppearId=function(a){return a.props[Nc]};export{getOptimisedAppearId};

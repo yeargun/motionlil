@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"calcGeneratorDuration",{enumerable:true,get:()=>calcGeneratorDuration});$$o.defineProperty($$e,"Wc",{enumerable:true,get:()=>Wc});let calcGeneratorDuration=function(a){let b=0,c=a.next(b);while(!c.done&&b<Wc){b=b+50;c=a.next(b)}return b>=Wc?1/0:b},Wc=2e4;return $$e})(exports,require,Object);

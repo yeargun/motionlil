@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isEasingArray",{enumerable:true,get:()=>isEasingArray});let isEasingArray=a=>Array.isArray(a)&&typeof a[0]!="number";return $$e})(exports,require,Object);

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"Vc",{enumerable:true,get:()=>Vc});let $$0=$$r("./chunk-221.cjs");let $$1=$$r("./chunk-16.cjs");let Vc=a=>{let b=b=>{a(b.timestamp)};return{start:a=>{$$0["O"].update(b,a!==!1,!1)},stop:()=>{(0,$$0["P"])(b)},now:()=>$$0["Q"].isProcessing?$$0["Q"].timestamp:$$1["V"].now()}};return $$e})(exports,require,Object);

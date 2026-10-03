@@ -1,0 +1,1 @@
+import{_b,ac}from"./state-255.js";let initPrefersReducedMotion=function(){ac.current=!0;if(typeof window=="undefined")return;if(window.matchMedia){let a=window.matchMedia("(prefers-reduced-motion)");a.addEventListener("change",()=>{_b.current=a.matches});_b.current=a.matches}else _b.current=!1};export{initPrefersReducedMotion};

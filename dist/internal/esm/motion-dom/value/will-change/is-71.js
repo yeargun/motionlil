@@ -1,0 +1,1 @@
+import{isMotionValue}from"../utils/is-motion-value-31.js";let isWillChangeMotionValue=function(a=null){return isMotionValue(a)&&!!a.add};export{isWillChangeMotionValue};

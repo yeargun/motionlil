@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isGenerator",{enumerable:true,get:()=>isGenerator});let isGenerator=function(a){return typeof a=="function"&&"applyToOptions" in a};return $$e})(exports,require,Object);

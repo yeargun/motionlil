@@ -1,0 +1,1 @@
+import{o}from"../../../../motion-dom/animation/GroupAnimationWithThen-18.js";import{qk}from"../../../../anim-host-10.js";import{Ca}from"../../sequence/create-37.js";import{Zf}from"./animate-elements-155.js";let animateSequence=function(a,b=null){let c=[];Ca(qk(a),b,null,(a,b,d)=>{c=c.concat(Zf(a,b,d))});let d=c,e={animations:[]};o(e,d);return e};export{animateSequence};

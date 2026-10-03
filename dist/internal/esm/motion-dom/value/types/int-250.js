@@ -1,0 +1,1 @@
+import{Wa}from"./numbers/index-243.js";let Hb={test:Wa,parse:parseFloat,transform:a=>Math.round(a)};export{Hb};

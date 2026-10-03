@@ -1,0 +1,1 @@
+import{analyseComplexValue,ob,pb,sb}from"./index-49.js";let Gb={test:sb,parse:ob,createTransformer:pb,getAnimatableNone:a=>{let b=analyseComplexValue(a).values;return pb(a)(b.map(a=>{if(typeof a=="number")return 0;if("object"==typeof a){let b={__proto__:null};Object.assign(b,a).alpha=1;return b}return a}))}};export{Gb};

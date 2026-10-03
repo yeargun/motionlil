@@ -1,0 +1,1 @@
+let isPrimaryPointer=function(a){if(a.pointerType==="mouse"){let c=a.button;return typeof c!="number"||c<=0}return a.isPrimary!==!1};export{isPrimaryPointer};

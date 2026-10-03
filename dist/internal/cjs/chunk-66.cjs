@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"getValueTransition",{enumerable:true,get:()=>getValueTransition});let $$0=$$r("./chunk-65.cjs");let getValueTransition=function(a,b){if(!a)return a;let c=a[b],d=a.default,e=c??d??a;return e!==a?(0,$$0["resolveTransition"])(e,a):e};return $$e})(exports,require,Object);

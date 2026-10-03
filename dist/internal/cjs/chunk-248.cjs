@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"mirrorEasing",{enumerable:true,get:()=>mirrorEasing});let mirrorEasing=a=>b=>b<=.5?a(2*b)/2:(2-a(2*(1-b)))/2;return $$e})(exports,require,Object);

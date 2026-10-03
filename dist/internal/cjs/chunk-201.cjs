@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"gi",{enumerable:true,get:()=>gi});let ei=()=>({current:0,offset:[],progress:0,scrollLength:0,targetOffset:0,targetLength:0,containerLength:0,velocity:0}),gi=a=>{a.x=ei();a.y=ei()};return $$e})(exports,require,Object);

@@ -1,0 +1,1 @@
+import{addUniqueItem,removeItem}from"./array-24.js";let F=(a,b)=>{addUniqueItem(a.subscriptions,b);return()=>removeItem(a.subscriptions,b)},G=(a,b,c,d)=>{let e=a.subscriptions.length;for(let f=0;f<e;++f)if(f<a.subscriptions.length)a.subscriptions[f](b,c,d)};export{F,G};

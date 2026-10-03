@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isNumericalString",{enumerable:true,get:()=>isNumericalString});let Ia=/^-?(?:\d+(?:\.\d+)?|\.\d+)$/u,isNumericalString=a=>Ia.test(a);return $$e})(exports,require,Object);

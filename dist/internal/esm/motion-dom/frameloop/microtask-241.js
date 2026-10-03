@@ -1,0 +1,1 @@
+import{createRenderBatcher}from"./batcher-230.js";let Ka=createRenderBatcher(queueMicrotask,!1),La=Ka.schedule,Ma=Ka.cancel;export{La,Ma};

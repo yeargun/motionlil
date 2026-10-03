@@ -1,0 +1,1 @@
+let calcChildStagger=function(a,b,c,d=0,e=1){let g=Array.from(a).sort((a,b)=>a.sortNodePosition(b)).indexOf(b),h=a.size;return typeof c=="function"?c(g,h):e==1?g*d:(h-1)*d-g*d};export{calcChildStagger};

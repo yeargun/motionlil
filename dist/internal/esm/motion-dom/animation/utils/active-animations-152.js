@@ -1,0 +1,1 @@
+import{em,fm,gm}from"../../../weak-host-14.js";let animationMapKey=/*#__NO_SIDE_EFFECTS__*/function(a,b=""){return`${a}:${b}`},getAnimationMap=function(a){let b=fm(Wf,a);if(b)return b;let c=new Map;gm(Wf,a,c);return c},Wf=em();export{animationMapKey,getAnimationMap};

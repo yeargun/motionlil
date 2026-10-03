@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"getAsType",{enumerable:true,get:()=>getAsType});let getAsType=function(a,b=null){return b&&typeof a=="number"?b.transform(a):a};return $$e})(exports,require,Object);

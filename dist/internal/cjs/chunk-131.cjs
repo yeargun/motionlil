@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"distance",{enumerable:true,get:()=>distance});$$o.defineProperty($$e,"distance2D",{enumerable:true,get:()=>distance2D});let distance=function(a,b){return Math.abs(a-b)},distance2D=function(a,b){let c=distance(a.x,b.x),d=distance(a.y,b.y);return Math.sqrt(c*c+d*d)};return $$e})(exports,require,Object);

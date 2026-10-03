@@ -1,0 +1,1 @@
+let resolveTransition=function(a,b){if(a&&a.inherit&&b){let c={};for(let a in b)c[a]=b[a];for(let b in a)if(b!="inherit")c[b]=a[b];return c}return a};export{resolveTransition};

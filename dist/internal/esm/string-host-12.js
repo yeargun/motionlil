@@ -1,0 +1,1 @@
+let Fk=function(a,b){return a.match(b)},Gk=function(a,b,c){return a.replace(b,c)};export{Fk,Gk};

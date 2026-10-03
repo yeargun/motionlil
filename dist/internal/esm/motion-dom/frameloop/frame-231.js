@@ -1,0 +1,1 @@
+import{noop}from"../../motion-utils/noop-227.js";import{createRenderBatcher}from"./batcher-230.js";let N=createRenderBatcher(typeof requestAnimationFrame!="undefined"?requestAnimationFrame:noop,!0),O=N.schedule,P=N.cancel,Q=N.state,R=N.steps;export{O,P,Q,R};

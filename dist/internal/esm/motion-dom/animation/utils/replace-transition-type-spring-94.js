@@ -1,0 +1,1 @@
+import{inertia}from"../generators/inertia-89.js";import{keyframes}from"../generators/keyframes-92.js";import{spring}from"../generators/spring-87.js";let ld=a=>{let c=a.type;if(typeof c=="string")a.type=md[c]},md={decay:inertia,inertia,tween:keyframes,keyframes,spring};export{ld};

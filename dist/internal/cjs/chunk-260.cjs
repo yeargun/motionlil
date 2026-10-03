@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"Ne",{enumerable:true,get:()=>Ne});let Ne=new Set;Ne.add("opacity");Ne.add("clipPath");Ne.add("filter");Ne.add("transform");Ne.add("backgroundColor");return $$e})(exports,require,Object);

@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"memo",{enumerable:true,get:()=>memo});let memo=function(a){let b=null;return()=>{if(b==null)b=a();return b}};return $$e})(exports,require,Object);

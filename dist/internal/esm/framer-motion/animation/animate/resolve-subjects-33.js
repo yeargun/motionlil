@@ -1,0 +1,1 @@
+import{resolveElements}from"../../../motion-dom/utils/resolve-elements-23.js";import{va}from"../utils/is-dom-keyframes-32.js";import{Uk}from"../../../dom-host-13.js";let wa=(a=null,b=null,c=null,d=null)=>a==null?[]:typeof a=="string"&&va(b)?resolveElements(a,c,d):typeof NodeList!="undefined"&&a instanceof NodeList||Array.isArray(a)?Uk(a):[a];export{wa};

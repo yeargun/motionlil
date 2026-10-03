@@ -1,0 +1,1 @@
+import{resolveTransition}from"./resolve-transition-75.js";let getValueTransition=function(a,b){if(!a)return a;let c=a[b],d=a.default,e=c??d??a;return e!==a?resolveTransition(e,a):e};export{getValueTransition};

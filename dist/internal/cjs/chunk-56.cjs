@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"resolveVariant",{enumerable:true,get:()=>resolveVariant});let $$0=$$r("./chunk-53.cjs");let $$1=$$r("./chunk-55.cjs");let resolveVariant=function(a,b=null,c=null){let e=a.props;return(0,$$0["gc"])(e,b,c??e.custom,a)};return $$e})(exports,require,Object);

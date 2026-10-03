@@ -1,0 +1,1 @@
+let Uk=function(a){if(a==null)return[];return Array.from(a).filter(a=>a!=null)},Vk=function(){try{document.createElement("div").animate({opacity:0},{easing:"linear(0, 1)"})}catch(a){return!1}return!0},Wk=function(){try{document.createElement("div").animate({opacity:[1]})}catch(a){return!1}return!0},Il=function(a){return new Promise(b=>{a(()=>b(!0))})};export{Uk,Vk,Wk,Il};

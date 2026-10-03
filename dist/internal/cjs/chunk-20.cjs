@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"defaultOffset",{enumerable:true,get:()=>defaultOffset});let $$0=$$r("./chunk-19.cjs");let defaultOffset=function(a){let b=[0];(0,$$0["fillOffset"])(b,a.length-1);return b};return $$e})(exports,require,Object);

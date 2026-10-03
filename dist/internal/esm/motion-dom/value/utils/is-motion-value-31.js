@@ -1,0 +1,1 @@
+let isMotionValue=function(a=null){return!!a&&!!a.getVelocity};export{isMotionValue};

@@ -1,0 +1,1 @@
+let distance=/*#__NO_SIDE_EFFECTS__*/function(a,b){return Math.abs(a-b)},distance2D=/*#__NO_SIDE_EFFECTS__*/function(a,b){let c=distance(a.x,b.x),d=distance(a.y,b.y);return Math.sqrt(c*c+d*d)};export{distance,distance2D};

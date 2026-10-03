@@ -1,0 +1,1 @@
+let isObject=a=>"object"==typeof a&&a!=null;export{isObject};

@@ -1,1 +1,1 @@
-export * from "./internal/entry-scroll.js";
+export{scroll}from"./internal/esm/framer-motion/render/dom/scroll/index-222.js";export{scrollInfo}from"./internal/esm/framer-motion/render/dom/scroll/track-216.js";

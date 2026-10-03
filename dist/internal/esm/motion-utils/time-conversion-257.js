@@ -1,0 +1,1 @@
+let secondsToMilliseconds=/*#__NO_SIDE_EFFECTS__*/a=>a*1e3,millisecondsToSeconds=/*#__NO_SIDE_EFFECTS__*/a=>a/1e3;export{secondsToMilliseconds,millisecondsToSeconds};

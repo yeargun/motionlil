@@ -1,0 +1,1 @@
+import{fb}from"./rgba-47.js";import{bb}from"./utils-46.js";let hb={test:bb("#"),parse:function(a){let b=a,c=a=>b.length>5?b.slice(2*a+1,2*a+3):b.slice(a+1,a+2).repeat(2),d=c(3);return{red:parseInt(c(0),16),green:parseInt(c(1),16),blue:parseInt(c(2),16),alpha:d!=""?parseInt(d,16)/255:1}},transform:fb.transform};export{hb};

@@ -1,0 +1,1 @@
+let Gh=(0,function(){return[].reduce.call(arguments,/*#__NO_SIDE_EFFECTS__*/(a,b)=>c=>b(a(c)))});export{Gh};

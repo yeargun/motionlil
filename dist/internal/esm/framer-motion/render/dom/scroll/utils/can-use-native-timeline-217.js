@@ -1,0 +1,1 @@
+import{ne,oe}from"../../../../../motion-dom/utils/supports/scroll-timeline-265.js";let Bi=a=>typeof window=="undefined"?!1:a?oe():ne();export{Bi};

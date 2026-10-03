@@ -189,7 +189,7 @@ test('transition lookup uses property access, nullish fallback and inherited pro
 })
 
 test("mix preserves Motion's numeric and mixer-returning overloads", async () => {
-  const original = await import("../site/esm-comparison/original.js")
+  const original = await import("motion")
   for (const [from, to] of [[0, 10], ["translateX(0px)", "translateX(40px)"], ["#000", "#fff"]]) {
     const expected = original.mix(from, to)
     const actual = motion.mix(from, to)

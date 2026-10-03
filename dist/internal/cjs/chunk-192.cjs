@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"warning",{enumerable:true,get:()=>warning});$$o.defineProperty($$e,"invariant",{enumerable:true,get:()=>invariant});let warning=function(a,b,c=void 0){},invariant=function(a,b,c=void 0){};return $$e})(exports,require,Object);

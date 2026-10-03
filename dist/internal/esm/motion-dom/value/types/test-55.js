@@ -1,0 +1,1 @@
+let testValueType=/*#__NO_SIDE_EFFECTS__*/function(a){return b=>b.test(a)};export{testValueType};

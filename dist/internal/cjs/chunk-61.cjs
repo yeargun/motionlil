@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"isWillChangeMotionValue",{enumerable:true,get:()=>isWillChangeMotionValue});let $$0=$$r("./chunk-21.cjs");let isWillChangeMotionValue=function(a=null){return(0,$$0["isMotionValue"])(a)&&!!a.add};return $$e})(exports,require,Object);

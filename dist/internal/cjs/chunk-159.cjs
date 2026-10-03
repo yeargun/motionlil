@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"Bg",{enumerable:true,get:()=>Bg});let $$0=$$r("./chunk-13.cjs");let Bg=(a,b)=>{let c=new AbortController,d={passive:!0};for(let a in b)d[a]=b[a];d.signal=c.signal;return{elements:(0,$$0["resolveElements"])(a),eventOptions:d,cancel:()=>{c.abort()}}};return $$e})(exports,require,Object);

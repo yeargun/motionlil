@@ -1,0 +1,1 @@
+import{isObject}from"../../motion-utils/is-object-271.js";import{t}from"../dom-host-22.js";let isSVGElement=function(a=null){return isObject(a)&&t(a,"ownerSVGElement")};export{isSVGElement};

@@ -1,0 +1,1 @@
+import{qk}from"../../../../anim-host-10.js";let ya=(a,b,c,d)=>{if(typeof b=="number")return b;let e=qk(b);return e.startsWith("-")||e.startsWith("+")?Math.max(a+parseFloat(e),0):e=="<"?c:e.startsWith("<")?Math.max(c+parseFloat(e.slice(1)),0):d.get(e)??a};export{ya};

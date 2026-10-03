@@ -1,0 +1,1 @@
+let va=(a=null)=>a==null?!1:"object"==typeof a&&!Array.isArray(a);export{va};

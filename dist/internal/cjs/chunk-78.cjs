@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"$c",{enumerable:true,get:()=>$c});let $$0=$$r("./chunk-216.cjs");let $c=(a,b,c)=>{let d=Math.max(b-5,0);return(0,$$0["velocityPerSecond"])(c-a(d),b-d)};return $$e})(exports,require,Object);

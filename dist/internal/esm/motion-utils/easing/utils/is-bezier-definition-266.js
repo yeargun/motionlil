@@ -1,0 +1,1 @@
+let isBezierDefinition=a=>Array.isArray(a)&&typeof a[0]=="number";export{isBezierDefinition};

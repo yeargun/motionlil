@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"velocityPerSecond",{enumerable:true,get:()=>velocityPerSecond});let velocityPerSecond=(a,b)=>b!=0?a*(1e3/b):0;return $$e})(exports,require,Object);

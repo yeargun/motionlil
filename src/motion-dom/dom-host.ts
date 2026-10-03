@@ -359,3 +359,8 @@ export function isCurrentRealmElement(value: unknown): boolean {
   return (typeof HTMLElement !== "undefined" && value instanceof HTMLElement) ||
     (typeof SVGElement !== "undefined" && value instanceof SVGElement)
 }
+
+// Match upstream animateSubject target classification in the calling realm.
+export function isCurrentRealmDOMElement(value: unknown): boolean {
+  return typeof Element !== "undefined" && value instanceof Element
+}

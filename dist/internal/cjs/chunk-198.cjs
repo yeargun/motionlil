@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"nodeGroup",{enumerable:true,get:()=>nodeGroup});let nodeGroup=function(){return{nodes:[],subscriptions:new Map}};return $$e})(exports,require,Object);

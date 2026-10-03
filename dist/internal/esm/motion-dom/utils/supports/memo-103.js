@@ -1,0 +1,1 @@
+import{memo}from"../../../motion-utils/memo-102.js";import{le}from"./flags-264.js";let me=/*#__NO_SIDE_EFFECTS__*/(a,b)=>{let c=memo(a);return()=>le[b]??c()};export{me};

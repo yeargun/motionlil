@@ -1,0 +1,1 @@
+import{me}from"./memo-103.js";import{Vk}from"../../../dom-host-13.js";let pe=me(()=>Vk(),"linearEasing");export{pe};

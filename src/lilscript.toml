@@ -72,3 +72,9 @@ format = "esm"
 mode = "single"
 entries = ["index"]
 entry_names = "index.bundle.js"
+
+[policy.resources]
+logical_work = 16000000000
+
+[execution]
+jobs = 1

@@ -1,0 +1,1 @@
+import{H}from"../noop-227.js";let _c=/*#__NO_SIDE_EFFECTS__*/(a,b,c)=>(((1-3*c+3*b)*a+(3*c-6*b))*a+3*b)*a,cubicBezier=(a,b,c,d)=>{let e;return a==b&&c==d?H:(e=e=>{if(e==0||e==1)return e;let f=0,g=1,h=0,i=0;while(!0){h=f+(g-f)/2;let b=_c(h,a,c)-e;if(b>0)g=h;else f=h;++i;if(Math.abs(b)<=1e-7||i>=12)break}return _c(h,b,d)},e)};export{cubicBezier};

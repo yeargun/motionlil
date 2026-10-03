@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"Na",{enumerable:true,get:()=>Na});let Na=(a,b,c)=>{a.x=b;a.y=c};return $$e})(exports,require,Object);

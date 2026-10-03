@@ -1,0 +1,1 @@
+(($$e,$$r,$$o)=>{"use strict";$$o.defineProperty($$e,"generateLinearEasing",{enumerable:true,get:()=>generateLinearEasing});let generateLinearEasing=function(a,b,c=10){let d="",e=Math.max(Math.round(b/c),2);for(let b=0;b<e;++b)d=d+(Math.round(a(b/(e-1))*1e4)/1e4+", ");return`linear(${d.slice(0,d.length-2)})`};return $$e})(exports,require,Object);
