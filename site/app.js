@@ -1,3 +1,6 @@
+import {renderComparison} from './objective-comparison.js';
+const currentComparison=await fetch('./comparison.json').then(response=>{if(!response.ok)throw Error('Comparison could not load');return response.json()});
+renderComparison(currentComparison);
 import { renderRelease } from "./release.js"
 
 const esmComparison = await fetch("./comparison.json").then(response => response.json())
@@ -47,13 +50,7 @@ function renderDemos(filter = "all") {
   `).join("")
 }
 
-function renderResults() {
-  const {lilscript, original}=esmComparison.esm
-  resultsBody.innerHTML = [["Raw", "raw"], ["gzip-9", "gzip9"], ["Brotli-11", "brotli11"]].map(([label,key]) => {
-    const difference=(lilscript[key]/original[key]-1)*100
-    return `<tr><th scope="row">${label}</th><td>${formatter.format(original[key])} B</td><td>${formatter.format(lilscript[key])} B</td><td>${(lilscript[key]/original[key]).toFixed(3)}×</td><td><strong>${Math.abs(difference).toFixed(1)}% ${difference>0?"larger":"smaller"}</strong></td></tr>`
-  }).join("")
-}
+function renderResults() {}
 
 renderRelease(data)
 renderDemos()

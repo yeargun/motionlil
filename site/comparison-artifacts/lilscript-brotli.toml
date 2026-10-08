@@ -1,0 +1,30 @@
+# All package formats share one checked ten-entry graph. Level 15 deliberately
+# buys smaller files with the extra joint/beam/naming work beyond default 13.
+[policy]
+version = 3
+[effort]
+level = 15
+[objective]
+codecs = "brotli"
+[javascript]
+priority = "size-first"
+# Motion model property reads are treated as effect-free, matching this port's
+# public host contract. Consumers must not install side-effectful getters on
+# those models; disable this assumption for such integrations.
+assume_pure_property_reads = true
+# Platform builtins/prototypes are unmodified while Motion runs. Disable when
+# embedding in an environment that patches Array/Object/Math or their methods.
+assume_pristine_builtins = true
+[mangle]
+identifiers = true
+properties = true
+pool_strings = true
+
+[delivery]
+mode = "single"
+host_modules = "embed"
+entry_names = "index.mjs"
+[delivery.entries]
+index = "/home/azureuser/motionlil/src/package/full.lil"
+[execution]
+jobs = 1

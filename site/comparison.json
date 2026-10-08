@@ -1,277 +1,509 @@
 {
-  "schemaVersion": 2,
-  "measuredAt": "2026-09-24T08:33:30.897Z",
+  "schemaVersion": 4,
   "name": "motionlil",
+  "package": "motionlil",
+  "measuredAt": "2026-10-03T02:05:48.925220+03:00",
   "compiler": {
-    "commit": "aa2052f081ca8184666ca280ee9b91d476e46cfc",
-    "sha256": "13cb49a93fb3e376a5978484835322c84adea692b69ae4720775291377cf18f9"
+    "baseRevision": "f7d29bd9",
+    "binarySha256": "8ff44fabb92c949e68240ce6541038fd52e2f3c04d1a9ac470031e4238541c3a",
+    "hasLocalSourceChanges": true
   },
   "upstream": {
     "package": "motion",
     "version": "13.1.0",
-    "repository": "https://github.com/motiondivision/motion.git",
-    "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
+    "external": [],
+    "sharedExports": [
+      "AsyncMotionValueAnimation",
+      "DOMKeyframesResolver",
+      "DOMVisualElement",
+      "DocumentProjectionNode",
+      "Feature",
+      "FlatTree",
+      "GroupAnimation",
+      "GroupAnimationWithThen",
+      "HTMLProjectionNode",
+      "HTMLVisualElement",
+      "JSAnimation",
+      "KeyframeResolver",
+      "LayoutAnimationBuilder",
+      "MotionGlobalConfig",
+      "MotionValue",
+      "NativeAnimation",
+      "NativeAnimationExtended",
+      "NativeAnimationWrapper",
+      "NodeStack",
+      "ObjectVisualElement",
+      "SVGVisualElement",
+      "SubscriptionManager",
+      "ViewTransitionBuilder",
+      "VisualElement",
+      "acceleratedValues",
+      "addAttrValue",
+      "addDomEvent",
+      "addScaleCorrector",
+      "addStyleValue",
+      "addUniqueItem",
+      "addValueToWillChange",
+      "alpha",
+      "analyseComplexValue",
+      "animate",
+      "animateMini",
+      "animateMotionValue",
+      "animateSingleValue",
+      "animateTarget",
+      "animateValue",
+      "animateVariant",
+      "animateView",
+      "animateVisualElement",
+      "animationMapKey",
+      "anticipate",
+      "applyAxisDelta",
+      "applyBoxDelta",
+      "applyGeneratorOptions",
+      "applyPointDelta",
+      "applyPxDefaults",
+      "applyTreeDeltas",
+      "arc",
+      "aspectRatio",
+      "attachFollow",
+      "attachSpring",
+      "attrEffect",
+      "axisDeltaEquals",
+      "axisEquals",
+      "axisEqualsRounded",
+      "backIn",
+      "backInOut",
+      "backOut",
+      "boxEquals",
+      "boxEqualsRounded",
+      "buildHTMLStyles",
+      "buildProjectionTransform",
+      "buildSVGAttrs",
+      "buildSVGPath",
+      "buildTransform",
+      "calcAxisDelta",
+      "calcBoxDelta",
+      "calcChildStagger",
+      "calcGeneratorDuration",
+      "calcLength",
+      "calcRelativeAxis",
+      "calcRelativeAxisPosition",
+      "calcRelativeBox",
+      "calcRelativePosition",
+      "camelCaseAttributes",
+      "camelToDash",
+      "cancelFrame",
+      "cancelMicrotask",
+      "cancelSync",
+      "checkVariantsDidChange",
+      "circIn",
+      "circInOut",
+      "circOut",
+      "clamp",
+      "cleanDirtyNodes",
+      "collectMotionValues",
+      "color",
+      "compareByDepth",
+      "complex",
+      "containsCSSVariable",
+      "convertBoundingBoxToBox",
+      "convertBoxToBoundingBox",
+      "convertOffsetToTimes",
+      "copyAxisDeltaInto",
+      "copyAxisInto",
+      "copyBoxInto",
+      "correctBorderRadius",
+      "correctBoxShadow",
+      "createAnimationState",
+      "createAxis",
+      "createAxisDelta",
+      "createBox",
+      "createDelta",
+      "createGeneratorEasing",
+      "createProjectionNode",
+      "createRenderBatcher",
+      "createScopedAnimate",
+      "cubicBezier",
+      "cubicBezierAsString",
+      "defaultEasing",
+      "defaultOffset",
+      "defaultTransformValue",
+      "defaultValueTypes",
+      "degrees",
+      "delay",
+      "delayInSeconds",
+      "dimensionValueTypes",
+      "distance",
+      "distance2D",
+      "eachAxis",
+      "easeIn",
+      "easeInOut",
+      "easeOut",
+      "easingDefinitionToFunction",
+      "fillOffset",
+      "fillWildcards",
+      "findDimensionValueType",
+      "findValueType",
+      "flushKeyframeResolvers",
+      "followValue",
+      "frame",
+      "frameData",
+      "frameSteps",
+      "generateLinearEasing",
+      "getAnimatableNone",
+      "getAnimationMap",
+      "getComputedStyle",
+      "getDefaultTransition",
+      "getDefaultValueType",
+      "getEasingForSegment",
+      "getFeatureDefinitions",
+      "getFinalKeyframe",
+      "getMixer",
+      "getOptimisedAppearId",
+      "getOriginIndex",
+      "getValueAsType",
+      "getValueTransition",
+      "getVariableValue",
+      "getVariantContext",
+      "getViewAnimationLayerInfo",
+      "getViewAnimations",
+      "globalProjectionState",
+      "has2DTranslate",
+      "hasReducedMotionListener",
+      "hasScale",
+      "hasTransform",
+      "hasWarned",
+      "hex",
+      "hover",
+      "hsla",
+      "hslaToRgba",
+      "inView",
+      "inertia",
+      "initPrefersReducedMotion",
+      "interpolate",
+      "invariant",
+      "invisibleValues",
+      "isAnimationControls",
+      "isBezierDefinition",
+      "isCSSVariableName",
+      "isCSSVariableToken",
+      "isControllingVariants",
+      "isDeltaZero",
+      "isDragActive",
+      "isDragging",
+      "isEasingArray",
+      "isElementKeyboardAccessible",
+      "isElementTextInput",
+      "isForcedMotionValue",
+      "isGenerator",
+      "isHTMLElement",
+      "isKeyframesTarget",
+      "isMotionValue",
+      "isNear",
+      "isNodeOrChild",
+      "isNumericalString",
+      "isObject",
+      "isPrimaryPointer",
+      "isSVGElement",
+      "isSVGSVGElement",
+      "isSVGTag",
+      "isTransitionDefined",
+      "isVariantLabel",
+      "isVariantNode",
+      "isWaapiSupportedEasing",
+      "isWillChangeMotionValue",
+      "isZeroValueString",
+      "keyframes",
+      "makeAnimationInstant",
+      "mapEasingToNativeEasing",
+      "mapValue",
+      "maxGeneratorDuration",
+      "measurePageBox",
+      "measureViewportBox",
+      "memo",
+      "microtask",
+      "millisecondsToSeconds",
+      "mirrorEasing",
+      "mix",
+      "mixArray",
+      "mixColor",
+      "mixComplex",
+      "mixImmediate",
+      "mixLinearColor",
+      "mixNumber",
+      "mixObject",
+      "mixValues",
+      "mixVisibility",
+      "motionValue",
+      "moveItem",
+      "nodeGroup",
+      "noop",
+      "number",
+      "numberValueTypes",
+      "observeTimeline",
+      "optimizedAppearDataAttribute",
+      "optimizedAppearDataId",
+      "parseAnimateLayoutArgs",
+      "parseCSSVariable",
+      "parseValueFromTransform",
+      "percent",
+      "pipe",
+      "pixelsToPercent",
+      "positionalKeys",
+      "prefersReducedMotion",
+      "press",
+      "progress",
+      "progressPercentage",
+      "propEffect",
+      "propagateDirtyNodes",
+      "px",
+      "readTransformValue",
+      "recordStats",
+      "removeAxisDelta",
+      "removeAxisTransforms",
+      "removeBoxTransforms",
+      "removeItem",
+      "removePointDelta",
+      "renderHTML",
+      "renderSVG",
+      "resize",
+      "resolveElements",
+      "resolveMotionValue",
+      "resolveTransition",
+      "resolveVariant",
+      "resolveVariantFromProps",
+      "reverseEasing",
+      "rgbUnit",
+      "rgba",
+      "rootProjectionNode",
+      "scale",
+      "scaleCorrectors",
+      "scalePoint",
+      "scrapeHTMLMotionValuesFromProps",
+      "scrapeSVGMotionValuesFromProps",
+      "scroll",
+      "scrollInfo",
+      "secondsToMilliseconds",
+      "setDragLock",
+      "setFeatureDefinitions",
+      "setStyle",
+      "setTarget",
+      "spring",
+      "springValue",
+      "stagger",
+      "startWaapiAnimation",
+      "statsBuffer",
+      "steps",
+      "styleEffect",
+      "supportedWaapiEasing",
+      "supportsBrowserAnimation",
+      "supportsFlags",
+      "supportsLinearEasing",
+      "supportsPartialKeyframes",
+      "supportsScrollTimeline",
+      "supportsViewTimeline",
+      "svgEffect",
+      "sync",
+      "testValueType",
+      "time",
+      "transform",
+      "transformAxis",
+      "transformBox",
+      "transformBoxPoints",
+      "transformPropOrder",
+      "transformProps",
+      "transformValue",
+      "transformValueTypes",
+      "translateAxis",
+      "updateMotionValuesFromProps",
+      "variantPriorityOrder",
+      "variantProps",
+      "velocityPerSecond",
+      "vh",
+      "visualElementStore",
+      "vw",
+      "warnOnce",
+      "warning",
+      "wrap"
+    ],
+    "excludedExports": [
+      "__esModule",
+      "default"
+    ],
+    "additionalExports": [
+      "animateSequenceMini",
+      "getAsType",
+      "numberType"
+    ],
+    "resolution": {
+      "platform": "neutral",
+      "conditions": [
+        "production"
+      ],
+      "mainFields": [
+        "module",
+        "main"
+      ],
+      "target": "es2020",
+      "defines": {
+        "process.env.NODE_ENV": "production"
+      }
+    }
   },
-  "scope": "Identical 312 original Motion export names retained on both sides. Both ESM graphs use esbuild 0.28.1, Terser 5.51.2, ES2022, three compression passes and property mangling under the same public API, browser and dynamic-name extern reservations. React-specific entry points are excluded. Canonical gzip-9 and Brotli-11 compression. Export-name coverage does not establish complete behavior parity.",
-  "compatibility": "All 7 browser workloads match native backends and sampled timelines; recorded runtime checks cover easing, repeats, interpolation, lifecycle callbacks, interruption and frame scheduling. Low-level layout/rendering adapters remain incomplete; matching all original export names does not establish complete API parity.",
-  "tests": {
-    "pass": 61,
-    "total": 61
-  },
-  "buildComplete": true,
+  "scope": "Portable main-entry ESM with matching shared named exports and external imports. The original uses production/default package conditions, keeping data-based entity decoding rather than relying on the DOM.",
   "machine": {
-    "provider": "Azure",
-    "instanceClass": "Standard_B8als_v2 (burstable)",
     "cpu": "AMD EPYC 7763 64-Core Processor",
     "logicalCpus": 8,
-    "memoryBytes": 16706420736,
-    "os": "Ubuntu 24.04.3 LTS",
-    "kernel": "7.0.0-1014-azure",
-    "node": "v24.11.1",
-    "rayonThreads": 8,
-    "loadAtStart": [
-      2.896484375,
-      3.61181640625,
-      6.32080078125
-    ],
-    "loadAtEnd": [
-      4.71044921875,
-      6.4267578125,
-      6.8681640625
-    ]
+    "memoryGiB": 15.6,
+    "os": "Linux-7.0.0-1014-azure-x86_64-with-glibc2.39",
+    "node": "v20.19.0"
   },
-  "build": {
-    "compilerSeconds": null,
-    "packageSeconds": 31.144517170003382,
-    "originalSeconds": 64.62663826000062,
-    "originalEsmSeconds": 1.317213006,
-    "packageScope": "node scripts/build.mjs",
-    "originalScope": "corepack yarn turbo run build --filter=motion... --force",
-    "protocol": {
-      "repetitions": 3,
-      "cleanOutputs": true,
-      "dependencyInstallationTimedSeparately": true,
-      "sourceArchives": "Pinned Git checkouts; original repository package build commands, followed by production ESM assembly.",
-      "workerUse": "Both implementations use the same machine and Node version: the single LilScript development host, a burstable Azure VM that also runs other compiler sessions. Timings are contextual wall times, with CPU time recorded separately."
-    }
-  },
-  "esm": {
-    "lilscript": {
-      "raw": 106073,
-      "gzip9": 38544,
-      "brotli11": 34540,
-      "sha256": "08e4fcb8555475dd321855346e6ee51cb1731b8d1cb78f74b279a7641b5653b8",
-      "file": "./esm-comparison/lilscript.js"
-    },
-    "original": {
-      "raw": 134555,
-      "gzip9": 44696,
-      "brotli11": 39934,
-      "sha256": "a06cb774f80796b4fc9a10acce1e73b0af7dffeb728204fdb1142342e8ae9111",
-      "file": "./esm-comparison/original.js"
-    }
-  },
-  "sourceBuild": {
-    "original": {
-      "complete": true,
-      "medianSeconds": 64.62663826000062,
-      "minimumSeconds": 58.35814603799372,
-      "maximumSeconds": 181.93825101399852,
-      "samples": [
-        {
-          "command": [
-            "corepack",
-            "yarn",
-            "turbo",
-            "run",
-            "build",
-            "--filter=motion...",
-            "--force"
-          ],
-          "wallSeconds": 64.62663826000062,
-          "cpuSeconds": 100.00017600000005,
-          "exitCode": 0,
-          "timedOut": false,
-          "log": "original-build-1.log",
-          "logSha256": "8037dc6837b44a007d9c547aa6ce28554671d0819bf7ac430780bf0136039713"
-        },
-        {
-          "command": [
-            "corepack",
-            "yarn",
-            "turbo",
-            "run",
-            "build",
-            "--filter=motion...",
-            "--force"
-          ],
-          "wallSeconds": 181.93825101399852,
-          "cpuSeconds": 204.77614800000003,
-          "exitCode": 0,
-          "timedOut": false,
-          "log": "original-build-2.log",
-          "logSha256": "1bd0f59d4f5ecedde5356ff1038f1490416f37dd21e848c1abdd4971bd30a4fe"
-        },
-        {
-          "command": [
-            "corepack",
-            "yarn",
-            "turbo",
-            "run",
-            "build",
-            "--filter=motion...",
-            "--force"
-          ],
-          "wallSeconds": 58.35814603799372,
-          "cpuSeconds": 93.67094700000001,
-          "exitCode": 0,
-          "timedOut": false,
-          "log": "original-build-3.log",
-          "logSha256": "98aaadc0762f7b2b964f196c345e112a493a0beb17122f066fc687151ebf0ca0"
-        }
-      ]
-    },
-    "lilscript": {
-      "complete": true,
-      "medianSeconds": 31.144517170003382,
-      "minimumSeconds": 21.62844078798662,
-      "maximumSeconds": 31.359565192993614,
-      "samples": [
-        {
-          "command": [
-            "bash",
-            "-c",
-            "node scripts/build.mjs"
-          ],
-          "wallSeconds": 31.144517170003382,
-          "cpuSeconds": 31.014205000000025,
-          "exitCode": 0,
-          "timedOut": false,
-          "log": "lilscript-build-1.log",
-          "logSha256": "a8ffe791fbe8db3a8324c99435af41cfc288762798d28344c68fa81353ccf02e"
-        },
-        {
-          "command": [
-            "bash",
-            "-c",
-            "node scripts/build.mjs"
-          ],
-          "wallSeconds": 31.359565192993614,
-          "cpuSeconds": 34.79963599999999,
-          "exitCode": 0,
-          "timedOut": false,
-          "log": "lilscript-build-2.log",
-          "logSha256": "7c4c16d124272c07d861525adb56370cb223f46c76fa135d38d52a6a2dab252c"
-        },
-        {
-          "command": [
-            "bash",
-            "-c",
-            "node scripts/build.mjs"
-          ],
-          "wallSeconds": 21.62844078798662,
-          "cpuSeconds": 24.846346999999952,
-          "exitCode": 0,
-          "timedOut": false,
-          "log": "lilscript-build-3.log",
-          "logSha256": "7340e41b68097fff044278604cbc1f1019a31f6cc2fa9c94651ac31b2059af21"
-        }
-      ]
-    },
-    "scopeNote": "Both timings cover each repository\u2019s package build command; their output formats and build checks can differ.",
-    "cleanOutputs": true,
-    "installationExcluded": true
-  },
-  "performance": {
-    "summary": "./performance.json",
-    "raw": "./performance/performance.json",
-    "naturalValidation": "./performance/natural-validation.json",
-    "repetitions": 30,
-    "matchingWorkloads": 7,
-    "mismatchingWorkloads": 0,
-    "waapiWithinFivePercent": false
-  },
-  "apiCoverage": {
-    "originalExports": 312,
-    "fullExports": 315,
-    "defaultExports": 52,
-    "fullMissingOriginalNames": [],
-    "comparisonEntry": "comparison/mangling/artifacts/full-public-properties-lilscript.js",
-    "behavior": "Selected animation scenarios are checked. Low-level layout/rendering adapters remain incomplete; export-name coverage does not establish complete Motion API parity.",
-    "comparisonExports": 312
-  },
-  "defaultEntry": {
-    "raw": 73115,
-    "gzip9": 26397,
-    "brotli11": 23877,
-    "sha256": "4bd94bbac0b1a132919294f70007975d870cfc2b570cb36759cae516839849e3",
-    "file": "dist/index.bundle.js",
-    "exports": 52,
-    "scope": "Native package default entry; narrower than the 312-export main comparison. The matched 50-export consumer API is measured separately with the common toolchain."
-  },
-  "nativePackageEsm": {
-    "lilscript": {
-      "raw": 108665,
-      "gzip9": 38991,
-      "brotli11": 34869,
-      "sha256": "f4acde1dc0fd59cee139ca2c80e91adf09addeac2b4fa3df0d4f158eaf86b34e",
-      "file": "./esm-comparison/lilscript.js"
-    },
-    "original": {
-      "raw": 137560,
-      "gzip9": 45031,
-      "brotli11": 40141,
-      "sha256": "a54042053fedf812fd51d31995c053d584464f225b5aaa57d9acf221e28b957d",
-      "file": "./esm-comparison/original.js"
-    }
-  },
-  "comparisonAssembly": {
-    "record": "./mangling.json",
-    "scope": "full",
-    "mode": "public-properties",
-    "toolchain": {
-      "esbuild": "0.28.1",
-      "terser": "5.51.2",
-      "target": "es2022",
-      "compressPasses": 3,
-      "codecSha256": "125776830df72bbaf9704fee3c38bb0bf29bfc6bcceb5bc8707a0507a128d7b9",
-      "gzip": 9,
-      "brotli": 11
-    },
-    "source": {
-      "motion": {
-        "package": "motion",
-        "version": "13.1.0",
-        "repository": "https://github.com/motiondivision/motion.git",
-        "commit": "adaf7a4e5368d704ea350669f6ac674fb26ff270"
-      },
-      "portCommit": "4f824fe5075181bdcbcaf2fdc57aed6a5d2f779a",
-      "compiler": {
-        "commit": "aa2052f081ca8184666ca280ee9b91d476e46cfc",
-        "sha256": "13cb49a93fb3e376a5978484835322c84adea692b69ae4720775291377cf18f9"
-      },
-      "originalAssemblySha256": "407886cdfb90110e6310c3e92a4a69278776776cf18884917e7f4e3ae449d35e",
-      "originalAssembly": "Unminified ESM recorded from the pinned original source build, before its Terser pass.",
-      "portAssembly": "Unminified shared ESM modules from the recorded LilScript package build; compiler-proven internal property mangling is retained."
-    },
-    "externsSha256": "f090bfae235785c4df7fa492c98024c5495944bdfe3c8de3ffbb42989bb5b6f3",
-    "machine": {
-      "cpu": "AMD EPYC 7763 64-Core Processor",
-      "logicalCpus": 8,
-      "memoryBytes": 16706420736,
-      "os": "Linux 7.0.0-1014-azure",
-      "node": "v24.11.1"
-    },
-    "timings": {
-      "original": {
-        "bundleSeconds": 0.15992711099999996,
-        "minifySeconds": 1.3440314390000003
-      },
+  "objectives": [
+    {
+      "objective": "raw",
+      "metric": "raw",
       "lilscript": {
-        "bundleSeconds": 0.19775366699999994,
-        "minifySeconds": 1.0994759530000011
-      }
+        "artifact": "./comparison-artifacts/lilscript-raw.mjs",
+        "sizes": {
+          "raw": 114644,
+          "gzip9": 41918,
+          "brotli11": 37127
+        },
+        "sha256": "03eaa33ba65e3d27d5016a0766b2ed0222996081c90b55c736e1e223564800b2",
+        "buildSeconds": 8.129557624997688,
+        "config": "./comparison-artifacts/lilscript-raw.toml",
+        "configSha256": "eb4f43463be867a53f8de2fe53d2ee3ab2ea631d9411900e470cb33da1c933bc"
+      },
+      "original": {
+        "tool": "Oxc",
+        "version": "via Vite 8.2.1",
+        "artifact": "./comparison-artifacts/original-oxc.mjs",
+        "sizes": {
+          "raw": 135340,
+          "gzip9": 45162,
+          "brotli11": 40417
+        },
+        "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
+        "buildSeconds": 0.23536112599999978
+      },
+      "ratio": 0.8470814245603665
     },
-    "timingNote": "One additional ESM bundle/minify measurement per lane, after the native package build. These assembly times are separate from the three clean package-build samples."
+    {
+      "objective": "gzip",
+      "metric": "gzip9",
+      "lilscript": {
+        "artifact": "./comparison-artifacts/lilscript-gzip.mjs",
+        "sizes": {
+          "raw": 121834,
+          "gzip9": 41699,
+          "brotli11": 36473
+        },
+        "sha256": "37a4466852d1ba17eda124f9df75b474fcdc30fa246cdb7f4e15de9e7e5b9715",
+        "buildSeconds": 7.379765014000441,
+        "config": "./comparison-artifacts/lilscript-gzip.toml",
+        "configSha256": "6823b6a5c874dfe7da352bd4e1baeefe05f18deda5e0fd35753d99eee2f29646"
+      },
+      "original": {
+        "tool": "Terser",
+        "version": "5.51.2",
+        "artifact": "./comparison-artifacts/original-terser.mjs",
+        "sizes": {
+          "raw": 137559,
+          "gzip9": 45028,
+          "brotli11": 40188
+        },
+        "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+        "buildSeconds": 1.853884387000002
+      },
+      "ratio": 0.9260682242160434
+    },
+    {
+      "objective": "brotli",
+      "metric": "brotli11",
+      "lilscript": {
+        "artifact": "./comparison-artifacts/lilscript-brotli.mjs",
+        "sizes": {
+          "raw": 121895,
+          "gzip9": 41766,
+          "brotli11": 36483
+        },
+        "sha256": "f2a713da81ab3fbbdd84a5927d773a3109c4feeeaf9ebbadb6f9f2c39c4f5cfd",
+        "buildSeconds": 9.531892057999357,
+        "config": "./comparison-artifacts/lilscript-brotli.toml",
+        "configSha256": "9bd177893554f03c3175a418344cc5e3c6615d1e4c6a5c9384158412dd1bd034"
+      },
+      "original": {
+        "tool": "Terser",
+        "version": "5.51.2",
+        "artifact": "./comparison-artifacts/original-terser.mjs",
+        "sizes": {
+          "raw": 137559,
+          "gzip9": 45028,
+          "brotli11": 40188
+        },
+        "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+        "buildSeconds": 1.853884387000002
+      },
+      "ratio": 0.9078083009853688
+    }
+  ],
+  "minifiers": [
+    {
+      "tool": "Terser",
+      "version": "5.51.2",
+      "artifact": "./comparison-artifacts/original-terser.mjs",
+      "sizes": {
+        "raw": 137559,
+        "gzip9": 45028,
+        "brotli11": 40188
+      },
+      "sha256": "6af004eeeef7a90d24493b9818598e69f36dd4cab6d9d2b1a338c3bf775a44d0",
+      "buildSeconds": 1.853884387000002
+    },
+    {
+      "tool": "esbuild",
+      "version": "0.28.1",
+      "artifact": "./comparison-artifacts/original-esbuild.mjs",
+      "sizes": {
+        "raw": 139527,
+        "gzip9": 47692,
+        "brotli11": 42589
+      },
+      "sha256": "fd463f2b0bae5f48347e43ab017a091c082cfcbb2c5df871f3db2f9cd1a7d31a",
+      "buildSeconds": 0.1265080940000007
+    },
+    {
+      "tool": "Oxc",
+      "version": "via Vite 8.2.1",
+      "artifact": "./comparison-artifacts/original-oxc.mjs",
+      "sizes": {
+        "raw": 135340,
+        "gzip9": 45162,
+        "brotli11": 40417
+      },
+      "sha256": "a97d252be62cd576ab6d6ce4b2a518f378ad498c219990e738c3a1a891523256",
+      "buildSeconds": 0.23536112599999978
+    }
+  ],
+  "validation": {
+    "checks": 1209,
+    "objectives": [
+      {
+        "objective": "raw",
+        "checks": 403,
+        "suite": "differential"
+      },
+      {
+        "objective": "gzip",
+        "checks": 403,
+        "suite": "differential"
+      },
+      {
+        "objective": "brotli",
+        "checks": 403,
+        "suite": "differential"
+      }
+    ],
+    "scope": "Main ESM entry; selected corpora and API checks, not all package formats or complete upstream equivalence."
   }
 }
